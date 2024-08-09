@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
-
+// Specify the font weights you want to use
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"], // Add the weights you need
+});
 export const metadata: Metadata = {
-  title: "Tea Jar | World No 1 Tea Provider ins Sri Lanka",
-  description: "World No 1 Tea Provider ins Sri Lanka",
+  title: "Tea Jar | World No 1 Tea Provider in Sri Lanka",
+  description: "World No 1 Tea Provider in Sri Lanka",
 };
 
 export default function RootLayout({
@@ -17,9 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${ubuntu.className} scroll-smooth`}
+        suppressHydrationWarning={true}
+      >
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );

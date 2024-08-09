@@ -1,122 +1,123 @@
-import React from "react";
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+
+import TopSellerProduct from "@/components/Product/TopSellerProduct";
+import SectionHeader from "@/components/Common/SectionHeader";
+
+// import Swiper core and required modules
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  EffectCoverflow,
+} from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 function TopSellers() {
+  const [bgColor, setBgColor] = useState("white"); // Initial background color
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const sectionTop = sectionRef.current.getBoundingClientRect().top;
+        const triggerPoint = window.innerHeight / 2; // Change this value to control when the color changes
+
+        if (sectionTop < triggerPoint) {
+          setBgColor("#f5faf9"); // Change to the desired background color
+        } else {
+          setBgColor("white"); // Revert to the original color
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
-    <section>
-      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-        <header>
-          <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
-            Top Sellerss
-          </h2>
+    <section
+      ref={sectionRef}
+      style={{ backgroundColor: bgColor }}
+      className="transition-all duration-500"
+    >
+      <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 sm:py-12 lg:px-8">
+        <SectionHeader
+          sectionTitle="Top Sellers"
+          sectionHighlight="Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum similique quos fugit nobis labore est voluptate in aliquam voluptates quod nulla, odio repudiandae fugiat, alias eos consectetur, repellendus exercitationem earum!"
+        />
 
-          <p className="mt-4 max-w-md text-gray-500">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-            praesentium cumque iure dicta incidunt est ipsam, officia dolor
-            fugit natus?
-          </p>
-        </header>
+        <Swiper
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          initialSlide={1}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow, Navigation]}
+          className="my-14"
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+          }}
+        >
+          <SwiperSlide>
+            <TopSellerProduct
+              imgUrl="/assets/products/1/apple.jpg"
+              productName="Apple Flavored Tea Bags"
+              range="Flavoured"
+              miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+            />
+          </SwiperSlide>
 
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <li>
-            <a href="#" className="group block overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                alt=""
-                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-              />
-
-              <div className="relative bg-white pt-3">
-                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Basic Tee
-                </h3>
-
-                <p className="mt-2">
-                  <span className="sr-only"> Regular Price </span>
-
-                  <span className="tracking-wider text-gray-900">
-                    {" "}
-                    £24.00 GBP{" "}
-                  </span>
-                </p>
-              </div>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" className="group block overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                alt=""
-                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-              />
-
-              <div className="relative bg-white pt-3">
-                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Basic Tee
-                </h3>
-
-                <p className="mt-2">
-                  <span className="sr-only"> Regular Price </span>
-
-                  <span className="tracking-wider text-gray-900">
-                    {" "}
-                    £24.00 GBP{" "}
-                  </span>
-                </p>
-              </div>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" className="group block overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                alt=""
-                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-              />
-
-              <div className="relative bg-white pt-3">
-                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Basic Tee
-                </h3>
-
-                <p className="mt-2">
-                  <span className="sr-only"> Regular Price </span>
-
-                  <span className="tracking-wider text-gray-900">
-                    {" "}
-                    £24.00 GBP{" "}
-                  </span>
-                </p>
-              </div>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" className="group block overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                alt=""
-                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-              />
-
-              <div className="relative bg-white pt-3">
-                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Basic Tee
-                </h3>
-
-                <p className="mt-2">
-                  <span className="sr-only"> Regular Price </span>
-
-                  <span className="tracking-wider text-gray-900">
-                    {" "}
-                    £24.00 GBP{" "}
-                  </span>
-                </p>
-              </div>
-            </a>
-          </li>
-        </ul>
+          <SwiperSlide>
+            <TopSellerProduct
+              imgUrl="/assets/products/1/cardamom.jpg"
+              productName="Cardamom Flavored Tea Bags"
+              range="Flavoured"
+              miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TopSellerProduct
+              imgUrl="/assets/products/1/cinnamon.jpg"
+              productName="Cinnamon Flavored Tea Bags"
+              range="Flavoured"
+              miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TopSellerProduct
+              imgUrl="/assets/products/1/ginger.jpg"
+              productName="Ginger Flavored Tea Bags"
+              range="Flavoured"
+              miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+            />
+          </SwiperSlide>
+        </Swiper>
       </div>
     </section>
   );
