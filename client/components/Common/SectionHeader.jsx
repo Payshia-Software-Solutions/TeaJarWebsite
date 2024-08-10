@@ -1,13 +1,21 @@
 import React from "react";
 
-function SectionHeader({ sectionTitle, sectionHighlight }) {
+function SectionHeader({
+  sectionTitle,
+  sectionHighlight,
+  textColor = "gray-900 ",
+}) {
   return (
     <header>
-      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center">
+      <h2
+        className={`text-3xl lg:text-4xl font-bold text-${textColor} text-center`}
+      >
         {sectionTitle}
       </h2>
 
-      <p className="mt-4  text-gray-500 text-center">{sectionHighlight}</p>
+      <p className={`mt-4  text-${textColor} text-center`}>
+        {sectionHighlight}
+      </p>
     </header>
   );
 }

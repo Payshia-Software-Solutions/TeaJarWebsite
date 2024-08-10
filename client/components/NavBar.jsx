@@ -1,12 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function NavBar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-
+  const pathname = usePathname();
   useEffect(() => {
+    if (pathname !== "/") {
+      // If the pathname is not the root directory, ensure the navbar is always visible
+      setIsVisible(false);
+      return;
+    }
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (currentScrollY > lastScrollY) {
@@ -24,11 +31,11 @@ function NavBar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, pathname]);
 
   return (
     <header
-      className={`fixed shadow top-0 left-0 w-full bg-white transition-transform duration-300 z-50 ${
+      className={`fixed shadow top-0 left-0 w-full bg-white transition-transform duration-300 z-50  ${
         isVisible ? "-translate-y-full" : "translate-y-0"
       }`}
     >

@@ -1,12 +1,16 @@
+import Link from "next/link";
 import React from "react";
 
 function TopSellerProduct({ imgUrl, range, productName, miniDescription }) {
   return (
-    <a href="#" className="group relative block bg-black">
+    <Link
+      href="/products/cinnamon-flavored-tea"
+      className="group relative block bg-black rounded-2xl border-2"
+    >
       <img
         alt=""
         src={imgUrl}
-        className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-100"
+        className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-100 rounded-2xl"
       />
 
       <div className="relative p-4 sm:p-6 lg:p-8 flex items-end min-h-80 lg:min-h-[550px]">
@@ -20,7 +24,7 @@ function TopSellerProduct({ imgUrl, range, productName, miniDescription }) {
           </p>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
