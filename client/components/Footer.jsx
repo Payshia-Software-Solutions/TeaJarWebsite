@@ -56,8 +56,7 @@ function Footer() {
                 className="text-gray-700 transition hover:text-gray-700/75"
                 href="#"
               >
-                {" "}
-                About{" "}
+                About
               </a>
             </li>
 
@@ -66,8 +65,7 @@ function Footer() {
                 className="text-gray-700 transition hover:text-gray-700/75"
                 href="#"
               >
-                {" "}
-                Services{" "}
+                Services
               </a>
             </li>
 
@@ -76,8 +74,7 @@ function Footer() {
                 className="text-gray-700 transition hover:text-gray-700/75"
                 href="#"
               >
-                {" "}
-                Projects{" "}
+                Projects
               </a>
             </li>
 
@@ -86,8 +83,7 @@ function Footer() {
                 className="text-gray-700 transition hover:text-gray-700/75"
                 href="#"
               >
-                {" "}
-                Blog{" "}
+                Blog
               </a>
             </li>
           </ul>

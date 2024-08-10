@@ -39,3 +39,13 @@
     font-weight: 400;
     font-style: normal;
 }
+
+#nprogress .bar {
+    background: #29d;
+    height: 10px;
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #29d;
+    border-left-color: #29d;
+}

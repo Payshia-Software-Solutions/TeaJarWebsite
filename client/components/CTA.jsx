@@ -20,15 +20,27 @@ function CTA() {
 
             <div className="p-8 sm:p-16 lg:p-24">
               <h2 className="text-2xl font-bold sm:text-3xl">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Tempore, debitis.
+                A little about Tea Jar and the KDU Group
               </h2>
 
               <p className="mt-4 text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquid, molestiae! Quidem est esse numquam odio deleniti,
-                beatae, magni dolores provident quaerat totam eos, aperiam
-                architecto eius quis quibusdam fugiat dicta.
+                We are perceived as one of the pre-eminent and largest tea
+                manufacturers in Sri Lanka, provisioning a 4 percent of the
+                entire tea production in the country. Under the brand name “Tea
+                Jar” at K.D.U. Exports, we produce 11 million teas consisting 6
+                percent of the Low Grown category, within Sri lanka. Going from
+                strength to strength, sustaining from the K.D.U GROUP, the
+                synthesis of ingrained commitment, dedication and diligence has
+                put ourselves at the summit of the tea industry. We are a great
+                equalizer, a demanding attention from the counter of the
+                smallest eatery to the most exclusive tea-bars in the world.
+                Proudly claiming for a history of more than three decades of tea
+                production, teas from Tea Jar possesses unique and specific
+                characteristics of quality and taste attributed by the Passion
+                and Provenance of the unique manufacturing practices, that have
+                been mastered over the years, infused with contemporary
+                creativity and imagination to satisfy the most judicious
+                aficionado.
               </p>
             </div>
           </div>

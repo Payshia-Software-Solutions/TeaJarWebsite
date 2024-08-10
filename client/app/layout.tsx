@@ -4,6 +4,7 @@ import { Inter as InterFont } from "next/font/google"; // Renamed to InterFont
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import LoadingBar from "@/components/LoadingBar";
 
 // Specify the font weights you want to use
 const ubuntu = Ubuntu({
@@ -28,6 +29,7 @@ export default function RootLayout({
         className={`${ubuntu.className} scroll-smooth`}
         suppressHydrationWarning={true}
       >
+        <LoadingBar />
         <NavBar />
         {children}
         <Footer />
