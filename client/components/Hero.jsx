@@ -37,12 +37,15 @@ function Hero() {
 
       <div className="relative mx-auto max-w-screen-xl px-4 flex h-screen items-center">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="bg-white bg-clip-text lg:text-7xl font-extrabold text-transparent text-5xl">
-            Tea Jar
-          </h1>
-          <p className="mx-auto max-w-xl sm:text-xl/relaxed uppercase">
-            The Heart of our Family since 1978
-          </p>
+          <div className="hidden">
+            <h1 className="bg-white bg-clip-text lg:text-7xl font-extrabold text-transparent text-5xl">
+              Tea Jar
+            </h1>
+            <p className="mx-auto max-w-xl sm:text-xl/relaxed uppercase">
+              The Heart of our Family since 1978
+            </p>
+          </div>
+          <img src="/assets/white-logo.png" alt="" className="w-1/2 mx-auto" />
         </div>
       </div>
     </section>

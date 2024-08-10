@@ -43,7 +43,7 @@ function NavBar() {
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
             <a className="block text-teal-600 text-3xl font-bold" href="/">
-              Tea Jar
+              <img src="/assets/tea-jar-logo.png" alt="" className="h-12" />
             </a>
           </div>
 
