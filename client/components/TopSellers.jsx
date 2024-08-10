@@ -48,9 +48,9 @@ function TopSellers() {
     <section
       ref={sectionRef}
       style={{ backgroundColor: bgColor }}
-      className="transition-all duration-500"
+      className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center"
     >
-      <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 sm:py-12 lg:px-8">
+      <div className="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
         <SectionHeader
           sectionTitle="Top Sellers"
           sectionHighlight="Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum similique quos fugit nobis labore est voluptate in aliquam voluptates quod nulla, odio repudiandae fugiat, alias eos consectetur, repellendus exercitationem earum!"
@@ -60,21 +60,26 @@ function TopSellers() {
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={"auto"}
-          initialSlide={1}
+          slidesPerView={2}
+          initialSlide={2}
           coverflowEffect={{
-            rotate: 50,
+            rotate: 0,
             stretch: 0,
             depth: 100,
-            modifier: 1,
+            modifier: 3,
             slideShadows: true,
           }}
-          pagination={true}
+          keyboard={{
+            enabled: true,
+          }}
+          mousewheel={{
+            thresholdDelta: 70,
+          }}
           modules={[EffectCoverflow, Navigation]}
           className="my-14"
           breakpoints={{
             640: {
-              slidesPerView: 1,
+              slidesPerView: 2,
             },
             768: {
               slidesPerView: 2,
@@ -82,6 +87,9 @@ function TopSellers() {
             1024: {
               slidesPerView: 3,
             },
+          }}
+          pagination={{
+            dynamicBullets: true,
           }}
         >
           <SwiperSlide>
@@ -105,6 +113,14 @@ function TopSellers() {
             <TopSellerProduct
               imgUrl="/assets/products/1/cinnamon.jpg"
               productName="Cinnamon Flavored Tea Bags"
+              range="Flavoured"
+              miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TopSellerProduct
+              imgUrl="/assets/products/1/ginger.jpg"
+              productName="Ginger Flavored Tea Bags"
               range="Flavoured"
               miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
             />

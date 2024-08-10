@@ -3,7 +3,7 @@ import React from "react";
 function SectionHeader({ sectionTitle, sectionHighlight }) {
   return (
     <header>
-      <h2 className="lg:text-4xl font-bold text-gray-900 sm:text-3xl text-center">
+      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center">
         {sectionTitle}
       </h2>
 
