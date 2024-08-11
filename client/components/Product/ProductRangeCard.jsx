@@ -21,7 +21,7 @@ function ProductRangeCard({ rangeName, coverImg }) {
           }}
         >
           <p
-            className="text-4xl md:text-3xl lg:text-4xl uppercase text-white tracking-wider"
+            className="text-4xl md:text-3xl lg:text-4xl uppercase text-white tracking-wider text-start"
             style={{
               textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
             }}
