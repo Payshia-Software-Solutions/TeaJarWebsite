@@ -37,7 +37,10 @@ function Hero() {
 
       <div className="relative mx-auto max-w-screen-xl px-4 flex h-screen items-center">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="hidden">
+          <div
+            className="hidden "
+            style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+          >
             <h1 className="bg-white bg-clip-text lg:text-7xl font-extrabold text-transparent text-5xl">
               Tea Jar
             </h1>

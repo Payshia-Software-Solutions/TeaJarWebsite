@@ -48,7 +48,7 @@ function TopSellers() {
     <section
       ref={sectionRef}
       style={{ backgroundColor: bgColor }}
-      className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center"
+      className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
     >
       <div className="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
         <SectionHeader
@@ -61,7 +61,7 @@ function TopSellers() {
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={2}
-          initialSlide={2}
+          initialSlide={1}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
