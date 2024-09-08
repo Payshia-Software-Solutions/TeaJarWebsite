@@ -1,0 +1,10 @@
+{
+    "name": "Tea Jar",
+    "short_name": "Tea Jar",
+    "description": "No 1 Tea Provider in Sri Lanka",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000"
+
+}

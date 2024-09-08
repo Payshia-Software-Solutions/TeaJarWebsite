@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import { Ubuntu } from "next/font/google";
 import { Inter as InterFont } from "next/font/google"; // Renamed to InterFont
 import "./globals.css";
@@ -25,8 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+      </head>
       <body
-        className={`${ubuntu.className} scroll-smooth`}
+        className={`${interFont.className} scroll-smooth`}
         suppressHydrationWarning={true}
       >
         <LoadingBar />

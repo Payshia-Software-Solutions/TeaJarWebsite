@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import Checkout from "@/components/Checkout";
 
 function page() {
   const crumbs = [
@@ -13,6 +15,7 @@ function page() {
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8  mt-[60px]">
       <Breadcrumb crumbs={crumbs} />
+      <Checkout />
     </div>
   );
 }

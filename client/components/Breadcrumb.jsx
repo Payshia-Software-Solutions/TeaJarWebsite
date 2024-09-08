@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function Breadcrumb({ crumbs }) {
@@ -7,7 +8,7 @@ function Breadcrumb({ crumbs }) {
         {crumbs.map((crumb, index) => (
           <React.Fragment key={index}>
             <li>
-              <a
+              <Link
                 href={crumb.href}
                 className="block transition hover:text-gray-700"
               >
@@ -29,7 +30,7 @@ function Breadcrumb({ crumbs }) {
                 ) : (
                   crumb.label
                 )}
-              </a>
+              </Link>
             </li>
             {index < crumbs.length - 1 && (
               <li className="rtl:rotate-180">

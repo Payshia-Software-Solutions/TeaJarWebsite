@@ -6,6 +6,7 @@ import LazyLoadSection from "@/components/LazyLoadingSection";
 
 // import Swiper core and required modules
 import {
+  Mousewheel,
   Navigation,
   Pagination,
   Scrollbar,
@@ -56,13 +57,15 @@ function ProductRange() {
 
             <div className="mx-auto max-w-screen-2xl py-16 product-range">
               <Swiper
+                direction={"horizontal"}
                 slidesPerView={"auto"}
                 spaceBetween={20}
                 pagination={{
                   clickable: true,
                 }}
-                modules={[Pagination]}
+                modules={[Mousewheel, Pagination]}
                 className="mySwiper"
+                mousewheel={true}
                 breakpoints={{
                   640: {
                     slidesPerView: 2,
