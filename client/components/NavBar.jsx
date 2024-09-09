@@ -41,7 +41,7 @@ function NavBar() {
 
   return (
     <header
-      className={`fixed shadow top-0 left-0 w-full bg-white transition-transform duration-300 z-50  ${
+      className={`fixed shadow top-0 left-0 w-full bg-navC  transition-transform duration-300 z-50  ${
         isVisible ? "-translate-y-full" : "translate-y-0"
       }`}
     >
@@ -55,7 +55,7 @@ function NavBar() {
 
           <div className="hidden md:block">
             <nav aria-label="Global">
-              <ul className="flex items-center gap-6 text-sm">
+              <ul className="flex items-center gap-6 text-sm font-italiana">
                 <li>
                   <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
@@ -64,20 +64,13 @@ function NavBar() {
                     Home
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/our-teas"
-                  >
-                    Our Teas
-                  </Link>
-                </li>
+
                 <li>
                   <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/about"
                   >
-                    About
+                    About Us
                   </Link>
                 </li>
                 <li>
@@ -85,7 +78,7 @@ function NavBar() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/shop"
                   >
-                    Shop
+                    Explore
                   </Link>
                 </li>
                 <li>
@@ -104,19 +97,11 @@ function NavBar() {
                     Contact Us
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/faq"
-                  >
-                    FAQ
-                  </Link>
-                </li>
               </ul>
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 content-end">
             <div className="hidden sm:flex sm:gap-4">
               <a
                 className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
@@ -127,10 +112,10 @@ function NavBar() {
 
               <div className="hidden sm:flex">
                 <a
-                  className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                  className="rounded-md bg-navC px-5 py-2.5 text-sm font-medium text-[#2BB32A] border border-[#2BB32A]"
                   href="#"
                 >
-                  Register
+                  Shop Now
                 </a>
               </div>
             </div>
@@ -138,7 +123,7 @@ function NavBar() {
             <div className="block md:hidden">
               <button
                 onClick={toggleMobileMenu}
-                className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+                className="rounded bg-navC p-2 text-gray-600 transition hover:text-gray-600/75"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +154,7 @@ function NavBar() {
         onClick={() => setIsMobileMenuOpen(false)}
       >
         <div
-          className={`fixed top-0 right-0 h-screen w-3/4 bg-white shadow-lg transition-transform duration-300 ${
+          className={`fixed top-0 right-0 h-screen w-3/4 bg-navC shadow-lg transition-transform duration-300 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -202,60 +187,45 @@ function NavBar() {
               />
             </div>
 
-            <ul className="flex flex-col gap-4 border-b mb-3 pb-3">
+            <ul className="flex flex-col gap-4 border-b mb-3 pb-3 font-italiana text-white">
               <li>
-                <Link
-                  className="text-gray-700 transition hover:text-gray-500"
-                  href="/"
-                >
+                <Link className=" transition hover:text-gray-500" href="/">
                   Home
                 </Link>
               </li>
               <li>
                 <Link
-                  className="text-gray-700 transition hover:text-gray-500"
+                  className=" transition hover:text-gray-500"
                   href="/our-teas"
                 >
                   Our Teas
                 </Link>
               </li>
               <li>
-                <Link
-                  className="text-gray-700 transition hover:text-gray-500"
-                  href="/about"
-                >
+                <Link className=" transition hover:text-gray-500" href="/about">
                   About
                 </Link>
               </li>
               <li>
-                <Link
-                  className="text-gray-700 transition hover:text-gray-500"
-                  href="/shop"
-                >
+                <Link className="transition hover:text-gray-500" href="/shop">
                   Shop
                 </Link>
               </li>
               <li>
-                <Link
-                  className="text-gray-700 transition hover:text-gray-500"
-                  href="/blogs"
-                >
+                <Link className=" transition hover:text-gray-500" href="/blogs">
                   Blogs
                 </Link>
               </li>
               <li>
                 <Link
-                  className="text-gray-700 transition hover:text-gray-500"
+                  className=" transition hover:text-gray-500"
                   href="/contact"
                 >
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link
-                  className="text-gray-700 transition hover:text-gray-500"
-                  href="/faq"
-                >
+                <Link className=" transition hover:text-gray-500" href="/faq">
                   FAQ
                 </Link>
               </li>
@@ -270,10 +240,10 @@ function NavBar() {
               </a>
 
               <a
-                className="flex-grow rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 text-center"
+                className="rounded-md bg-navC px-5 py-2.5 text-sm font-medium text-[#2BB32A] border border-[#2BB32A]"
                 href="#"
               >
-                Register
+                Shop Now
               </a>
             </div>
           </nav>

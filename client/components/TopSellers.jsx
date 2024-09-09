@@ -1,19 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-
 import TopSellerProduct from "@/components/Product/TopSellerProduct";
 import SectionHeader from "@/components/Common/SectionHeader";
 
 // import Swiper core and required modules
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  EffectCoverflow,
-} from "swiper/modules";
-
+import { Navigation, Pagination, A11y, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LazyLoadSection from "@/components/LazyLoadingSection";
 
@@ -22,22 +14,24 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+
+// Import custom styles
+import "@/app/globals.css"; // Add this for custom navigation styles
 
 function TopSellers() {
-  const [bgColor, setBgColor] = useState("white"); // Initial background color
+  const [bgColor, setBgColor] = useState("#353D32"); // Initial background color
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       if (sectionRef.current) {
         const sectionTop = sectionRef.current.getBoundingClientRect().top;
-        const triggerPoint = window.innerHeight / 2; // Change this value to control when the color changes
+        const triggerPoint = window.innerHeight / 2;
 
         if (sectionTop < triggerPoint) {
-          setBgColor("#f5faf9"); // Change to the desired background color
+          setBgColor("#353D32");
         } else {
-          setBgColor("white"); // Revert to the original color
+          setBgColor("#353D32");
         }
       }
     };
@@ -45,6 +39,7 @@ function TopSellers() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <LazyLoadSection>
       <section
@@ -53,45 +48,44 @@ function TopSellers() {
         className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
       >
         <div className="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
-          <SectionHeader
-            sectionTitle="Top Sellers"
-            sectionHighlight="Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum similique quos fugit nobis labore est voluptate in aliquam voluptates quod nulla, odio repudiandae fugiat, alias eos consectetur, repellendus exercitationem earum!"
-          />
+          <div className="text-center">
+            <SectionHeader
+              sectionTitle="Top Sellers"
+              sectionHighlight="Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum similique quos fugit nobis labore est voluptate in aliquam voluptates quod nulla, odio repudiandae fugiat, alias eos consectetur, repellendus exercitationem earum!"
+            />
+
+            {/* Custom navigation buttons */}
+            <div className="swiper-navigation-container">
+              <div className="swiper-button-prev custom-nav-arrow"></div>
+              <div className="swiper-button-next custom-nav-arrow"></div>
+            </div>
+          </div>
 
           <Swiper
             effect={"coverflow"}
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={2}
-            initialSlide={2}
+            initialSlide={1}
             coverflowEffect={{
-              rotate: 0,
+              rotate: 30,
               stretch: 0,
-              depth: 100,
-              modifier: 3,
+              depth: 200,
+              modifier: 2,
               slideShadows: true,
             }}
-            keyboard={{
-              enabled: true,
-            }}
-            mousewheel={{
-              thresholdDelta: 70,
-            }}
-            modules={[EffectCoverflow, Navigation]}
+            keyboard={{ enabled: true }}
+            mousewheel={{ forceToAxis: true }}
+            modules={[EffectCoverflow, Navigation, Pagination, A11y]}
             className="my-14"
             breakpoints={{
-              640: {
-                slidesPerView: 2,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
+              640: { slidesPerView: 1 },
+              1024: { slidesPerView: 3 },
             }}
-            pagination={{
-              dynamicBullets: true,
+            pagination={{ clickable: true, dynamicBullets: true }}
+            navigation={{
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
             }}
           >
             <SwiperSlide>
@@ -99,16 +93,15 @@ function TopSellers() {
                 imgUrl="/assets/products/1/apple.jpg"
                 productName="Apple Flavored Tea Bags"
                 range="Flavoured"
-                miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+                miniDescription="A delightful blend of apple and fine Ceylon tea."
               />
             </SwiperSlide>
-
             <SwiperSlide>
               <TopSellerProduct
                 imgUrl="/assets/products/1/cardamom.jpg"
                 productName="Cardamom Flavored Tea Bags"
                 range="Flavoured"
-                miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+                miniDescription="Aromatic cardamom spices up this black tea."
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -116,23 +109,7 @@ function TopSellers() {
                 imgUrl="/assets/products/1/cinnamon.jpg"
                 productName="Cinnamon Flavored Tea Bags"
                 range="Flavoured"
-                miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <TopSellerProduct
-                imgUrl="/assets/products/1/ginger.jpg"
-                productName="Ginger Flavored Tea Bags"
-                range="Flavoured"
-                miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <TopSellerProduct
-                imgUrl="/assets/products/1/ginger.jpg"
-                productName="Ginger Flavored Tea Bags"
-                range="Flavoured"
-                miniDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quis, aperiam nisi omnis voluptas iusto repudiandae optio atque neque cupiditate doloribus at mollitia animi ad a sint, quae magnam laboriosam?"
+                miniDescription="Sweet and spicy cinnamon flavors blend perfectly with tea."
               />
             </SwiperSlide>
           </Swiper>

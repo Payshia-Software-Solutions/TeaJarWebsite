@@ -4,11 +4,12 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-white border-t-2">
-      <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
+    <footer className="bg-[#2A2F28] border-t-2 border-gray-700">
+      <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24 mt-0">
+        {/* Back to top button */}
         <div className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
           <div
-            className="inline-block rounded-full bg-teal-600 p-2 text-white shadow transition hover:bg-teal-500 sm:p-3 lg:p-4 cursor-pointer"
+            className="inline-block rounded-full bg-white p-2 text-black shadow transition hover:bg-gray-200 sm:p-3 lg:p-4 cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({
@@ -34,63 +35,85 @@ function Footer() {
           </div>
         </div>
 
+        {/* Footer Content */}
         <div className="lg:flex lg:items-end lg:justify-between">
-          <div>
+          {/* Left Section (Logo) */}
+          <div className="text-white">
             <div className="flex justify-center text-teal-600 lg:justify-start">
               <img
                 src="/assets/tea-jar-logo.png"
-                alt=""
+                alt="TeaJar Logo"
                 className="w-[180px]"
               />
             </div>
-
-            <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
-              consequuntur amet culpa cum itaque neque.
-            </p>
           </div>
 
-          <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:mt-0 lg:justify-end lg:gap-12">
+          {/* Center Section (Links) */}
+          <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:mt-0 lg:justify-center lg:gap-12">
             <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="#"
-              >
+              <a className="text-white transition hover:text-gray-400" href="#">
                 About
               </a>
             </li>
-
             <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="#"
-              >
-                Services
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="#"
-              >
-                Projects
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="#"
-              >
+              <a className="text-white transition hover:text-gray-400" href="#">
                 Blog
               </a>
             </li>
+            <li>
+              <a className="text-white transition hover:text-gray-400" href="#">
+                Explore
+              </a>
+            </li>
+            <li>
+              <a className="text-white transition hover:text-gray-400" href="#">
+                Shop
+              </a>
+            </li>
+            <li>
+              <a className="text-white transition hover:text-gray-400" href="#">
+                Collections
+              </a>
+            </li>
+            <li>
+              <a className="text-white transition hover:text-gray-400" href="#">
+                Outlets
+              </a>
+            </li>
           </ul>
+
+          {/* Right Section (Social Media) */}
+          <div className="mt-12 flex justify-center lg:justify-end gap-6">
+            <a href="#" className="text-white hover:text-gray-400">
+              <span className="sr-only">YouTube</span>
+              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                {/* YouTube icon */}
+              </svg>
+            </a>
+            <a href="#" className="text-white hover:text-gray-400">
+              <span className="sr-only">Twitter</span>
+              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                {/* Twitter icon */}
+              </svg>
+            </a>
+            <a href="#" className="text-white hover:text-gray-400">
+              <span className="sr-only">Instagram</span>
+              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                {/* Instagram icon */}
+              </svg>
+            </a>
+            <a href="#" className="text-white hover:text-gray-400">
+              <span className="sr-only">Facebook</span>
+              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                {/* Facebook icon */}
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <p className="mt-12 text-center text-sm text-gray-500 lg:text-right">
-          Copyright &copy; 2022. All rights reserved.
+        {/* Copyright Section */}
+        <p className="mt-12 text-center text-sm text-gray-400">
+          © 2024 TeaJar. All rights reserved.
         </p>
       </div>
     </footer>

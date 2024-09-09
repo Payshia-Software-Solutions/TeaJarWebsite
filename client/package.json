@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "axios": "^1.7.3",
     "clsx": "^2.1.1",
     "crypto-js": "^4.2.0",
@@ -16,7 +17,7 @@
     "nprogress": "^0.2.0",
     "react": "^18",
     "react-dom": "^18",
-    "swiper": "^11.1.9"
+    "swiper": "^11.1.12"
   },
   "devDependencies": {
     "@types/node": "^20",

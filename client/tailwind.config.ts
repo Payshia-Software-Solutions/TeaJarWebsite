@@ -14,11 +14,18 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        cursive: ['"Dancing Script"', 'cursive'],
-        extra_cursive: ['"Great Vibes"', 'cursive'],
+        cursive: ['"Dancing Script"', "cursive"],
+        extra_cursive: ['"Great Vibes"', "cursive"],
+        italiana: ['"Italiana"', "serif"], // Italiana font added here Julius Sans One
+        julius: ["Julius Sans One"],
+      },
+      colors: {
+        babout: "#2A2F28", // Custom color named 'about'
+        navC: "#1A1E1C",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

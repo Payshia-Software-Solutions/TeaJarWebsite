@@ -21,7 +21,7 @@ function Hero() {
 
   return (
     <section
-      className={`relative  h-screen text-white transition-all duration-500 ease-in-out ${
+      className={`relative my-0 h-screen text-white transition-all duration-500 ease-in-out ${
         scrolled ? "m-5 lg:m-12" : ""
       }`}
     >
