@@ -4,7 +4,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-[#2A2F28] border-t-2 border-gray-700">
+    <footer className="bg-navC border-t-2 border-gray-700">
       <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24 mt-0">
         {/* Back to top button */}
         <div className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
@@ -41,7 +41,7 @@ function Footer() {
           <div className="text-white">
             <div className="flex justify-center text-teal-600 lg:justify-start">
               <img
-                src="/assets/tea-jar-logo.png"
+                src="/assets/white-logo.png"
                 alt="TeaJar Logo"
                 className="w-[180px]"
               />

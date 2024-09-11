@@ -5,7 +5,7 @@ function TeaJar() {
   return (
     <section className="mb-0">
       <div className="bg-navC">
-        <div className="py-6">
+        <div className="pb-6">
           <img
             src="/assets/images/home/tea-jar.png"
             className="w-full object-cover"

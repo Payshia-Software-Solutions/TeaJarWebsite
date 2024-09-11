@@ -3,8 +3,8 @@ import React from "react";
 
 function About() {
   return (
-    
     <section className="bg-babout text-white">
+      
       <div className="mx-auto max-w-screen-2xl px-8 py-16  sm:px-6 lg:px-96">
         <div className="text-center">
           <h1 className="text-[64px] -font-bold text-white font-italiana">
