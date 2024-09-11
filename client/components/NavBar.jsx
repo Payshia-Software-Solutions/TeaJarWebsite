@@ -2,6 +2,12 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Italiana, Julius_Sans_One } from "@next/font/google";
+
+const italiana = Italiana({
+  weight: "400", // Italiana only comes with regular weight (400)
+  subsets: ["latin"],
+});
 
 function NavBar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -45,6 +51,7 @@ function NavBar() {
         isVisible ? "-translate-y-full" : "translate-y-0"
       }`}
     >
+      <div className={italiana.className}>
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
@@ -249,6 +256,7 @@ function NavBar() {
           </nav>
         </div>
       </div>
+    </div>
     </header>
   );
 }
