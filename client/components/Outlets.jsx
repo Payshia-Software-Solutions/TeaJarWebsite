@@ -25,7 +25,7 @@ function Outlets() {
           </div>
 
           {/* Main Image and Right Side Images */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-8 w-full max-w-[1024px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 w-full max-w-full">
             {/* Main Image */}
             <div className="flex justify-center">
               <img

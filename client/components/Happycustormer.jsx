@@ -16,7 +16,7 @@ function Happycustormer() {
     <section className="bg-babout">
       <div className=" text-white text-center  ">
         <div className={italiana.className}>
-          <h2 className=" text-white  text-[40px] font-normal">
+          <h2 className=" text-white  text-[40px] font-normal p-4">
             Happy Custormer
           </h2>
         </div>
