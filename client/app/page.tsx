@@ -7,11 +7,12 @@ import About from "@/components/About/About";
 import FinestCeylonTea from "@/components/FinestCeylonTea";
 import Outlet from "@/components/Outlets";
 import Commentcard from "@/components/CommentCard/Commentcard";
-import   Happycustormer from "@/components/Happycustormer";
+import Happycustormer from "@/components/Happycustormer";
 import TeaJar from "@/components/TeaJar";
-import ImageCard from "@/components/Common/ImageCard"
-
-
+import ImageCard from "@/components/Common/ImageCard";
+import ItemCard from "@/components/Common/ItemCard"
+import Shop from "@/components/Shop"
+import SideBar from "@/components/SideBar";
 
 
 export default function Home() {
@@ -25,7 +26,6 @@ export default function Home() {
       <Outlet />
       <Happycustormer />
 
-     
     </div>
   );
 }
