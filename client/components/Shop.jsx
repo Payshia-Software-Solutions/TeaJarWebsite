@@ -49,6 +49,7 @@ function shop() {
             <ItemCard />
           </div>
         </div>
+       
       </div>
     </section>
   );

@@ -13,6 +13,7 @@ import ImageCard from "@/components/Common/ImageCard";
 import ItemCard from "@/components/Common/ItemCard"
 import Shop from "@/components/Shop"
 import SideBar from "@/components/SideBar";
+import SingleItem from "@/components/SingleItem";
 
 
 export default function Home() {
@@ -25,7 +26,7 @@ export default function Home() {
       <FinestCeylonTea />
       <Outlet />
       <Happycustormer />
-
+      <SingleItem />
     </div>
   );
 }
