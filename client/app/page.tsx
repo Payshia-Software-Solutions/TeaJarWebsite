@@ -10,11 +10,9 @@ import Commentcard from "@/components/CommentCard/Commentcard";
 import Happycustormer from "@/components/Happycustormer";
 import TeaJar from "@/components/TeaJar";
 import ImageCard from "@/components/Common/ImageCard";
-import ItemCard from "@/components/Common/ItemCard"
-import Shop from "@/components/Shop"
+import ItemCard from "@/components/Common/ItemCard";
+import Shop from "@/components/Shop";
 import SideBar from "@/components/SideBar";
-import SingleItem from "@/components/SingleItem";
-
 
 export default function Home() {
   return (
@@ -26,7 +24,6 @@ export default function Home() {
       <FinestCeylonTea />
       <Outlet />
       <Happycustormer />
-      <SingleItem />
     </div>
   );
 }

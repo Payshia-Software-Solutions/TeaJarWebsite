@@ -4,19 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import TopSellerProduct from "@/components/Product/TopSellerProduct";
 import SectionHeader from "@/components/Common/SectionHeader";
 
-// import Swiper core and required modules
-import { Navigation, Pagination, A11y, EffectCoverflow } from "swiper/modules";
+// Import Swiper core and required modules
+import { Pagination, A11y, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LazyLoadSection from "@/components/LazyLoadingSection";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-// Import custom styles
-import "@/app/globals.css"; // Add this for custom navigation styles
+// Import custom styles (can be replaced with local styles if needed)
+import "@/app/globals.css"; 
 
 function TopSellers() {
   const [bgColor, setBgColor] = useState("#353D32"); // Initial background color
@@ -53,43 +52,38 @@ function TopSellers() {
               sectionTitle="Top Sellers"
               sectionHighlight="Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum similique quos fugit nobis labore est voluptate in aliquam voluptates quod nulla, odio repudiandae fugiat, alias eos consectetur, repellendus exercitationem earum!"
             />
-
-            {/* Custom navigation buttons */}
-            <div className="swiper-navigation-container">
-              <div className="swiper-button-prev custom-nav-arrow"></div>
-              <div className="swiper-button-next custom-nav-arrow"></div>
-            </div>
           </div>
 
+          {/* Swiper setup */}
           <Swiper
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={2}
-            initialSlide={1}
-            coverflowEffect={{
-              rotate: 30,
-              stretch: 0,
-              depth: 200,
-              modifier: 2,
-              slideShadows: true,
+            slidesPerView={1} // Default view for very small screens
+            spaceBetween={20} // Adjust the space between the slides
+            pagination={{
+              clickable: true,
             }}
-            keyboard={{ enabled: true }}
-            mousewheel={{ forceToAxis: true }}
-            modules={[EffectCoverflow, Navigation, Pagination, A11y]}
-            className="my-14"
             breakpoints={{
-              640: { slidesPerView: 1 },
-              1024: { slidesPerView: 3 },
+              // For screens >= 576px (small screens like smartphones)
+              576: {
+                slidesPerView: 2, // Show 2 slides
+                spaceBetween: 20,
+              },
+              // For screens >= 768px (tablets or medium screens)
+              768: {
+                slidesPerView: 3, // Show 3 slides
+                spaceBetween: 30,
+              },
+              // For screens >= 1024px (large screens)
+              1024: {
+                slidesPerView: 3, // Show 3 slides with more space between them
+                spaceBetween: 40,
+              },
             }}
-            pagination={{ clickable: true, dynamicBullets: true }}
-            navigation={{
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-            }}
+            modules={[Pagination, A11y]} // Include necessary Swiper modules
+            className="mySwiper"
           >
             <SwiperSlide>
               <TopSellerProduct
+                className="top-seller-product"
                 imgUrl="/assets/products/1/apple.jpg"
                 productName="Apple Flavored Tea Bags"
                 range="Flavoured"
@@ -98,6 +92,7 @@ function TopSellers() {
             </SwiperSlide>
             <SwiperSlide>
               <TopSellerProduct
+                className="top-seller-product"
                 imgUrl="/assets/products/1/cardamom.jpg"
                 productName="Cardamom Flavored Tea Bags"
                 range="Flavoured"
@@ -106,10 +101,20 @@ function TopSellers() {
             </SwiperSlide>
             <SwiperSlide>
               <TopSellerProduct
+                className="top-seller-product"
                 imgUrl="/assets/products/1/cinnamon.jpg"
                 productName="Cinnamon Flavored Tea Bags"
                 range="Flavoured"
                 miniDescription="Sweet and spicy cinnamon flavors blend perfectly with tea."
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <TopSellerProduct
+                className="top-seller-product"
+                imgUrl="/assets/products/1/apple.jpg"
+                productName="Apple Flavored Tea Bags"
+                range="Flavoured"
+                miniDescription="A delightful blend of apple and fine Ceylon tea."
               />
             </SwiperSlide>
           </Swiper>
