@@ -1,4 +1,4 @@
-"use client"; // This makes sure the component runs as a client component
+"use client";  //This makes sure the component runs as a client component
 import React, { useState } from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,7 +34,7 @@ function ItemCard() {
               : "/assets/products/1/apple.jpg"
           }
           alt="Avatar"
-          className="w-full h-64 rounded-lg object-cover"
+          className="w-64 h-64 rounded-lg object-cover"
         />
       </div>
       <div className="">

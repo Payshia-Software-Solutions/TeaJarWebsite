@@ -23,7 +23,7 @@ const mPlus1 = M_PLUS_1({
 
 function Commentcard() {
   return (
-    <div className="container max-w-lg mx-auto bg-[#353D32] px-6 py-4 rounded-2xl ">
+    <div className="container max-w-lg mx-auto bg-[#353D32] px-5 py-4 rounded-2xl ">
       <div className={poppins.className}>
         <p className="text-lg  mb-6  text-white leading-8 mt-8 text-start ">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet

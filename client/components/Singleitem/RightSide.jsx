@@ -1,4 +1,6 @@
-import React from 'react'
+"use client";
+import React, { useState } from "react";
+import Rightsidebar from "@/components/Rightsidebar";
 import {
   FaBars,
   FaCircle,
@@ -7,8 +9,14 @@ import {
   FaChevronLeft,
 } from "react-icons/fa";
 
-
 function RightSide() {
+  // State to control the sidebar visibility
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Function to toggle the sidebar
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   return (
     <div>
       {/*Description  */}
@@ -105,13 +113,19 @@ function RightSide() {
         </div>
 
         <div className="mt-4">
-          <button className="bg-blue-700 text-white py-2 px-4 w-full rounded-md font-semibold">
+          <button
+            onClick={toggleSidebar} // Toggle the sidebar when clicked
+            className="bg-blue-700 text-white py-2 px-4 w-full rounded-md font-semibold"
+          >
             Add to Cart
           </button>
         </div>
       </div>
+
+      {/* Sidebar */}
+      {isSidebarOpen && (<Rightsidebar />)}
     </div>
   );
 }
 
-export default RightSide
+export default RightSide;

@@ -34,7 +34,7 @@ function SideBar() {
       <div
         className={`${
           isOpen ? "block" : "hidden"
-        } md:block bg-white p-4 shadow-lg rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
+        } md:block bg-white p-4  rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
       >
         <div className="ml-5  ">
           {/* Tea by Type */}
@@ -128,7 +128,6 @@ function SideBar() {
           </div>
           <hr />
 
-          {/* Other Sections (Price, Certification, etc.) */}
           {/* Add other filter sections below */}
         </div>
       </div>

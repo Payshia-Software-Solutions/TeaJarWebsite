@@ -29,7 +29,7 @@ function shop() {
 
         {/* Items section */}
         <div className="md:col-span-9">
-          <div className="text-black text-center p-3">
+          <div className="text-black text-center p-3 bg-gray-200 ">
             <div className={italiana.className}>
               <h2 className="text-3xl md:text-5xl">Tea by Type</h2>
             </div>

@@ -13,17 +13,18 @@ import ImageCard from "@/components/Common/ImageCard";
 import ItemCard from "@/components/Common/ItemCard";
 import Shop from "@/components/Shop";
 import SideBar from "@/components/SideBar";
+import  Test from "@/components/Test"
 
 export default function Home() {
   return (
     <div>
       <Hero />
-
       <About />
       <TopSellers />
       <FinestCeylonTea />
       <Outlet />
       <Happycustormer />
+      <Test/>
     </div>
   );
 }

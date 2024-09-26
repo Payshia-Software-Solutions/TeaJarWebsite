@@ -1,59 +1,101 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Thumbs, Navigation } from "swiper/modules";
 
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/thumbs";
+import "swiper/css/navigation";
+
+// Import custom styles if needed
+import "@/app/globals.css"; // Use your global styles if required
 
 function Leftside() {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   return (
-    <div>
-      <div className="flex flex-col items-center space-y-4 mt-6">
-        {/* Large Image Display */}
-        <div className="relative w-full max-w-md">
+    <div className="container w-full flex flex-col items-center space-y-4 mt-6">
+      {/* Main Swiper - Large Image Display */}
+      <Swiper
+        loop={true}
+        spaceBetween={10}
+        navigation={true}
+        thumbs={{ swiper: thumbsSwiper }}
+        modules={[Thumbs, Navigation]}
+        className="mainSwiper relative w-full max-w-2xl"
+      >
+        <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
-            alt="Main Image"
-            className="w-full h-auto object-cover"
+            alt="Main Image 1"
+            className="w-full h-[500px] object-cover rounded-md"
           />
-          {/* Left Arrow */}
-          <button className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white p-2 rounded-full shadow">
-            <FaChevronLeft />
-          </button>
-          {/* Right Arrow */}
-          <button className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white p-2 rounded-full shadow">
-            <FaChevronRight />
-          </button>
-        </div>
-
-        {/* Thumbnails */}
-        <div className="grid grid-cols-5 gap-2 max-w-lg">
+        </SwiperSlide>
+        <SwiperSlide>
           <img
-            src="/assets/products/1/apple.jpg"
-            alt="Thumbnail 1"
-            className="w-full h-16 md:h-20 object-cover border border-gray-200 rounded-md"
+            src="/assets/images/outlet/otmain.png"
+            alt="Main Image 2"
+            className="w-full h-[500px] object-cover rounded-md"
           />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            src="/assets/images/outlet/otmain.png"
+            alt="Main Image 3"
+            className="w-full h-[500px] object-cover rounded-md"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            src="/assets/images/outlet/otmain.png"
+            alt="Main Image 4"
+            className="w-full h-[500px] object-cover rounded-md"
+          />
+        </SwiperSlide>
+      </Swiper>
+
+      {/* Thumbnail Swiper */}
+      <Swiper
+        onSwiper={setThumbsSwiper}
+        loop={true}
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode={true}
+        watchSlidesProgress={true}
+        modules={[Thumbs]}
+        className="thumbSwiper grid grid-cols-4 gap-1 max-w-2xl"
+      >
+        <SwiperSlide>
+          <img
+            src="/assets/images/outlet/otmain.png"
+            alt="Thumbnail 1"
+            className="w-[140px] h-[80px] object-cover border border-gray-200 rounded-md"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
             alt="Thumbnail 2"
-            className="w-full h-16 md:h-20 object-cover border border-gray-200 rounded-md"
+            className="w-[140px] h-[80px] object-cover border border-gray-200 rounded-md"
           />
+        </SwiperSlide>
+        <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
             alt="Thumbnail 3"
-            className="w-full h-16 md:h-20 object-cover border border-gray-200 rounded-md"
+            className="w-[140px] h-[80px] object-cover border border-gray-200 rounded-md"
           />
+        </SwiperSlide>
+        <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
             alt="Thumbnail 4"
-            className="w-full h-16 md:h-20 object-cover border border-gray-200 rounded-md"
+            className="w-[140px] h-[80px] object-cover border border-gray-200 rounded-md"
           />
-          <img
-            src="/assets/images/outlet/otmain.png"
-            alt="Thumbnail 5"
-            className="w-full h-16 md:h-20 object-cover border border-gray-200 rounded-md"
-          />
-        </div>
-      </div>
+        </SwiperSlide>
+      </Swiper>
     </div>
   );
 }
