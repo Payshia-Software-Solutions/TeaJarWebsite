@@ -15,7 +15,7 @@ function Rightsidebar() {
   if (!isSidebarOpen) return null;
 
   return (
-    <div className="fixed right-0 top-0 h-screen bg-white shadow-lg w-84 p-4">
+    <div className="fixed right-0 top-0 h-screen bg-white shadow-lg w-84 p-4 mt-12">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">Your Cart (3 items)</h2>
 
@@ -40,7 +40,7 @@ function Rightsidebar() {
         <SideBarCard />
         <SideBarCard />
         <SideBarCard />
-         <SideBarCard />
+         
 
 
         <hr />

@@ -18,7 +18,7 @@ function RightSide() {
     setIsSidebarOpen(!isSidebarOpen);
   };
   return (
-    <div>
+    <div className="mt-3">
       {/*Description  */}
       <div className="mt-4 px-4 py-4">
         <h2 className="text-3xl md:text-5xl my-3">Tea Jar</h2>

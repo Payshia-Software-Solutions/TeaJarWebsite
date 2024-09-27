@@ -12,6 +12,13 @@ const italiana = Italiana({
   subsets: ["latin"],
 });
 
+const juliusSansOne = Julius_Sans_One({
+  weight: "400", // Julius Sans One only has a regular weight
+  subsets: ["latin"],
+});
+
+
+
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,39 +43,41 @@ function SideBar() {
           isOpen ? "block" : "hidden"
         } md:block bg-white p-4  rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
       >
-        <div className="ml-5  ">
+        <div className="  ">
           {/* Tea by Type */}
           <div className="my-3">
             <div className={italiana.className}>
               <h2 className="text-2xl font-bold my-3">Tea by Type</h2>
             </div>
-            <ul>
-              <li className="my-1">
-                <button className="text-black text-lg hover:text-gray-300">
-                  Herbal
-                </button>
-              </li>
-              <li className="my-1">
-                <button className="text-black text-lg hover:text-gray-300">
-                  Green
-                </button>
-              </li>
-              <li className="my-1">
-                <button className="text-black text-lg hover:text-gray-300">
-                  Black
-                </button>
-              </li>
-              <li className="my-1">
-                <button className="text-black text-lg hover:text-gray-300">
-                  White
-                </button>
-              </li>
-              <li className="my-1">
-                <button className="text-black text-lg hover:text-gray-300">
-                  Matcha & Powders
-                </button>
-              </li>
-            </ul>
+            <div className={juliusSansOne.className}>
+              <ul>
+                <li className="my-1">
+                  <button className="text-black text-lg hover:text-gray-300">
+                    Herbal
+                  </button>
+                </li>
+                <li className="my-1">
+                  <button className="text-black text-lg hover:text-gray-300">
+                    Green
+                  </button>
+                </li>
+                <li className="my-1">
+                  <button className="text-black text-lg hover:text-gray-300">
+                    Black
+                  </button>
+                </li>
+                <li className="my-1">
+                  <button className="text-black text-lg hover:text-gray-300">
+                    White
+                  </button>
+                </li>
+                <li className="my-1">
+                  <button className="text-black text-lg hover:text-gray-300">
+                    Matcha & Powders
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
           <hr />
 
@@ -77,23 +86,25 @@ function SideBar() {
             <div className={italiana.className}>
               <h3 className="text-lg font-semibold mb-2">Rating</h3>
             </div>
-            <div className="flex flex-col space-y-2">
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">4☆ & up (143)</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">3☆ & up (9)</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">2☆ & up (2)</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">1☆ & up (2)</span>
-              </label>
+            <div className={juliusSansOne.className}>
+              <div className="flex flex-col space-y-2">
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">4☆ & up (143)</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">3☆ & up (9)</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">2☆ & up (2)</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">1☆ & up (2)</span>
+                </label>
+              </div>
             </div>
           </div>
           <hr />
@@ -103,27 +114,29 @@ function SideBar() {
             <div className={italiana.className}>
               <h3 className="text-lg font-semibold mb-2 ">Ingredients</h3>
             </div>
-            <div className="flex flex-col space-y-2">
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">Bergamot (11)</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">Blueberry (3)</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">Chamomile (7)</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">Cinnamon (9)</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2">Ginger (14)</span>
-              </label>
+            <div className={juliusSansOne.className}>
+              <div className="flex flex-col space-y-2">
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">Bergamot (11)</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">Blueberry (3)</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">Chamomile (7)</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">Cinnamon (9)</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="checkbox" className="form-checkbox" />
+                  <span className="ml-2">Ginger (14)</span>
+                </label>
+              </div>
             </div>
           </div>
           <hr />

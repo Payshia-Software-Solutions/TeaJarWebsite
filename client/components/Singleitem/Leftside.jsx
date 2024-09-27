@@ -16,7 +16,7 @@ function Leftside() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <div className="container w-full flex flex-col items-center space-y-4 mt-6">
+    <div className="container flex flex-col items-center  space-y-4 mt-7">
       {/* Main Swiper - Large Image Display */}
       <Swiper
         loop={true}
@@ -30,28 +30,28 @@ function Leftside() {
           <img
             src="/assets/images/outlet/otmain.png"
             alt="Main Image 1"
-            className="w-full h-[500px] object-cover rounded-md"
+            className="w-full md:h-[500px]  h-[400px] object-cover rounded-md"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
             alt="Main Image 2"
-            className="w-full h-[500px] object-cover rounded-md"
+            className="w-full md:h-[500px]  h-[400px] object-cover rounded-md"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
             alt="Main Image 3"
-            className="w-full h-[500px] object-cover rounded-md"
+            className="w-full  md:h-[500px]  h-[400px] object-cover rounded-md"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
             alt="Main Image 4"
-            className="w-full h-[500px] object-cover rounded-md"
+            className="w-full  md:h-[500px]  h-[400px] object-cover rounded-md"
           />
         </SwiperSlide>
       </Swiper>
