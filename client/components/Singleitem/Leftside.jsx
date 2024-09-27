@@ -81,6 +81,7 @@ function Leftside() {
             className="w-[140px] h-[80px] object-cover border border-gray-200 rounded-md"
           />
         </SwiperSlide>
+        {/*test */}
         <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"
