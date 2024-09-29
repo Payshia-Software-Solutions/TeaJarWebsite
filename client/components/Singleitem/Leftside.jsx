@@ -16,7 +16,7 @@ function Leftside() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <div className="container flex flex-col items-center  space-y-4 mt-7">
+    <div className=" flex flex-col items-center  space-y-4 mt-7">
       {/* Main Swiper - Large Image Display */}
       <Swiper
         loop={true}
@@ -89,6 +89,7 @@ function Leftside() {
             className="w-[140px] h-[80px] object-cover border border-gray-200 rounded-md"
           />
         </SwiperSlide>
+        {/*test 02 */}
         <SwiperSlide>
           <img
             src="/assets/images/outlet/otmain.png"

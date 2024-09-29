@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 
 //font import
@@ -71,7 +72,7 @@ function ItemCard() {
 
           <div className={italiana.className}>
             <button className="bg-[#003865] w-full p-3 rounded-sm text-white">
-              Add to Cart
+             <Link href="./Singleitem"> Add to Cart</Link>
             </button>
           </div>
         </div>

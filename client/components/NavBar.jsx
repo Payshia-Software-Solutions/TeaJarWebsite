@@ -75,6 +75,15 @@ function NavBar() {
                   <li>
                     <Link
                       className="text-gray-500 transition hover:text-gray-500/75"
+                      href="/shop"
+                    >
+                     Shop
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      className="text-gray-500 transition hover:text-gray-500/75"
                       href="/about"
                     >
                       About Us

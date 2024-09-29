@@ -1,5 +1,6 @@
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import Shop from "@/components/Shop";
 
 
 function page() {
@@ -12,9 +13,11 @@ function page() {
     { label: "Shop", href: "/shop" },
   ];
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8  mt-[60px]">
-      <Breadcrumb crumbs={crumbs} />
-    </div>
+    <>
+      <div className="container px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 my-5 md:my-20">
+        <Shop />
+      </div>
+    </>
   );
 }
 
