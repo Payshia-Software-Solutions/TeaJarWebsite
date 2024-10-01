@@ -5,22 +5,24 @@ import TopSellerProduct from "@/components/Product/TopSellerProduct";
 import SectionHeader from "@/components/Common/SectionHeader";
 
 // Import Swiper core and required modules
-import { Pagination, A11y, EffectCoverflow } from "swiper/modules";
+import { Pagination, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LazyLoadSection from "@/components/LazyLoadingSection";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-// Import custom styles (can be replaced with local styles if needed)
-import "@/app/globals.css"; 
+// Import custom styles
+import "@/app/globals.css";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 function TopSellers() {
   const [bgColor, setBgColor] = useState("#353D32"); // Initial background color
   const sectionRef = useRef(null);
+  const swiperRef = useRef(null); // To reference the Swiper instance
 
+  // Scroll effect for background color (optional feature)
   useEffect(() => {
     const handleScroll = () => {
       if (sectionRef.current) {
@@ -39,6 +41,19 @@ function TopSellers() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handlers to navigate Swiper slides
+  const handlePrev = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const handleNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+
   return (
     <LazyLoadSection>
       <section
@@ -47,34 +62,38 @@ function TopSellers() {
         className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
       >
         <div className="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <SectionHeader
-              sectionTitle="Top Sellers"
-              sectionHighlight="Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum similique quos fugit nobis labore est voluptate in aliquam voluptates quod nulla, odio repudiandae fugiat, alias eos consectetur, repellendus exercitationem earum!"
-            />
+          {/*Navigation buttons */}
+          <div className="text-center items-center">
+            <SectionHeader sectionTitle="Top Sellers" />
+            <div className="flex gap-4 justify-center p-1 my-3">
+              <button onClick={handlePrev}>
+                <FaArrowLeft className="w-10 h-10 border-2 rounded-full text-white " />
+              </button>
+              <button onClick={handleNext}>
+                <FaArrowRight className="w-10 h-10 border-2 rounded-full text-white " />
+              </button>
+            </div>
           </div>
 
           {/* Swiper setup */}
           <Swiper
+            ref={swiperRef} // Reference to Swiper instance
             slidesPerView={1} // Default view for very small screens
             spaceBetween={20} // Adjust the space between the slides
             pagination={{
               clickable: true,
             }}
             breakpoints={{
-              // For screens >= 576px (small screens like smartphones)
               576: {
-                slidesPerView: 2, // Show 2 slides
+                slidesPerView: 2, // Show 2 slides on small screens
                 spaceBetween: 20,
               },
-              // For screens >= 768px (tablets or medium screens)
               768: {
-                slidesPerView: 3, // Show 3 slides
+                slidesPerView: 3, // Show 3 slides on tablets
                 spaceBetween: 30,
               },
-              // For screens >= 1024px (large screens)
               1024: {
-                slidesPerView: 3, // Show 3 slides with more space between them
+                slidesPerView: 3, // Show 3 slides on larger screens
                 spaceBetween: 40,
               },
             }}
