@@ -1,12 +1,11 @@
-"use client";  //This makes sure the component runs as a client component
+"use client"; //This makes sure the component runs as a client component
 import React, { useState } from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-
 //font import
-import { Italiana, Julius_Sans_One } from "@next/font/google";
+import { Italiana, Julius_Sans_One } from "next/font/google";
 
 const italiana = Italiana({
   weight: "400", // Italiana only comes with regular weight (400)
@@ -41,7 +40,9 @@ function ItemCard() {
       <div className="">
         {/**Product title  */}
         <div className={italiana.className}>
-          <h4 className="text-2xl text-black text-center mt-2 font-semibold py-1">Tea Jar</h4>
+          <h4 className="text-2xl text-black text-center mt-2 font-semibold py-1">
+            Tea Jar
+          </h4>
         </div>
         {/** Product Rating  */}
         <div className="flex justify-center text-black">
@@ -72,7 +73,7 @@ function ItemCard() {
 
           <div className={italiana.className}>
             <button className="bg-[#003865] w-full p-3 rounded-sm text-white">
-             <Link href="./Singleitem"> Add to Cart</Link>
+              <Link href="./Singleitem"> Add to Cart</Link>
             </button>
           </div>
         </div>

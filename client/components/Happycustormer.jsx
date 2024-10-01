@@ -2,7 +2,7 @@
 
 import React from "react";
 import Commentcard from "@/components/CommentCard/Commentcard";
-import { Italiana, Julius_Sans_One } from "@next/font/google";
+import { Italiana, Julius_Sans_One } from "next/font/google";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

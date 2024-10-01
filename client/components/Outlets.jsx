@@ -1,6 +1,5 @@
 import React from "react";
-import { Italiana, Julius_Sans_One } from "@next/font/google";
-
+import { Italiana, Julius_Sans_One } from "next/font/google";
 
 const italiana = Italiana({
   weight: "400", // Italiana only comes with regular weight (400)
@@ -11,7 +10,6 @@ const juliusSansOne = Julius_Sans_One({
   weight: "400", // Julius Sans One only has a regular weight
   subsets: ["latin"],
 });
-
 
 function Outlets() {
   return (

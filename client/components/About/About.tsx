@@ -1,9 +1,6 @@
 import React from "react";
-import { Italiana, Julius_Sans_One } from "@next/font/google";
-import {
-  faCoffee,
-  faArrowCircleDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { Italiana, Julius_Sans_One } from "next/font/google";
+import { faCoffee, faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const italiana = Italiana({
@@ -15,7 +12,6 @@ const juliusSansOne = Julius_Sans_One({
   weight: "400", // Julius Sans One only has a regular weight
   subsets: ["latin"],
 });
-
 
 function About() {
   return (
@@ -41,8 +37,7 @@ function About() {
           <div className={italiana.className}>
             <p className="text-white mt-4 ">
               Read More <br />
-              <button className=''>
-                
+              <button className="">
                 <FontAwesomeIcon
                   icon={faArrowCircleDown}
                   className="w-8 h-8 mt-2"

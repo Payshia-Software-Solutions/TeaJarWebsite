@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Italiana } from "@next/font/google";
+import { Italiana } from "next/font/google";
 import { SlArrowDown } from "react-icons/sl";
 
 const italiana = Italiana({
@@ -15,7 +15,7 @@ function NavBar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -45,9 +45,9 @@ function NavBar() {
   };
 
   // Drop down function
-    const toggleDropdown = (state) => {
-      setIsDropdownVisible(state);
-    };
+  const toggleDropdown = (state) => {
+    setIsDropdownVisible(state);
+  };
 
   return (
     <header

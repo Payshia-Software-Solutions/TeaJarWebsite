@@ -1,5 +1,5 @@
 import React from "react";
-import { Poppins, Inter, M_PLUS_1 } from "@next/font/google";
+import { Poppins, Inter, M_PLUS_1 } from "next/font/google";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"], // You can select multiple weights
@@ -18,8 +18,6 @@ const mPlus1 = M_PLUS_1({
   subsets: ["latin"],
   display: "swap", // This ensures text is visible while fonts load
 });
-
-
 
 function Commentcard() {
   return (
