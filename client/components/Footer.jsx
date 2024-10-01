@@ -1,13 +1,10 @@
 "use client";
 
 import React from "react";
-import { Poppins, Inter, M_PLUS_1 } from "@next/font/google";
-import { fabrandfayoutube} from "@fortawesome/free-solid-svg-icons";
+import { Poppins, Inter, M_PLUS_1 } from "next/font/google";
+import { fabrandfayoutube } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
-
-
-
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"], // Select the font weights you need
@@ -113,7 +110,6 @@ function Footer() {
                 </a>
               </li>
             </ul>
-         
 
             {/* Right Section (Social Media) */}
             <div className="mt-12 flex justify-center lg:justify-end gap-6">

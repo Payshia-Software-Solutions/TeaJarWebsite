@@ -1,9 +1,6 @@
 import React from "react";
-import { Italiana, Julius_Sans_One } from "@next/font/google";
-import {
-  faCoffee,
-  faArrowCircleDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { Italiana, Julius_Sans_One } from "next/font/google";
+import { faCoffee, faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const italiana = Italiana({
@@ -16,12 +13,11 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-
 function About() {
   return (
     <section className="bg-babout text-white">
       <div className="mx-auto max-w-screen-2xl px-8 py-16  sm:px-6 lg:px-96">
-        <div className="text-center">
+        <div className="text-center mt-24">
           <div className={italiana.className}>
             <h1 className="text-[64px] -font-bold text-white">About Us</h1>
           </div>
@@ -41,8 +37,7 @@ function About() {
           <div className={italiana.className}>
             <p className="text-white mt-4 ">
               Read More <br />
-              <button className=''>
-                
+              <button className="">
                 <FontAwesomeIcon
                   icon={faArrowCircleDown}
                   className="w-8 h-8 mt-2"

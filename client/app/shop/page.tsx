@@ -2,7 +2,6 @@ import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import Shop from "@/components/Shop";
 
-
 function page() {
   const crumbs = [
     {
@@ -13,11 +12,9 @@ function page() {
     { label: "Shop", href: "/shop" },
   ];
   return (
-    <>
-      <div className="container px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 my-5 md:my-20">
-        <Shop />
-      </div>
-    </>
+    <div className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 my-5 md:my-20">
+      <Shop />
+    </div>
   );
 }
 
