@@ -107,6 +107,7 @@ function TopSellers() {
                 productName="Apple Flavored Tea Bags"
                 range="Flavoured"
                 miniDescription="A delightful blend of apple and fine Ceylon tea."
+                price="USD 0.3$"
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -116,6 +117,7 @@ function TopSellers() {
                 productName="Cardamom Flavored Tea Bags"
                 range="Flavoured"
                 miniDescription="Aromatic cardamom spices up this black tea."
+                price="USD 0.3$"
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -125,6 +127,7 @@ function TopSellers() {
                 productName="Cinnamon Flavored Tea Bags"
                 range="Flavoured"
                 miniDescription="Sweet and spicy cinnamon flavors blend perfectly with tea."
+                price="USD 0.3$"
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -134,6 +137,7 @@ function TopSellers() {
                 productName="Apple Flavored Tea Bags"
                 range="Flavoured"
                 miniDescription="A delightful blend of apple and fine Ceylon tea."
+                price="USD 0.3$"
               />
             </SwiperSlide>
           </Swiper>

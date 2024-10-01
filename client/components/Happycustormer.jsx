@@ -51,22 +51,52 @@ function Happycustormer() {
           }}
         >
           <SwiperSlide>
-            <Commentcard />
+            <Commentcard
+              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
+              comment="This product is amazing! It exceeded all my expectations and I highly recommend it."
+              time="2 hours ago"
+              custormer="John Doe"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <Commentcard />
+            <Commentcard
+              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
+              comment="Good value for the price. The quality is decent and shipping was fast."
+              time="1 day ago"
+              custormer="Jane Smith"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <Commentcard />
+            <Commentcard
+              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
+              comment="Not very satisfied with the product. It didn’t match the description properly."
+              time="3 days ago"
+              custormer="Michael Johnson"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <Commentcard />
+            <Commentcard
+              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
+              comment="Absolutely love it! Will be purchasing more in the future."
+              time="5 days ago"
+              custormer="Emily Davis"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <Commentcard />
+            <Commentcard
+              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
+              comment="The customer service was helpful, but the product was delayed in shipping."
+              time="1 week ago"
+              custormer="Chris Lee"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <Commentcard />
+            <Commentcard
+              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
+              comment="The customer service was helpful, but the product was delayed in shipping."
+              time="1 week ago"
+              custormer="Chris Lee"
+            />
           </SwiperSlide>
         </Swiper>
       </div>

@@ -1,8 +1,8 @@
 "use client"; // This makes sure the component runs as a client component
 
 import React from "react";
-import ItemCard from "@/components/Common/ItemCard";
-import SideBar from "@/components/SideBar";
+import ItemCard from "@/components/Shop/ItemCard";
+import SideBar from "@/components/Shop/SideBar";
 
 //font import
 import { Italiana, Julius_Sans_One } from "next/font/google";

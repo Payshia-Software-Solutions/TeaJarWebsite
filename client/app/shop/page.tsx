@@ -1,6 +1,6 @@
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
-import Shop from "@/components/Shop";
+import Shop from "@/components/Shop/Shop";
 
 function page() {
   const crumbs = [
