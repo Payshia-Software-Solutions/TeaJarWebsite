@@ -47,7 +47,7 @@ function TopSellers() {
       swiperRef.current.swiper.slidePrev();
     }
   };
-
+  //
   const handleNext = () => {
     if (swiperRef.current) {
       swiperRef.current.swiper.slideNext();
