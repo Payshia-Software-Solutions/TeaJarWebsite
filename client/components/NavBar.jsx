@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Italiana, Julius_Sans_One } from "@next/font/google";
+import { Italiana } from "@next/font/google";
+import { SlArrowDown } from "react-icons/sl";
 
 const italiana = Italiana({
-  weight: "400", // Italiana only comes with regular weight (400)
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -14,10 +15,10 @@ function NavBar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   useEffect(() => {
     if (pathname !== "/") {
-      // If the pathname is not the root directory, ensure the navbar is always visible
       setIsVisible(false);
       return;
     }
@@ -25,10 +26,8 @@ function NavBar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (currentScrollY > lastScrollY) {
-        // Scrolling down
         setIsVisible(false);
       } else {
-        // Scrolling up
         setIsVisible(true);
       }
       setLastScrollY(currentScrollY);
@@ -45,9 +44,14 @@ function NavBar() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Drop down function
+    const toggleDropdown = (state) => {
+      setIsDropdownVisible(state);
+    };
+
   return (
     <header
-      className={`fixed shadow top-0 left-0 w-full bg-navC  transition-transform duration-300 z-50  ${
+      className={`fixed shadow top-0 left-0 w-full bg-navC transition-transform duration-300 z-50 ${
         isVisible ? "-translate-y-full" : "translate-y-0"
       }`}
     >
@@ -71,30 +75,20 @@ function NavBar() {
                       Home
                     </Link>
                   </li>
-
                   <li>
                     <Link
                       className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/shop"
+                      href="./shop"
                     >
-                     Shop
+                      Shop
                     </Link>
                   </li>
-
                   <li>
                     <Link
                       className="text-gray-500 transition hover:text-gray-500/75"
                       href="/about"
                     >
                       About Us
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/shop"
-                    >
-                      Explore
                     </Link>
                   </li>
                   <li>
@@ -112,6 +106,72 @@ function NavBar() {
                     >
                       Contact Us
                     </Link>
+                  </li>
+
+                  {/* Our Tea Dropdown on Hover */}
+                  {/* Our Tea Dropdown */}
+                  <li
+                    className="relative group"
+                    onMouseEnter={() => toggleDropdown(true)}
+                    onMouseLeave={() => toggleDropdown(false)}
+                  >
+                    <button
+                      className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
+                      type="button"
+                    >
+                      Our Teas{" "}
+                      <svg
+                        className="w-2.5 h-2.5 ms-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m1 1 4 4 4-4"
+                        />
+                      </svg>
+                    </button>
+                    {isDropdownVisible && (
+                      <div
+                        id="dropdownDelay"
+                        className="absolute z-10 bg-navC divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                      >
+                        <ul
+                          className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                          aria-labelledby="dropdownDelayButton"
+                        >
+                          <li>
+                            <a
+                              href="#"
+                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            >
+                              Green Tea
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            >
+                              Black Tea
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            >
+                              Herbal Tea
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
                   </li>
                 </ul>
               </nav>
@@ -162,7 +222,6 @@ function NavBar() {
         </div>
 
         {/* Mobile Menu */}
-        {/* Off-canvas menu */}
         <div
           className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 h-screen ${
             isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"

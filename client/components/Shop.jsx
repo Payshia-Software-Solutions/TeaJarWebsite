@@ -42,14 +42,19 @@ function shop() {
           </div>
 
           {/* Grid of items */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
+          <div>
+            <div className={italiana.className}>
+              <h2 className="text-3xl  m-3 font-bold  ">Herbel</h2>
+            </div>
+            <hr className="border-black border-t-2 mx-auto  mb-6" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
+              <ItemCard />
+              <ItemCard />
+              <ItemCard />
+              <ItemCard />
+            </div>
           </div>
         </div>
-       
       </div>
     </section>
   );

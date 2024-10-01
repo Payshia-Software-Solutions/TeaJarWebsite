@@ -24,7 +24,7 @@ export default function Home() {
       <FinestCeylonTea />
       <Outlet />
       <Happycustormer />
-      <Test/>
+  
     </div>
   );
 }
