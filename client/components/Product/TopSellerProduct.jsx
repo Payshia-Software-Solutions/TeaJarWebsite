@@ -33,7 +33,7 @@ function TopSellerProduct({
             {price}
           </p>
 
-          <button className="bg-white rounded-xl p-2 w-full">
+          <button className="bg-white text-black rounded-xl p-2 w-full">
             Add to Cart
           </button>
         </div>

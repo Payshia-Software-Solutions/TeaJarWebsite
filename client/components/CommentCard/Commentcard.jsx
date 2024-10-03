@@ -1,6 +1,8 @@
 import React from "react";
 import { Poppins, Inter, M_PLUS_1 } from "next/font/google";
 import { comment } from "postcss";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"], // You can select multiple weights
@@ -21,12 +23,24 @@ const mPlus1 = M_PLUS_1({
 });
 
 function Commentcard ({
-  comment ,time,custormer,imgUrl
+  comment ,time,custormer,imgUrl,index
 }){
   return (
-    <div className="container max-w-lg mx-auto bg-[#353D32] px-5 py-4 rounded-2xl ">
+    <div className="container max-w-lg mx-auto bg-[#353D32] px-5 py-8 rounded-2xl ">
+      <div className="flex justify-start">
+        <ul className="flex gap-1">
+          {[...Array(5)].map((_, index) => (
+            <li key={index}>
+              <FontAwesomeIcon
+                icon={faStar}
+                className="sm:w-5 sm:h-5 w-4 h-4 text-green-600"
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className={poppins.className}>
-        <p className="text-lg  mb-6  text-white leading-8 mt-8 text-start ">
+        <p className="text-lg  mb-6  text-white leading-8 mt-2 text-start ">
           {comment}
         </p>
       </div>
@@ -34,8 +48,9 @@ function Commentcard ({
       <div className="flex items-center mb-6">
         <img
           src={imgUrl}
-       
-        alt="Avatar" className="w-16 h-16 rounded-full mr-4" />
+          alt="Avatar"
+          className="w-16 h-16 rounded-full mr-4"
+        />
         <div>
           {/* Name */}
           <div className={inter.className}>

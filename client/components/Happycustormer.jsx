@@ -37,7 +37,7 @@ function Happycustormer() {
       </div>
 
       {/* Swiper slider with pagination */}
-      <div className="p-16">
+      <div className="p-14">
         <Swiper
           modules={[Pagination]}
           pagination={{ clickable: true }}

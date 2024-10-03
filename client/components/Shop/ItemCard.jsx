@@ -35,7 +35,7 @@ function ItemCard() {
               : "/assets/products/1/apple.jpg"
           }
           alt="Avatar"
-          className="w-64 h-64 rounded-lg object-cover"
+          className="w-72 h-64 rounded-lg object-cover"
         />
       </div>
       <div className="">
