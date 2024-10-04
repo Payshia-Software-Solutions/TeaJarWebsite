@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import ItemCard from "./Shop/ItemCard";
+import ItemCard from "@/components/Shop/ItemCard";
 //font import
 import { Italiana, Julius_Sans_One } from "next/font/google";
 import { section } from "framer-motion/client";
@@ -16,8 +16,7 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-
-function Test() {
+export default function page() {
   return (
     <section className="container ">
       <div className="bg-gray-100">
@@ -35,7 +34,7 @@ function Test() {
             </div>
           </div>
         </div>
-        {/*Product item here  */}
+        {/*Product items */}
         <div className="p-1 my-3 px-24">
           <div className={italiana.className}>
             <h2 className="text-3xl  m-3 font-bold  ">Green</h2>
@@ -53,5 +52,3 @@ function Test() {
     </section>
   );
 }
-
-export default Test;

@@ -22,7 +22,7 @@ function ItemCard() {
   
 
   return (
-    <div className="container max-w-lg mx-auto bg-gray-100 p-2 rounded-lg">
+    <div className="container max-w-lg mx-auto bg-gray-200 p-2 rounded-lg">
       <div
         className="flex justify-center"
         onMouseEnter={() => setHover(true)}
