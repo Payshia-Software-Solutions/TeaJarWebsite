@@ -30,17 +30,19 @@ export default function page() {
           {/* Centered text over the image */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className={italiana.className}>
-              <h2 className="text-5xl text-white">Green tea</h2>
+              <h2 className="text-5xl lg:text-5xl md:text-4xl sm:text-3xl  text-white">
+                Green tea
+              </h2>
             </div>
           </div>
         </div>
         {/*Product items */}
-        <div className="p-1 my-3 px-24">
+        <div className="p-1 my-3 px-4 lg:px-24">
           <div className={italiana.className}>
-            <h2 className="text-3xl  m-3 font-bold  ">Green</h2>
+            <h2 className="text-3xl lg:text-4xl m-3 font-bold">Green</h2>
           </div>
-          <hr className="border-black border-t-2 mx-auto  mb-6" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 grid-cols-1 gap-6">
+          <hr className="border-black border-t-2 mx-auto mb-6" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             <ItemCard />
             <ItemCard />
             <ItemCard />
