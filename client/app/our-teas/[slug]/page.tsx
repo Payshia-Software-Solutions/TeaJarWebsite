@@ -18,7 +18,7 @@ const juliusSansOne = Julius_Sans_One({
 
 export default function page() {
   return (
-    <section className="container ">
+    <section className=" ">
       <div className="bg-gray-100">
         <div className="relative w-full h-1/3">
           {/* Main image here */}
@@ -30,7 +30,7 @@ export default function page() {
           {/* Centered text over the image */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className={italiana.className}>
-              <h2 className="text-5xl lg:text-5xl md:text-4xl sm:text-3xl  text-white">
+              <h2 className="text-5xl lg:text-5xl md:text-4xl sm:text-3xl text-white">
                 Green tea
               </h2>
             </div>
