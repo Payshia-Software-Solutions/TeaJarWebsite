@@ -15,6 +15,8 @@ function TeaJar() {
   return (
     <section className="mb-0">
       <div className="bg-navC">
+
+        {/*main image  */}
         <div className="pb-6">
           <img
             src="/assets/images/home/tea-jar.png"
@@ -22,7 +24,7 @@ function TeaJar() {
             alt=""
           />
         </div>
-
+         {/*discription  */}
         <div className="text-center text-white p-10 container">
           <div className={juliusSansOne.className}>
             <p className=" font-normal text-[20px] text-center  leading-8 mt-4 ">
@@ -46,10 +48,10 @@ function TeaJar() {
       <div className="bg-babout">
         <div className="p-10 flex justify-center items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center p-4">
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
+            <ImageCard imgURl={"/assets/images/outlet/otmain.png"}/>
+            <ImageCard imgURl={"/assets/images/outlet/otmain.png"}/>
+            <ImageCard imgURl={"/assets/images/outlet/otmain.png"}/>
+            <ImageCard imgURl={"/assets/images/outlet/otmain.png"} />
           </div>
         </div>
       </div>

@@ -31,29 +31,29 @@ function FinestCeylonTea() {
 
       <div className={italiana.className}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 justify-center items-center text-white text-[40px] mt-16">
-          <div className="text-center">
+          <div className="text-center hover:scale-110 duration-200 py-2 my-2">
             <img
               src="/assets/images/fct/fct1.png"
               alt="Ethical Grown"
-              className="object-cover mx-auto"
+              className="object-cover mx-auto w-40 h-40 "
             />
             <p className=" mt-2">Ethical Grown</p>
           </div>
 
-          <div className="text-center">
+          <div className="text-center hover:scale-110 duration-200 py-2 my-2">
             <img
               src="/assets/images/fct/fct2.png"
               alt="Hand Picked"
-              className="object-cover mx-auto"
+              className="object-cover mx-auto w-40 h-40"
             />
             <p className=" mt-2">Hand Picked</p>
           </div>
 
-          <div className="text-center">
+          <div className="text-center hover:scale-110 duration-200 py-2 my-2">
             <img
               src="/assets/images/fct/fct3.png"
               alt="Packaging"
-              className="object-cover mx-auto"
+               className="object-cover mx-auto w-40 h-40"
             />
             <p className=" mt-2">Packaging</p>
           </div>

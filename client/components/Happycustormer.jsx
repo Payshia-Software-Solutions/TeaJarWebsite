@@ -23,6 +23,18 @@ const juliusSansOne = Julius_Sans_One({
 function Happycustormer() {
   return (
     <section className="bg-babout">
+      <style jsx>{`
+        .swiper-pagination {
+          bottom: -20px; /* Move the pagination down */
+        }
+        .swiper-pagination-bullet {
+          background-color: #4ade80; /* Custom bullet color */
+          opacity: 1;
+        }
+        .swiper-pagination-bullet-active {
+          background-color: #22c55e; /* Active bullet color */
+        }
+      `}</style>
       <div className="text-white text-center">
         <div className={italiana.className}>
           <h2 className="text-white text-[40px] font-normal p-4">
@@ -42,15 +54,14 @@ function Happycustormer() {
           modules={[Pagination]}
           pagination={{ clickable: true }}
           spaceBetween={30}
-          // Set different slidesPerView for different screen sizes
-          slidesPerView={1} // Default for smaller screens
+          slidesPerView={1}
           breakpoints={{
-            640: { slidesPerView: 1 }, // For small screens (mobile)
-            768: { slidesPerView: 2 }, // For medium screens (tablet)
-            1024: { slidesPerView: 3 }, // For large screens (desktop)
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
           }}
         >
-          <SwiperSlide>
+          <SwiperSlide className="p-2 mb-6">
             <Commentcard
               imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
               comment="This product is amazing! It exceeded all my expectations and I highly recommend it."
@@ -58,7 +69,7 @@ function Happycustormer() {
               custormer="John Doe"
             />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="p-2 mb-6">
             <Commentcard
               imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
               comment="Good value for the price. The quality is decent and shipping was fast."
@@ -66,7 +77,7 @@ function Happycustormer() {
               custormer="Jane Smith"
             />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="p-2  mb-6">
             <Commentcard
               imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
               comment="Not very satisfied with the product. It didn’t match the description properly."
@@ -74,28 +85,12 @@ function Happycustormer() {
               custormer="Michael Johnson"
             />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="p-2 mb-6">
             <Commentcard
               imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
-              comment="Absolutely love it! Will be purchasing more in the future."
-              time="5 days ago"
-              custormer="Emily Davis"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Commentcard
-              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
-              comment="The customer service was helpful, but the product was delayed in shipping."
-              time="1 week ago"
-              custormer="Chris Lee"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Commentcard
-              imgUrl="https://randomuser.me/api/portraits/men/97.jpg"
-              comment="The customer service was helpful, but the product was delayed in shipping."
-              time="1 week ago"
-              custormer="Chris Lee"
+              comment="Not very satisfied with the product. It didn’t match the description properly."
+              time="3 days ago"
+              custormer="Michael Johnson"
             />
           </SwiperSlide>
         </Swiper>
@@ -105,3 +100,5 @@ function Happycustormer() {
 }
 
 export default Happycustormer;
+
+

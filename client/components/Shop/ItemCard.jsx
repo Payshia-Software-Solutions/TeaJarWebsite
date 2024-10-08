@@ -28,7 +28,8 @@ function ItemCard() {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <img
+   <Link href="./Singleitem">
+   <img
           src={
             hover
               ? "/assets/images/home/tea-cup2.png"
@@ -36,7 +37,7 @@ function ItemCard() {
           }
           alt="Avatar"
           className="w-72 h-64 rounded-lg object-cover"
-        />
+        /></Link>
       </div>
       <div className="">
         {/**Product title  */}

@@ -123,4 +123,16 @@
 }
 
 
+/* Custom CSS to center the Swiper */
+.swiper-wrapper-center {
+  display: flex;
+  justify-content: center; /* Center the Swiper container */
+}
+
+.mySwiper {
+  width: auto; /* Allow Swiper to automatically adjust its width */
+  margin: 0 auto; /* Center it horizontally */
+}
+
+
 
