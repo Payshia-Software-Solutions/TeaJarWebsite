@@ -5,6 +5,7 @@ import ItemCard from "@/components/Shop/ItemCard";
 //font import
 import { Italiana, Julius_Sans_One } from "next/font/google";
 import { section } from "framer-motion/client";
+import OurTeaheader from "@/components/Ourteas/OurTeaheader";
 
 const italiana = Italiana({
   weight: "400", // Italiana only comes with regular weight (400)
@@ -20,22 +21,13 @@ export default function page() {
   return (
     <section className="">
       <div className="bg-gray-100">
-        <div className="relative w-full h-1/3">
-          {/* Main image here */}
-          <img
-            src="/assets/images/home/tea-jar.png"
-            className="w-full h-full rounded-lg object-cover"
-            alt="Green tea"
-          />
-          {/* Centered text over the image */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className={italiana.className}>
-              <h2 className="text-5xl lg:text-5xl md:text-4xl sm:text-3xl text-white">
-                Green tea
-              </h2>
-            </div>
-          </div>
-        </div>
+        <OurTeaheader
+          imgURL={"/assets/images/home/tea-jar.png"}
+          title="Green Tea"
+          Description="Green tea is a popular beverage known for its numerous health benefits. 
+          Rich in antioxidants, it helps boost metabolism and improve brain function. 
+          Regular consumption of green tea can aid in weight loss and reduce the risk of chronic diseases. Its refreshing flavor makes it an excellent choice for a healthy lifestyle."
+        />
         {/*Product items */}
         <div className="p-1 my-3 px-4 lg:px-24">
           <div className={italiana.className}>

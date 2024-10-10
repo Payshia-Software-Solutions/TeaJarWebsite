@@ -19,7 +19,7 @@ const juliusSansOne = Julius_Sans_One({
 
 function shop() {
   return (
-    <section className="bg-whitet">
+    <section className="bg-white">
       {/* Main container */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
         {/* Sidebar */}
