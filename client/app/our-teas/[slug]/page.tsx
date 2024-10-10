@@ -18,7 +18,7 @@ const juliusSansOne = Julius_Sans_One({
 
 export default function page() {
   return (
-    <section className=" ">
+    <section className="">
       <div className="bg-gray-100">
         <div className="relative w-full h-1/3">
           {/* Main image here */}
