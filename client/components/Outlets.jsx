@@ -101,7 +101,7 @@ function Outlets() {
                     ))}
                   </div>
 
-                  {/* Description Section */}
+                  {/* Description Sections */}
                   <div className="bg-[#4A5243] p-4 sm:p-6 lg:p-8 rounded-lg text-white">
                     <motion.div
                       key={activeDescription.title}
