@@ -92,7 +92,7 @@ function Outlets() {
                         key={index}
                         src={`/assets/images/outlet/card${index + 1}.png`}
                         alt={`Thumbnail ${index + 1}`}
-                        className="rounded-lg object-cover w-full h-auto cursor-pointer hover:scale-100 duration-300"
+                        className="rounded-lg object-cover w-full h-auto cursor-pointer hover:scale-y-105 duration-300"
                         onClick={() => {
                           setActiveDescription(desc); // Set the description
                           setMainImage(desc.image); // Set the corresponding main image

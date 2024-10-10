@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumb";
 import OurTeaCard from "@/components/Ourteas/OurTeaCard";
+import OurTeaheader from "@/components/Ourteas/OurTeaheader"
 
 // Font import
 import { Italiana, Julius_Sans_One } from "next/font/google";
@@ -15,6 +16,7 @@ const juliusSansOne = Julius_Sans_One({
   weight: "400", // Julius Sans One only has a regular weight
   subsets: ["latin"],
 });
+
 
 function page() {
   const crumbs = [
@@ -43,6 +45,9 @@ function page() {
               Our Teas
             </h2>
           </div>
+          <p className="">
+        
+          </p>
         </div>
       </div>
 
