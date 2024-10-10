@@ -78,7 +78,7 @@ function NavBar() {
                   <li>
                     <Link
                       className="text-gray-500 transition hover:text-gray-500/75"
-                      href="./shop"
+                      href="/shop"
                     >
                       Shop
                     </Link>
@@ -118,8 +118,8 @@ function NavBar() {
                     <button
                       className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
                       type="button"
-                    >
-                      Our Teas{" "}
+                    ><Link href="/our-teas">Our Teas</Link>
+                      
                       <svg
                         className="w-2.5 h-2.5 ms-3"
                         aria-hidden="true"
@@ -147,7 +147,7 @@ function NavBar() {
                         >
                           <li>
                             <a
-                              href="/our-teas"
+                              href="/our-teas/green"
                               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             >
                               Green Tea
@@ -307,9 +307,10 @@ function NavBar() {
                   </Link>
                 </li>
                 <li>
-                  <Link className=" transition hover:text-gray-500" href="/faq">
-                    FAQ
+                  <Link className=" transition hover:text-gray-500"  href="/our-teas">
+                  Our Teas
                   </Link>
+                  
                 </li>
               </ul>
 

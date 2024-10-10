@@ -19,7 +19,7 @@ function About() {
       <div className="mx-auto max-w-screen-2xl px-8 py-16  sm:px-6 lg:px-96">
         <div className="text-center">
           <div className={italiana.className}>
-            <h1 className="text-[64px] -font-bold text-white">About Us</h1>
+            <h1 className="text-[64px] font-bold mt-10 text-white">About Us</h1>
           </div>
           <div className={juliusSansOne.className}>
             <div className="text-white leading-8 mt-8 ">
