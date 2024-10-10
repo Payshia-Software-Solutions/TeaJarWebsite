@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Italiana } from "next/font/google";
+import { Italiana, Julius_Sans_One } from "next/font/google";
 import { SlArrowDown } from "react-icons/sl";
 
-const italiana = Italiana({
-  weight: "400",
+const juliusSansOne = Julius_Sans_One({
+  weight: "400", // Julius Sans One only has a regular weight
   subsets: ["latin"],
 });
 
@@ -55,7 +55,7 @@ function NavBar() {
         isVisible ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className={italiana.className}>
+      <div className={juliusSansOne.className}>
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
@@ -66,114 +66,117 @@ function NavBar() {
 
             <div className="hidden md:block">
               <nav aria-label="Global">
-                <ul className="flex items-center gap-6 text-sm font-italiana">
-                  <li>
-                    <Link
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/shop"
-                    >
-                      Shop
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/about"
-                    >
-                      About Us
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/blogs"
-                    >
-                      Blogs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/contact"
-                    >
-                      Contact Us
-                    </Link>
-                  </li>
+                <div className={juliusSansOne.className}>
+                  <ul className="flex items-center gap-6 text-sm font-italiana">
+                    
+                    <li>
+                      <Link
+                        className="text-gray-500 transition hover:text-gray-500/75"
+                        href="/"
+                      >
+                        Home
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="text-gray-500 transition hover:text-gray-500/75"
+                        href="/shop"
+                      >
+                        Shop
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="text-gray-500 transition hover:text-gray-500/75"
+                        href="/about"
+                      >
+                        About Us
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="text-gray-500 transition hover:text-gray-500/75"
+                        href="/blogs"
+                      >
+                        Blogs
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="text-gray-500 transition hover:text-gray-500/75"
+                        href="/contact"
+                      >
+                        Contact Us
+                      </Link>
+                    </li>
 
-                
-                  {/* Our Tea Dropdown */}
-                  <li
-                    className="relative group"
-                    onMouseEnter={() => toggleDropdown(true)}
-                    onMouseLeave={() => toggleDropdown(false)}
-                  >
-                    <button
-                      className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
-                      type="button"
-                    ><Link href="/our-teas">Our Teas</Link>
-                      
-                      <svg
-                        className="w-2.5 h-2.5 ms-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 10 6"
+                    {/* Our Tea Dropdown */}
+                    <li
+                      className="relative group"
+                      onMouseEnter={() => toggleDropdown(true)}
+                      onMouseLeave={() => toggleDropdown(false)}
+                    >
+                      <button
+                        className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
+                        type="button"
                       >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="m1 1 4 4 4-4"
-                        />
-                      </svg>
-                    </button>
-                    {isDropdownVisible && (
-                      <div
-                        id="dropdownDelay"
-                        className="absolute z-10 bg-navC divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                      >
-                        <ul
-                          className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                          aria-labelledby="dropdownDelayButton"
+                        <Link href="/our-teas">Our Teas</Link>
+
+                        <svg
+                          className="w-2.5 h-2.5 ms-3"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 10 6"
                         >
-                          <li>
-                            <a
-                              href="/our-teas/green"
-                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                            >
-                              Green Tea
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                            >
-                              Black Tea
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                            >
-                              Herbal Tea
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                  </li>
-                </ul>
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m1 1 4 4 4-4"
+                          />
+                        </svg>
+                      </button>
+                      {isDropdownVisible && (
+                        <div
+                          id="dropdownDelay"
+                          className="absolute z-10 bg-navC divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                        >
+                          <ul
+                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownDelayButton"
+                          >
+                            <li>
+                              <a
+                                href="/our-teas/green"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Green Tea
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Black Tea
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Herbal Tea
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                    </li>
+                  </ul>
+                </div>
               </nav>
             </div>
 
@@ -264,54 +267,62 @@ function NavBar() {
               </div>
 
               <ul className="flex flex-col gap-4 border-b mb-3 pb-3 font-italiana text-white">
-                <li>
-                  <Link className=" transition hover:text-gray-500" href="/">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className=" transition hover:text-gray-500"
-                    href="/our-teas"
-                  >
-                    Our Teas
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className=" transition hover:text-gray-500"
-                    href="/about"
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link className="transition hover:text-gray-500" href="/shop">
-                    Shop
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className=" transition hover:text-gray-500"
-                    href="/blogs"
-                  >
-                    Blogs
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className=" transition hover:text-gray-500"
-                    href="/contact"
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link className=" transition hover:text-gray-500"  href="/our-teas">
-                  Our Teas
-                  </Link>
-                  
-                </li>
+                <div className={juliusSansOne.className}>
+                  <li>
+                    <Link className=" transition hover:text-gray-500" href="/">
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className=" transition hover:text-gray-500"
+                      href="/our-teas"
+                    >
+                      Our Teas
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className=" transition hover:text-gray-500"
+                      href="/about"
+                    >
+                      About
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="transition hover:text-gray-500"
+                      href="/shop"
+                    >
+                      Shop
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className=" transition hover:text-gray-500"
+                      href="/blogs"
+                    >
+                      Blogs
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className=" transition hover:text-gray-500"
+                      href="/contact"
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                      <Link
+                        className=" transition hover:text-gray-500"
+                        href="/our-teas"
+                      >
+                        Our Teas
+                      </Link>
+                    
+                  </li>
+                </div>
               </ul>
 
               <div className="flex justify-between items-center gap-4 mt-5">

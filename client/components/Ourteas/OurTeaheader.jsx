@@ -24,15 +24,19 @@ function OurTeaheader({ imgURL, title, Description }) {
         />
         {/* Centered Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 md:px-8 lg:px-12">
-          <div className={italiana.className}>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white">
-              {title}
-            </h2>
-          </div>
-          <div className={juliusSansOne.className}>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl text-white font-normal mt-3 md:mt-4 leading-relaxed max-w-2xl">
-              {Description}
-            </p>
+          <div
+            className="bg-[rgba(53,61,50,0.80)] px-5 py-5 rounded-2xl"
+          >
+            <div className={italiana.className}>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white">
+                {title}
+              </h2>
+            </div>
+            <div className={juliusSansOne.className}>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl text-white font-normal mt-3 md:mt-4 leading-relaxed max-w-2xl">
+                {Description}
+              </p>
+            </div>
           </div>
         </div>
       </div>

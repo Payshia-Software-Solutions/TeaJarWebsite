@@ -51,8 +51,8 @@ function Outlets() {
   return (
     <section className="relative flex items-center justify-center h-full bg-[#353D32]">
       <div className="relative w-full h-[45rem] m-0">
-       {/* Background Image */}
-       <motion.img
+        {/* Background Image */}
+        <motion.img
           key={mainImage}
           src={mainImage}
           alt=""
@@ -61,7 +61,6 @@ function Outlets() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
         />
-
 
         {/* Gradient overlay */}
         <div
@@ -72,11 +71,7 @@ function Outlets() {
         <div className="absolute top-0 left-0 w-full h-full z-20 flex items-center justify-center py-4">
           <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-center">
-              <div className={italiana.className}>
-                <h2 className="text-[40px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-                  Outlets
-                </h2>
-              </div>
+             
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 w-full max-w-full">
                 {/* Left side: Empty space or image */}
@@ -85,47 +80,54 @@ function Outlets() {
                 </div>
 
                 {/* Right side: Main content */}
-                <div className="flex flex-col justify-between">
-                  <div className="grid grid-cols-3 gap-2 mb-4">
-                    {descriptions.map((desc, index) => (
-                      <img
-                        key={index}
-                        src={`/assets/images/outlet/card${index + 1}.png`}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="rounded-lg object-cover w-full h-auto cursor-pointer hover:scale-y-105 duration-300"
-                        onClick={() => {
-                          setActiveDescription(desc); // Set the description
-                          setMainImage(desc.image); // Set the corresponding main image
-                        }}
-                      />
-                    ))}
+                <div className="   bg-[rgba(53,61,50,0.65)] px-5 py-5 rounded-2xl  opacity-85 ">
+                  <div className={italiana.className}>
+                    <h2 className="text-[40px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+                      Outlets
+                    </h2>
                   </div>
+                  <div className="flex flex-col justify-between ">
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      {descriptions.map((desc, index) => (
+                        <img
+                          key={index}
+                          src={`/assets/images/outlet/card${index + 1}.png`}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="rounded-lg object-cover w-full h-auto cursor-pointer hover:scale-y-105 duration-300"
+                          onClick={() => {
+                            setActiveDescription(desc); // Set the description
+                            setMainImage(desc.image); // Set the corresponding main image
+                          }}
+                        />
+                      ))}
+                    </div>
 
-                  {/* Description Sections */}
-                  <div className="bg-[#4A5243] p-4 sm:p-6 lg:p-8 rounded-lg text-white">
-                    <motion.div
-                      key={activeDescription.title}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.8 }}
-                      className={italiana.className}
-                    >
-                      <h3 className="text-[22px] sm:text-[28px] mb-4">
-                        {activeDescription.title}
-                      </h3>
-                    </motion.div>
+                    {/* Description Sections */}
+                    <div className="bg-[#4A5243] p-4 sm:p-6 lg:p-8 rounded-lg text-white">
+                      <motion.div
+                        key={activeDescription.title}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className={italiana.className}
+                      >
+                        <h3 className="text-[22px] sm:text-[28px] mb-4">
+                          {activeDescription.title}
+                        </h3>
+                      </motion.div>
 
-                    <motion.div
-                      key={activeDescription.description}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.7, delay: 0.2 }}
-                      className={juliusSansOne.className}
-                    >
-                      <p className="leading-7 sm:leading-8">
-                        {activeDescription.description}
-                      </p>
-                    </motion.div>
+                      <motion.div
+                        key={activeDescription.description}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                        className={juliusSansOne.className}
+                      >
+                        <p className="leading-7 sm:leading-8">
+                          {activeDescription.description}
+                        </p>
+                      </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>

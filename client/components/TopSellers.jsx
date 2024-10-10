@@ -65,13 +65,14 @@ function TopSellers() {
           <div className="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
             {/*Navigation buttons */}
             <div className="text-center items-center">
-              <SectionHeader sectionTitle="Top Sellers" />
+              <SectionHeader 
+               sectionTitle="Top Sellers" />
               <div className="flex gap-4 justify-center p-1 my-3">
                 <button onClick={handlePrev}>
-                  <FaArrowLeft className="w-14 h-14 border-2 p-1 rounded-full text-white " />
+                  <FaArrowLeft className="w-14 h-14 border-4 p-2 rounded-full text-white " />
                 </button>
                 <button onClick={handleNext}>
-                  <FaArrowRight className="w-14 h-14 border-2 p-1 rounded-full text-white " />
+                  <FaArrowRight className="w-14 h-14 border-4 p-2 rounded-full text-white " />
                 </button>
               </div>
             </div>
