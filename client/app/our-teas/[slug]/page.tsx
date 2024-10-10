@@ -19,7 +19,7 @@ const juliusSansOne = Julius_Sans_One({
 
 export default function page() {
   return (
-    <section className=" ">
+    <section className="">
       <div className="bg-gray-100">
         <OurTeaheader
           imgURL={"/assets/images/home/tea-jar.png"}
