@@ -51,6 +51,7 @@ function Hero() {
           <img src="/assets/white-logo.png" alt="" className="w-1/2 mx-auto" />
         </div>
       </div>
+
       <div className="flex items-center justify-center">
         <img
           src="./assets/images/tea-cup.png"
