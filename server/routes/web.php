@@ -41,7 +41,7 @@ if (substr($uri, -1) !== '/') {
 // Determine if the application is running on localhost
 if ($_SERVER['HTTP_HOST'] === 'localhost') {
     // Adjust URI if needed (only on localhost)
-    $uri = str_replace('payshia-erp/server', '', $uri);
+    $uri = str_replace('TeaJarWebsite/server', '', $uri);
 } else {
     // Adjust URI if needed (if using a subdirectory)
     $uri = '/' . $uri;
