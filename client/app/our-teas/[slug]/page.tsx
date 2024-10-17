@@ -35,11 +35,13 @@ export default function page() {
           </div>
           <hr className="border-black border-t-2 mx-auto mb-6" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
+            <ItemCard 
+            imgURL ="/assets/products/1/apple.jpg"
+            HoverimgURL =  "/assets/images/home/tea-cup2.png"
+            ProductName = "Green Tea"
+            price = "2020"
+            Rate = "551515"/>
+            
           </div>
         </div>
       </div>

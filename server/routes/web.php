@@ -19,9 +19,17 @@ ini_set('display_errors', 1);
 
 // Include route files
 $ProductMasterRoutes = require './routes/ProductRoutes/ProductMasterRoutes.php';
+$CompanyRoutes = require './routes/CompanyRoutes/Companyroutes.php';
+$CitiesRoutes = require './routes/Citiesroutes.php';
+$Categories = require './routes/CategoriesRoutes.php';
+$MasterCustomer = require './routes/MasterCustomerRoutes.php';
+
+
+
+
 
 // Combine all routes
-$routes = array_merge($ProductMasterRoutes);
+$routes = array_merge($ProductMasterRoutes,$CompanyRoutes,$CitiesRoutes,$Categories,$MasterCustomer);
 
 // Define the home route with trailing slash
 $routes['GET /'] = function () {
@@ -41,7 +49,7 @@ if (substr($uri, -1) !== '/') {
 // Determine if the application is running on localhost
 if ($_SERVER['HTTP_HOST'] === 'localhost') {
     // Adjust URI if needed (only on localhost)
-    $uri = str_replace('payshia-erp/server', '', $uri);
+    $uri = str_replace('TeaJarWebsite/server', '', $uri);
 } else {
     // Adjust URI if needed (if using a subdirectory)
     $uri = '/' . $uri;

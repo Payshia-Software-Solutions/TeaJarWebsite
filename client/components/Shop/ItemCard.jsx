@@ -17,9 +17,8 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-function ItemCard() {
+function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
   const [hover, setHover] = useState(false);
-  
 
   return (
     <div className="container max-w-lg mx-auto bg-gray-200 p-2 rounded-lg">
@@ -28,22 +27,19 @@ function ItemCard() {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-   <Link href="./Singleitem">
-   <img
-          src={
-            hover
-              ? "/assets/images/home/tea-cup2.png"
-              : "/assets/products/1/apple.jpg"
-          }
-          alt="Avatar"
-          className="w-72 h-64 rounded-lg object-cover"
-        /></Link>
+        <Link href="./Singleitem">
+          <img
+            src={hover ?  HoverimgURL: imgURL}
+            alt="Avatar"
+            className="w-72 h-64 rounded-lg object-cover"
+          />
+        </Link>
       </div>
       <div className="">
         {/**Product title  */}
         <div className={italiana.className}>
           <h4 className="text-2xl text-black text-center mt-2 font-semibold py-1">
-            Tea Jar
+            {ProductName}
           </h4>
         </div>
         {/** Product Rating  */}
@@ -61,18 +57,20 @@ function ItemCard() {
         </div>
         {/*Rating */}
         <div className="text-center my-2">
-          <p className="sm:text-[1.2rem] text-md">4.8/5 (510)</p>
+          <p className="sm:text-[1.2rem] text-md">{Rate}</p>
         </div>
         <div className="text-black text-xl text-center">
           {/**price  */}
           <div className="my-1">
-            <h3 className="font-bold">$9.98</h3>
+            <h3 className="font-bold">{price}</h3>
           </div>
 
           <div className={italiana.className}>
-            <button className="bg-[#003865] w-full p-3 rounded-sm text-white">
-              <Link href="shop/green-tea"> Add to Cart</Link>
-            </button>
+            <Link href="shop/green-tea">
+              <button className="bg-[#003865] w-full p-3 rounded-sm text-white">
+                Add to Cart
+              </button>
+            </Link>
           </div>
         </div>
       </div>
