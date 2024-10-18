@@ -27,13 +27,14 @@ $TransactionCancellation = require './routes/Transaction/TransactionCancellation
 $TransactionExpenses = require './routes/Transaction/TransactionExpensesRoutes.php';
 $TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php';// TransactionGoodReceiveNote
 $TransactionGoodReceiveNote = require './routes/Transaction/TransactionGoodReceiveNoteRoutes.php';
-
+$TransactionGoodReceiveNoteItems = require './routes/Transaction/TransactionGoodReceiveNoteItemsRoutes.php';
+$TransactionInvoice = require './routes/Transaction/TransactionInvoiceRoutes.php';
 
 
 
 // Combine all routes
 $routes = array_merge($ProductMasterRoutes,$CompanyRoutes,$CitiesRoutes,$Categories,$MasterCustomer,$TransactionCancellation,
-$TransactionExpenses,$TransactionExpensesTypes,$TransactionGoodReceiveNote
+$TransactionExpenses,$TransactionExpensesTypes,$TransactionGoodReceiveNote,$TransactionGoodReceiveNoteItems,$TransactionInvoice
 );
 
 // Define the home route with trailing slash
