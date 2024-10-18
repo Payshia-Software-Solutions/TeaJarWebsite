@@ -18,7 +18,7 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-// Shop component
+// Backend connection 
 function Shop() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -58,7 +58,7 @@ function Shop() {
             </div>
             <div className={juliusSansOne.className}>
               <p className="m-3 text-sm md:text-base">
-                Your virtual guide to tea! Discover all types of tea, from herbal infusions to black teas and matcha.
+                Your virtual guide to tea! Discover all types of tea, from herbal infusions to black teas and match.
               </p>
             </div>
           </div>
@@ -89,10 +89,10 @@ function Shop() {
             <hr className="border-black border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
               {/* Replace these with actual items or pass default props */}
-              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/path/to/image.jpg" />
-              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/path/to/image.jpg" />
-              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/path/to/image.jpg" />
-              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/path/to/image.jpg" />
+              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/assets/products/1/apple.jpg" />
+              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/assets/products/1/apple.jpg" />
+              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/assets/products/1/apple.jpg" />
+              <ItemCard ProductName="Placeholder Tea" price={500} imgURL="/assets/products/1/apple.jpg" />
             </div>
           </div>
         </div>
