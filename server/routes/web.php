@@ -27,7 +27,7 @@ $MasterCustomer = require './routes/MasterCustomerRoutes.php';
 // Transactions Route files 
 $TransactionCancellation = require './routes/Transaction/TransactionCancellationRoutes.php';
 $TransactionExpenses = require './routes/Transaction/TransactionExpensesRoutes.php';
-$TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php';// TransactionQuotationController
+$TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php';// TransactionRefund
 $TransactionGoodReceiveNote = require './routes/Transaction/TransactionGoodReceiveNoteRoutes.php';
 $TransactionGoodReceiveNoteItems = require './routes/Transaction/TransactionGoodReceiveNoteItemsRoutes.php';
 $TransactionInvoice = require './routes/Transaction/TransactionInvoiceRoutes.php';
@@ -39,11 +39,25 @@ $TransactionPurchaseOrderItem = require './routes/Transaction/TransactionPurchas
 $TransactionQuotation = require './routes/Transaction/TransactionQuotationRoutes.php';
 $TransactionQuotationItem = require './routes/Transaction/TransactionQuotationItemRoutes.php';
 $TransactionReceipt = require './routes/Transaction/TransactionReceiptRoutes.php';
+$TransactionRecipe = require './routes/Transaction/TransactionRecipeRoutes.php';
+$TransactionRefund = require './routes/Transaction/TransactionRefundRoutes.php';
+$TransactionRemovalRemark = require './routes/Transaction/TransactionRemovalRemarkRoutes.php';
+$TransactionReturn = require './routes/Transaction/TransactionReturnRoutes.php';
+$TransactionReturnItems = require './routes/Transaction/TransactionReturnItemsRoutes.php';
+$TransactionStockEntry = require './routes/Transaction/TransactionStockEntryRoutes.php';
+
+//User Routes Files
+$UserAccount = require './routes/User/UserAccountRoutes.php';
+
+
+
+
 // Combine all routes
 $routes = array_merge($ProductMasterRoutes,$CompanyRoutes,$CitiesRoutes,$Categories,$MasterCustomer,$TransactionCancellation,
 $TransactionExpenses,$TransactionExpensesTypes,$TransactionGoodReceiveNote,$TransactionGoodReceiveNoteItems,$TransactionInvoice,$TransactionInvoiceItem,
 $TransactionProduction,$TransactionProductionItems,$TransactionPurchaseOrder,$TransactionPurchaseOrderItem,$TransactionQuotation,
-$TransactionQuotationItem,$TransactionReceipt
+$TransactionQuotationItem,$TransactionReceipt,$TransactionRecipe,$TransactionRefund,$TransactionRemovalRemark,$TransactionReturn,
+$TransactionReturnItems,$TransactionStockEntry,$UserAccount
 
 );
 
