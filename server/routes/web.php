@@ -23,18 +23,28 @@ $CompanyRoutes = require './routes/CompanyRoutes/Companyroutes.php';
 $CitiesRoutes = require './routes/Citiesroutes.php';
 $Categories = require './routes/CategoriesRoutes.php';
 $MasterCustomer = require './routes/MasterCustomerRoutes.php';
+
+// Transactions Route files 
 $TransactionCancellation = require './routes/Transaction/TransactionCancellationRoutes.php';
 $TransactionExpenses = require './routes/Transaction/TransactionExpensesRoutes.php';
-$TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php';// TransactionGoodReceiveNote
+$TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php';// TransactionQuotationController
 $TransactionGoodReceiveNote = require './routes/Transaction/TransactionGoodReceiveNoteRoutes.php';
 $TransactionGoodReceiveNoteItems = require './routes/Transaction/TransactionGoodReceiveNoteItemsRoutes.php';
 $TransactionInvoice = require './routes/Transaction/TransactionInvoiceRoutes.php';
-
-
-
+$TransactionInvoiceItem = require './routes/Transaction/TransactionInvoiceItemRoutes.php';
+$TransactionProduction = require './routes/Transaction/TransactionProductionRoutes.php';
+$TransactionProductionItems = require './routes/Transaction/TransactionProductionItemRoutes.php';
+$TransactionPurchaseOrder = require './routes/Transaction/TransactionPurchaseOrderRoutes.php';
+$TransactionPurchaseOrderItem = require './routes/Transaction/TransactionPurchaseOrderItemRoutes.php';
+$TransactionQuotation = require './routes/Transaction/TransactionQuotationRoutes.php';
+$TransactionQuotationItem = require './routes/Transaction/TransactionQuotationItemRoutes.php';
+$TransactionReceipt = require './routes/Transaction/TransactionReceiptRoutes.php';
 // Combine all routes
 $routes = array_merge($ProductMasterRoutes,$CompanyRoutes,$CitiesRoutes,$Categories,$MasterCustomer,$TransactionCancellation,
-$TransactionExpenses,$TransactionExpensesTypes,$TransactionGoodReceiveNote,$TransactionGoodReceiveNoteItems,$TransactionInvoice
+$TransactionExpenses,$TransactionExpensesTypes,$TransactionGoodReceiveNote,$TransactionGoodReceiveNoteItems,$TransactionInvoice,$TransactionInvoiceItem,
+$TransactionProduction,$TransactionProductionItems,$TransactionPurchaseOrder,$TransactionPurchaseOrderItem,$TransactionQuotation,
+$TransactionQuotationItem,$TransactionReceipt
+
 );
 
 // Define the home route with trailing slash
