@@ -12,7 +12,10 @@ function page() {
     { label: "Shop", href: "/shop" },
   ];
   return (
-    <div className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 my-5 md:my-20">
+    <div
+      className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 my-5 md:my-20 bg-cover bg-repeat "
+      style={{ backgroundImage: "url('/assets/bg-img/leaf-bg.svg')" }}
+    >
       <Shop />
     </div>
   );

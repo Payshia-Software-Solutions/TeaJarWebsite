@@ -17,11 +17,11 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
+function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL, weight }) {
   const [hover, setHover] = useState(false);
 
   return (
-    <div className="container max-w-lg mx-auto bg-gray-200 p-2 rounded-lg">
+    <div className="container max-w-lg mx-auto p-2 rounded-lg">
       <div
         className="flex justify-center"
         onMouseEnter={() => setHover(true)}
@@ -29,7 +29,7 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
       >
         <Link href="./Singleitem">
           <img
-            src={hover ?  HoverimgURL: imgURL}
+            src={hover ? HoverimgURL : imgURL}
             alt="Avatar"
             className="w-72 h-64 rounded-lg object-cover"
           />
@@ -37,10 +37,13 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
       </div>
       <div className="">
         {/**Product title  */}
-        <div className={italiana.className}>
-          <h4 className="text-2xl text-black text-center mt-2 font-semibold py-1">
-            {ProductName}
-          </h4>
+        <div className="mb-4">
+          <div className={italiana.className}>
+            <h4 className="text-2xl text-black text-center mt-2 font-semibold py-1">
+              {ProductName}
+            </h4>
+          </div>
+        
         </div>
         {/** Product Rating  */}
         <div className="flex justify-center text-black">
@@ -56,19 +59,26 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
           </ul>
         </div>
         {/*Rating */}
-        <div className="text-center my-2">
+        <div className="text-center mt-1">
           <p className="sm:text-[1.2rem] text-md">{Rate}</p>
         </div>
         <div className="text-black text-xl text-center">
           {/**price  */}
-          <div className="my-1">
+          <div className="">
             <h3 className="font-bold">{price}</h3>
           </div>
 
           <div className={italiana.className}>
-            <Link href="shop/green-tea">
-              <button className="bg-[#003865] w-full p-3 rounded-sm text-white">
+            <Link href="#">
+              <button className="bg-[#007b84] w-full p-3 rounded-full text-white">
                 Add to Cart
+              </button>
+            </Link>
+          </div>
+          <div className={italiana.className}>
+            <Link href="shop/green-tea">
+              <button className="bg-white text-black w-full p-3 rounded-full  font-semibold my-1 border-black border-2">
+                View Product
               </button>
             </Link>
           </div>
