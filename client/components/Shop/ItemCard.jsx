@@ -17,7 +17,7 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL, weight }) {
+function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
   const [hover, setHover] = useState(false);
 
   return (
