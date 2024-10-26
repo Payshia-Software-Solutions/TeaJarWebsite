@@ -19,7 +19,7 @@ ini_set('display_errors', 1);
 
 // Include route files
 $ProductMasterRoutes = require './routes/ProductRoutes/ProductMasterRoutes.php';
-$CompanyRoutes = require './routes/CompanyRoutes/Companyroutes.php';
+$CompanyRoutes = require './routes/CompanyRoutes/CompanyRoutes.php';
 $CitiesRoutes = require './routes/Citiesroutes.php';
 $Categories = require './routes/CategoriesRoutes.php';
 $MasterCustomer = require './routes/MasterCustomerRoutes.php';
