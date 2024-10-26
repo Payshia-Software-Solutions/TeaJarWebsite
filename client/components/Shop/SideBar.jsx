@@ -39,9 +39,9 @@ function SideBar() {
       <div
         className={`${
           isOpen ? "block" : "hidden"
-        } md:block bg-white p-4  rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
+        } md:block bg-[#353D32] p-4  rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
       >
-        <div className="  ">
+        <div className=" text-white ">
           {/* Tea by Type */}
           <div className="my-3">
             <div className={italiana.className}>
@@ -50,27 +50,27 @@ function SideBar() {
             <div className={juliusSansOne.className}>
               <ul>
                 <li className="my-1">
-                  <button className="text-black text-lg hover:text-gray-300">
+                  <button className=" text-lg hover:text-gray-300">
                     Herbal
                   </button>
                 </li>
                 <li className="my-1">
-                  <button className="text-black text-lg hover:text-gray-300">
+                  <button className=" text-lg hover:text-gray-300">
                     Green
                   </button>
                 </li>
                 <li className="my-1">
-                  <button className="text-black text-lg hover:text-gray-300">
+                  <button className=" text-lg hover:text-gray-300">
                     Black
                   </button>
                 </li>
                 <li className="my-1">
-                  <button className="text-black text-lg hover:text-gray-300">
+                  <button className=" text-lg hover:text-gray-300">
                     White
                   </button>
                 </li>
                 <li className="my-1">
-                  <button className="text-black text-lg hover:text-gray-300">
+                  <button className=" text-lg hover:text-gray-300">
                     Matcha & Powders
                   </button>
                 </li>

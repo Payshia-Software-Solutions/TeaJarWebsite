@@ -13,10 +13,11 @@ const montserratThin = Montserrat({
 
 function ContactForm() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 bg-[#353D32] rounded-xl   text-white">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Side - Contact Information */}
-        <div className="bg-gray-100 p-4 rounded-md shadow-md col-span-1 max-w-full md:max-w-sm md:max-h-96">
+
+        <div className="bg-babout  bg-opacity-50 p-4 rounded-xl shadow-md col-span-1 max-w-full md:max-w-sm md:max-h-96">
           <div className="my-4">
             <div className={montserratThin.className}>
               <h3 className="text-lg font-semibold mb-2 flex items-center">
@@ -58,34 +59,34 @@ function ContactForm() {
               <div className="mt-1">
                 <input
                   type="text"
-                  className="w-full p-3 border border-black rounded-md"
+                  className="w-full p-3 border bg-babout border-black rounded-md"
                   placeholder="Full Name"
                 />
               </div>
               <div className="mt-1">
                 <input
                   type="email"
-                  className="w-full p-3 border border-black rounded-md"
+                  className="w-full p-3 border bg-babout border-black rounded-md"
                   placeholder="Email"
                 />
               </div>
               <div className="mt-1">
                 <input
                   type="text"
-                  className="w-full p-3 border border-black rounded-md"
+                  className="w-full p-3 border bg-babout border-black rounded-md"
                   placeholder="Phone Number"
                 />
               </div>
               <div className="mt-1">
                 <input
                   type="text"
-                  className="w-full p-3 border border-black rounded-md"
+                  className="w-full p-3 border bg-babout border-black rounded-md"
                   placeholder="Subject Topic"
                 />
               </div>
               <div className="mt-1">
                 <textarea
-                  className="w-full p-3 border border-black rounded-md"
+                  className="w-full p-3 border bg-babout border-black rounded-md"
                   rows="5"
                   placeholder="Message"
                 ></textarea>
@@ -110,7 +111,8 @@ function ContactForm() {
                   className="px-6 mt-4 py-3 bg-teal-600 text-white rounded-md"
                 >
                   SEND
-                </button><img src="assets/bg-img/leaf-bg.svg" alt="" />
+                </button>
+                <img src="assets/bg-img/leaf-bg.svg" alt="" />
               </div>
             </div>
           </form>

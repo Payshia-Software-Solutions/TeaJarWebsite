@@ -17,7 +17,7 @@ const italiana = Italiana({
 
 function ContactUs() {
   return (
-    <div className="p-4 md:p-8 lg:p-12">
+    <div className="p-4 md:p-8 lg:p-12 bg-babout text-white">
       {/* Heading */}
       <div className="mb-4 text-center">
         <div className={italiana.className}>

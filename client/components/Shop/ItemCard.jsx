@@ -21,7 +21,10 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
   const [hover, setHover] = useState(false);
 
   return (
-    <div className="container max-w-lg mx-auto p-2 rounded-lg">
+    <div
+      className="container max-w-lg bg-babout bg-opacity-40  mx-auto mt-2 p-4 rounded-lg"
+      
+    >
       <div
         className="flex justify-center"
         onMouseEnter={() => setHover(true)}
@@ -35,18 +38,19 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
           />
         </Link>
       </div>
-      <div className="">
-        {/**Product title  */}
+
+      <div className="text-white">
+        {/* Product title */}
         <div className="mb-4">
           <div className={italiana.className}>
-            <h4 className="text-2xl text-black text-center mt-2 font-semibold py-1">
+            <h4 className="text-2xl text-center mt-2 font-semibold py-1">
               {ProductName}
             </h4>
           </div>
-        
         </div>
-        {/** Product Rating  */}
-        <div className="flex justify-center text-black">
+
+        {/* Product Rating */}
+        <div className="flex justify-center">
           <ul className="flex gap-1">
             {[...Array(5)].map((_, index) => (
               <li key={index}>
@@ -58,12 +62,14 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
             ))}
           </ul>
         </div>
-        {/*Rating */}
+
+        {/* Rating */}
         <div className="text-center mt-1">
           <p className="sm:text-[1.2rem] text-md">{Rate}</p>
         </div>
-        <div className="text-black text-xl text-center">
-          {/**price  */}
+
+        <div className="text-xl text-center">
+          {/* Price */}
           <div className="">
             <h3 className="font-bold">{price}</h3>
           </div>
@@ -75,9 +81,10 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
               </button>
             </Link>
           </div>
+
           <div className={italiana.className}>
             <Link href="shop/green-tea">
-              <button className="bg-white text-black w-full p-3 rounded-full  font-semibold my-1 border-black border-2">
+              <button className="bg-white text-black w-full p-3 rounded-full font-semibold my-1 border-black border">
                 View Product
               </button>
             </Link>

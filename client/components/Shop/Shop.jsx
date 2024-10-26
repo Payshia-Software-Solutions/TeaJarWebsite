@@ -45,7 +45,7 @@ function Shop() {
   }, []);
 
   return (
-    <section className="bg-white bg-cover bg-repeat "
+    <section className=" bg-cover bg-repeat "
     style={{ backgroundImage: "url('/assets/bg-img/leaf-bg.svg')" }}>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
         <div className="md:col-span-3">
@@ -53,7 +53,7 @@ function Shop() {
         </div>
 
         <div className="md:col-span-9">
-          <div className="text-black text-center p-3 bg-gray-200 mb-3">
+          <div className="text-white text-center p-3 bg-[#353D32] mb-3">
             <div className={italiana.className}>
               <h2 className="text-3xl md:text-5xl">Tea by Type</h2>
             </div>
@@ -65,11 +65,11 @@ function Shop() {
             </div>
           </div>
 
-          <div>
+          <div className="bg-[#353D32] bg-opacity-50 rounded-2xl p-4 my-3">
             <div className={italiana.className}>
-              <h2 className="text-3xl m-3 font-bold">Herbal</h2>
+              <h2 className="text-3xl m-3 text-white font-bold">Herbal</h2>
             </div>
-            <hr className="border-black border-t-2 mx-auto mb-6" />
+            <hr className="border-white border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
               {loading && <p>Loading products...</p>}
               {error && <p>{error}</p>}
@@ -85,11 +85,11 @@ function Shop() {
             </div>
           </div>
 
-          <div className="p-1 my-3">
+          <div className="p-4 my-3 bg-[#353D32] bg-opacity-50 rounded-2xl">
             <div className={italiana.className}>
-              <h2 className="text-3xl m-3 font-bold">Green</h2>
+              <h2 className="text-3xl m-3 text-white font-bold">Green</h2>
             </div>
-            <hr className="border-black border-t-2 mx-auto mb-6" />
+            <hr className="border-white border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
               {/* Replace these with actual items or pass default props */}
               <ItemCard
