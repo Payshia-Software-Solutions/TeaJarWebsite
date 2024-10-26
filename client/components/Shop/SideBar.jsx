@@ -39,9 +39,9 @@ function SideBar() {
       <div
         className={`${
           isOpen ? "block" : "hidden"
-        } md:block bg-[#353D32] p-4  rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
+        } md:block p-4  bg-gray-50 bg-opacity-10 rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
       >
-        <div className=" text-white ">
+        <div className=" text-black ">
           {/* Tea by Type */}
           <div className="my-3">
             <div className={italiana.className}>
@@ -77,7 +77,7 @@ function SideBar() {
               </ul>
             </div>
           </div>
-          <hr />
+          <hr className="border-black border-t-2 mx-auto mb-6" />
 
           {/* Rating Filter Section */}
           <div className="mb-6">
@@ -105,7 +105,7 @@ function SideBar() {
               </div>
             </div>
           </div>
-          <hr />
+          <hr className="border-black border-t-2 mx-auto mb-6" />
 
           {/* Ingredients Filter Section */}
           <div className="mb-6">
@@ -137,7 +137,7 @@ function SideBar() {
               </div>
             </div>
           </div>
-          <hr />
+          <hr className="border-black border-t-2 mx-auto mb-6" />
 
           {/* Add other filter sections below */}
         </div>

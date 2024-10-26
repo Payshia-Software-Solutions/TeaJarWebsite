@@ -17,12 +17,12 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
+function OurTeaItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
   const [hover, setHover] = useState(false);
 
   return (
     <div
-      className="container max-w-lg  bg-opacity-40  mx-auto mt-2 p-4 rounded-lg"
+      className="container  max-w-lg  bg-babout bg-opacity-40  mx-auto mt-2 p-4 rounded-lg"
       
     >
       <div
@@ -95,4 +95,4 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
   );
 }
 
-export default ItemCard;
+export default OurTeaItemCard;

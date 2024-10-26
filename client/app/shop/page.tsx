@@ -14,8 +14,12 @@ function Page() {
 
   return (
     <div
-      className="bg-babout bg-cover bg-repeat px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-12 lg:py-16 lg:px-10 md:mt-6"
-      style={{ backgroundImage: "url('/assets/bg-img/leaf-bg.svg')" }}
+      className="  px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-12 lg:py-16 lg:px-10 md:mt-6"
+      style={{
+        backgroundImage: "url('/assets/bg-img/leaf-bg.svg')",
+        backgroundSize: "750px", // Adjust the size of the image here
+        backgroundRepeat: "repeat",
+      }}
     >
       <Breadcrumb crumbs={crumbs} />
       <Shop />

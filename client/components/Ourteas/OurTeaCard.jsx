@@ -69,13 +69,13 @@ function OurTeaCard({ title, imgUrl, description }) {
                 : { opacity: 0, y: 20, scale: 0.95 }
             } // Animate to full size
             transition={{ duration: 0.45 }} // Animation duration for the text
-            className="text-white text-sm leading-relaxed my-4"
+            className="text-white text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed my-4"
           >
-            <p>{description}</p>
+            <p className="">{description}</p>
           </motion.div>
           <div className="flex justify-center">
           <Link href={"/our-teas/green"}>
-            <button className="flex items-center my-2 text-white border border-white px-3 py-1 rounded-lg hover:bg-white hover:text-[#4C5646] transition-all duration-300 ease-in-out">
+            <button className="flex items-center mt-2 mb-4 text-white border border-white px-2 py-1 md:px-3 md:py-2 rounded-lg hover:bg-white hover:text-[#4C5646] transition-all duration-300 ease-in-out">
               Go
               <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
             </button>

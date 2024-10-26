@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import ItemCard from "@/components/Shop/ItemCard";
-//font import
+import OurTeaItemCard from "@/components/Ourteas/OurTeaItemCard"
+// Font import
 import { Italiana, Julius_Sans_One } from "next/font/google";
-import { section } from "framer-motion/client";
 import OurTeaheader from "@/components/Ourteas/OurTeaheader";
 
 const italiana = Italiana({
@@ -19,62 +19,60 @@ const juliusSansOne = Julius_Sans_One({
 
 export default function page() {
   return (
-    <section className="">
-      <div className="bg-[#353D32]">
-        <OurTeaheader
-          imgURL={"/assets/images/home/Tea-jar.png"}
-          title="Green Tea"
-          Description="Green tea is a popular beverage known for its numerous health benefits. 
-          Rich in antioxidants, it helps boost metabolism and improve brain function. 
-          Regular consumption of green tea can aid in weight loss and reduce the risk of chronic diseases. Its refreshing flavor makes it an excellent choice for a healthy lifestyle."
-        />
-        {/*Product items */}
-        <div className="p-1 my-3 px-4 lg:px-24 text-white">
-          <div className={italiana.className}>
-            <h2 className="text-3xl lg:text-4xl m-3 font-bold">Green</h2>
-          </div>
-          <hr className="border-white border-t-2 mx-auto mb-6" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            <ItemCard
-              imgURL="/assets/products/1/apple.jpg"
-              HoverimgURL="/assets/images/home/tea-cup2.png"
-              ProductName="Green Tea"
-              price="2020"
-              Rate="551515"
-            />
+    <section className="bg-[#353D32] text-white">
+      {/* Header Section */}
+      <OurTeaheader
+        imgURL={"/assets/images/home/Tea-jar.png"}
+        title="Green Tea"
+        Description="Green tea is a popular beverage known for its numerous health benefits. 
+        Rich in antioxidants, it helps boost metabolism and improve brain function. 
+        Regular consumption of green tea can aid in weight loss and reduce the risk of chronic diseases. Its refreshing flavor makes it an excellent choice for a healthy lifestyle."
+      />
 
-            <ItemCard
-              imgURL="/assets/products/1/apple.jpg"
-              HoverimgURL="/assets/images/home/tea-cup2.png"
-              ProductName="Green Tea"
-              price="2020"
-              Rate="551515"
-            />
-            <ItemCard
-              imgURL="/assets/products/1/apple.jpg"
-              HoverimgURL="/assets/images/home/tea-cup2.png"
-              ProductName="Green Tea"
-              price="2020"
-              Rate="551515"
-            />
+      {/* Product Items Section */}
+      <div className="p-4 lg:px-24">
+        <div className={italiana.className}>
+          <h2 className="text-3xl lg:text-4xl m-3 font-bold">Green</h2>
+        </div>
+        <hr className="border-white border-t-2 mx-auto mb-6" />
 
-            <ItemCard
-              imgURL="/assets/products/1/apple.jpg"
-              HoverimgURL="/assets/images/home/tea-cup2.png"
-              ProductName="Green Tea"
-              price="2020"
-              Rate="551515"
-            />
-
-            <ItemCard
-              imgURL="/assets/products/1/apple.jpg"
-              HoverimgURL="/assets/images/home/tea-cup2.png"
-              ProductName="Green Tea"
-              price="2020"
-              Rate="551515"
-            />
-          
-          </div>
+        {/* Responsive Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <OurTeaItemCard
+            imgURL="/assets/products/1/apple.jpg"
+            HoverimgURL="/assets/images/home/tea-cup2.png"
+            ProductName="Green Tea"
+            price="2020"
+            Rate="551515"
+          />
+          <OurTeaItemCard
+            imgURL="/assets/products/1/apple.jpg"
+            HoverimgURL="/assets/images/home/tea-cup2.png"
+            ProductName="Green Tea"
+            price="2020"
+            Rate="551515"
+          />
+          <OurTeaItemCard
+            imgURL="/assets/products/1/apple.jpg"
+            HoverimgURL="/assets/images/home/tea-cup2.png"
+            ProductName="Green Tea"
+            price="2020"
+            Rate="551515"
+          />
+          <OurTeaItemCard
+            imgURL="/assets/products/1/apple.jpg"
+            HoverimgURL="/assets/images/home/tea-cup2.png"
+            ProductName="Green Tea"
+            price="2020"
+            Rate="551515"
+          />
+          <OurTeaItemCard
+            imgURL="/assets/products/1/apple.jpg"
+            HoverimgURL="/assets/images/home/tea-cup2.png"
+            ProductName="Green Tea"
+            price="2020"
+            Rate="551515"
+          />
         </div>
       </div>
     </section>
