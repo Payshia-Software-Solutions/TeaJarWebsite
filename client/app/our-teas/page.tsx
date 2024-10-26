@@ -41,7 +41,7 @@ function page() {
         <div className="relative w-full h-1/3">
           {/* Main Image */}
           <img
-            src="/assets/images/home/tea-jar.png"
+            src="/assets/images/home/Tea-jar.png"
             className="w-full h-1/3 rounded-lg object-cover"
             alt="Green tea"
           />

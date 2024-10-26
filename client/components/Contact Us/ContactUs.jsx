@@ -31,7 +31,7 @@ function ContactUs() {
       {/* Image */}
       <div className="w-full h-60 md:h-80 lg:h-96 mt-4">
         <img
-          src="/assets/images/home/tea-jar.png"
+          src="/assets/images/home/Tea-jar.png"
           alt=""
           className="w-full h-full object-cover"
         />

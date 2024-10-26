@@ -22,7 +22,7 @@ export default function page() {
     <section className="">
       <div className="bg-[#353D32]">
         <OurTeaheader
-          imgURL={"/assets/images/home/tea-jar.png"}
+          imgURL={"/assets/images/home/Tea-jar.png"}
           title="Green Tea"
           Description="Green tea is a popular beverage known for its numerous health benefits. 
           Rich in antioxidants, it helps boost metabolism and improve brain function. 

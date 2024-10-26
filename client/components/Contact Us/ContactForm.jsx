@@ -8,16 +8,15 @@ import { Montserrat } from "next/font/google"; // Using Montserrat for thin 100
 const montserratThin = Montserrat({
   weight: "100", // Thin weight (100) for both header and description
   subsets: ["latin"],
-  style: ["italic"], // If you want italic for both
+  style: "italic", // Use a string instead of an array here
 });
 
 function ContactForm() {
   return (
-    <div className="container mx-auto px-4 py-8 bg-[#353D32] rounded-xl   text-white">
+    <div className="container mx-auto px-8 py-8 bg-[#353D32] rounded-xl text-white">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Side - Contact Information */}
-
-        <div className="bg-babout  bg-opacity-50 p-4 rounded-xl shadow-md col-span-1 max-w-full md:max-w-sm md:max-h-96">
+        <div className="bg-babout bg-opacity-50 p-4 rounded-xl shadow-md col-span-1 max-w-full md:max-w-sm md:max-h-96">
           <div className="my-4">
             <div className={montserratThin.className}>
               <h3 className="text-lg font-semibold mb-2 flex items-center">
@@ -91,7 +90,7 @@ function ContactForm() {
                   placeholder="Message"
                 ></textarea>
               </div>
-              <div className=" items-start space-y-2 mt-2">
+              <div className="items-start space-y-2 mt-2">
                 <div>
                   <input type="checkbox" id="newsletter" />
                   <label className="ml-2" htmlFor="newsletter">
@@ -112,7 +111,6 @@ function ContactForm() {
                 >
                   SEND
                 </button>
-                <img src="assets/bg-img/leaf-bg.svg" alt="" />
               </div>
             </div>
           </form>

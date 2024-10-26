@@ -15,7 +15,7 @@ function Page() {
 
   return (
     <div
-      className="px-6 md:px-8 lg:px-24 mt-10 md:mt-16 lg:mt-20 bg-repeat bg-babout"
+      className="px-6 md:px-8 lg:px-24 mt-10 bg-repeat bg-babout"
       style={{ backgroundImage: "url('/assets/bg-img/leaf-bg.svg')" }}
     >
       <Breadcrumb crumbs={crumbs} />

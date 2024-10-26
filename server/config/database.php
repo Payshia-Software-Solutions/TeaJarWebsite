@@ -1,6 +1,6 @@
 <?php
 // config/database.php
-$host = 'localhost';
+$host = '109.70.148.53';
 $db   = 'payshiac_kdu_test';
 $user = 'payshiac';
 $pass = "1999tr@thilina";
