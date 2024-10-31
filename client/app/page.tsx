@@ -14,6 +14,7 @@ import ItemCard from "@/components/Shop/ItemCard";
 import Shop from "@/components/Shop/Shop";
 import SideBar from "@/components/Shop/SideBar";
 import Test from "@/components/Test";
+import Maincart from "@/components/Cart/MainCart"
 
 export default function Home() {
   return (

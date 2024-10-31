@@ -207,7 +207,7 @@ function NavBar() {
               </div>
               <div className="flex">
                 <button
-                  onClick={toggleSidebar} // Toggle the sidebar when clicked
+                  onClick={toggleSidebar}
                   className=" bg-navC  px-5 py-2.5 flex  text-[#2BB32A] border border-[#2BB32A]  rounded-md font-medium"
                 >
                   

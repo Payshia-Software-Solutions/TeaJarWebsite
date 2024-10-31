@@ -1,9 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 function SideBarCard({ name, price, quantity = 1, onRemove, onUpdateQuantity }) {
   const [itemQuantity, setItemQuantity] = useState(quantity);
+  const [totalPrice, setTotalPrice] = useState(price * quantity);
 
+  // Update total price whenever itemQuantity changes
+  useEffect(() => {
+    setTotalPrice(price * itemQuantity);
+  }, [itemQuantity, price]);
+
+  // Handlers for quantity increase and decrease
   const handleIncrease = () => {
     const newQuantity = itemQuantity + 1;
     setItemQuantity(newQuantity);
@@ -19,43 +27,48 @@ function SideBarCard({ name, price, quantity = 1, onRemove, onUpdateQuantity }) 
   };
 
   return (
-    <div className="py-1 bg-gray-100 my-2 border w-80 h-32">
-      <div className="flex items-center justify-center">
+    <div className="py-1 bg-gray-100 my-2 border w-80 h-32 flex flex-col justify-center">
+      <div className="flex items-center justify-around ">
+        {/* Product Image */}
         <img
           src="/assets/products/1/apple.jpg"
           alt="Product Image"
-          className="w-[80px] h-[80px] rounded-xl p-2 mx-2"
+          className="w-[80px] h-[80px] rounded-sm"
         />
-        <div className="flex flex-col">
+
+        {/* Centered Information */}
+        <div className="flex flex-col items-center justify-center text-center space-y-2">
           <span className="text-xl font-semibold">{name}</span>
-          <div className="flex items-center justify-between space-x-2">
-            <div className="flex space-x-2">
+          <div className="flex items-center justify-center space-x-3">
+            {/* Quantity Controls */}
+            <button
+              onClick={handleDecrease}
+              className="bg-gray-300 hover:bg-gray-400 px-2 rounded"
+            >
+              -
+            </button>
+            <span className="text-lg">{itemQuantity}</span>
+            <button
+              onClick={handleIncrease}
+              className="bg-gray-300 hover:bg-gray-400 px-2 rounded"
+            >
+              +
+            </button>
+            <span className="text-sm font-bold">Rs {totalPrice.toFixed(2)}</span>
+
+            <div className="">
               <button
-                onClick={handleDecrease}
-                className="bg-gray-300 hover:bg-gray-400 px-2 rounded"
+                onClick={onRemove}
+                className="text-xl bg-red-600 p-2 text-white flex rounded-sm"
               >
-                -
-              </button>
-              <span>{itemQuantity}</span>
-              <button
-                onClick={handleIncrease}
-                className="bg-gray-300 hover:bg-gray-400 px-2 rounded"
-              >
-                +
+                <RiDeleteBin5Line className="text-center justify-center " />
               </button>
             </div>
-            <span className="text-lg font-bold mr-3">Rs {price}</span>
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          onClick={onRemove}
-          className="text-xl bg-red-600 p-2 w-full text-white rounded-md"
-        >
-          Remove
-        </button>
-      </div>
+
+      {/* Remove Button */}
     </div>
   );
 }

@@ -33,7 +33,7 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
     // Save updated cart back to local storage
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    alert(`${ProductName} has been added to the cart!`);
+   
   };
 
   return (
