@@ -19,7 +19,7 @@ const juliusSansOne = Julius_Sans_One({
 
 export default function page() {
   return (
-    <section className="bg-[#353D32] text-white">
+    <section className="bg-babout text-white">
       {/* Header Section */}
       <OurTeaheader
         imgURL={"/assets/images/home/Tea-jar.png"}

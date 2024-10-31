@@ -1,30 +1,34 @@
-"use client"; //This makes sure the component runs as a client component
+"use client"; // This makes sure the component runs as a client component
 import React, { useState } from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-//font import
+// Font import
 import { Italiana, Julius_Sans_One } from "next/font/google";
 
 const italiana = Italiana({
-  weight: "400", // Italiana only comes with regular weight (400)
+  weight: "400",
   subsets: ["latin"],
 });
 
 const juliusSansOne = Julius_Sans_One({
-  weight: "400", // Julius Sans One only has a regular weight
+  weight: "400",
   subsets: ["latin"],
 });
 
 function OurTeaItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
   const [hover, setHover] = useState(false);
+  const [quantity, setQuantity] = useState(1); // Initialize quantity with 1
+
+  // Function to increase quantity
+  const increaseQuantity = () => setQuantity(quantity + 1);
+
+  // Function to decrease quantity, ensuring it doesn't go below 1
+  const decreaseQuantity = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
 
   return (
-    <div
-      className="container  max-w-lg  bg-babout bg-opacity-40  mx-auto mt-2 p-4 rounded-lg"
-      
-    >
+    <div className="container max-w-lg bg-[#353D32] bg-opacity-40 mx-auto mt-2 p-4 rounded-lg">
       <div
         className="flex justify-center"
         onMouseEnter={() => setHover(true)}
@@ -39,7 +43,7 @@ function OurTeaItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
         </Link>
       </div>
 
-      <div className="text-black">
+      <div className="text-white">
         {/* Product title */}
         <div className="mb-4">
           <div className={italiana.className}>
@@ -71,20 +75,38 @@ function OurTeaItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
         <div className="text-xl text-center">
           {/* Price */}
           <div className="">
-            <h3 className="font-bold">{price}</h3>
+            <h3 className="font-bold">${(price * quantity).toFixed(2)}</h3>
+            <p className="text-sm">Price per item: ${price}</p>
+          </div>
+
+          {/* Quantity Controls */}
+          <div className="flex justify-center gap-4 mt-2">
+            <button
+              onClick={decreaseQuantity}
+              className="bg-gray-300 text-black px-3 py-1 rounded"
+            >
+              -
+            </button>
+            <span className="text-lg font-semibold">{quantity}</span>
+            <button
+              onClick={increaseQuantity}
+              className="bg-gray-300 text-black px-3 py-1 rounded"
+            >
+              +
+            </button>
           </div>
 
           <div className={italiana.className}>
             <Link href="#">
-              <button className="bg-[#007b84] w-full p-3 rounded-full text-white">
+              <button className="bg-[#007b84] w-full p-3 rounded-lg text-white mt-4">
                 Add to Cart
               </button>
             </Link>
           </div>
 
           <div className={italiana.className}>
-            <Link href="shop/green-tea">
-              <button className="bg-white text-black w-full p-3 rounded-full font-semibold my-1 border-black border">
+            <Link href="/Singleitem">
+              <button className="bg-white text-black w-full p-3 rounded-lg font-semibold my-1 border-black border">
                 View Product
               </button>
             </Link>

@@ -45,11 +45,12 @@ function Shop() {
   }, []);
 
   return (
-    <section className=" h-full "
-  >
+    <section className=" h-full ">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
         <div className="md:col-span-3">
-          <SideBar />
+          <div className="sticky top-10">
+            <SideBar />
+          </div>
         </div>
 
         <div className="md:col-span-9">
@@ -77,7 +78,7 @@ function Shop() {
                 <ItemCard
                   key={singleitem.product_code} // Ensure to use a unique key
                   ProductName={singleitem.product_name}
-                  price={"Rs ." + singleitem.selling_price}
+                  price={ + singleitem.selling_price}
                   imgURL={singleitem.image_path}
                   Rate={"(5.6)"}
                 />

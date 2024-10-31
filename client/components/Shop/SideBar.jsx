@@ -1,8 +1,6 @@
 "use client"; // This makes sure the component runs as a client component
 
-import React from "react";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaBars } from "react-icons/fa"; // import an icon for the hamburger menu
 //font import
 import { Italiana, Julius_Sans_One } from "next/font/google";
@@ -35,15 +33,14 @@ function SideBar() {
       </div>
 
       {/* Sidebar */}
-
       <div
         className={`${
           isOpen ? "block" : "hidden"
-        } md:block p-4  bg-gray-50 bg-opacity-10 rounded-md w-full md:w-72 fixed md:relative h-full md:h-auto z-10 md:z-auto`}
+        } md:block p-4 bg-gray-50 bg-opacity-10 rounded-md w-full md:w-72 h-full z-10 sticky top-0`}
       >
         <div className=" text-black ">
           {/* Tea by Type */}
-          <div className="my-3">
+          <div className="my-3 ">
             <div className={italiana.className}>
               <h2 className="text-2xl font-bold my-3">Tea by Type</h2>
             </div>
@@ -110,7 +107,7 @@ function SideBar() {
           {/* Ingredients Filter Section */}
           <div className="mb-6">
             <div className={italiana.className}>
-              <h3 className="text-lg font-semibold mb-2 ">Ingredients</h3>
+              <h3 className="text-lg font-semibold mb-2">Ingredients</h3>
             </div>
             <div className={juliusSansOne.className}>
               <div className="flex flex-col space-y-2">

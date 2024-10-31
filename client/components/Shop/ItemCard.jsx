@@ -1,30 +1,43 @@
-"use client"; //This makes sure the component runs as a client component
+"use client"; // This makes sure the component runs as a client component
 import React, { useState } from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-//font import
+// Font imports
 import { Italiana, Julius_Sans_One } from "next/font/google";
 
 const italiana = Italiana({
-  weight: "400", // Italiana only comes with regular weight (400)
+  weight: "400",
   subsets: ["latin"],
 });
 
 const juliusSansOne = Julius_Sans_One({
-  weight: "400", // Julius Sans One only has a regular weight
+  weight: "400",
   subsets: ["latin"],
 });
 
 function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
   const [hover, setHover] = useState(false);
 
+  // Add to Cart function
+  const addToCart = () => {
+    const cartItem = { ProductName, price, Rate, imgURL };
+
+    // Get existing cart items from local storage or initialize an empty array
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Add the new item to the cart
+    cart.push(cartItem);
+
+    // Save updated cart back to local storage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(`${ProductName} has been added to the cart!`);
+  };
+
   return (
-    <div
-      className="container max-w-lg  bg-opacity-40  mx-auto mt-2 p-4 rounded-lg"
-      
-    >
+    <div className="container max-w-lg bg-opacity-40 mx-auto mt-2 p-4 rounded-lg">
       <div
         className="flex justify-center"
         onMouseEnter={() => setHover(true)}
@@ -70,21 +83,22 @@ function ItemCard({ ProductName, price, Rate, imgURL, HoverimgURL }) {
 
         <div className="text-xl text-center">
           {/* Price */}
-          <div className="">
-            <h3 className="font-bold">{price}</h3>
+          <div>
+            <h3 className="font-bold">Rs .{price}</h3>
           </div>
 
           <div className={italiana.className}>
-            <Link href="#">
-              <button className="bg-[#007b84] w-full p-3 rounded-full text-white">
-                Add to Cart
-              </button>
-            </Link>
+            <button
+              className="bg-[#007b84] w-full p-3 rounded-lg text-white"
+              onClick={addToCart} 
+            >
+              Add to Cart
+            </button>
           </div>
 
           <div className={italiana.className}>
             <Link href="shop/green-tea">
-              <button className="bg-white text-black w-full p-3 rounded-full font-semibold my-1 border-black border">
+              <button className="bg-white text-black w-full p-3 rounded-lg font-semibold my-1 border-black border">
                 View Product
               </button>
             </Link>
