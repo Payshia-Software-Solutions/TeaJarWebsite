@@ -17,6 +17,7 @@ function MainCartCard({ ProductName, price, quantity, onQuantityChange, onRemove
       setItemQuantity(newQuantity);
       onQuantityChange(newQuantity);
     }
+   
   };
 
   return (
@@ -35,16 +36,16 @@ function MainCartCard({ ProductName, price, quantity, onQuantityChange, onRemove
 
       {/* Quantity Controls */}
       <div className="flex items-center space-x-2 sm:mr-4">
-        <button onClick={handleDecrease} className="px-2 py-1 bg-blue-500 rounded text-white">
+        <button onClick={handleDecrease} className="px-2 py-1 rounded bg-gray-100 text-black">
           -
         </button>
         <input
           type="text"
           value={itemQuantity}
           readOnly
-          className="w-10 text-center bg-gray-700 rounded"
+          className="w-10 text-center  rounded"
         />
-        <button onClick={handleIncrease} className="px-2 py-1 bg-blue-500 rounded text-white">
+        <button onClick={handleIncrease} className="px-2 py-1 rounded  bg-gray-100 text-black">
           +
         </button>
       </div>

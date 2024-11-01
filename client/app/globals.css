@@ -150,7 +150,18 @@
   position: relative;
   animation: rise 3s infinite;
   border-radius: 50%;
+
+
 }
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* for Internet Explorer, Edge */
+  scrollbar-width: none;  /* for Firefox */
+}
+
 
 @keyframes rise {
   0% {

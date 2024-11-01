@@ -1,9 +1,9 @@
-// Updated Rightsidebar component
 "use client";
 import React, { useState, useEffect } from "react";
 import SideBarCard from "@/components/Common/SideBarCard";
 import Link from "next/link";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
+import "@/app/globals.css";
 
 function Rightsidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -14,6 +14,17 @@ function Rightsidebar() {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
     calculateSubtotal(savedCart);
+
+    // Add scroll event listener
+    const handleScroll = () => {
+      setIsSidebarOpen(false); // Close sidebar on scroll
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const toggleSidebar = () => {
@@ -39,7 +50,7 @@ function Rightsidebar() {
   const calculateSubtotal = (items) => {
     const total = items.reduce((sum, item) => {
       const price = parseFloat(item.price) || 0; // Ensure price is a number
-      const quantity = parseInt(item.quantity) || 0;
+      const quantity = parseInt(item.quantity) || 1;
       return sum + price * quantity;
     }, 0);
     setSubtotal(total.toFixed(2)); // Sets subtotal with 2 decimal places
@@ -67,15 +78,15 @@ function Rightsidebar() {
           ✕
         </button>
       </div>
-  
+
       <div className="">
         <p className="text-sm text-gray-600 mt-4">
           ADD <span className="text-green-500">$45.06</span> FOR FREE DELIVERY!
         </p>
       </div>
-  
+
       {/* Scrollable Cart Items Container */}
-      <div className="mt-6 max-h-[60vh] overflow-y-auto">
+      <div className="mt-6 max-h-[60vh] overflow-y-auto scrollbar-none" >
         {cartItems.map((item, index) => (
           <SideBarCard
             key={index}
@@ -89,11 +100,11 @@ function Rightsidebar() {
           />
         ))}
       </div>
-  
+
       <hr />
-  
+
       <div className="mt-4">
-        <p className="text-lg font-bold">Subtotal: Rs{subtotal}</p>
+        <p className="text-lg font-bold">Subtotal: Rs {subtotal}</p>
         <Link href="/maincart">
           <button
             onClick={handleViewCart}
