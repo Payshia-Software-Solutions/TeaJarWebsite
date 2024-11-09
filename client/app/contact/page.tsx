@@ -1,7 +1,9 @@
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import ContactUS from "@/components/Contact Us/ContactUs";
+import ContactForm from "@/components/Contact Us/ContactForm";
 
-function page() {
+function Page() {
   const crumbs = [
     {
       label: "Home",
@@ -10,11 +12,17 @@ function page() {
     },
     { label: "Contact Us", href: "/contact" },
   ];
+
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8  mt-[60px]">
+    <div
+      className="px-6 md:px-8 lg:px-24 mt-10 bg-repeat bg-babout"
+      style={{ backgroundImage: "url('/assets/bg-img/leaf-bg.svg')" }}
+    >
       <Breadcrumb crumbs={crumbs} />
+      <ContactUS />
+      <ContactForm />
     </div>
   );
 }
 
-export default page;
+export default Page;

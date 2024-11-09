@@ -1,9 +1,9 @@
 <?php
 // config/database.php
-$host = 'localhost';
-$db   = 'payshia_erp';
-$user = 'root';
-$pass = '';
+$host = '109.70.148.53';
+$db   = 'payshiac_kdu_test';
+$user = 'payshiac';
+$pass = "1999tr@thilina";
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

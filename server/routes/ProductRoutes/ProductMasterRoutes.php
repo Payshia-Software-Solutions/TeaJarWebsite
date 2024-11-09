@@ -1,16 +1,26 @@
 <?php
 
-require_once './controllers/MasterProductController.php';
+require_once './controllers/MasterProductController.php'; // Include the ProductController
 
 // Instantiate the controller
 $pdo = $GLOBALS['pdo'];
-$masterProductController = new MasterProductController($pdo);
+$productController = new ProductController($pdo); // Instantiate the ProductController
 
-// Define routes for master products
+// Define routes for products
 return [
-    'GET /products/' => [$masterProductController, 'getAllRecords'],
-    'GET /products/{product_id}/' => [$masterProductController, 'getRecordById'],
-    'POST /products/' => [$masterProductController, 'createRecord'],
-    'PUT /products/{product_id}/' => [$masterProductController, 'updateRecord'],
-    'DELETE /products/{product_id}/' => [$masterProductController, 'deleteRecord']
+    'GET /products/' => function() use ($productController) {
+        $productController->getAllRecords();
+    },
+    'GET /products/{product_id}/' => function($product_id) use ($productController) { // Pass product_id directly
+        $productController->getRecordById($product_id); // Pass product_id to the method
+    },
+    'POST /products/' => function() use ($productController) {
+        $productController->createRecord();
+    },
+    'PUT /products/{product_id}/' => function($product_id) use ($productController) {
+        $productController->updateRecord($product_id); // Pass product_id directly
+    },
+    'DELETE /products/{product_id}/' => function($product_id) use ($productController) {
+        $productController->deleteRecord($product_id); // Pass product_id directly
+    }
 ];

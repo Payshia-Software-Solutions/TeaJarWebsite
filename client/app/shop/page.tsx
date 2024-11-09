@@ -2,7 +2,7 @@ import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import Shop from "@/components/Shop/Shop";
 
-function page() {
+function Page() {
   const crumbs = [
     {
       label: "Home",
@@ -11,11 +11,20 @@ function page() {
     },
     { label: "Shop", href: "/shop" },
   ];
+
   return (
-    <div className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 my-5 md:my-20">
+    <div
+      className="  px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-12 lg:py-16 lg:px-10 md:mt-6"
+      style={{
+        backgroundImage: "url('/assets/bg-img/leaf-bg.svg')",
+        backgroundSize: "750px", // Adjust the size of the image here
+        backgroundRepeat: "repeat",
+      }}
+    >
+      <Breadcrumb crumbs={crumbs} />
       <Shop />
     </div>
   );
 }
 
-export default page;
+export default Page;

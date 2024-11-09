@@ -1,72 +1,125 @@
-"use client"; // This makes sure the component runs as a client component
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemCard from "@/components/Shop/ItemCard";
 import ProductCard from "@/components/Product/ProductCard";
 import SideBar from "@/components/Shop/SideBar";
+import config from "@/config";
 
-//font import
+// Font imports
 import { Italiana, Julius_Sans_One } from "next/font/google";
 
 const italiana = Italiana({
-  weight: "400", // Italiana only comes with regular weight (400)
+  weight: "400",
   subsets: ["latin"],
 });
 
 const juliusSansOne = Julius_Sans_One({
-  weight: "400", // Julius Sans One only has a regular weight
+  weight: "400",
   subsets: ["latin"],
 });
 
-function shop() {
+// Backend connection
+function Shop() {
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`${config.API_BASE_URL}/products`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        setError("Failed to fetch products");
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
-    <section className="bg-white">
-      {/* Main container */}
+    <section className=" h-full ">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
-        {/* Sidebar */}
         <div className="md:col-span-3">
-          <SideBar />
+          <div className="sticky top-10">
+            <SideBar />
+          </div>
         </div>
 
-        {/* Items section */}
         <div className="md:col-span-9">
-          <div className="text-black text-center p-3 bg-gray-200 mb-3">
+          <div className="text-black text-center p-3  bg-gray-200 mb-3">
             <div className={italiana.className}>
               <h2 className="text-3xl md:text-5xl">Tea by Type</h2>
             </div>
             <div className={juliusSansOne.className}>
               <p className="m-3 text-sm md:text-base">
                 Your virtual guide to tea! Discover all types of tea, from
-                herbal infusions to black teas and matcha.
+                herbal infusions to black teas and match.
               </p>
             </div>
           </div>
 
-          {/* Grid of items */}
-          <div>
+          <div className="bg-gray-100 bg-opacity-10 rounded-2xl p-4 my-3">
             <div className={italiana.className}>
-              <h2 className="text-3xl  m-3 font-bold  ">Herbel</h2>
+              <h2 className="text-3xl m-3 text-black font-bold">Herbal</h2>
             </div>
-            <hr className="border-black border-t-2 mx-auto  mb-6" />
+            <hr className="border-black border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+
+              {loading && <p>Loading products...</p>}
+              {error && <p>{error}</p>}
+              {products.map((singleitem) => (
+                <ProductCard
+                  key={singleitem.product_code} // Ensure to use a unique key
+                  ProductName={singleitem.product_name}
+                  price={ + singleitem.selling_price}
+                  imgURL={singleitem.image_path}
+                  Rate={"(5.6)"}
+                />
+              ))}
             </div>
           </div>
 
-          {/*another item section  */}
-          <div className="p-1 my-3">
+          <div className="p-4 my-3  bg-gray-100 bg-opacity-10 rounded-2xl">
             <div className={italiana.className}>
-              <h2 className="text-3xl  m-3 font-bold  ">Green</h2>
+              <h2 className="text-3xl m-3 text-black font-bold">Green</h2>
             </div>
-            <hr className="border-black border-t-2 mx-auto  mb-6" />
+            <hr className="border-black border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+
+              {/* Replace these with actual items or pass default props */}
+              <ProductCard
+                ProductName="Placeholder Tea"
+                price={500}
+                imgURL="/assets/products/1/apple.jpg"
+                Rate={"(5.6)"}
+              />
+              <ItemCard
+                ProductName="Placeholder Tea"
+                price={500}
+                imgURL="/assets/products/1/apple.jpg"
+                Rate={"(5.6)"}
+              />
+              <ItemCard
+                ProductName="Placeholder Tea"
+                price={500}
+                imgURL="/assets/products/1/apple.jpg"
+                Rate={"(5.6)"}
+              />
+              <ItemCard
+                ProductName="Placeholder Tea"
+                price={500}
+                imgURL="/assets/products/1/apple.jpg"
+                Rate={"(5.6)"}
+              />
             </div>
           </div>
         </div>
@@ -75,4 +128,4 @@ function shop() {
   );
 }
 
-export default shop;
+export default Shop;
