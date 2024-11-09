@@ -1,29 +1,42 @@
 <?php
 
-class Product {
+class Product
+{
     private $pdo;
 
     // Constructor to initialize the PDO connection
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
     // Fetch all products
-    public function getAllProducts() {
+    public function getAllProducts()
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `master_product` ORDER BY `product_id` ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Fetch a single product by ID
-    public function getProductById($id) {
+    public function getProductById($id)
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `product_id` = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    // Fetch a single product by ID
+    public function getRecordBySlug($slug)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `slug` = ?");
+        $stmt->execute([$slug]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // Create a new product
-    public function createProduct($data) {
+    public function createProduct($data)
+    {
         $stmt = $this->pdo->prepare("INSERT INTO `master_product` (
             `product_code`, `product_name`, `display_name`, `name_si`, `name_ti`, 
             `print_name`, `section_id`, `department_id`, `category_id`, `brand_id`, 
@@ -33,7 +46,7 @@ class Product {
             `supplier_list`, `size_id`, `color_id`, `product_description`, `recipe_type`, 
             `barcode`, `expiry_good`, `location_list`, `opening_stock`
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        
+
 
         $stmt->execute([
             $data['product_code'],
@@ -75,7 +88,8 @@ class Product {
     }
 
     // Update an existing product
-    public function updateProduct($id, $data) {
+    public function updateProduct($id, $data)
+    {
         $stmt = $this->pdo->prepare("UPDATE `master_product` SET 
             `product_code` = ?, 
             `product_name` = ?, 
@@ -154,10 +168,10 @@ class Product {
     }
 
     // Delete a product by ID
-    public function deleteProduct($id) {
+    public function deleteProduct($id)
+    {
         $stmt = $this->pdo->prepare("DELETE FROM `master_product` WHERE `product_id` = ?");
         $stmt->execute([$id]);
         return $stmt->rowCount(); // Returns the number of rows deleted
     }
 }
-?>
