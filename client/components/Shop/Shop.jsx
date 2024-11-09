@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import ItemCard from "@/components/Shop/ItemCard";
+import { useRouter } from "next/router";
+
 import ProductCard from "@/components/Product/ProductCard";
 import SideBar from "@/components/Shop/SideBar";
 import config from "@/config";
@@ -73,53 +75,25 @@ function Shop() {
             </div>
             <hr className="border-black border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-
               {loading && <p>Loading products...</p>}
               {error && <p>{error}</p>}
               {products.map((singleitem) => (
                 <ProductCard
                   key={singleitem.product_code} // Ensure to use a unique key
-                  ProductName={singleitem.product_name}
-                  price={ + singleitem.selling_price}
-                  imgURL={singleitem.image_path}
+                  title={singleitem.product_name}
+                  slug={singleitem.slug}
+                  id={singleitem.product_id}
+                  price={+singleitem.selling_price}
+                  images={[
+                    "https://demo.payshia.com/pos-system/assets/images/products/" +
+                      singleitem.product_id +
+                      "/" +
+                      singleitem.image_path,
+                    "/assets/products/1/cardamom.jpg",
+                  ]}
                   Rate={"(5.6)"}
                 />
               ))}
-            </div>
-          </div>
-
-          <div className="p-4 my-3  bg-gray-100 bg-opacity-10 rounded-2xl">
-            <div className={italiana.className}>
-              <h2 className="text-3xl m-3 text-black font-bold">Green</h2>
-            </div>
-            <hr className="border-black border-t-2 mx-auto mb-6" />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-
-              {/* Replace these with actual items or pass default props */}
-              <ProductCard
-                ProductName="Placeholder Tea"
-                price={500}
-                imgURL="/assets/products/1/apple.jpg"
-                Rate={"(5.6)"}
-              />
-              <ItemCard
-                ProductName="Placeholder Tea"
-                price={500}
-                imgURL="/assets/products/1/apple.jpg"
-                Rate={"(5.6)"}
-              />
-              <ItemCard
-                ProductName="Placeholder Tea"
-                price={500}
-                imgURL="/assets/products/1/apple.jpg"
-                Rate={"(5.6)"}
-              />
-              <ItemCard
-                ProductName="Placeholder Tea"
-                price={500}
-                imgURL="/assets/products/1/apple.jpg"
-                Rate={"(5.6)"}
-              />
             </div>
           </div>
         </div>

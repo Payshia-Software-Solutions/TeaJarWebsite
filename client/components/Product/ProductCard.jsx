@@ -33,8 +33,10 @@ const KOKOLogo = () => (
 );
 
 const ProductCard = ({
-  title = "True Turmeric - Vitamin C Glow - Facial Cleansing Foam 150ml",
+  title = "Product Title",
   price = 4800,
+  slug = "",
+  id = "",
   images = [
     "https://images.unsplash.com/photo-1546868871-7041f2a55e12",
     "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
@@ -56,8 +58,8 @@ const ProductCard = ({
   const installmentAmount = Math.round(price / 3);
 
   return (
-    <Link href={"/products/test"}>
-      <div className="max-w-sm overflow-hidden bg-emerald-200 rounded-lg shadow-md group">
+    <Link href={"/products/" + slug}>
+      <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group">
         <div
           className="relative aspect-square cursor-pointer overflow-hidden"
           onMouseEnter={() => setCurrentImageIndex(1)}
