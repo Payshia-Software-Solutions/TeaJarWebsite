@@ -2,6 +2,7 @@
 
 import React from "react";
 import ItemCard from "@/components/Shop/ItemCard";
+import ProductCard from "@/components/Product/ProductCard";
 import SideBar from "@/components/Shop/SideBar";
 
 //font import
@@ -48,10 +49,10 @@ function shop() {
             </div>
             <hr className="border-black border-t-2 mx-auto  mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
             </div>
           </div>
 
@@ -62,10 +63,10 @@ function shop() {
             </div>
             <hr className="border-black border-t-2 mx-auto  mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
             </div>
           </div>
         </div>
