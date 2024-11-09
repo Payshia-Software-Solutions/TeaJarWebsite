@@ -25,9 +25,28 @@ const ProductPage = ({ product }) => {
     { icon: "👍", label: "Non-toxic" },
   ];
 
+  const productName = product.display_name;
+  const price = product.selling_price;
+  const imgUrl = product.image_path;
+  const rate = product.selling_price;
+
+  // Add to Cart function
+  const addToCart = () => {
+    const cartItem = { productName, price, rate, imgUrl };
+
+    // Get existing cart items from local storage or initialize an empty array
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Add the new item to the cart
+    cart.push(cartItem);
+
+    // Save updated cart back to local storage
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
   return (
     <div>
-      <div className="max-w-7xl mx-auto px-4 py-8 mt-20">
+      <div className="max-w-7xl mx-auto px-4 py-8 mt-28">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left Column - Images */}
           <div className="space-y-4">
@@ -108,10 +127,16 @@ const ProductPage = ({ product }) => {
             </div>
 
             <div className="space-y-4">
-              <button className="w-full bg-white border-2 border-black text-black py-3 rounded-md hover:bg-gray-50">
+              <button
+                className="w-full bg-white border-2 border-black text-black py-3 rounded-md hover:bg-gray-50"
+                onClick={addToCart}
+              >
                 Add to cart
               </button>
-              <button className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800">
+              <button
+                className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800"
+                onClick={addToCart}
+              >
                 Buy it now
               </button>
             </div>
@@ -150,7 +175,7 @@ const ProductPage = ({ product }) => {
           </div>
         </div>
 
-        <div className="mt-20">
+        <div className="mt-20 border-t">
           <ReviewSection />
         </div>
       </div>

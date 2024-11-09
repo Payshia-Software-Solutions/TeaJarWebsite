@@ -42,7 +42,7 @@
 
 #nprogress .bar {
   background: #29d;
-  height: 10px;
+  height: 3px;
 }
 
 #nprogress .spinner-icon {
@@ -157,9 +157,12 @@
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-none {
-  -ms-overflow-style: none;  /* for Internet Explorer, Edge */
-  scrollbar-width: none;  /* for Firefox */
+  -ms-overflow-style: none;
+  /* for Internet Explorer, Edge */
+  scrollbar-width: none;
+  /* for Firefox */
 }
 
 
