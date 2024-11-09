@@ -103,4 +103,15 @@ class ProductController
         $this->model->deleteProduct($product_id);
         echo json_encode(['message' => 'Product deleted successfully']);
     }
+
+    // Method to generate a slug if not present
+    public function generateSlug($product_id)
+    {
+        $slug = $this->model->createSlugIfNotExists($product_id);
+        if ($slug) {
+            echo json_encode(["message" => "Slug created/updated successfully", "slug" => $slug]);
+        } else {
+            echo json_encode(["message" => "Product not found or slug already exists"]);
+        }
+    }
 }

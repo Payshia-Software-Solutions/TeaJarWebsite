@@ -174,4 +174,54 @@ class Product
         $stmt->execute([$id]);
         return $stmt->rowCount(); // Returns the number of rows deleted
     }
+
+    // Function to create a unique slug for a product if not available
+    public function createSlugIfNotExists($id)
+    {
+        // Fetch the product to check if a slug exists
+        $product = $this->getProductById($id);
+        if ($product && empty($product['slug'])) {
+            $slug = $this->generateSlug($product['product_name']);
+
+            // Ensure the slug is unique by appending an index if necessary
+            $slug = $this->ensureUniqueSlug($slug);
+
+            // Update the product with the generated slug
+            $stmt = $this->pdo->prepare("UPDATE `master_product` SET `slug` = ? WHERE `product_id` = ?");
+            $stmt->execute([$slug, $id]);
+
+            return $slug; // Return the generated slug
+        }
+
+        return $product ? $product['slug'] : null; // Return existing slug or null if product not found
+    }
+
+    // Generate a slug from the product name
+    private function generateSlug($name)
+    {
+        // Convert name to lowercase, replace spaces with hyphens, and remove special characters
+        return preg_replace('/[^a-z0-9-]+/', '', strtolower(str_replace(' ', '-', $name)));
+    }
+
+    // Ensure the slug is unique
+    private function ensureUniqueSlug($slug)
+    {
+        $originalSlug = $slug;
+        $counter = 1;
+
+        while ($this->isSlugExists($slug)) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
+    }
+
+    // Check if the slug already exists in the database
+    private function isSlugExists($slug)
+    {
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM `master_product` WHERE `slug` = ?");
+        $stmt->execute([$slug]);
+        return $stmt->fetchColumn() > 0;
+    }
 }

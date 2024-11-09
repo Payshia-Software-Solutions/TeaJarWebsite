@@ -15,7 +15,7 @@ return [
         $productController->getRecordById($product_id); // Pass product_id to the method
     },
     'GET /products/get-by-slug/{slug}/' => function ($slug) use ($productController) { // Pass product_id directly
-        $productController->getRecordBySlug($slug); // Pass product_id to the method
+        $productController->getRecordBySlug($slug); // Pass product_slug to the method
     },
     'POST /products/' => function () use ($productController) {
         $productController->createRecord();
@@ -25,5 +25,9 @@ return [
     },
     'DELETE /products/{product_id}/' => function ($product_id) use ($productController) {
         $productController->deleteRecord($product_id); // Pass product_id directly
+    },
+    // New route for generating a slug if not present
+    'POST /products/generate-slug/{product_id}/' => function ($product_id) use ($productController) {
+        $productController->generateSlug($product_id); // Call method to create a slug
     }
 ];
