@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ItemCard from "@/components/Shop/ItemCard";
+import ProductCard from "@/components/Product/ProductCard";
 import SideBar from "@/components/Shop/SideBar";
 import config from "@/config";
 
@@ -72,10 +73,11 @@ function Shop() {
             </div>
             <hr className="border-black border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
+
               {loading && <p>Loading products...</p>}
               {error && <p>{error}</p>}
               {products.map((singleitem) => (
-                <ItemCard
+                <ProductCard
                   key={singleitem.product_code} // Ensure to use a unique key
                   ProductName={singleitem.product_name}
                   price={ + singleitem.selling_price}
@@ -92,8 +94,9 @@ function Shop() {
             </div>
             <hr className="border-black border-t-2 mx-auto mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
+
               {/* Replace these with actual items or pass default props */}
-              <ItemCard
+              <ProductCard
                 ProductName="Placeholder Tea"
                 price={500}
                 imgURL="/assets/products/1/apple.jpg"

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import TopSellerProduct from "@/components/Product/TopSellerProduct";
+import ProductCard from "@/components/Product/ProductCard";
 import SectionHeader from "@/components/Common/SectionHeader";
 
 // Import Swiper core and required modules
@@ -62,11 +63,10 @@ function TopSellers() {
           style={{ backgroundColor: bgColor }}
           className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
         >
-          <div className="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-full px-4 py-16 sm:px-6">
             {/*Navigation buttons */}
-            <div className="text-center items-center">
-              <SectionHeader 
-               sectionTitle="Top Sellers" />
+            <div className="text-center items-center mb-10">
+              <SectionHeader sectionTitle="Shop Our Best Selling Categories" />
               <div className="flex gap-4 justify-center p-1 my-3">
                 <button onClick={handlePrev}>
                   <FaArrowLeft className="w-14 h-14 border-4 p-2 rounded-full text-white " />
@@ -82,7 +82,7 @@ function TopSellers() {
               <Swiper
                 ref={swiperRef} // Reference to Swiper instance
                 slidesPerView={1} // Default view for very small screens
-                spaceBetween={30} // Adjust the space between the slides
+                spaceBetween={0} // Adjust the space between the slides
                 pagination={{
                   clickable: true,
                 }}
@@ -90,72 +90,135 @@ function TopSellers() {
                 breakpoints={{
                   576: {
                     slidesPerView: 2, // Show 2 slides on small screens
-                    spaceBetween: 20,
+                    spaceBetween: 0,
                   },
                   768: {
                     slidesPerView: 3, // Show 3 slides on tablets
-                    spaceBetween: 30,
+                    spaceBetween: 0,
                   },
                   1024: {
-                    slidesPerView: 4, // Show 4 slides on larger screens
-                    spaceBetween: 40,
+                    slidesPerView: 5, // Show 4 slides on larger screens
+                    spaceBetween: 0,
                   },
                 }}
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
                 className="mySwiper"
               >
-                <SwiperSlide  className="p-2 mb-6">
-                  <TopSellerProduct
+                <SwiperSlide className="p-2 mb-6">
+                  <ProductCard
                     className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/apple.jpg"
-                    productName="Apple Flavored Tea Bags"
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
                     range="Flavoured"
                     miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price="USD 0.3$"
-                  />
-                </SwiperSlide >
-                <SwiperSlide className="p-2 mb-6">
-                  <TopSellerProduct
-                    className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/cardamom.jpg"
-                    productName="Cardamom Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="Aromatic cardamom spices up this black tea."
-                    price="USD 0.3$"
+                    price={4800}
                   />
                 </SwiperSlide>
                 <SwiperSlide className="p-2 mb-6">
-                  <TopSellerProduct
+                  <ProductCard
                     className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/cinnamon.jpg"
-                    productName="Cinnamon Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="Sweet and spicy cinnamon flavors blend perfectly with tea."
-                    price="USD 0.3$"
-                  />
-                </SwiperSlide >
-                <SwiperSlide className="p-2 mb-6">
-                  <TopSellerProduct
-                    className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/apple.jpg"
-                    productName="Apple Flavored Tea Bags"
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
                     range="Flavoured"
                     miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price="USD 0.3$"
+                    price={4800}
                   />
                 </SwiperSlide>
-
-                <SwiperSlide  className="p-2 mb-6">
-                  <TopSellerProduct
+                <SwiperSlide className="p-2 mb-6">
+                  <ProductCard
                     className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/apple.jpg"
-                    productName="Apple Flavored Tea Bags"
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
                     range="Flavoured"
                     miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price="USD 0.3$"
+                    price={4800}
+                  />
+                </SwiperSlide>
+                <SwiperSlide className="p-2 mb-6">
+                  <ProductCard
+                    className="top-seller-product w-64 h-64 "
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
+                    range="Flavoured"
+                    miniDescription="A delightful blend of apple and fine Ceylon tea."
+                    price={4800}
+                  />
+                </SwiperSlide>
+                <SwiperSlide className="p-2 mb-6">
+                  <ProductCard
+                    className="top-seller-product w-64 h-64 "
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
+                    range="Flavoured"
+                    miniDescription="A delightful blend of apple and fine Ceylon tea."
+                    price={4800}
+                  />
+                </SwiperSlide>
+                <SwiperSlide className="p-2 mb-6">
+                  <ProductCard
+                    className="top-seller-product w-64 h-64 "
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
+                    range="Flavoured"
+                    miniDescription="A delightful blend of apple and fine Ceylon tea."
+                    price={4800}
+                  />
+                </SwiperSlide>
+                <SwiperSlide className="p-2 mb-6">
+                  <ProductCard
+                    className="top-seller-product w-64 h-64 "
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
+                    range="Flavoured"
+                    miniDescription="A delightful blend of apple and fine Ceylon tea."
+                    price={4800}
+                  />
+                </SwiperSlide>
+                <SwiperSlide className="p-2 mb-6">
+                  <ProductCard
+                    className="top-seller-product w-64 h-64 "
+                    images={[
+                      "/assets/products/1/apple.jpg",
+                      "/assets/products/1/cardamom.jpg",
+                    ]}
+                    title="Apple Flavored Tea Bags"
+                    range="Flavoured"
+                    miniDescription="A delightful blend of apple and fine Ceylon tea."
+                    price={4800}
                   />
                 </SwiperSlide>
               </Swiper>
+            </div>
+
+            <div className="flex flex-wrap justify-center items-center mt-6">
+              <button
+                className="px-6 py-2 text-sm font-medium text-white-700 transition-all duration-200 
+                     border border-gray-200 rounded-md hover:bg-gray-50 hover:text-gray-900 
+                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200"
+              >
+                View All
+              </button>
             </div>
           </div>
         </section>

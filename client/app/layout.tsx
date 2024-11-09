@@ -4,7 +4,7 @@ import { Ubuntu } from "next/font/google";
 import { Inter as InterFont } from "next/font/google"; // Renamed to InterFont
 import "./globals.css";
 import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import DetailedFooter from "@/components/Common/DetailedFooter";
 import LoadingBar from "@/components/LoadingBar";
 
 // Specify the font weights you want to use
@@ -37,7 +37,7 @@ export default function RootLayout({
         <LoadingBar />
         <NavBar />
         {children}
-        <Footer />
+        <DetailedFooter />
       </body>
     </html>
   );
