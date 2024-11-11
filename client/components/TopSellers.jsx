@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import TopSellerProduct from "@/components/Product/TopSellerProduct";
 import ProductCard from "@/components/Product/ProductCard";
 import SectionHeader from "@/components/Common/SectionHeader";
+import Link from "next/link";
 
 // Import Swiper core and required modules
 import { Pagination, A11y } from "swiper/modules";
@@ -63,7 +64,7 @@ function TopSellers() {
           style={{ backgroundColor: bgColor }}
           className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
         >
-          <div className="mx-auto max-w-full px-4 py-16 sm:px-6">
+          <div className="container px-4 py-16 sm:px-6 mx-auto">
             {/*Navigation buttons */}
             <div className="text-center items-center mb-10">
               <SectionHeader sectionTitle="Shop Our Best Selling Categories" />
@@ -212,13 +213,15 @@ function TopSellers() {
             </div>
 
             <div className="flex flex-wrap justify-center items-center mt-6">
-              <button
-                className="px-6 py-2 text-sm font-medium text-white-700 transition-all duration-200 
+              <Link href="shop">
+                <button
+                  className="px-6 py-2 text-sm font-medium text-white-700 transition-all duration-200 
                      border border-gray-200 rounded-md hover:bg-gray-50 hover:text-gray-900 
                      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200"
-              >
-                View All
-              </button>
+                >
+                  View All
+                </button>
+              </Link>
             </div>
           </div>
         </section>

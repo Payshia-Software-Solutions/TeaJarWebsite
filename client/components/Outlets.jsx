@@ -23,7 +23,7 @@ function Outlets() {
 
   // State to manage the currently displayed main image
   const [mainImage, setMainImage] = useState(
-    "/assets/images/outlet/otmain.png"
+    "/assets/outlets/exterior-of-tea-jar-lounge.jpg"
   );
 
   // Array of descriptions for each thumbnail
@@ -32,7 +32,7 @@ function Outlets() {
       title: "Tea Jar Lounge",
       description:
         "Tea Jar Lounge in Nuwaraeliya offers a cozy retreat for tea lovers, serving a wide range of premium Ceylon teas in a relaxing ambiance. Enjoy handcrafted brews, delicious snacks, and local delicacies while surrounded by the serene beauty of Sri Lanka’s gem city. Perfect for unwinding with friends or a quiet solo escape.",
-      image: "/assets/images/outlet/card1.jpg",
+      image: "/assets/outlets/exterior-of-tea-jar-lounge.jpg",
     },
     {
       title: "Coffee Haven",
@@ -71,8 +71,6 @@ function Outlets() {
         <div className="absolute top-0 left-0 w-full h-full z-20 flex items-center justify-center py-4">
           <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-center">
-             
-
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 w-full max-w-full">
                 {/* Left side: Empty space or image */}
                 <div className="lg:m-0  mt-24">
@@ -83,7 +81,7 @@ function Outlets() {
                 <div className="   bg-[rgba(53,61,50,0.65)] px-5 py-5 rounded-2xl  opacity-85 ">
                   <div className={italiana.className}>
                     <h2 className="text-[40px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-                      Outlets
+                      Find your nearest Store
                     </h2>
                   </div>
                   <div className="flex flex-col justify-between ">

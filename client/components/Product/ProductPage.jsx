@@ -3,13 +3,28 @@ import React, { useState } from "react";
 import { Star, Minus, Plus } from "lucide-react";
 import ReviewSection from "@/components/Product/ReviewSection";
 import Subscribe from "@/components/Common/Subscribe";
+import Link from "next/link";
+
+const KOKOLogo = () => (
+  <Link
+    href={`https://paykoko.com/customer-education`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex"
+  >
+    <img
+      className="relative h-5 w-auto mt-0 top-[3px]"
+      src="https://paykoko.com/img/logo1.7ff549c0.png"
+      alt="Koko"
+    />
+  </Link>
+);
 
 const ProductPage = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-
   const images = product.images || [
-    "https://demo.payshia.com/pos-system/assets/images/products/" +
+    "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
       product.product_id +
       "/" +
       product.image_path,
@@ -82,7 +97,7 @@ const ProductPage = ({ product }) => {
           <div className="space-y-6">
             <div>
               <p className="text-sm text-gray-500">
-                {product.brand || "Brand Name"}
+                {product.department_id || "Category"}
               </p>
               <h1 className="text-3xl font-bold mt-1">
                 {product.display_name || "Product Name"}
@@ -102,9 +117,10 @@ const ProductPage = ({ product }) => {
             </div>
 
             <div className="text-xl font-bold">
-              Rs {product.price}
+              Rs {product.selling_price}
               <p className="text-sm font-normal text-gray-600">
-                or 3 x Rs {Math.round(product.price / 3)} with Koko
+                or 3 x Rs {Math.round(product.selling_price / 3)} with{" "}
+                <KOKOLogo />
               </p>
             </div>
 
@@ -154,28 +170,28 @@ const ProductPage = ({ product }) => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
 
-            <div className="bg-white rounded-lg shadow-md">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Good to Know</h2>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium mb-2">Detailed Description</h3>
-                    <p className="text-sm text-gray-600">
-                      {product.detailedDescription}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-medium mb-2">How To Use</h3>
-                    <p className="text-sm text-gray-600">{product.howToUse}</p>
-                  </div>
-                </div>
+        <div className="bg-white rounded-lg shadow-md mt-10">
+          <div className="p-6">
+            <h2 className="text-xl font-semibold mb-4">Good to Know</h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-medium mb-2">Detailed Description</h3>
+                <p className="text-sm text-gray-600">
+                  {product.product_description}
+                </p>
+              </div>
+              <div>
+                <h3 className="font-medium mb-2">How To Use</h3>
+                <p className="text-sm text-gray-600">{product.how_to_use}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-20 border-t">
+        <div className="mt-10 border-t">
           <ReviewSection />
         </div>
       </div>

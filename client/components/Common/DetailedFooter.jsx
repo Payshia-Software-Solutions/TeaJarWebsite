@@ -1,29 +1,29 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    'Our Story': [
-      { title: 'The Tea Jar Story', href: '/about' },
-      { title: 'Our Tea Heritage', href: '/heritage' },
-      { title: 'Sustainable Sourcing', href: '/sustainability' },
-      { title: 'Tea Growing Regions', href: '/regions' }
+    "Our Story": [
+      { title: "The Tea Jar Story", href: "/about" },
+      { title: "Our Tea Heritage", href: "/heritage" },
+      { title: "Sustainable Sourcing", href: "/sustainability" },
+      { title: "Tea Growing Regions", href: "/regions" },
     ],
-    'Our Policies': [
-      { title: 'Privacy Policy', href: '/privacy' },
-      { title: 'Refund Policy', href: '/refund' },
-      { title: 'Terms of Service', href: '/terms' },
-      { title: 'Shipping Policy', href: '/shipping' }
+    "Our Policies": [
+      { title: "Privacy Policy", href: "/privacy" },
+      { title: "Refund Policy", href: "/refund" },
+      { title: "Terms of Service", href: "/terms" },
+      { title: "Shipping Policy", href: "/shipping" },
     ],
-    'Quick Links': [
-      { title: 'Search', href: '/search' },
-      { title: 'Contact', href: '/contact' },
-      { title: 'Store Locator', href: '/stores' },
-      { title: 'Tea Menu', href: '/menu' },
-      { title: 'Wholesale Program', href: '/wholesale' },
-      { title: 'Tea Education', href: '/education' }
-    ]
+    "Quick Links": [
+      { title: "Search", href: "/search" },
+      { title: "Contact", href: "/contact" },
+      { title: "Store Locator", href: "/stores" },
+      { title: "Tea Menu", href: "/menu" },
+      { title: "Wholesale Program", href: "/wholesale" },
+      { title: "Tea Education", href: "/education" },
+    ],
   };
 
   return (
@@ -54,7 +54,8 @@ const Footer = () => {
             <h3 className="text-white font-serif text-lg mb-4">Tea Jar</h3>
             <div className="space-y-4 text-sm">
               <p>
-                Corporate Office: 123 Tea Garden Road,<br />
+                Corporate Office: 123 Tea Garden Road,
+                <br />
                 Kandy, Sri Lanka
               </p>
 
@@ -70,10 +71,7 @@ const Footer = () => {
 
               <div>
                 <p className="font-medium mb-2">Tea Tasting Sessions:</p>
-                <a 
-                  href="/tea-tasting" 
-                  className="text-white hover:underline"
-                >
+                <a href="/tea-tasting" className="text-white hover:underline">
                   Click Here For Available Slots
                 </a>
               </div>
@@ -86,14 +84,14 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
             <p>© {currentYear} Tea Jar. All rights reserved.</p>
             <div className="flex items-center gap-2">
-              <span>Handcrafted by</span>
-              <a 
-                href="https://example.com" 
+              <span>Powered by</span>
+              <a
+                href="https://example.com"
                 className="text-white hover:underline"
-                target="_blank" 
+                target="_blank"
                 rel="noopener noreferrer"
               >
-                Your Agency Name
+                Payshia Software Solutions
               </a>
             </div>
           </div>
