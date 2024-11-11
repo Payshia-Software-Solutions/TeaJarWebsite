@@ -1,6 +1,6 @@
 <?php
 // config/database.php
-$host = '109.70.148.53';
+$host = '91.204.209.19';
 $db   = 'payshiac_kdu_test';
 $user = 'payshiac';
 $pass = "1999tr@thilina";
@@ -23,7 +23,7 @@ try {
 // Connect to Webserver
 // Test
 
-// $host = '109.70.148.53';
+// $host = '91.204.209.19';
 // $db   = 'pharmaco_pharmacollege';
 // $user = 'pharmaco_admin';
 // $pass = 'pharmaadmin';

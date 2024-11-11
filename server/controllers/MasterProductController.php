@@ -32,6 +32,42 @@ class ProductController
     }
 
     // Get a single product record by ID
+    public function getRecordBySection($section)
+    {
+        $record = $this->model->getRecordBySection($section);
+        if ($record) {
+            echo json_encode($record);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'Product not found']);
+        }
+    }
+
+    // Get a single product record by ID
+    public function getRecordByDepartment($department)
+    {
+        $record = $this->model->getRecordByDepartment($department);
+        if ($record) {
+            echo json_encode($record);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'Product not found']);
+        }
+    }
+
+    // Get a single product record by ID
+    public function getRecordByCategory($category)
+    {
+        $record = $this->model->getRecordByCategory($category);
+        if ($record) {
+            echo json_encode($record);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'Product not found']);
+        }
+    }
+
+    // Get a single product record by ID
     public function getRecordBySlug($slug)
     {
         $record = $this->model->getRecordBySlug($slug);

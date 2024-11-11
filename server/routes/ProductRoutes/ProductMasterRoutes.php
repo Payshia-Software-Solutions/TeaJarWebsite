@@ -17,6 +17,15 @@ return [
     'GET /products/get-by-slug/{slug}/' => function ($slug) use ($productController) { // Pass product_id directly
         $productController->getRecordBySlug($slug); // Pass product_slug to the method
     },
+    'GET /products/get-by-department/{department}/' => function ($department) use ($productController) { // Pass product_id directly
+        $productController->getRecordByDepartment($department); // Pass product_slug to the method
+    },
+    'GET /products/get-by-category/{category}/' => function ($category) use ($productController) { // Pass product_id directly
+        $productController->getRecordByCategory($category); // Pass product_slug to the method
+    },
+    'GET /products/get-by-section/{section}/' => function ($section) use ($productController) { // Pass product_id directly
+        $productController->getRecordBySection($section); // Pass product_slug to the method
+    },
     'POST /products/' => function () use ($productController) {
         $productController->createRecord();
     },
