@@ -48,7 +48,7 @@ $TransactionStockEntry = require './routes/Transaction/TransactionStockEntryRout
 
 //User Routes Files
 $UserAccount = require './routes/User/UserAccountRoutes.php';
-$SectionRoutes = require './routes/SectionRoutes.php';
+$SectionRoutes = require './routes/MasterSectionRoutes.php';
 $DepartmentRoutes = require './routes/DepartmentRoutes.php';
 
 // Combine all routes
