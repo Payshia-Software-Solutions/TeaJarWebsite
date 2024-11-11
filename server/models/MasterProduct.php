@@ -34,6 +34,28 @@ class Product
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getRecordBySection($section)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `section_id` = ?");
+        $stmt->execute([$section]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Fetch a single product by ID
+    public function getRecordByDepartment($department)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `department_id` = ?");
+        $stmt->execute([$department]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRecordByCategory($category)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `category_id` = ?");
+        $stmt->execute([$category]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Create a new product
     public function createProduct($data)
     {

@@ -27,7 +27,7 @@ $MasterCustomer = require './routes/MasterCustomerRoutes.php';
 // Transactions Route files 
 $TransactionCancellation = require './routes/Transaction/TransactionCancellationRoutes.php';
 $TransactionExpenses = require './routes/Transaction/TransactionExpensesRoutes.php';
-$TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php';// TransactionRefund
+$TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php'; // TransactionRefund
 $TransactionGoodReceiveNote = require './routes/Transaction/TransactionGoodReceiveNoteRoutes.php';
 $TransactionGoodReceiveNoteItems = require './routes/Transaction/TransactionGoodReceiveNoteItemsRoutes.php';
 $TransactionInvoice = require './routes/Transaction/TransactionInvoiceRoutes.php';
@@ -48,16 +48,39 @@ $TransactionStockEntry = require './routes/Transaction/TransactionStockEntryRout
 
 //User Routes Files
 $UserAccount = require './routes/User/UserAccountRoutes.php';
-
-
-
+$SectionRoutes = require './routes/SectionRoutes.php';
+$DepartmentRoutes = require './routes/DepartmentRoutes.php';
 
 // Combine all routes
-$routes = array_merge($ProductMasterRoutes,$CompanyRoutes,$CitiesRoutes,$Categories,$MasterCustomer,$TransactionCancellation,
-$TransactionExpenses,$TransactionExpensesTypes,$TransactionGoodReceiveNote,$TransactionGoodReceiveNoteItems,$TransactionInvoice,$TransactionInvoiceItem,
-$TransactionProduction,$TransactionProductionItems,$TransactionPurchaseOrder,$TransactionPurchaseOrderItem,$TransactionQuotation,
-$TransactionQuotationItem,$TransactionReceipt,$TransactionRecipe,$TransactionRefund,$TransactionRemovalRemark,$TransactionReturn,
-$TransactionReturnItems,$TransactionStockEntry,$UserAccount
+$routes = array_merge(
+    $ProductMasterRoutes,
+    $CompanyRoutes,
+    $CitiesRoutes,
+    $Categories,
+    $MasterCustomer,
+    $TransactionCancellation,
+    $TransactionExpenses,
+    $TransactionExpensesTypes,
+    $TransactionGoodReceiveNote,
+    $TransactionGoodReceiveNoteItems,
+    $TransactionInvoice,
+    $TransactionInvoiceItem,
+    $TransactionProduction,
+    $TransactionProductionItems,
+    $TransactionPurchaseOrder,
+    $TransactionPurchaseOrderItem,
+    $TransactionQuotation,
+    $TransactionQuotationItem,
+    $TransactionReceipt,
+    $TransactionRecipe,
+    $TransactionRefund,
+    $TransactionRemovalRemark,
+    $TransactionReturn,
+    $TransactionReturnItems,
+    $TransactionStockEntry,
+    $UserAccount,
+    $SectionRoutes,
+    $DepartmentRoutes
 
 );
 
