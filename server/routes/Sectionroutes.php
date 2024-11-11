@@ -23,3 +23,4 @@ return [
         $sectionsController->deleteRecord($section_id); // Pass section_id directly
     }
 ];
+// update Name
