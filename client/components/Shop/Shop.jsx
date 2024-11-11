@@ -85,7 +85,7 @@ function Shop() {
                   id={singleitem.product_id}
                   price={+singleitem.selling_price}
                   images={[
-                    "https://demo.payshia.com/pos-system/assets/images/products/" +
+                    "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
                       singleitem.product_id +
                       "/" +
                       singleitem.image_path,
