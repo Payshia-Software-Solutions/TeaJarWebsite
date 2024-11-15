@@ -15,14 +15,14 @@ export default function Payment() {
       address: "No.1, Main Street",
       city: "Colombo",
       country: "Sri Lanka",
-      return_url: "http://localhost:3000/return",
-      cancel_url: "http://localhost:3000/cancel",
-      notify_url: "https://kduserver.payshia.com/payment/notify-url",
+      return_url: "https://kduserver.payshia.com/payment/return",
+      cancel_url: "https://kduserver.payshia.com/payment/cancel",
+      notify_url: "https://kduserver.payshia.com/payment/notify",
     };
 
     try {
       const { data } = await axios.post(
-        "https://kduserver.payshia.com/payment/initiate-payment",
+        "http://localhost/TeaJarWebsite/server/payment/initiate-payment",
         paymentDetails,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },

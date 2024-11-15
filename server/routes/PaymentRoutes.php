@@ -13,13 +13,13 @@ return [
         $paymentController->initiatePayment();
     },
 
-    // // Route to handle payment notification callback from PayHere
-    // 'POST /payment/notify' => function () use ($paymentController) {
-    //     $paymentController->paymentNotification();
-    // },
+    // Route to handle payment notification callback from PayHere
+    'POST /payment/notify' => function () use ($paymentController) {
+        $paymentController->paymentNotification();
+    },
 
-    // // Route to handle return after payment (success or failure)
-    // 'GET /payment/return' => function () use ($paymentController) {
-    //     $paymentController->paymentReturn();
-    // }
+    // Route to handle return after payment (success or failure)
+    'GET /payment/return' => function () use ($paymentController) {
+        $paymentController->paymentReturn();
+    }
 ];
