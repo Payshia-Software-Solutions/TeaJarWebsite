@@ -17,12 +17,12 @@ export default function Payment() {
       country: "Sri Lanka",
       return_url: "http://localhost:3000/return",
       cancel_url: "http://localhost:3000/cancel",
-      notify_url: "http://localhost/TeaJarWebsite/server/payment/notify-url",
+      notify_url: "https://kduserver.payshia.com/payment/notify-url",
     };
 
     try {
       const { data } = await axios.post(
-        "http://localhost/TeaJarWebsite/server/payment/initiate-payment",
+        "https://kduserver.payshia.com/payment/initiate-payment",
         paymentDetails,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
