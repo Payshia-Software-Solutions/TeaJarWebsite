@@ -1,83 +1,149 @@
-// Updated MainCart component
 "use client";
 import React, { useState, useEffect } from "react";
-import MainCartCard from "@/components/Cart/MainCartCard";
-import "@/app/globals.css";
+import { Plus, Minus, Trash2 } from "lucide-react";
+import Link from "next/link";
 
-function MainCart() {
-  const [cartItems, setCartItems] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
+const MainCart = () => {
+  const [cart, setCart] = useState([]);
 
+  // Load cart from localStorage on component mount
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartItems(savedCart);
-    calculateSubtotal(savedCart);
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
   }, []);
 
-  const calculateSubtotal = (items) => {
-    const total = items.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0
-    );
-    setSubtotal(total.toFixed(2));
+  // // Save cart to localStorage whenever it changes
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(cart));
+  // }, [cart]);
+
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart.filter((item) => item.id !== productId);
+
+      // Update localStorage after removing the item
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+      return updatedCart;
+    });
   };
 
-  const handleQuantityChange = (index, newQuantity) => {
-    const updatedCartItems = [...cartItems];
-    updatedCartItems[index].quantity = newQuantity;
-    setCartItems(updatedCartItems);
-    localStorage.setItem("cart", JSON.stringify(updatedCartItems));
-    calculateSubtotal(updatedCartItems);
+  const updateQuantity = (productId, delta) => {
+    setCart((prevCart) => {
+      // Map over the cart to find and update the product quantity
+      const updatedCart = prevCart
+        .map((item) => {
+          if (item.id === productId) {
+            const newQuantity = item.quantity + delta;
+            // Return the item with updated quantity if newQuantity > 0
+            return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
+          }
+          return item;
+        })
+        .filter((item) => item !== null); // Filter out items with quantity <= 0
+
+      // Save updated cart to localStorage
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+      return updatedCart; // Update the state with the modified cart
+    });
   };
 
-  const handleRemoveItem = (index) => {
-    const updatedCartItems = [...cartItems];
-    updatedCartItems.splice(index, 1);
-    setCartItems(updatedCartItems);
-    localStorage.setItem("cart", JSON.stringify(updatedCartItems));
-    calculateSubtotal(updatedCartItems);
-  };
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
-    <div className="p-6  min-h-screen text-black">
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Cart Items Section */}
-        <div className="flex-1  bg-gray-100 bg-opacity-10 p-5 rounded-lg max-h-[90vh] overflow-y-auto scrollbar-none">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-5">
-            Cart - {cartItems.length} items
-          </h2>
-          {cartItems.length > 0 ? (
-            cartItems.map((item, index) => (
-              <MainCartCard
-                key={index}
-                ProductName={item.ProductName}
-                price={item.price * item.quantity}
-                quantity={item.quantity}
-                onQuantityChange={(newQuantity) =>
-                  handleQuantityChange(index, newQuantity)
-                }
-                onRemove={() => handleRemoveItem(index)}
-              />
-            ))
-          ) : (
-            <p className="text-center ">Your cart is empty.</p>
-          )}
-        </div>
+    <div className="mt-14 px-4 sm:px-8 md:px-14">
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h1 className="text-2xl font-bold mb-4">Cart</h1>
 
-        {/* Summary Section */}
-        <div className="lg:w-1/3 h-1/3 bg-gray-100 bg-opacity-5 p-5 rounded-lg">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-5">Summary</h2>
-          <div className="flex justify-between font-semibold text-lg mt-4">
-            <p>Total amount (including VAT):</p>
-            <p>Rs {subtotal}</p>
+        {cart.length === 0 ? (
+          <p className="text-gray-500 text-center">Your cart is empty</p>
+        ) : (
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="text-left">Image</th>
+                <th className="text-left">Product Name</th>
+                <th className="text-right">Price</th>
+                <th className="text-center">Quantity</th>
+                <th className="text-right">Total</th>
+                <th className="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item) => (
+                <tr key={item.id} className="border-b">
+                  <td className="py-2">
+                    <img
+                      src={`https://kdu-admin.payshia.com/pos-system/assets/images/products/${item.id}/${item.imgUrl}`}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded-xl"
+                    />
+                  </td>
+                  <td className="py-2">
+                    <h3 className="font-semibold">{item.productName}</h3>
+                  </td>
+                  <td className="py-2 text-right">
+                    <p className="text-gray-600">LKR {item.price}</p>
+                  </td>
+                  <td className="py-2 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => updateQuantity(item.id, -1)}
+                        className="p-1 hover:bg-gray-100 rounded"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, 1)}
+                        className="p-1 hover:bg-gray-100 rounded"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </td>
+                  <td className="py-2 text-right">
+                    <p className="font-semibold">
+                      LKR {(item.price * item.quantity).toFixed(2)}
+                    </p>
+                  </td>
+                  <td className="py-2 text-center">
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="p-1 hover:bg-gray-100 rounded"
+                    >
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        <div className="mt-4 border-t pt-4">
+          <div className="flex justify-between font-semibold">
+            <span>Total:</span>
+            <span>LKR {totalPrice.toFixed(2)}</span>
           </div>
-          <button className="w-full mt-4 py-2 bg-[#007b84] rounded  text-white transition-colors">
-            GO TO CHECKOUT
-          </button>
+          <div className="flex justify-end mt-4">
+            <Link href="checkout">
+              <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-600">
+                Checkout
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default MainCart;

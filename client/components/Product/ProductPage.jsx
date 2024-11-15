@@ -3,6 +3,13 @@ import React, { useState } from "react";
 import { Star, Minus, Plus } from "lucide-react";
 import ReviewSection from "@/components/Product/ReviewSection";
 import Subscribe from "@/components/Common/Subscribe";
+import BrewingGuide from "@/components/Common/BrewingGuide";
+import TeaDetails from "@/components/Common/TeaDetails";
+import ProductHeader from "@/components/Product/ProductHeader";
+import SecureBanner from "@/components/Common/SecureBanner";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
+
 import Link from "next/link";
 
 const KOKOLogo = () => (
@@ -22,6 +29,7 @@ const KOKOLogo = () => (
 
 const ProductPage = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(0);
+
   const [quantity, setQuantity] = useState(1);
   const images = product.images || [
     "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
@@ -31,33 +39,90 @@ const ProductPage = ({ product }) => {
     "/assets/products/1/cardamom.jpg",
   ];
 
-  const features = product.features || [
-    { icon: "🌿", label: "Vegan" },
-    { icon: "🚫", label: "Paraben Free" },
-    { icon: "🐾", label: "Cruelty Free" },
-    { icon: "✨", label: "Natural" },
-    { icon: "🔥", label: "Paraben Free" },
-    { icon: "👍", label: "Non-toxic" },
-  ];
-
   const productName = product.display_name;
   const price = product.selling_price;
   const imgUrl = product.image_path;
   const rate = product.selling_price;
+  const id = product.product_id;
 
-  // Add to Cart function
+  // Add to Cart function with Toast notification
   const addToCart = () => {
-    const cartItem = { productName, price, rate, imgUrl };
+    const cartItem = { id, productName, price, rate, imgUrl, quantity: 1 };
 
     // Get existing cart items from local storage or initialize an empty array
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Add the new item to the cart
-    cart.push(cartItem);
+    // Check if the item already exists in the cart
+    const existingItemIndex = cart.findIndex((item) => item.id === cartItem.id);
+
+    if (existingItemIndex !== -1) {
+      // If the item exists, update its quantity
+      cart[existingItemIndex].quantity += 1;
+    } else {
+      // If the item does not exist, add it to the cart
+      cart.push(cartItem);
+    }
 
     // Save updated cart back to local storage
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Open the cart (if necessary)
+    // setIsCartOpen(true); // Ensure this function has access to this state setter
+
+    // Display the toast notification
+    toast.success(`${productName} has been added to your cart!`, {
+      position: "top-right",
+      autoClose: 3000, // Automatically close after 3 seconds
+    });
   };
+
+  const teaData = {
+    tastingNote:
+      "The Dimbula Valley consists of estates in and around Talawakelle, around 1,500 meters elevation. Tea from this region is known for the combination of strength, character, and brightness, the perfect Breakfast Tea.",
+    ingredients: "Pure Ceylon Black tea, no additives",
+    teaGrade: "Broken Orange Pekoe Fannings",
+    netWeight: "100g",
+    caffeine: "Medium",
+    timeOfDay: "Morning",
+  };
+
+  const productData = {
+    title: productName,
+    rating: 4,
+    bagsPerPack: 30,
+    servingsPerPack: 30,
+    gramsPerPack: 60,
+    price: price,
+    currency: "LKR",
+    inStock: true,
+    onShippingClick: () => {
+      // Handle shipping click
+      console.log("Shipping clicked");
+    },
+  };
+
+  const defaultBrewingSteps = [
+    {
+      icon: "droplet",
+      text: "Recommended to use Spring Water",
+    },
+    {
+      icon: "thermometer",
+      text: "95°C – 100°C",
+    },
+    {
+      icon: "cupSoda",
+      text: "1 String and Tag Tea Bag per person",
+    },
+    {
+      icon: "beaker",
+      text: "220ml of water per person",
+    },
+    {
+      icon: "timer",
+      text: "3 - 5 Minutes (5 minutes for a strong cup)",
+    },
+  ];
 
   return (
     <div>
@@ -95,34 +160,7 @@ const ProductPage = ({ product }) => {
 
           {/* Right Column - Product Details */}
           <div className="space-y-6">
-            <div>
-              <p className="text-sm text-gray-500">
-                {product.department_id || "Category"}
-              </p>
-              <h1 className="text-3xl font-bold mt-1">
-                {product.display_name || "Product Name"}
-              </h1>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                  />
-                ))}
-              </div>
-              <span className="text-sm text-gray-600">26 reviews</span>
-            </div>
-
-            <div className="text-xl font-bold">
-              Rs {product.selling_price}
-              <p className="text-sm font-normal text-gray-600">
-                or 3 x Rs {Math.round(product.selling_price / 3)} with{" "}
-                <KOKOLogo />
-              </p>
-            </div>
+            <ProductHeader {...productData} />
 
             <div className="flex items-center gap-4">
               <div className="flex items-center border rounded-md">
@@ -144,34 +182,20 @@ const ProductPage = ({ product }) => {
 
             <div className="space-y-4">
               <button
-                className="w-full bg-white border-2 border-black text-black py-3 rounded-md hover:bg-gray-50"
+                className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800"
                 onClick={addToCart}
               >
                 Add to cart
               </button>
-              <button
-                className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800"
-                onClick={addToCart}
-              >
-                Buy it now
-              </button>
             </div>
 
+            <div className="bg-gray-100 rounded-2xl">
+              <TeaDetails {...teaData} />
+            </div>
             <p className="text-gray-600">{product.description}</p>
-
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-              {features.map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center text-center"
-                >
-                  <span className="text-2xl mb-2">{feature.icon}</span>
-                  <span className="text-xs text-gray-600">{feature.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
+        <BrewingGuide steps={defaultBrewingSteps} />
 
         <div className="bg-white rounded-lg shadow-md mt-10">
           <div className="p-6">
@@ -197,6 +221,10 @@ const ProductPage = ({ product }) => {
       </div>
 
       <Subscribe />
+      <SecureBanner />
+
+      {/* ToastContainer to display the notifications */}
+      <ToastContainer />
     </div>
   );
 };

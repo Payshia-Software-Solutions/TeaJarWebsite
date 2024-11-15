@@ -22,10 +22,10 @@ const KOKOLogo = () => (
     href={`https://paykoko.com/customer-education`}
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex"
+    className="no-underline"
   >
     <img
-      className="relative h-5 w-auto mt-0 top-[3px]"
+      className="inline-flex relative cursor-pointer h-5 w-auto align-middle"
       src="https://paykoko.com/img/logo1.7ff549c0.png"
       alt="Koko"
     />
@@ -91,12 +91,16 @@ const ProductCard = ({
               <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200">
                 <span>or 3 X {formatPrice(installmentAmount)} with</span>
                 <MintPayLogo />
+
                 <Info className="w-4 h-4 cursor-pointer hover:text-blue-500 transition-colors duration-200" />
               </div>
 
               <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200">
-                <span>or pay in 3 @ {formatPrice(installmentAmount)} with</span>
-                <KOKOLogo />
+                <span>
+                  or pay in 3 @ {formatPrice(installmentAmount)} with
+                  <KOKOLogo />
+                </span>
+
                 <Info className="w-4 h-4 cursor-pointer hover:text-blue-500 transition-colors duration-200" />
               </div>
             </div>

@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { Star, ChevronDown, ChevronRight, ChevronsRight } from "lucide-react";
+import ReviewModal from "@/components/Common/ReviewModal";
 
 const ReviewSection = () => {
   const [sortBy, setSortBy] = useState("Most Recent");
+  // In your page component:
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+
+  const handleReviewSubmit = (reviewData) => {
+    // Handle the review submission here
+    console.log(reviewData);
+  };
 
   const reviews = [
     {
@@ -107,7 +115,10 @@ const ReviewSection = () => {
 
         {/* Write Review Button */}
         <div className="flex justify-center items-start">
-          <button className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800">
+          <button
+            onClick={() => setIsReviewModalOpen(true)}
+            className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800"
+          >
             Write a review
           </button>
         </div>
@@ -165,6 +176,12 @@ const ReviewSection = () => {
           <ChevronsRight className="w-4 h-4" />
         </button>
       </div>
+
+      <ReviewModal
+        isOpen={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
+        onSubmit={handleReviewSubmit}
+      />
     </div>
   );
 };

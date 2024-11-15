@@ -45,11 +45,11 @@ $TransactionRemovalRemark = require './routes/Transaction/TransactionRemovalRema
 $TransactionReturn = require './routes/Transaction/TransactionReturnRoutes.php';
 $TransactionReturnItems = require './routes/Transaction/TransactionReturnItemsRoutes.php';
 $TransactionStockEntry = require './routes/Transaction/TransactionStockEntryRoutes.php';
-
-//User Routes Files
 $UserAccount = require './routes/User/UserAccountRoutes.php';
 $SectionRoutes = require './routes/MasterSectionRoutes.php';
 $DepartmentRoutes = require './routes/DepartmentRoutes.php';
+$PaymentRoutes = require './routes/PaymentRoutes.php';
+
 
 // Combine all routes
 $routes = array_merge(
@@ -80,7 +80,8 @@ $routes = array_merge(
     $TransactionStockEntry,
     $UserAccount,
     $SectionRoutes,
-    $DepartmentRoutes
+    $DepartmentRoutes,
+    $PaymentRoutes
 
 );
 

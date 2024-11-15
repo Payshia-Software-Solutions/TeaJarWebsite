@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Rightsidebar from "@/components/Rightsidebar";
+import BrewingGuide from "@/components/Common/BrewingGuide";
 import {
   FaBars,
   FaCircle,
@@ -123,7 +124,7 @@ function RightSide() {
       </div>
 
       {/* Sidebar */}
-      {isSidebarOpen && (<Rightsidebar />)}
+      {isSidebarOpen && <Rightsidebar />}
     </div>
   );
 }

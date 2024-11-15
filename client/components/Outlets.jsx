@@ -13,6 +13,58 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
+const amenities = [
+  {
+    id: 1,
+    name: "Tea Testing",
+    icon: "./assets/images/outlet-amenities/tea-testing.png",
+  },
+  {
+    id: 2,
+    name: "Factory Visit",
+    icon: "./assets/images/outlet-amenities/factory-visit.png",
+  },
+  {
+    id: 3,
+    name: "Field Visit",
+    icon: "./assets/images/outlet-amenities/field-visit.png",
+  },
+  {
+    id: 4,
+    name: "Retail",
+    icon: "./assets/images/outlet-amenities/retail.png",
+  },
+  {
+    id: 5,
+    name: "Gem & Jewelry",
+    icon: "./assets/images/outlet-amenities/gem.png",
+  },
+  {
+    id: 6,
+    name: "Dining",
+    icon: "./assets/images/outlet-amenities/dining.png",
+  },
+  ,
+  {
+    id: 7,
+    name: "Create Own Tea",
+    icon: "./assets/images/outlet-amenities/create-own-tea.png",
+  },
+  ,
+  {
+    id: 8,
+    name: "Personal Gift Wrapping",
+    icon: "./assets/images/outlet-amenities/gift.png",
+  },
+  ,
+  {
+    id: 9,
+    name: "Afternoon Tea",
+    icon: "./assets/images/outlet-amenities/afternoon-tea.png",
+  },
+  // Add more amenities as needed
+];
+
 function Outlets() {
   // State to manage the currently displayed description and main image
   const [activeDescription, setActiveDescription] = useState({
@@ -50,13 +102,13 @@ function Outlets() {
 
   return (
     <section className="relative flex items-center justify-center h-full bg-[#353D32]">
-      <div className="relative w-full h-[45rem] m-0">
+      <div className="relative w-full  m-0">
         {/* Background Image */}
         <motion.img
           key={mainImage}
           src={mainImage}
           alt=""
-          className="w-full h-[45rem] object-cover"
+          className="w-full object-cover"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -69,7 +121,7 @@ function Outlets() {
         ></div>
         {/* Main content over image and gradient */}
         <div className="absolute top-0 left-0 w-full h-full z-20 flex items-center justify-center py-4">
-          <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-center">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 w-full max-w-full">
                 {/* Left side: Empty space or image */}
@@ -78,25 +130,30 @@ function Outlets() {
                 </div>
 
                 {/* Right side: Main content */}
-                <div className="   bg-[rgba(53,61,50,0.65)] px-5 py-5 rounded-2xl  opacity-85 ">
+                <div className="bg-[#353d32a6] px-5 py-5 rounded-2xl opacity-85 w-full">
                   <div className={italiana.className}>
-                    <h2 className="text-[40px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+                    <h2 className="text-[40px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-4 sm:mb-4 md:mb-8 lg:mb-10">
                       Find your nearest Store
                     </h2>
                   </div>
                   <div className="flex flex-col justify-between ">
-                    <div className="grid grid-cols-3 gap-2 mb-4">
+                    <div className="grid grid-cols-3 gap-2 mb-2">
                       {descriptions.map((desc, index) => (
-                        <img
-                          key={index}
-                          src={`/assets/images/outlet/card${index + 1}.png`}
-                          alt={`Thumbnail ${index + 1}`}
-                          className="rounded-lg object-cover w-full h-auto cursor-pointer hover:scale-y-105 duration-300"
-                          onClick={() => {
-                            setActiveDescription(desc); // Set the description
-                            setMainImage(desc.image); // Set the corresponding main image
-                          }}
-                        />
+                        <div>
+                          <img
+                            key={index}
+                            src={`/assets/images/outlet/card${index + 1}.png`}
+                            alt={`Thumbnail ${index + 1}`}
+                            className="rounded-lg object-cover w-full h-auto cursor-pointer hover:scale-y-95 duration-300"
+                            onClick={() => {
+                              setActiveDescription(desc); // Set the description
+                              setMainImage(desc.image); // Set the corresponding main image
+                            }}
+                          />
+                          <p className="text-center text-white text-[15px] sm:text-[15px]">
+                            {desc.title}
+                          </p>
+                        </div>
                       ))}
                     </div>
 
@@ -109,7 +166,7 @@ function Outlets() {
                         transition={{ duration: 0.8 }}
                         className={italiana.className}
                       >
-                        <h3 className="text-[22px] sm:text-[28px] mb-4">
+                        <h3 className="text-[22px] sm:text-[28px] mb-2">
                           {activeDescription.title}
                         </h3>
                       </motion.div>
@@ -125,6 +182,30 @@ function Outlets() {
                           {activeDescription.description}
                         </p>
                       </motion.div>
+                    </div>
+
+                    <div className="bg-[#4A5243] p-4 sm:p-6 lg:p-8 rounded-lg text-white mt-10">
+                      <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+                        Outlet Amenities
+                      </h2>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+                        {/* Loop through the amenities array to render each amenity */}
+                        {amenities.map((amenity) => (
+                          <div
+                            key={amenity.id}
+                            className="icon-box flex flex-col justify-center items-center text-center"
+                          >
+                            <img
+                              className="w-[60px] mb-2"
+                              src={amenity.icon}
+                              alt={amenity.name}
+                            />
+                            <p className="text-[15px] sm:text-[15px]">
+                              {amenity.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
