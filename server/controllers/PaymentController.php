@@ -81,7 +81,7 @@ class PaymentController
         $md5sig = $_POST['md5sig'];
 
         // Your PayHere secret key
-        $merchant_secret = 'YOUR_MERCHANT_SECRET';
+        $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz';
 
         // Verify the signature from PayHere
         $local_md5sig = strtoupper(md5(
