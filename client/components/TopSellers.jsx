@@ -5,6 +5,7 @@ import TopSellerProduct from "@/components/Product/TopSellerProduct";
 import ProductCard from "@/components/Product/ProductCard";
 import SectionHeader from "@/components/Common/SectionHeader";
 import Link from "next/link";
+import config from "@/config";
 
 // Import Swiper core and required modules
 import { Pagination, A11y } from "swiper/modules";
@@ -43,6 +44,30 @@ function TopSellers() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`${config.API_BASE_URL}/products`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        setError("Failed to fetch products");
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   // Handlers to navigate Swiper slides
   const handlePrev = () => {
     if (swiperRef.current) {
@@ -56,6 +81,8 @@ function TopSellers() {
     }
   };
 
+  console.log(products);
+
   return (
     <section className="bg-babout text-white">
       <LazyLoadSection>
@@ -64,7 +91,7 @@ function TopSellers() {
           style={{ backgroundColor: bgColor }}
           className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
         >
-          <div className="container px-4 py-16 sm:px-6 mx-auto">
+          <div className="max-w-full px-4 py-16 sm:px-6 mx-auto">
             {/*Navigation buttons */}
             <div className="text-center items-center mb-10">
               <SectionHeader sectionTitle="Shop Our Best Selling Categories" />
@@ -105,110 +132,25 @@ function TopSellers() {
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
                 className="mySwiper"
               >
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <ProductCard
-                    className="top-seller-product w-64 h-64 "
-                    images={[
-                      "/assets/products/1/apple.jpg",
-                      "/assets/products/1/cardamom.jpg",
-                    ]}
-                    title="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price={4800}
-                  />
-                </SwiperSlide>
+                {products.map((singleitem) => (
+                  <SwiperSlide key={singleitem.product_id} className="p-2 mb-6">
+                    <ProductCard
+                      key={singleitem.product_code} // Ensure to use a unique key
+                      title={singleitem.product_name}
+                      slug={singleitem.slug}
+                      id={singleitem.product_id}
+                      price={+singleitem.selling_price}
+                      images={[
+                        "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
+                          singleitem.product_id +
+                          "/" +
+                          singleitem.image_path,
+                        "/assets/products/1/cardamom.jpg",
+                      ]}
+                      Rate={"(5.6)"}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
 
