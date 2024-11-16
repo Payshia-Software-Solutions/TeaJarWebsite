@@ -1,0 +1,37 @@
+name: Build and Deploy Client
+
+on:
+  push:
+    branches:
+      - main  # Trigger only on the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Move to client folder
+      run: cd client
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18  # Use the Node.js version your project requires
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the Next.js project
+      run: npm run build && npm run export  # Ensure next export is in your scripts
+
+    - name: Upload to cPanel via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.5.0
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.TEAJAR_USERNAME }}
+        password: ${{ secrets.TEAJAR_PASSWORD }}
+        local-dir: client/out  # Specify the correct output folder
+        server-dir: /qa-tea-jar.payshia.com  # Adjust to your server's web directory
