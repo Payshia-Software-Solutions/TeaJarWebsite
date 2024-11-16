@@ -28,7 +28,7 @@ jobs:
       run: npm run build && npm run export  # Ensure next export is in your scripts
 
     - name: Upload to cPanel via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.5.0
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.TEAJAR_USERNAME }}
