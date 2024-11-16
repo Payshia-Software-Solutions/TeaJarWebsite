@@ -36,4 +36,4 @@ jobs:
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
         local-dir: ./client/out/  # Specify the correct output folder
-        server-dir: / # Adjust to your server's web directory
+        server-dir: ./ # Adjust to your server's web directory
