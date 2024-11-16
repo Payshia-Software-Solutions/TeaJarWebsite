@@ -9,25 +9,27 @@ export async function generateStaticParams() {
       throw new Error("Failed to fetch products");
     }
     const data = await res.json();
+
+    // Returning dynamic slugs of all products
     return data.map((product) => ({
       slug: product.slug,
     }));
   } catch (error) {
     console.error("Error generating static params:", error);
-    return [];
+    return []; // If the fetch fails, return an empty array
   }
 }
 
 const ProductServerPage = async ({ params }) => {
   const { slug } = params;
 
-  // Fetch product data at runtime in a Server Component
   try {
+    // Fetch product data at runtime
     const res = await fetch(
       `${config.API_BASE_URL}/products/get-by-slug/${slug}`,
       {
         next: {
-          revalidate: 60, // optional: ISR if you want to regenerate the page after 60 seconds
+          revalidate: 60, // Optional ISR to regenerate after 60 seconds
         },
       }
     );
