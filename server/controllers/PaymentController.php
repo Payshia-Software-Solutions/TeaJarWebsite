@@ -61,12 +61,13 @@ class PaymentController
         ], $customer_details);
 
         // Generate the HTML form that will auto-submit to PayHere checkout
-        echo '<html><body onload="">';
+        echo '<html><body onload="document.forms[0].submit();">';
         echo '<form method="post" action="https://sandbox.payhere.lk/pay/checkout">';
         foreach ($form_data as $key => $value) {
-            echo '<input type="text" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
+            echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
         }
-        echo '<button type="submit">Submit</button>';
+        // echo '<button type="submit">Submit</button>';
+        echo "Redirecting...";
         echo '</form></body></html>';
     }
 
