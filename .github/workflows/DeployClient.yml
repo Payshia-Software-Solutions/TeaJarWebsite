@@ -25,6 +25,9 @@ jobs:
     - name: Build the Next.js project
       run: npm run build
       working-directory: ./client  # Run build in client folder
+      
+    - name: Check if 'out' directory exists
+      run: ls -la ./client/out  # Verify if out directory is generated
 
     - name: Upload to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -32,5 +35,5 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
-        local-dir: client/out/  # Specify the correct output folder
+        local-dir: ./client/out/  # Specify the correct output folder
         server-dir: / # Adjust to your server's web directory
