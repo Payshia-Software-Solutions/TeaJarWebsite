@@ -13,14 +13,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: npm install
-      working-directory: ./client  # Navigate to client folder for npm install
-
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: 18  # Ensure this matches your project requirements
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./client  # Navigate to client folder for npm install
 
     - name: Build the Next.js project
       run: npm run build && npm run export
