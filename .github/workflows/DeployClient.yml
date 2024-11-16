@@ -25,9 +25,6 @@ jobs:
     - name: Build the Next.js project
       run: npm run build
       working-directory: ./client  # Run build in client folder
-      
-    - name: Check if 'out' directory exists
-      run: cd client && ls 
 
     - name: Upload to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -36,4 +33,4 @@ jobs:
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
         local-dir: ./client/out/  # Specify the correct output folder
-        server-dir: ./ # Adjust to your server's web directory
+        server-dir: ./qa-tea-jar.payshia.com/ # Adjust to your server's web directory
