@@ -27,7 +27,7 @@ jobs:
       working-directory: ./client  # Run build in client folder
       
     - name: Check if 'out' directory exists
-      run: ls 
+      run: cd client && ls 
 
     - name: Upload to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
