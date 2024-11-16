@@ -23,7 +23,7 @@ jobs:
       working-directory: ./client  # Navigate to client folder for npm install
 
     - name: Build the Next.js project
-      run: npm run build && npm run export
+      run: npm run build
       working-directory: ./client  # Run build in client folder
 
     - name: Upload to cPanel via FTP
