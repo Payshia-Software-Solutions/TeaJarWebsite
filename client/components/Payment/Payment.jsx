@@ -28,8 +28,11 @@ export default function Payment() {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         }
       );
-      const newWindow = window.open();
-      newWindow.document.write(data); // Render the form and redirect
+
+      // Assuming the server returns an HTML form
+      document.open(); // Clear the current document
+      document.write(data); // Write the new content (e.g., auto-submitting form)
+      document.close(); // Complete the document loading
     } catch (error) {
       console.error("Payment initiation failed:", error);
     }

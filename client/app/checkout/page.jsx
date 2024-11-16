@@ -26,7 +26,6 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <Payment />
     </section>
   );
 };
