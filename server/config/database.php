@@ -1,9 +1,9 @@
 <?php
 // config/database.php
-$host = '91.204.209.19';
-$db   = 'payshiac_kdu_test';
-$user = 'payshiac';
-$pass = "1999tr@thilina";
+$host = 'localhost';
+$db   = 'tea_jar';
+$user = 'root';
+$pass = "";
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -24,8 +24,8 @@ try {
 // Test
 
 // $host = '91.204.209.19';
-// $db   = 'pharmaco_pharmacollege';
-// $user = 'pharmaco_admin';
-// $pass = 'pharmaadmin';
+// $db   = 'payshiac_kdu_test';
+// $user = 'payshiac';
+// $pass = "1999tr@thilina";
 // $charset = 'utf8mb4';
 // $dsn = "mysql:host=$host;port=3306;dbname=$db;charset=$charset";

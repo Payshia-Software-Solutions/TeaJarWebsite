@@ -49,6 +49,7 @@ $UserAccount = require './routes/User/UserAccountRoutes.php';
 $SectionRoutes = require './routes/MasterSectionRoutes.php';
 $DepartmentRoutes = require './routes/DepartmentRoutes.php';
 $PaymentRoutes = require './routes/PaymentRoutes.php';
+$ProductImageRoutes = require './routes/ProductImageRoutes.php';
 
 
 // Combine all routes
@@ -81,8 +82,8 @@ $routes = array_merge(
     $UserAccount,
     $SectionRoutes,
     $DepartmentRoutes,
-    $PaymentRoutes
-
+    $PaymentRoutes,
+    $ProductImageRoutes
 );
 
 // Define the home route with trailing slash
