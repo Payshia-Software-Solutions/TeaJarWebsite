@@ -50,17 +50,18 @@ class PaymentController
         // Prepare the form data for submission
         $form_data = array_merge([
             'merchant_id' => $merchant_id,
-            'order_id' => $order_id,
-            'currency' => $currency,
-            'amount' => $amount,
             'return_url' => $return_url,
             'cancel_url' => $cancel_url,
             'notify_url' => $notify_url,
+            'order_id' => $order_id,
+            'items' => "Tea Order",
+            'currency' => $currency,
+            'amount' => $amount,
             'hash' => $hash
         ], $customer_details);
 
         // Generate the HTML form that will auto-submit to PayHere checkout
-        echo '<html><body onload="document.forms[0].submit();">';
+        echo '<html><body onload="">';
         echo '<form method="post" action="https://sandbox.payhere.lk/pay/checkout">';
         foreach ($form_data as $key => $value) {
             echo '<input type="text" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';

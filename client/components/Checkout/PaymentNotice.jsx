@@ -23,7 +23,7 @@ const PaymentNotice = () => {
 
     try {
       const { data } = await axios.post(
-        "https://kduserver.payshia.com/payment/initiate-payment",
+        "http://localhost/TeaJarWebsite/server/payment/initiate-payment",
         paymentDetails,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
