@@ -1,10 +1,21 @@
 import ProductPage from "@/components/Product/ProductPage";
 import config from "@/config";
 
+// Generate static paths for all products
+export async function generateStaticParams() {
+  const res = await fetch(`${config.API_BASE_URL}/products`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
+  }
+  const data = await res.json();
+  return data.map((product) => ({
+    slug: product.slug,
+  }));
+}
+
 const ProductServerPage = async ({ params }) => {
   const { slug } = params;
   // Fetch data at runtime in a Server Component
-  console.log(slug);
   const res = await fetch(
     `${config.API_BASE_URL}/products/get-by-slug/${slug}`
   );

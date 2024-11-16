@@ -38,7 +38,9 @@ function Shop() {
         const data = await res.json();
         setProducts(data);
       } catch (error) {
-        setError("Failed to fetch products");
+        setError(
+          `Failed to fetch products using ${config.API_BASE_URL}/products`
+        );
         console.error("Failed to fetch products:", error);
       } finally {
         setLoading(false);

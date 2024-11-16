@@ -7,8 +7,8 @@ import BrewingGuide from "@/components/Common/BrewingGuide";
 import TeaDetails from "@/components/Common/TeaDetails";
 import ProductHeader from "@/components/Product/ProductHeader";
 import SecureBanner from "@/components/Common/SecureBanner";
-import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
-import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Link from "next/link";
 
@@ -29,8 +29,8 @@ const KOKOLogo = () => (
 
 const ProductPage = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(0);
-
   const [quantity, setQuantity] = useState(1);
+
   const images = product.images || [
     "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
       product.product_id +
@@ -45,9 +45,9 @@ const ProductPage = ({ product }) => {
   const rate = product.selling_price;
   const id = product.product_id;
 
-  // Add to Cart function with Toast notification
+  // Updated Add to Cart function
   const addToCart = () => {
-    const cartItem = { id, productName, price, rate, imgUrl, quantity: 1 };
+    const cartItem = { id, productName, price, rate, imgUrl, quantity };
 
     // Get existing cart items from local storage or initialize an empty array
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -57,7 +57,7 @@ const ProductPage = ({ product }) => {
 
     if (existingItemIndex !== -1) {
       // If the item exists, update its quantity
-      cart[existingItemIndex].quantity += 1;
+      cart[existingItemIndex].quantity += quantity; // Add the selected quantity
     } else {
       // If the item does not exist, add it to the cart
       cart.push(cartItem);
@@ -66,13 +66,10 @@ const ProductPage = ({ product }) => {
     // Save updated cart back to local storage
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // Open the cart (if necessary)
-    // setIsCartOpen(true); // Ensure this function has access to this state setter
-
     // Display the toast notification
     toast.success(`${productName} has been added to your cart!`, {
       position: "top-right",
-      autoClose: 3000, // Automatically close after 3 seconds
+      autoClose: 3000,
     });
   };
 
@@ -96,7 +93,6 @@ const ProductPage = ({ product }) => {
     currency: "LKR",
     inStock: true,
     onShippingClick: () => {
-      // Handle shipping click
       console.log("Shipping clicked");
     },
   };
