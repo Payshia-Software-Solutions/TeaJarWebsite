@@ -13,36 +13,30 @@ class PaymentController
     // Method to initiate the payment and redirect to PayHere Checkout
     public function initiatePayment()
     {
-        // Validate and sanitize POST data
-        $required_fields = ['order_id', 'amount', 'currency', 'return_url', 'cancel_url', 'notify_url', 'first_name', 'last_name', 'email', 'phone', 'address', 'city', 'country'];
-
-        foreach ($required_fields as $field) {
-            if (!isset($_POST[$field])) {
-                // Log error or handle missing data
-                die("Error: Missing required field " . htmlspecialchars($field));
-            }
-        }
-
-        $order_id = htmlspecialchars($_POST['order_id']);
+        // Get the payment details from the POST request
+        $order_id = $_POST['order_id'];
         $amount = number_format($_POST['amount'], 2, '.', '');
-        $currency = htmlspecialchars($_POST['currency']);
-        $return_url = htmlspecialchars($_POST['return_url']);
-        $cancel_url = htmlspecialchars($_POST['cancel_url']);
-        $notify_url = htmlspecialchars($_POST['notify_url']);
+        $currency = $_POST['currency'];
+        $return_url = $_POST['return_url'];
+        $cancel_url = $_POST['cancel_url'];
+        $notify_url = $_POST['notify_url'];
 
+        // Customer details
         $customer_details = [
-            'first_name' => htmlspecialchars($_POST['first_name']),
-            'last_name' => htmlspecialchars($_POST['last_name']),
-            'email' => htmlspecialchars($_POST['email']),
-            'phone' => htmlspecialchars($_POST['phone']),
-            'address' => htmlspecialchars($_POST['address']),
-            'city' => htmlspecialchars($_POST['city']),
-            'country' => htmlspecialchars($_POST['country'])
+            'first_name' => $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
+            'email' => $_POST['email'],
+            'phone' => $_POST['phone'],
+            'address' => $_POST['address'],
+            'city' => $_POST['city'],
+            'country' => $_POST['country']
         ];
 
-        // Use environment variables or secure storage for sensitive credentials
+        // Your PayHere credentials
         $merchant_id = '1227940';
-        $merchant_secret = "NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz";
+        $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz';
+
+        // Generate the hash for security
         $hash = strtoupper(
             md5(
                 $merchant_id .
@@ -53,7 +47,7 @@ class PaymentController
             )
         );
 
-        // Prepare the form data
+        // Prepare the form data for submission
         $form_data = array_merge([
             'merchant_id' => $merchant_id,
             'order_id' => $order_id,
@@ -65,14 +59,12 @@ class PaymentController
             'hash' => $hash
         ], $customer_details);
 
-        // Set content type and render the HTML form for auto-submission
-        header('Content-Type: text/html; charset=UTF-8');
-        echo '<html><body onload="">';
+        // Generate the HTML form that will auto-submit to PayHere checkout
+        echo '<html><body onload="document.forms[0].submit();">';
         echo '<form method="post" action="https://sandbox.payhere.lk/pay/checkout">';
         foreach ($form_data as $key => $value) {
             echo '<input type="text" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
         }
-
         echo '<button type="submit">Submit</button>';
         echo '</form></body></html>';
     }
