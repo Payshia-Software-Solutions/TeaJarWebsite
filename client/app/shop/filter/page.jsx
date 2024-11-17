@@ -1,6 +1,7 @@
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import FilteredShop from "@/components/Shop/FilteredShop";
+import { Suspense } from "react";
 
 function Page() {
   const crumbs = [
@@ -22,7 +23,9 @@ function Page() {
       }}
     >
       <Breadcrumb crumbs={crumbs} />
-      <FilteredShop />
+      <Suspense>
+        <FilteredShop />
+      </Suspense>
     </div>
   );
 }
