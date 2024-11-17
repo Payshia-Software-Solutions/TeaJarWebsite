@@ -53,6 +53,7 @@ $productImages = $response->toArray();
                 <?php endforeach ?>
 
             </div>
+            <!-- Test -->
         </div>
     </div>
 </div>
