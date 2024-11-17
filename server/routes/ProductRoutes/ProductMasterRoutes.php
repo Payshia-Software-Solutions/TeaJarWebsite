@@ -11,6 +11,10 @@ return [
     'GET /products/' => function () use ($productController) {
         $productController->getAllRecords();
     },
+
+    'GET /products/filter-by' => function () use ($productController) {
+        $productController->getFilteredRecords();
+    },
     'GET /products/{product_id}/' => function ($product_id) use ($productController) { // Pass product_id directly
         $productController->getRecordById($product_id); // Pass product_id to the method
     },

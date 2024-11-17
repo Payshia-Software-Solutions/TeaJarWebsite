@@ -18,6 +18,66 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Function to fetch filtered products based on provided parameters
+    public function getFilteredProducts($category = null, $department = null, $minPrice = null, $maxPrice = null, $sortBy = null)
+    {
+        // Start building the query
+        $query = "SELECT * FROM `master_product` WHERE 1=1"; // Default to true for flexible filters
+
+        // Add filters dynamically
+        if ($category) {
+            $query .= " AND `category_id` = :category";
+        }
+        if ($department) {
+            $query .= " AND `department_id` = :department";
+        }
+        if ($minPrice) {
+            $query .= " AND `selling_price` >= :minPrice";
+        }
+        if ($maxPrice) {
+            $query .= " AND `selling_price` <= :maxPrice";
+        }
+
+        // Sorting
+        if ($sortBy) {
+            switch ($sortBy) {
+                case 'low-to-high':
+                    $query .= " ORDER BY `selling_price` ASC";
+                    break;
+                case 'high-to-low':
+                    $query .= " ORDER BY `selling_price` DESC";
+                    break;
+                case 'newest':
+                    $query .= " ORDER BY `created_at` DESC";
+                    break;
+                case 'oldest':
+                    $query .= " ORDER BY `created_at` ASC";
+                    break;
+                default:
+                    // Default sorting, e.g., by product ID
+                    $query .= " ORDER BY `product_id` ASC";
+                    break;
+            }
+        } else {
+            $query .= " ORDER BY `product_id` ASC"; // Default sort order
+        }
+
+        // Prepare the statement
+        $stmt = $this->pdo->prepare($query);
+
+        // Bind parameters if set
+        if ($category) $stmt->bindParam(':category', $category, PDO::PARAM_INT);
+        if ($department) $stmt->bindParam(':department', $department, PDO::PARAM_INT);
+        if ($minPrice) $stmt->bindParam(':minPrice', $minPrice, PDO::PARAM_INT);
+        if ($maxPrice) $stmt->bindParam(':maxPrice', $maxPrice, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Return the results
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Fetch a single product by ID
     public function getProductById($id)
     {
