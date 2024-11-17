@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 require_once '../../../vendor/autoload.php';
 
 use Symfony\Component\HttpClient\HttpClient;
@@ -12,7 +13,14 @@ $client = HttpClient::create();
 $serverUrl = "https://kduserver.payshia.com/";
 
 $response = $client->request('GET', $serverUrl . 'product-images/get-by-product/' . $productId);
-$productImages = $response->toArray();
+// Check if the response status code is 404
+if ($response->getStatusCode() === 404) {
+    // If 404, set $productImages as an empty array
+    $productImages = [];
+} else {
+    // Otherwise, parse the response body as an array
+    $productImages = $response->toArray();
+}
 
 ?>
 
