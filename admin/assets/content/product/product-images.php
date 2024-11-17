@@ -9,7 +9,7 @@ use Symfony\Component\HttpClient\HttpClient;
 $productId = $_POST['productId'];
 $client = HttpClient::create();
 
-$serverUrl = "https://kduserver.payshia.com/server/";
+$serverUrl = "https://kduserver.payshia.com/";
 
 $response = $client->request('GET', $serverUrl . 'product-images/get-by-product/' . $productId);
 $productImages = $response->toArray();
