@@ -19,6 +19,16 @@ class ProductController
         echo json_encode($records);
     }
 
+    public function getFilteredRecords($category = null, $department = null, $minPrice = null, $maxPrice = null, $sortBy = null)
+    {
+
+        // Fetch filtered products from the model
+        $products = $this->model->getFilteredProducts($category, $department, $minPrice, $maxPrice, $sortBy);
+
+        // Return filtered products as JSON
+        echo json_encode($products);
+    }
+
     // Get a single product record by ID
     public function getRecordById($product_id)
     {
