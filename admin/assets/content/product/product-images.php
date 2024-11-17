@@ -6,7 +6,7 @@ use Symfony\Component\HttpClient\HttpClient;
 $productId = $_POST['productId'];
 $client = HttpClient::create();
 
-$serverUrl = "http://localhost/TeaJarWebsite/server/";
+$serverUrl = "https://kduserver.payshia.com/server/";
 
 $response = $client->request('GET', $serverUrl . 'product-images/get-by-product/' . $productId);
 $productImages = $response->toArray();
@@ -53,6 +53,7 @@ $productImages = $response->toArray();
                 <?php endforeach ?>
 
             </div>
+            <!-- Test -->
         </div>
     </div>
 </div>
