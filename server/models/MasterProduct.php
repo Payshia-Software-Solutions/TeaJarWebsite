@@ -25,16 +25,16 @@ class Product
 
         // Add filters dynamically based on the parameters
         if ($category) {
-            $query .= " AND `category_id` = :category";
+            $query .= " OR `category_id` = :category";
         }
         if ($department) {
-            $query .= " AND `department_id` = :department";
+            $query .= " OR `department_id` = :department";
         }
         if ($minPrice) {
-            $query .= " AND `selling_price` >= :minPrice";
+            $query .= " OR `selling_price` >= :minPrice";
         }
         if ($maxPrice) {
-            $query .= " AND `selling_price` <= :maxPrice";
+            $query .= " OR `selling_price` <= :maxPrice";
         }
 
         // Add sorting logic based on the sort parameter

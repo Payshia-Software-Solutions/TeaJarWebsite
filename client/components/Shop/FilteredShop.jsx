@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Added missing import
-import SideBar from "@/components/Shop/SideBar"; // Assuming this is correct
-import ProductSectionHeader from "./Layouts/ProductSectionHeader"; // Assuming this is correct
+import { useSearchParams } from "next/navigation"; // Import from next/navigation
+import SideBar from "@/components/Shop/SideBar";
+import ProductSectionHeader from "./Layouts/ProductSectionHeader";
 import ProductCard from "@/components/Product/ProductCard";
 
 // Font imports
@@ -19,27 +19,28 @@ const juliusSansOne = Julius_Sans_One({
   subsets: ["latin"],
 });
 
-// Backend connection
 function FilteredShop() {
-  const [searchQuery, setSearchQuery] = useState(""); // Added to manage search input
-  const [filteredProducts, setFilteredProducts] = useState([]); // Renamed to match the state variable
+  const searchParams = useSearchParams(); // Get the search params using useSearchParams
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const router = useRouter();
-  const { query } = router; // Get query parameters from the URL
 
   useEffect(() => {
+    // Only proceed if searchParams exists
+    if (!searchParams) return;
+
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // Fetch products based on query parameters (for filtering)
+        // Convert searchParams to a query string
+        const queryString = searchParams.toString();
+
         const response = await fetch(
-          `https://kduserver.payshia.com/products/filter-by?${new URLSearchParams(
-            query
-          ).toString()}`
+          `https://kduserver.payshia.com/products/filter-by?${queryString}`
         );
         const data = await response.json();
-        setFilteredProducts(data); // Corrected the state update name
+        setFilteredProducts(data);
       } catch (err) {
         setError("Failed to fetch products");
         console.error(err);
@@ -48,8 +49,10 @@ function FilteredShop() {
       }
     };
 
-    fetchProducts();
-  }, [query]); // Fetch products whenever the query changes
+    if (searchParams.toString()) {
+      fetchProducts();
+    }
+  }, [searchParams]); // Re-fetch when searchParams change
 
   return (
     <section className="h-full">
@@ -95,7 +98,6 @@ function FilteredShop() {
                 {!loading &&
                   filteredProducts
                     .filter((product) =>
-                      // Filter products based on search query (simple local search)
                       product.product_name
                         .toLowerCase()
                         .includes(searchQuery.toLowerCase())
@@ -109,7 +111,6 @@ function FilteredShop() {
                         price={+singleitem.selling_price}
                         images={[
                           `https://kdu-admin.payshia.com/pos-system/assets/images/products/${singleitem.product_id}/${singleitem.image_path}`,
-                          "/assets/products/1/cardamom.jpg",
                         ]}
                         Rate={"(5.6)"}
                       />
