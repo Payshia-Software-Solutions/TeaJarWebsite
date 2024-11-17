@@ -19,21 +19,14 @@ class ProductController
         echo json_encode($records);
     }
 
-    // Function to fetch filtered records based on query params
-    public function getFilteredRecords()
+    public function getFilteredRecords($category = null, $department = null, $minPrice = null, $maxPrice = null, $sortBy = null)
     {
-        // Get query parameters (category, minPrice, maxPrice, etc.)
-        $category = isset($_GET['category']) ? $_GET['category'] : null;
-        $department = isset($_GET['department']) ? $_GET['department'] : null;
-        $minPrice = isset($_GET['minPrice']) ? $_GET['minPrice'] : null;
-        $maxPrice = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : null;
-        $sortBy = isset($_GET['sortBy']) ? $_GET['sortBy'] : null;
 
-        // Call the model method to fetch filtered products
-        $records = $this->model->getFilteredProducts($category, $department, $minPrice, $maxPrice, $sortBy);
+        // Fetch filtered products from the model
+        $products = $this->model->getFilteredProducts($category, $department, $minPrice, $maxPrice, $sortBy);
 
-        // Return the filtered results as JSON
-        echo json_encode($records);
+        // Return filtered products as JSON
+        echo json_encode($products);
     }
 
     // Get a single product record by ID

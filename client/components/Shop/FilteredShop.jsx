@@ -33,11 +33,7 @@ function FilteredShop() {
       setLoading(true);
       try {
         // Fetch products based on query parameters (for filtering)
-        const response = await fetch(
-          `https://kduserver.payshia.com/products/?${new URLSearchParams(
-            query
-          ).toString()}`
-        );
+        const response = await fetch(`https://kduserver.payshia.com/products/`);
         const data = await response.json();
         setFilteredProducts(data); // Corrected the state update name
       } catch (err) {

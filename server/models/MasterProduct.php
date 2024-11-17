@@ -18,13 +18,12 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Function to fetch filtered products based on provided parameters
     public function getFilteredProducts($category = null, $department = null, $minPrice = null, $maxPrice = null, $sortBy = null)
     {
         // Start building the query
         $query = "SELECT * FROM `master_product` WHERE 1=1"; // Default to true for flexible filters
 
-        // Add filters dynamically
+        // Add filters dynamically based on the parameters
         if ($category) {
             $query .= " AND `category_id` = :category";
         }
@@ -38,7 +37,7 @@ class Product
             $query .= " AND `selling_price` <= :maxPrice";
         }
 
-        // Sorting
+        // Add sorting logic based on the sort parameter
         if ($sortBy) {
             switch ($sortBy) {
                 case 'low-to-high':
@@ -59,13 +58,14 @@ class Product
                     break;
             }
         } else {
-            $query .= " ORDER BY `product_id` ASC"; // Default sort order
+            // Default sorting by product ID if no sorting parameter
+            $query .= " ORDER BY `product_id` ASC";
         }
 
         // Prepare the statement
         $stmt = $this->pdo->prepare($query);
 
-        // Bind parameters if set
+        // Bind parameters if they are provided
         if ($category) $stmt->bindParam(':category', $category, PDO::PARAM_INT);
         if ($department) $stmt->bindParam(':department', $department, PDO::PARAM_INT);
         if ($minPrice) $stmt->bindParam(':minPrice', $minPrice, PDO::PARAM_INT);
@@ -74,9 +74,10 @@ class Product
         // Execute the query
         $stmt->execute();
 
-        // Return the results
+        // Fetch and return the filtered records
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     // Fetch a single product by ID
     public function getProductById($id)

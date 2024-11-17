@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Category;
+
 require_once './controllers/MasterProductController.php'; // Include the ProductController
 
 // Instantiate the controller
@@ -11,10 +13,18 @@ return [
     'GET /products/' => function () use ($productController) {
         $productController->getAllRecords();
     },
-
     'GET /products/filter-by' => function () use ($productController) {
-        $productController->getFilteredRecords();
+        // Capture query parameters from the URL
+        $category = isset($_GET['category']) ? $_GET['category'] : null;
+        $department = isset($_GET['department']) ? $_GET['department'] : null;
+        $minPrice = isset($_GET['minPrice']) ? $_GET['minPrice'] : null;
+        $maxPrice = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : null;
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+
+        // Call the controller's filtered function
+        $productController->getFilteredRecords($category, $department, $minPrice, $maxPrice, $sort);
     },
+
     'GET /products/{product_id}/' => function ($product_id) use ($productController) { // Pass product_id directly
         $productController->getRecordById($product_id); // Pass product_id to the method
     },
