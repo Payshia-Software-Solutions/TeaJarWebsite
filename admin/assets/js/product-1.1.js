@@ -240,3 +240,76 @@ function UpdateProductImages(productId) {
   }
   fetch_data();
 }
+
+function SaveProductImages(productId, is_active = 1) {
+  var form = document.getElementById("product-image-form");
+
+  if (form.checkValidity()) {
+    showOverlay();
+    var formData = new FormData(form);
+    formData.append("LoggedUser", LoggedUser);
+    formData.append("UserLevel", UserLevel);
+    formData.append("company_id", company_id);
+    formData.append("productId", productId);
+    formData.append("is_active", is_active);
+
+    function fetch_data() {
+      $.ajax({
+        url: "assets/content/product/request/save-image.php",
+        method: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+          var response = JSON.parse(data);
+          if (response.status === "success") {
+            var result = response.message;
+            OpenAlert("success", "Done!", result);
+            ClosePopUP();
+
+            UpdateProductImages(productId);
+          } else {
+            var result = response.message;
+            OpenAlert("error", "Oops.. Something Wrong!", result);
+          }
+          hideOverlay();
+        },
+      });
+    }
+    fetch_data();
+  } else {
+    result = "Please Filled out All * marked Fields.";
+    OpenAlert("error", "Oops!", result);
+  }
+}
+
+function changeImageStatus(updateKey, IsActive, productId) {
+  showOverlay();
+
+  function fetch_data() {
+    $.ajax({
+      url: "assets/content/product/request/change-image-status.php",
+      method: "POST",
+      data: {
+        LoggedUser: LoggedUser,
+        company_id: company_id,
+        IsActive: IsActive,
+        updateKey: updateKey,
+        UserLevel: UserLevel,
+      },
+      success: function (data) {
+        var response = JSON.parse(data);
+        if (response.status === "success") {
+          var result = response.message;
+          OpenAlert("success", "Done!", result);
+          hideOverlay();
+          UpdateProductImages(productId);
+        } else {
+          var result = response.message;
+          OpenAlert("error", "Oops.. Something Wrong!", result);
+        }
+      },
+    });
+  }
+  fetch_data();
+}

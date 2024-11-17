@@ -1,5 +1,16 @@
 <?php
+require_once '../../../vendor/autoload.php';
+
+use Symfony\Component\HttpClient\HttpClient;
+
 $productId = $_POST['productId'];
+$client = HttpClient::create();
+
+$serverUrl = "http://localhost/TeaJarWebsite/server/";
+
+$response = $client->request('GET', $serverUrl . 'product-images/get-by-product/' . $productId);
+$productImages = $response->toArray();
+
 ?>
 
 <div class="loading-popup-content">
@@ -17,7 +28,7 @@ $productId = $_POST['productId'];
                 <div class="row g-2">
                     <div class="col-md-8 mb-2">
                         <h6 class="taxi-label">Logo</h6>
-                        <input type="file" class="form-control" id="location_image" name="location_image">
+                        <input type="file" class="form-control" id="product_image" name="product_image">
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -27,6 +38,21 @@ $productId = $_POST['productId'];
                 </div>
 
             </form>
+
+            <div class="row">
+                <?php foreach ($productImages as $product) : ?>
+                    <div class="col-3">
+                        <img class="w-100 rounded" src="<?= $serverUrl ?>/uploads/images/product-images/<?= $productId ?>/<?= $product['image_path'] ?>" alt="">
+                        <?php if ($product['is_active'] == 1) : ?>
+                            <button class="btn btn-dark w-100 mt-2" type="button" onclick="changeImageStatus('<?= $product['id'] ?>', 0, '<?= $productId ?>')">Inactive</button>
+                        <?php else : ?>
+                            <button class="btn btn-primary w-100 mt-2" type="button" onclick="changeImageStatus('<?= $product['id'] ?>', 1, '<?= $productId ?>')">Active</button>
+                        <?php endif ?>
+
+                    </div>
+                <?php endforeach ?>
+
+            </div>
         </div>
     </div>
 </div>

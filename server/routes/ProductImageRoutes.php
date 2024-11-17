@@ -21,6 +21,9 @@ return [
     'PUT /product-images/{id}/' => function ($id) use ($masterProductImagesController) {
         $masterProductImagesController->updateImage($id);
     },
+    'PUT /product-images/change-status/{id}/' => function ($id) use ($masterProductImagesController) {
+        $masterProductImagesController->changeImageStatus($id);
+    },
     'DELETE /product-images/{id}/' => function ($id) use ($masterProductImagesController) {
         $masterProductImagesController->deleteImage($id);
     }

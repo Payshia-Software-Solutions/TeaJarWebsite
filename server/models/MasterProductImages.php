@@ -70,6 +70,18 @@ class MasterProductImages
         ]);
     }
 
+    public function updateImageStatus($id, $isActive)
+    {
+        // Update the 'is_active' field for the image with the given ID
+        $sql = "UPDATE master_product_images SET is_active = :is_active WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':is_active' => $isActive,
+            ':id' => $id
+        ]);
+    }
+
+
     // Delete a product image by ID
     public function deleteImage($id)
     {
