@@ -1,0 +1,36 @@
+name: Build and Deploy Client
+
+on:
+  push:
+    branches:
+      - main  # Trigger only on the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18  # Ensure this matches your project requirements
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./client  # Navigate to client folder for npm install
+
+    - name: Build the Next.js project
+      run: npm run build
+      working-directory: ./client  # Run build in client folder
+
+    - name: Upload to cPanel via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.TEAJAR_USERNAME }}
+        password: ${{ secrets.TEAJAR_PASSWORD }}
+        local-dir: ./client/out/  # Specify the correct output folder
+        server-dir: ./ # Adjust to your server's web directory
