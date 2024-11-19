@@ -38,7 +38,7 @@ class MasterProductImages
     {
         $stmt = $this->pdo->prepare("INSERT INTO `master_product_images` (
             `product_id`, `image_prefix`, `image_path`, `is_active`, `created_by`, `created_at`
-        ) VALUES (?, ?, ?, ?, ?)");
+        ) VALUES (?, ?, ?, ?, ?, ?)");
 
         $stmt->execute([
             $data['product_id'],
