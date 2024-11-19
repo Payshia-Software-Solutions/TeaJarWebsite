@@ -16,7 +16,7 @@ return [
         $masterProductImagesController->getImageByProductId($id);
     },
     'POST /product-images/' => function () use ($masterProductImagesController) {
-        $masterProductImagesController->createImage();
+        $masterProductImagesController->createImageNew();
     },
     'PUT /product-images/{id}/' => function ($id) use ($masterProductImagesController) {
         $masterProductImagesController->updateImage($id);
