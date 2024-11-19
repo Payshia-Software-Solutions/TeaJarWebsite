@@ -22,6 +22,14 @@ if ($response->getStatusCode() === 404) {
     $productImages = $response->toArray();
 }
 
+$imagePrefixs = array(
+    1 => "Front Image",
+    2 => "Top View",
+    3 => "Side View",
+    4 => "Inner View",
+    5 => "Other",
+);
+
 ?>
 
 <div class="loading-popup-content">
@@ -37,12 +45,21 @@ if ($response->getStatusCode() === 404) {
 
             <form id="product-image-form" method="post" enctype="multipart/form-data">
                 <div class="row g-2">
-                    <div class="col-md-8 mb-2">
+                    <div class="col-md-3 mb-2">
+                        <h6 class="taxi-label">Image Prefix</h6>
+                        <select class="form-control" id="image_prefix" name="image_prefix">
+                            <?php foreach ($imagePrefixs as $id => $prefix): ?>
+                                <option value="<?= $prefix; ?>"><?= $prefix; ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+
+                    <div class="col-md-7 mb-2">
                         <h6 class="taxi-label">Logo</h6>
                         <input type="file" class="form-control" id="product_image" name="product_image">
                     </div>
 
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-2 mb-2">
                         <h6 class="taxi-label">Action</h6>
                         <button class="btn btn-dark w-100 form-control" type="button" name="BookPackageButton" id="BookPackageButton" onclick="SaveProductImages (<?= $productId ?>)">Save</button>
                     </div>
