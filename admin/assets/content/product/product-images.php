@@ -35,7 +35,7 @@ if ($response->getStatusCode() === 404) {
             <h3 class="mb-0">Product Images</h3>
             <p class="border-bottom pb-2">Please fill the all required fields.</p>
 
-            <form id="product-image-form" method="post">
+            <form id="product-image-form" method="post" enctype="multipart/form-data">
                 <div class="row g-2">
                     <div class="col-md-8 mb-2">
                         <h6 class="taxi-label">Logo</h6>

@@ -43,40 +43,29 @@ class MasterProductImagesController
     // Create a new product image
     public function createImage()
     {
-        header('Content-Type: application/json');
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $productId = $_POST['product_id'];
+            $isActive = $_POST['is_active'];
+            $createdBy = $_POST['created_by'];
+            $createdAt = $_POST['created_at'];
+            $original_filename = $_POST['original_filename'];
+            echo $original_filename;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
-            if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-                http_response_code(400);
-                echo json_encode(['error' => 'File upload error: ' . $_FILES['image']['error']]);
-                return;
-            }
-
-            $productId = filter_input(INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT);
-            $isActive = filter_input(INPUT_POST, 'is_active', FILTER_VALIDATE_BOOLEAN);
-            $createdBy = filter_input(INPUT_POST, 'created_by', FILTER_SANITIZE_STRING);
-            $createdAt = filter_input(INPUT_POST, 'created_at', FILTER_SANITIZE_STRING);
-            $original_filename = basename($_POST['original_filename']);
-
-            if (!$productId || !$createdBy || !$createdAt || !$original_filename) {
-                http_response_code(400);
-                echo json_encode(['error' => 'Missing required fields']);
-                return;
-            }
-
+            // Save the file to a directory
             $uploadDir = './uploads/images/product-images/' . $productId . '/';
-            if (!file_exists($uploadDir) && !mkdir($uploadDir, 0755, true)) {
-                http_response_code(500);
-                echo json_encode(['error' => 'Failed to create upload directory']);
-                return;
+            if (!file_exists($uploadDir)) {
+                // Create the directory if it doesn't exist
+                mkdir($uploadDir, 0777, true); // 0777 permissions to allow full read/write
             }
 
-            $targetPath = $uploadDir . $original_filename;
+            $newFileName = $original_filename;
+            $targetPath = $uploadDir . $newFileName;
 
             if (move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
+                // Save data into database using the `createImage` method
                 $this->model->createImage([
                     'product_id' => $productId,
-                    'image_path' => $original_filename,
+                    'image_path' => $newFileName,
                     'is_active' => $isActive,
                     'created_by' => $createdBy,
                     'created_at' => $createdAt,
@@ -88,6 +77,34 @@ class MasterProductImagesController
                 http_response_code(500);
                 echo json_encode(['error' => 'Failed to save the image file']);
             }
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid request or missing fields']);
+        }
+    }
+
+    public function createImageNew()
+    {
+        // Check if required fields are present in the request
+        if (isset($_POST['product_id'], $_POST['is_active'], $_POST['created_by'], $_POST['created_at'], $_POST['original_filename'])) {
+            $productId = $_POST['product_id'];
+            $isActive = $_POST['is_active'];
+            $createdBy = $_POST['created_by'];
+            $createdAt = $_POST['created_at'];
+            $originalFilename = $_POST['original_filename'];
+            echo $originalFilename;
+
+            // Save data into database using the `createImage` method
+            $this->model->createImage([
+                'product_id' => $productId,
+                'image_path' => $originalFilename,
+                'is_active' => $isActive,
+                'created_by' => $createdBy,
+                'created_at' => $createdAt,
+            ]);
+
+            http_response_code(201);
+            echo json_encode(['message' => 'Image record created successfully']);
         } else {
             http_response_code(400);
             echo json_encode(['error' => 'Invalid request or missing fields']);
