@@ -18,7 +18,7 @@ function FinestCeylonTea() {
         <div className="px-8 py-4 sm:px-6 lg:px-96">
           <div className="text-center text-white">
             <div className={italiana.className}>
-              <h2 className="text-[48px]">Finest Ceylon Tea</h2>
+              <h2 className="text-[40px]">Finest Ceylon Tea</h2>
             </div>
             <div className={juliusSansOne.className}>
               <p className="leading-8 mt-4 max-w-2xl mx-auto">
