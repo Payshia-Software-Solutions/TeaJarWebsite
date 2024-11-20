@@ -29,7 +29,7 @@ function Hero() {
         className={`absolute inset-0 w-full h-screen lg:h-full object-cover transition-all duration-500 ease-in-out ${
           scrolled ? "rounded-3xl" : ""
         }`}
-        src="/assets/videos/hero-video.mp4" // Replace with the path to your video file
+        src="/assets/videos/V2_TeaJar_HERO_5MB.mp4" // Replace with the path to your video file
         autoPlay
         loop
         muted

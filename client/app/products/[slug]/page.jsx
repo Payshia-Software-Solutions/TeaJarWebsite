@@ -50,8 +50,26 @@ const ProductServerPage = async ({ params }) => {
 
     const product = await res.json();
 
-    // If product found, render the product page
-    return <ProductPage product={product} />;
+    // Fetch product images based on product ID
+    const imagesRes = await fetch(
+      `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`
+    );
+    const images = imagesRes.ok ? await imagesRes.json() : [];
+
+    // Fetch product images based on product ID
+    const productInfoRes = await fetch(
+      `${config.API_BASE_URL}/product-ecom-values/by-product/${product.product_id}`
+    );
+    const productInfo = productInfoRes.ok ? await productInfoRes.json() : [];
+
+    // Pass both product data and images to the ProductPage component
+    return (
+      <ProductPage
+        product={product}
+        product_images={images}
+        product_info={productInfo}
+      />
+    );
   } catch (error) {
     console.error("Error fetching product data:", error);
     // Handle any server-side errors

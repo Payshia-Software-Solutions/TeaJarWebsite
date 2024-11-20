@@ -313,3 +313,65 @@ function changeImageStatus(updateKey, IsActive, productId) {
   }
   fetch_data();
 }
+
+function UpdateEcomDescriptions(productId) {
+  document.getElementById("loading-popup").innerHTML = InnerLoader;
+
+  function fetch_data() {
+    $.ajax({
+      url: "assets/content/product/e-com-descriptions.php",
+      method: "POST",
+      data: {
+        LoggedUser: LoggedUser,
+        UserLevel: UserLevel,
+        productId: productId,
+      },
+      success: function (data) {
+        $("#loading-popup").html(data);
+        OpenPopup();
+      },
+    });
+  }
+  fetch_data();
+}
+
+function SaveProductInfo(productId, is_active = 1) {
+  var form = document.getElementById("product-info-form");
+
+  if (form.checkValidity()) {
+    showOverlay();
+    var formData = new FormData(form);
+    formData.append("LoggedUser", LoggedUser);
+    formData.append("UserLevel", UserLevel);
+    formData.append("company_id", company_id);
+    formData.append("productId", productId);
+    formData.append("is_active", is_active);
+
+    function fetch_data() {
+      $.ajax({
+        url: "assets/content/product/request/save-product-info.php",
+        method: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+          var response = JSON.parse(data);
+          if (response.status === "success") {
+            var result = response.message;
+            OpenAlert("success", "Done!", result);
+            ClosePopUP();
+          } else {
+            var result = response.message;
+            OpenAlert("error", "Oops.. Something Wrong!", result);
+          }
+          hideOverlay();
+        },
+      });
+    }
+    fetch_data();
+  } else {
+    form.reportValidity();
+    result = "Please Filled out All * marked Fields.";
+    OpenAlert("error", "Oops!", result);
+  }
+}

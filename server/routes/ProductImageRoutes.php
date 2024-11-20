@@ -15,13 +15,17 @@ return [
     'GET /product-images/get-by-product/{id}' => function ($id) use ($masterProductImagesController) {
         $masterProductImagesController->getImageByProductId($id);
     },
+    'GET /product-images/get-by-product/{id}/admin' => function ($id) use ($masterProductImagesController) {
+        $masterProductImagesController->getImageByProductIdAdmin($id);
+    },
+
     'POST /product-images/' => function () use ($masterProductImagesController) {
         $masterProductImagesController->createImageNew();
     },
     'PUT /product-images/{id}/' => function ($id) use ($masterProductImagesController) {
         $masterProductImagesController->updateImage($id);
     },
-    'PUT /product-images/change-status/{id}/' => function ($id) use ($masterProductImagesController) {
+    'PUT /product-images/change-status/{id}' => function ($id) use ($masterProductImagesController) {
         $masterProductImagesController->changeImageStatus($id);
     },
     'DELETE /product-images/{id}/' => function ($id) use ($masterProductImagesController) {

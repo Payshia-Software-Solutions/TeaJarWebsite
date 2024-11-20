@@ -66,6 +66,8 @@ const ProductHeader = ({
         <span className="text-3xl font-bold text-gray-800">
           {formatPrice(price, currency)}
         </span>
+      </div>
+      <div>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-600">
             <a
@@ -95,13 +97,12 @@ const ProductHeader = ({
 
 // Default props
 ProductHeader.defaultProps = {
-  title:
-    "Exceptional Rose with French Vanilla Ceylon Black Tea-20 Luxury Leaf Tea Bags",
+  title: "Product Title",
   rating: 5,
-  bagsPerPack: 20,
-  servingsPerPack: 20,
-  gramsPerPack: 40,
-  price: 9.99,
+  bagsPerPack: 0,
+  servingsPerPack: 0,
+  gramsPerPack: 0,
+  price: 0.0,
   currency: "USD",
   inStock: true,
   onShippingClick: () => {},

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
 import { usePathname } from "next/navigation";
 import { Italiana, Julius_Sans_One } from "next/font/google";
 import { SlArrowDown } from "react-icons/sl";
@@ -272,11 +274,12 @@ function NavBar() {
             </button>
             <nav aria-label="Mobile Navigation" className="p-5">
               <div className="flex justify-center border-b mb-3 pb-3">
-                <img
-                  img
+                <Image
                   src="/assets/white-logo.png"
-                  alt=""
-                  className="w-[150px] mb-2"
+                  alt="White Logo"
+                  width={48} // Adjust width (based on h-12 or height 12)
+                  height={48} // Adjust height proportionally
+                  className="h-12"
                 />
               </div>
 
@@ -339,12 +342,12 @@ function NavBar() {
               </ul>
 
               <div className="flex justify-between items-center gap-4 mt-5">
-                <a
+                <Link
                   className="flex-grow rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow text-center"
                   href="#"
                 >
                   Login
-                </a>
+                </Link>
               </div>
             </nav>
           </div>

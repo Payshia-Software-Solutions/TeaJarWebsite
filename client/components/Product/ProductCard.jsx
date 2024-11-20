@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Info } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const MintPayLogo = () => (
   <Link
@@ -9,11 +10,15 @@ const MintPayLogo = () => (
     rel="noopener noreferrer"
     className="no-underline"
   >
-    <img
-      className="inline-flex relative cursor-pointer h-5 w-auto align-middle"
-      src="https://static.mintpay.lk/static/base/logo/mintpay-pill.png"
-      alt="Mintpay"
-    />
+    <div className="inline-flex relative cursor-pointer h-5 w-auto align-middle">
+      <Image
+        src="https://static.mintpay.lk/static/base/logo/mintpay-pill.png"
+        alt="Mintpay"
+        width={100} // Specify width (or adjust as needed)
+        height={20} // Specify height (or adjust as needed)
+        className="object-contain" // Mimics the behavior of responsive images
+      />
+    </div>
   </Link>
 );
 
@@ -24,11 +29,15 @@ const KOKOLogo = () => (
     rel="noopener noreferrer"
     className="no-underline"
   >
-    <img
-      className="inline-flex relative cursor-pointer h-5 w-auto align-middle"
-      src="https://paykoko.com/img/logo1.7ff549c0.png"
-      alt="Koko"
-    />
+    <div className="inline-flex relative cursor-pointer h-5 w-auto align-middle">
+      <Image
+        src="https://paykoko.com/img/logo1.7ff549c0.png"
+        alt="Koko"
+        width={100} // Specify width (or adjust as needed)
+        height={20} // Specify height (or adjust as needed)
+        className="object-contain" // Mimics the behavior of responsive images
+      />
+    </div>
   </Link>
 );
 
@@ -66,16 +75,27 @@ const ProductCard = ({
           onMouseLeave={() => setCurrentImageIndex(0)}
         >
           {images.map((image, index) => (
-            <img
+            <div
               key={index}
-              src={image}
-              alt={`${title} - View ${index + 1}`}
-              className={`absolute top-0 left-0 object-cover w-full h-full transition-all duration-500 ease-in-out transform group-hover:scale-105 ${
+              className={`absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out transform group-hover:scale-105 ${
                 currentImageIndex === index
                   ? "opacity-100 z-10"
                   : "opacity-0 z-0"
               }`}
-            />
+            >
+              <Image
+                src={image}
+                alt={`${title} - View ${index + 1}`}
+                style={{
+                  objectFit: "cover",
+                  width: "100%", // Ensure responsive scaling
+                  height: "100%",
+                }}
+                width={300} // Specify fixed width
+                height={200} // Makes the image fill the parent container
+                priority={index === 0} // Optional: prioritize loading the first image
+              />
+            </div>
           ))}
         </div>
 
