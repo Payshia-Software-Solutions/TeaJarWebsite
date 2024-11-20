@@ -11,10 +11,10 @@ function CartSideBar({ closeCart }) {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
     // const savedCart = localStorage.getItem("cart");
-    console.log(savedCart);
+    // console.log(savedCart);
     if (savedCart) {
       setCart(savedCart);
-      console.log(cart);
+      // console.log(cart);
     }
   }, []);
 

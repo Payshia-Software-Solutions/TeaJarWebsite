@@ -114,6 +114,8 @@ $InactiveProductsCount = 0;
 
                                     <button class="mt-0 mb-1 btn btn-sm btn-success view-button" type="button" onclick="UpdateProductImages('<?= $Product['product_id'] ?>')"><i class="fa-solid fa-image"></i> Images</button>
 
+                                    <button class="mt-0 mb-1 btn btn-sm btn-success view-button" type="button" onclick="UpdateEcomDescriptions('<?= $Product['product_id'] ?>')"><i class="fa-regular fa-rectangle-list"></i> Ecom</button>
+
                                     <?php
                                     if ($Product['active_status'] == 1) {
                                         $active_status = "Active";

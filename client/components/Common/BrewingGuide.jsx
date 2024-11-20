@@ -17,10 +17,6 @@ const defaultBrewingSteps = [
     text: "95°C – 100°C",
   },
   {
-    icon: "cupSoda",
-    text: "1 String and Tag Tea Bag per person",
-  },
-  {
     icon: "beaker",
     text: "220ml of water per person",
   },
@@ -52,7 +48,7 @@ const BrewingGuide = ({ steps = defaultBrewingSteps }) => {
         Brewing Information
       </h2>
 
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex justify-center gap-8">
         {steps.map((step, index) => (
           <div
             key={index}

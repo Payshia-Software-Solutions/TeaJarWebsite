@@ -1,18 +1,21 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 require_once '../../../vendor/autoload.php';
 
 use Symfony\Component\HttpClient\HttpClient;
 
+$client = HttpClient::create();
+$dotenv = Dotenv\Dotenv::createImmutable('../../../');
+$dotenv->load();
+
 $productId = $_POST['productId'];
 $client = HttpClient::create();
 
-$serverUrl = "https://kduserver.payshia.com/";
 
-$response = $client->request('GET', $serverUrl . 'product-images/get-by-product/' . $productId);
+$response = $client->request('GET', $_ENV['SERVER_URL'] . '/product-images/get-by-product/' . $productId . '/admin');
 // Check if the response status code is 404
 if ($response->getStatusCode() === 404) {
     // If 404, set $productImages as an empty array
@@ -70,7 +73,8 @@ $imagePrefixs = array(
             <div class="row">
                 <?php foreach ($productImages as $product) : ?>
                     <div class="col-3">
-                        <img class="w-100 rounded" src="<?= $serverUrl ?>/uploads/images/product-images/<?= $productId ?>/<?= $product['image_path'] ?>" alt="">
+                        <img class="w-100 rounded" src="<?= $_ENV['ADMIN_URL'] ?>/pos-system/assets/images/products/<?= $productId ?>/<?= $product['image_path'] ?>" alt="">
+                        <div class="badge bg-primary"><?= $product['image_prefix'] ?></div>
                         <?php if ($product['is_active'] == 1) : ?>
                             <button class="btn btn-dark w-100 mt-2" type="button" onclick="changeImageStatus('<?= $product['id'] ?>', 0, '<?= $productId ?>')">Inactive</button>
                         <?php else : ?>

@@ -16,7 +16,7 @@ import RecommendedCategories from "@/components/Recommendation/RecommendedCatego
 export default function Home() {
   return (
     <div>
-      <DiscountModel />
+      {/* <DiscountModel /> */}
       <Hero />
       <About />
       <TopSellers />

@@ -59,14 +59,5 @@ const TeaDetails = ({
 };
 
 // Add prop types for better documentation and type checking
-TeaDetails.defaultProps = {
-  tastingNote:
-    "The Dimbula Valley consists of estates in and around Talawakelle, around 1,500 meters elevation. Tea from this region is known for the combination of strength, character, and brightness, the perfect Breakfast Tea.",
-  ingredients: "Pure Ceylon Black tea, no additives",
-  teaGrade: "Broken Orange Pekoe Fannings",
-  netWeight: "100g",
-  caffeine: "Medium",
-  timeOfDay: "Morning",
-};
 
 export default TeaDetails;

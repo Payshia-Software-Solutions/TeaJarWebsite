@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "@/components/Product/ProductCard";
 // Font imports
 import { Italiana, Julius_Sans_One } from "next/font/google";
+import config from "@/config";
 
 const italiana = Italiana({
   weight: "400",
@@ -28,7 +29,7 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
     const fetchRangeName = async () => {
       try {
         const res = await fetch(
-          `https://kduserver.payshia.com/departments/${range_id}`
+          `${config.API_BASE_URL}/departments/${range_id}`
         );
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -49,7 +50,7 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://kduserver.payshia.com/products/get-by-department/${range_id}`
+          `${config.API_BASE_URL}/products/get-by-department/${range_id}`
         );
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -76,6 +77,8 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
     );
   }, [searchQuery, products]);
 
+  const [images, setImages] = useState([]);
+
   return (
     <div className="bg-gray-100 bg-opacity-10 rounded-2xl p-4 my-3">
       <div className={italiana.className}>
@@ -98,7 +101,7 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
             id={singleitem.product_id}
             price={+singleitem.selling_price}
             images={[
-              `https://kdu-admin.payshia.com/pos-system/assets/images/products/${singleitem.product_id}/${singleitem.image_path}`,
+              `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${singleitem.product_id}/${singleitem.image_path}`,
               "/assets/products/1/cardamom.jpg",
             ]}
             Rate={"(5.6)"}

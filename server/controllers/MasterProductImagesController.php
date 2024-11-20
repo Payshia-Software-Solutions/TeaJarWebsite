@@ -40,6 +40,17 @@ class MasterProductImagesController
         }
     }
 
+    public function getImageByProductIdAdmin($id)
+    {
+        $image = $this->model->getImageByProductIdAdmin($id);
+        if ($image) {
+            echo json_encode($image);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'Image not found']);
+        }
+    }
+
     // Create a new product image
     public function createImage()
     {
@@ -85,23 +96,12 @@ class MasterProductImagesController
 
     public function createImageNew()
     {
-        // Check if required fields are present in the request
-        if (isset($_POST['product_id'], $_POST['is_active'], $_POST['created_by'], $_POST['created_at'], $_POST['original_filename'])) {
-            $productId = $_POST['product_id'];
-            $isActive = $_POST['is_active'];
-            $createdBy = $_POST['created_by'];
-            $createdAt = $_POST['created_at'];
-            $originalFilename = $_POST['original_filename'];
-            echo $originalFilename;
 
+        $data = json_decode(file_get_contents("php://input"), true);
+        // Check if required fields are present in the request
+        if (isset($_POST['product_id'], $_POST['is_active'], $_POST['created_by'], $_POST['created_at'], $_POST['original_filename'], $_POST['image_prefix'])) {
             // Save data into database using the `createImage` method
-            $this->model->createImage([
-                'product_id' => $productId,
-                'image_path' => $originalFilename,
-                'is_active' => $isActive,
-                'created_by' => $createdBy,
-                'created_at' => $createdAt,
-            ]);
+            $this->model->createImage($data);
 
             http_response_code(201);
             echo json_encode(['message' => 'Image record created successfully']);

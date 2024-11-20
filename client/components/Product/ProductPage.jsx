@@ -9,35 +9,32 @@ import ProductHeader from "@/components/Product/ProductHeader";
 import SecureBanner from "@/components/Common/SecureBanner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import config from "@/config";
 
 import Link from "next/link";
 
-const KOKOLogo = () => (
-  <Link
-    href={`https://paykoko.com/customer-education`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex"
-  >
-    <img
-      className="relative h-5 w-auto mt-0 top-[3px]"
-      src="https://paykoko.com/img/logo1.7ff549c0.png"
-      alt="Koko"
-    />
-  </Link>
-);
-
-const ProductPage = ({ product }) => {
+const ProductPage = ({ product, product_images, product_info }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  const images = product.images || [
-    "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
-      product.product_id +
-      "/" +
-      product.image_path,
-    "/assets/products/1/cardamom.jpg",
-  ];
+  // Define the display order for the images
+  const imageOrder = {
+    "Front Image": 1,
+    "Top View": 2,
+    "Side View": 3,
+    "Inner View": 4,
+    Other: 5,
+  };
+
+  // Sort the product_images based on the predefined order
+  const sortedImages = product_images.sort((a, b) => {
+    return imageOrder[a.image_prefix] - imageOrder[b.image_prefix];
+  });
+
+  const images =
+    sortedImages && sortedImages.length > 0
+      ? sortedImages
+      : [{ image_path: product.image_path }];
 
   const productName = product.display_name;
   const price = product.selling_price;
@@ -73,22 +70,23 @@ const ProductPage = ({ product }) => {
     });
   };
 
+  // console.log(images);
+
   const teaData = {
-    tastingNote:
-      "The Dimbula Valley consists of estates in and around Talawakelle, around 1,500 meters elevation. Tea from this region is known for the combination of strength, character, and brightness, the perfect Breakfast Tea.",
-    ingredients: "Pure Ceylon Black tea, no additives",
-    teaGrade: "Broken Orange Pekoe Fannings",
-    netWeight: "100g",
-    caffeine: "Medium",
-    timeOfDay: "Morning",
+    tastingNote: product_info.tasting_notes,
+    ingredients: product_info.ingredients,
+    teaGrade: product_info.tea_grades,
+    netWeight: `${product_info.net_weight} g`,
+    caffeine: product_info.caffain_level,
+    timeOfDay: product_info.usage_type, // you can adjust this based on your logic or data
   };
 
   const productData = {
     title: productName,
     rating: 4,
-    bagsPerPack: 30,
-    servingsPerPack: 30,
-    gramsPerPack: 60,
+    bagsPerPack: product_info.tb_count,
+    servingsPerPack: product_info.serving_count,
+    gramsPerPack: product_info.per_pack_gram,
     price: price,
     currency: "LKR",
     inStock: true,
@@ -100,23 +98,19 @@ const ProductPage = ({ product }) => {
   const defaultBrewingSteps = [
     {
       icon: "droplet",
-      text: "Recommended to use Spring Water",
+      text: product_info.water_type,
     },
     {
       icon: "thermometer",
-      text: "95°C – 100°C",
-    },
-    {
-      icon: "cupSoda",
-      text: "1 String and Tag Tea Bag per person",
+      text: product_info.breaw_temp,
     },
     {
       icon: "beaker",
-      text: "220ml of water per person",
+      text: product_info.water,
     },
     {
       icon: "timer",
-      text: "3 - 5 Minutes (5 minutes for a strong cup)",
+      text: product_info.brew_duration,
     },
   ];
 
@@ -126,18 +120,21 @@ const ProductPage = ({ product }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left Column - Images */}
           <div className="space-y-4">
+            {/* Main Product Image */}
             <div className="aspect-square relative">
               <img
-                src={images[selectedImage]}
+                src={`${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${images[selectedImage].image_path}`}
                 alt="Product"
                 className="w-full h-full object-cover rounded-lg"
               />
             </div>
+
+            {/* Thumbnail Selector */}
             <div className="flex gap-4">
               {images.map((img, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setSelectedImage(idx)}
+                  onClick={() => setSelectedImage(idx)} // Update the selected image
                   className={`w-24 h-24 rounded-lg overflow-hidden border-2 ${
                     selectedImage === idx
                       ? "border-blue-500"
@@ -145,7 +142,7 @@ const ProductPage = ({ product }) => {
                   }`}
                 >
                   <img
-                    src={img}
+                    src={`${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${img.image_path}`}
                     alt={`Thumbnail ${idx + 1}`}
                     className="w-full h-full object-cover"
                   />
@@ -192,24 +189,6 @@ const ProductPage = ({ product }) => {
           </div>
         </div>
         <BrewingGuide steps={defaultBrewingSteps} />
-
-        <div className="bg-white rounded-lg shadow-md mt-10">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Good to Know</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-medium mb-2">Detailed Description</h3>
-                <p className="text-sm text-gray-600">
-                  {product.product_description}
-                </p>
-              </div>
-              <div>
-                <h3 className="font-medium mb-2">How To Use</h3>
-                <p className="text-sm text-gray-600">{product.how_to_use}</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div className="mt-10 border-t">
           <ReviewSection />

@@ -21,24 +21,6 @@ const ReviewSection = () => {
       content: "Great Product & Love This 💚💛",
       verified: true,
     },
-    {
-      id: 2,
-      author: "Kanchana Dilrukshi",
-      rating: 5,
-      date: "10/09/2024",
-      content:
-        "Best product for oily skin. My skin has improved lot. Thanks spa ceylon❤️",
-      verified: true,
-    },
-    {
-      id: 3,
-      author: "Charithma Weerakoon",
-      rating: 5,
-      date: "09/30/2024",
-      content:
-        "I could never use a skincare product/cream on my skin without getting nasty effects before, as my skin is very oily, sensitive and acne prone but this product has done miracles on my skin now. My skin has improved in a very positive way withing two weeks. Love this product and will purchase forever.",
-      verified: true,
-    },
   ];
 
   const ratingCounts = {
@@ -163,7 +145,7 @@ const ReviewSection = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-2 mt-8">
+      {/* <div className="flex justify-center items-center gap-2 mt-8">
         <button className="w-8 h-8 flex items-center justify-center rounded bg-gray-100">
           1
         </button>
@@ -175,7 +157,7 @@ const ReviewSection = () => {
         <button className="w-8 h-8 flex items-center justify-center">
           <ChevronsRight className="w-4 h-4" />
         </button>
-      </div>
+      </div> */}
 
       <ReviewModal
         isOpen={isReviewModalOpen}

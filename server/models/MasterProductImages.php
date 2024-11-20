@@ -27,6 +27,13 @@ class MasterProductImages
 
     public function getImageByProductId($id)
     {
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product_images` WHERE `product_id` = ? AND `is_active` LIKE 1");
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getImageByProductIdAdmin($id)
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `master_product_images` WHERE `product_id` = ?");
         $stmt->execute([$id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,7 +44,7 @@ class MasterProductImages
     public function createImage($data)
     {
         $stmt = $this->pdo->prepare("INSERT INTO `master_product_images` (
-            `product_id`, `image_prefix`, `image_path`, `is_active`, `created_by`, `created_at`
+            `product_id`, `image_prefix`, `image_path`, `is_active`, `created_by`, `created_at`, 
         ) VALUES (?, ?, ?, ?, ?, ?)");
 
         $stmt->execute([

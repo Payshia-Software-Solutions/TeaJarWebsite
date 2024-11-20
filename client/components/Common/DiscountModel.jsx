@@ -48,18 +48,6 @@ export default function DiscountModal() {
           </div>
           <form>
             <input
-              type="text"
-              placeholder="First Name"
-              style={{
-                width: "100%",
-                padding: "10px",
-                marginBottom: "10px",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
-              required
-            />
-            <input
               type="email"
               placeholder="Email address"
               style={{
