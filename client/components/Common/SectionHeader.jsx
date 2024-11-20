@@ -18,7 +18,7 @@ function SectionHeader({
   return (
     <header>
       <div className={italiana.className}>
-        <h2 className={`  text-[64px] mb-6  text-white  text-center`}>
+        <h2 className={`  text-[24px] mb-6  text-white  text-center`}>
           {sectionTitle}
         </h2>
       </div>

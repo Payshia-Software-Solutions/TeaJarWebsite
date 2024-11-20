@@ -28,7 +28,7 @@ function About() {
       <div className="mx-auto max-w-screen-2xl px-8 py-16 sm:px-6 lg:px-96">
         <div className="text-center">
           <div className={italiana.className}>
-            <h1 className="text-[64px] -font-bold text-white mt-24">
+            <h1 className="text-[40px] -font-bold text-white mt-24">
               About Us
             </h1>
           </div>
