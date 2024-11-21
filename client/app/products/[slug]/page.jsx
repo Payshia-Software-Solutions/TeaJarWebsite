@@ -33,6 +33,7 @@ const ProductServerPage = async ({ params }) => {
         },
       }
     );
+    console.log(`${config.API_BASE_URL}/products/get-by-slug/${slug}`);
 
     if (!res.ok) {
       // If the product doesn't exist, return a 404 page

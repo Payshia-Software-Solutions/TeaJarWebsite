@@ -55,7 +55,7 @@ function FilteredShop() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <section className="h-full">
-        <div className="p-6">
+        <div className="">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             <div className="md:col-span-3">
               <div className="sticky top-10">
@@ -78,7 +78,7 @@ function FilteredShop() {
 
               <div className="bg-gray-100 bg-opacity-10 rounded-2xl p-4 my-3">
                 <hr className="border-black border-t-2 mx-auto mb-6" />
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-2 gap-2">
                   {loading && <p>Loading products...</p>}
                   {error && <p>{error}</p>}
                   {!loading && !error && filteredProducts.length === 0 && (
