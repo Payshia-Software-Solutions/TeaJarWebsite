@@ -6,7 +6,8 @@ $sectionId = $_POST['sectionId'];
 $departmentId = $_POST['departmentId'];
 $selectedCategory = $_POST['selectedCategory'];
 
-$categoryList = GetCategoryBySectionDepartment($link, $sectionId, $departmentId)
+// $categoryList = GetCategoryBySectionDepartment($link, $sectionId, $departmentId)
+$categoryList = GetCategories($link);
 ?>
 
 <option value="">Select Category</option>
