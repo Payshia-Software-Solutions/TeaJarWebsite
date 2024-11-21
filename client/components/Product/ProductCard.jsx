@@ -99,29 +99,29 @@ const ProductCard = ({
           ))}
         </div>
 
-        <div className="p-4 space-y-4">
-          <h3 className="font-serif text-lg text-gray-800 leading-tight hover:text-gray-600 transition-colors duration-200">
+        <div className="p-2 space-y-2">
+          <h3 className="font-serif text-sm lg:text-lg text-gray-800 leading-tight hover:text-gray-600 transition-colors duration-200">
             {title}
           </h3>
 
           <div className="space-y-2">
-            <p className="text-black text-xl font-bold">{formatPrice(price)}</p>
+            <p className="text-black  font-bold text-lg lg:text-xl">
+              {formatPrice(price)}
+            </p>
 
             <div className="space-y-1 text-sm text-gray-600">
-              <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200">
-                <span>or 3 X {formatPrice(installmentAmount)} with</span>
+              <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200 text-[10px]">
+                <span>
+                  or 3 X {formatPrice(installmentAmount)} with MintPay
+                </span>
                 <MintPayLogo />
-
-                <Info className="w-4 h-4 cursor-pointer hover:text-blue-500 transition-colors duration-200" />
               </div>
 
-              <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200">
+              <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200 text-[10px]">
                 <span>
-                  or pay in 3 @ {formatPrice(installmentAmount)} with
+                  or pay in 3 @ {formatPrice(installmentAmount)} with KOKO
                   <KOKOLogo />
                 </span>
-
-                <Info className="w-4 h-4 cursor-pointer hover:text-blue-500 transition-colors duration-200" />
               </div>
             </div>
           </div>

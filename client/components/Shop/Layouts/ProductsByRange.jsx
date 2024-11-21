@@ -80,14 +80,14 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
   const [images, setImages] = useState([]);
 
   return (
-    <div className="bg-gray-100 bg-opacity-10 rounded-2xl p-4 my-3">
+    <div className="bg-gray-100 bg-opacity-10 rounded-2xl  my-3">
       <div className={italiana.className}>
         <h2 className="text-3xl m-3 text-black font-bold">
           {rangeNameError || rangeName}
         </h2>
       </div>
       <hr className="border-black border-t-2 mx-auto mb-6" />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-2 gap-3">
         {loading && <p>Loading products...</p>}
         {error && <p>{error}</p>}
         {!loading && !error && filteredProducts.length === 0 && (

@@ -56,7 +56,6 @@ function Hero() {
         <img
           src="./assets/images/tea-cup.png"
           alt="Tea Cup Image"
-          srcset=""
           className="absolute mx-auto"
         />
       </div>
