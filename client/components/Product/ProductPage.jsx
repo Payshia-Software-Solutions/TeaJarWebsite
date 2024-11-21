@@ -196,7 +196,7 @@ const ProductPage = ({ product, product_images, product_info }) => {
       </div>
 
       <Subscribe />
-      <SecureBanner />
+      {/* <SecureBanner /> */}
 
       {/* ToastContainer to display the notifications */}
       <ToastContainer />
