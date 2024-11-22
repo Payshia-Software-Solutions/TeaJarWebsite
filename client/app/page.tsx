@@ -21,23 +21,9 @@ export default function Home() {
       <About />
       <TopSellers />
       <FinestCeylonTea />
-
-      {/* Start of the Recommendation */}
-      <section className="bg-theme py-16">
-        <div className="container mx-auto">
-          <div className="px-8 py-4 sm:px-6">
-            <SectionHeader
-              sectionTitle="Recommended Categories"
-              sectionHighlight={""}
-            />
-            <RecommendedCategories />
-          </div>
-        </div>
-      </section>
-      {/* End of the Recommendation */}
-
-      <Outlet />
+      <RecommendedCategories />
       <MiniWording />
+      <Outlet />
       <FAQ />
       <Subscribe />
     </div>

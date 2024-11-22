@@ -21,7 +21,7 @@ class TransactionInvoice
     // Fetch a single invoice by ID
     public function getInvoiceById($id)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM `transaction_invoice` WHERE `id` = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM `transaction_invoice` WHERE `invoice_number` = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

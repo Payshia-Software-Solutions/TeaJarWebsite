@@ -113,10 +113,19 @@ $LocationName = $Locations[$SelectedInvoice['location_id']]['location_name'];
         <div id="container" class="section-2">
             <div id="left-section">
                 <h3 class="sub-title">Customer</h3>
-                <p class="text-bold-extra"><?= $Customer['customer_first_name'] ?> <?= $Customer['customer_last_name'] ?></p>
-                <p><?= $Customer['address_line1'] ?>, <?= $Customer['address_line2'] ?>, <?= $Customer['city_id'] ?></p>
-                <p>Tel: <?= $Customer['phone_number'] ?></p>
-                <p>Email: <?= $Customer['email_address'] ?></p>
+                <p class="text-bold-extra"><?= isset($Customer['customer_first_name']) ? $Customer['customer_first_name'] : "Web"  ?> <?= isset($Customer['customer_last_name']) ? $Customer['customer_last_name'] : "User"  ?></p>
+                <p>
+                    <?= isset($Customer['address_line1']) ? $Customer['address_line1'] : '' ?>
+                    <?= isset($Customer['address_line2']) ? ', ' . $Customer['address_line2'] : '' ?>
+                    <?= isset($Customer['city_id']) ? ', ' . $Customer['city_id'] : '' ?>
+                </p>
+                <p>
+                    Tel: <?= isset($Customer['phone_number']) ? $Customer['phone_number'] : 'N/A' ?>
+                </p>
+                <p>
+                    Email: <?= isset($Customer['email_address']) ? $Customer['email_address'] : 'N/A' ?>
+                </p>
+
             </div>
 
 

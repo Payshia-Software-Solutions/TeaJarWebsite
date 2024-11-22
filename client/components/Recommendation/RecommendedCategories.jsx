@@ -62,77 +62,80 @@ const RecommendedCategories = () => {
   });
 
   return (
-    <div className="" {...swipeHandlers}>
-      <div className="flex justify-center">
-        <AnimatePresence>
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 0.9 }} // Starts slightly smaller
-            exit={{ opacity: 0, scale: 0.9 }} // Shrinks when exiting
-            animate={{ opacity: 1, scale: 1 }} // Grows to full size
-            transition={{ duration: 0.5 }} // Adjust the duration as needed
-          >
-            <div className="border max-h[550px]">
-              <div
-                className={`flex w-full items-stretch ${
-                  currentIndex % 2 === 0 ? "flex-row" : "flex-row-reverse"
-                }`}
-              >
-                {/* Video Container */}
-                <div className="w-1/3 flex-grow">
-                  <VideoComponent videoUrl={currentCategory.videoUrl} />
-                </div>
+    <div className="bg-theme ">
+      <div className="" {...swipeHandlers}>
+        <div className=" w-full justify-center">
+          <AnimatePresence>
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.9 }} // Starts slightly smaller
+              exit={{ opacity: 0, scale: 0.9 }} // Shrinks when exiting
+              animate={{ opacity: 1, scale: 1 }} // Grows to full size
+              transition={{ duration: 0.5 }} // Adjust the duration as needed
+            >
+              <div className="min-h-screen">
+                <div
+                  className={`flex w-full items-stretch ${
+                    currentIndex % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                  }`}
+                  style={{ width: "100%" }}
+                >
+                  {/* Video Container */}
+                  <div className="w-1/3 flex-grow">
+                    <VideoComponent videoUrl={currentCategory.videoUrl} />
+                  </div>
 
-                {/* Content Container */}
-                <div className="w-2/3 flex flex-col pl-0">
-                  <div className="p-10 flex-grow flex flex-col">
-                    <div className="flex items-center justify-start mb-10">
-                      <h1
-                        className={`text-4xl border-b text-white ${italiana.className}`}
-                      >
-                        {currentCategory.name}
-                      </h1>
-                    </div>
-                    <div className="flex flex-1">
-                      {/* List Container */}
-                      <div className="w-1/3">
-                        <ul className="space-y-4 text-gray-400">
-                          {currentCategory.products.map((product) => (
-                            <motion.li
-                              key={product.id}
-                              className="flex items-center justify-between hover:text-gray-200 transition-colors duration-300"
-                              initial={{ opacity: 0, x: 100 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -100 }}
-                              transition={{
-                                duration: 0.5,
-                                delay: 0.1 * product.id,
-                              }}
-                            >
-                              <span className="font-medium cursor-pointer">
-                                {product.name}
-                              </span>
-                              <BsArrowRightShort size={18} />
-                            </motion.li>
-                          ))}
-                        </ul>
+                  {/* Content Container */}
+                  <div className="w-2/3 flex flex-col pl-0">
+                    <div className="p-10 flex-grow flex flex-col">
+                      <div className="flex items-center justify-start mb-10">
+                        <h1
+                          className={`text-4xl border-b text-white ${italiana.className}`}
+                        >
+                          {currentCategory.name}
+                        </h1>
                       </div>
+                      <div className="flex flex-1">
+                        {/* List Container */}
+                        <div className="w-1/3">
+                          <ul className="space-y-4 text-gray-400">
+                            {currentCategory.products.map((product) => (
+                              <motion.li
+                                key={product.id}
+                                className="flex items-center justify-between hover:text-gray-200 transition-colors duration-300"
+                                initial={{ opacity: 0, x: 100 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -100 }}
+                                transition={{
+                                  duration: 0.5,
+                                  delay: 0.1 * product.id,
+                                }}
+                              >
+                                <span className="font-medium cursor-pointer">
+                                  {product.name}
+                                </span>
+                                <BsArrowRightShort size={18} />
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </div>
 
-                      {/* Image Container */}
-                      <div className="w-2/3 pl-6">
-                        <img
-                          className="rounded-xl shadow-md h-full object-cover"
-                          src="./assets/ourteas/black-tea.jpg"
-                          alt=""
-                        />
+                        {/* Image Container */}
+                        <div className="w-2/3 pl-6">
+                          <img
+                            className="rounded-xl shadow-md h-full object-cover"
+                            src="./assets/ourteas/black-tea.jpg"
+                            alt=""
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

@@ -132,7 +132,7 @@ function Outlets() {
                 {/* Right side: Main content */}
                 <div className="bg-[#353d32a6] px-5 py-5 rounded-2xl opacity-85 w-full">
                   <div className={italiana.className}>
-                    <h2 className="text-[40px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-4 sm:mb-4 md:mb-8 lg:mb-10">
+                    <h2 className="text-[30px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-4 sm:mb-4 md:mb-8 lg:mb-10">
                       Find your nearest Store
                     </h2>
                   </div>
@@ -178,34 +178,29 @@ function Outlets() {
                         transition={{ duration: 0.7, delay: 0.2 }}
                         className={juliusSansOne.className}
                       >
-                        <p className="leading-7 sm:leading-8">
+                        <p className="leading-7 sm:leading-8 text-[16px] sm:text-[14px]">
                           {activeDescription.description}
                         </p>
-                      </motion.div>
-                    </div>
 
-                    <div className="bg-[#4A5243] p-4 sm:p-6 lg:p-8 rounded-lg text-white mt-10">
-                      <h2 className="text-2xl sm:text-3xl font-bold mb-6">
-                        Outlet Amenities
-                      </h2>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-                        {/* Loop through the amenities array to render each amenity */}
-                        {amenities.map((amenity) => (
-                          <div
-                            key={amenity.id}
-                            className="icon-box flex flex-col justify-center items-center text-center"
-                          >
-                            <img
-                              className="w-[60px] mb-2"
-                              src={amenity.icon}
-                              alt={amenity.name}
-                            />
-                            <p className="text-[15px] sm:text-[15px]">
-                              {amenity.name}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+                          {/* Loop through the amenities array to render each amenity */}
+                          {amenities.map((amenity) => (
+                            <div
+                              key={amenity.id}
+                              className="icon-box flex flex-col justify-center items-center text-center"
+                            >
+                              <img
+                                className="w-[40px] mb-2"
+                                src={amenity.icon}
+                                alt={amenity.name}
+                              />
+                              <p className="text-[12px] sm:text-[10px]">
+                                {amenity.name}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
                     </div>
                   </div>
                 </div>

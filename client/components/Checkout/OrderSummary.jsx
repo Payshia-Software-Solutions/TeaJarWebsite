@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import config from "@/config";
 
 const OrderSummary = ({
   setPromoCode,
@@ -45,7 +46,7 @@ const OrderSummary = ({
 
     try {
       const response = await fetch(
-        `http://localhost/TeaJarWebsite/server/promo_codes/by_code/${coupon}`
+        `${config.API_BASE_URL}/promo_codes/by_code/${coupon}`
       );
       const data = await response.json();
 
