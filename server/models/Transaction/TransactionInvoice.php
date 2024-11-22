@@ -1,29 +1,34 @@
 <?php
 
-class TransactionInvoice {
+class TransactionInvoice
+{
     private $pdo;
 
     // Constructor to initialize the PDO connection
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
     // Fetch all transaction invoices
-    public function getAllInvoices() {
+    public function getAllInvoices()
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `transaction_invoice` ORDER BY `id` ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Fetch a single invoice by ID
-    public function getInvoiceById($id) {
+    public function getInvoiceById($id)
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `transaction_invoice` WHERE `id` = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Create a new transaction invoice
-    public function createInvoice($data) {
+    public function createInvoice($data)
+    {
         $stmt = $this->pdo->prepare("INSERT INTO `transaction_invoice` (
             `invoice_number`, `invoice_date`, `inv_amount`, `grand_total`, `discount_amount`, 
             `discount_percentage`, `customer_code`, `service_charge`, `tendered_amount`, 
@@ -59,7 +64,8 @@ class TransactionInvoice {
     }
 
     // Update an existing invoice
-    public function updateInvoice($id, $data) {
+    public function updateInvoice($id, $data)
+    {
         $stmt = $this->pdo->prepare("UPDATE `transaction_invoice` SET 
             `invoice_number` = ?, 
             `invoice_date` = ?, 
@@ -111,11 +117,24 @@ class TransactionInvoice {
         return $stmt->rowCount(); // Returns the number of rows affected
     }
 
+    public function updateInvoiceStatus($id)
+    {
+        $stmt = $this->pdo->prepare("UPDATE `transaction_invoice` SET 
+            `invoice_status` = 'Paid' WHERE `invoice_number` = ?");
+
+        $stmt->execute([
+            $id
+        ]);
+        return $stmt->rowCount(); // Returns the number of rows affected
+    }
+
+
+
     // Delete a transaction invoice by ID
-    public function deleteInvoice($id) {
+    public function deleteInvoice($id)
+    {
         $stmt = $this->pdo->prepare("DELETE FROM `transaction_invoice` WHERE `id` = ?");
         $stmt->execute([$id]);
         return $stmt->rowCount(); // Returns the number of rows deleted
     }
 }
-?>

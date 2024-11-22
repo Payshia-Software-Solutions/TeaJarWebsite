@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function DeliveryForm() {
+export default function DeliveryForm({ setDeliveryAddress }) {
   const [formData, setFormData] = useState({
     country: "Sri Lanka",
     firstName: "",
@@ -15,7 +15,9 @@ export default function DeliveryForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    const updatedFormData = { ...formData, [name]: value };
+    setFormData(updatedFormData);
+    setDeliveryAddress(updatedFormData); // Pass updated data to parent
   };
 
   return (

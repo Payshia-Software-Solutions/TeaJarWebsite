@@ -14,8 +14,13 @@ return [
     },
 
     // Route to handle payment notification callback from PayHere
+    'GET /payment/success' => function () use ($paymentController) {
+        $paymentController->paymentReturn();
+    },
+
+    // Route to handle payment notification callback from PayHere
     'POST /payment/notify' => function () use ($paymentController) {
-        $paymentController->paymentNotification();
+        $paymentController->paymentNotify();
     },
 
     // Route to handle return after payment (success or failure)

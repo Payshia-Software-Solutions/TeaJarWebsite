@@ -1,9 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const PaymentOptions = () => {
+const PaymentOptions = ({ setSelectedPaymentMethod }) => {
   const [selectedMethod, setSelectedMethod] = useState("card");
 
+  // Update the parent state when the selected method changes
+  useEffect(() => {
+    setSelectedPaymentMethod(selectedMethod);
+  }, [selectedMethod, setSelectedPaymentMethod]);
   return (
     <div className=" mx-auto p-6 bg-white">
       <h2 className="text-lg font-semibold mb-2">Payment</h2>
