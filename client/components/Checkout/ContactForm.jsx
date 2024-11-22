@@ -2,16 +2,30 @@
 // components/ContactForm.js
 import React, { useState } from "react";
 
-const ContactForm = () => {
+const ContactForm = ({ setContactDetails }) => {
   const [email, setEmail] = useState("");
   const [subscribe, setSubscribe] = useState(false);
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+
+    // Update the contact details in the parent component
+    setContactDetails((prevDetails) => ({
+      ...prevDetails,
+      email: newEmail,
+    }));
   };
 
   const handleSubscribeChange = () => {
-    setSubscribe(!subscribe);
+    const newSubscribeStatus = !subscribe;
+    setSubscribe(newSubscribeStatus);
+
+    // Update the subscription status in the parent component
+    setContactDetails((prevDetails) => ({
+      ...prevDetails,
+      subscribe: newSubscribeStatus,
+    }));
   };
 
   return (

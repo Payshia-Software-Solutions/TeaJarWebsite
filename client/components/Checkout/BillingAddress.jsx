@@ -1,7 +1,48 @@
 "use client";
 import React, { useState } from "react";
-export default function BillingAddressForm() {
+
+export default function BillingAddressForm({
+  shippingAddress,
+  setBillingAddress,
+  setSameAddressStatus,
+}) {
   const [useDifferentAddress, setUseDifferentAddress] = useState(false);
+  const [billingFormData, setBillingFormData] = useState({
+    country: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    apartment: "",
+    city: "",
+    postalCode: "",
+    phone: "",
+  });
+
+  // Update billing form data
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const updatedFormData = { ...billingFormData, [name]: value };
+    setBillingFormData(updatedFormData);
+
+    // Update parent state if different billing address is selected
+    if (useDifferentAddress) {
+      setBillingAddress(updatedFormData);
+    }
+  };
+
+  // Handle address selection toggle
+  const handleAddressToggle = (useDifferent) => {
+    setUseDifferentAddress(useDifferent);
+    if (!useDifferent) {
+      // Use shipping address as billing address
+      setBillingAddress(shippingAddress);
+      setSameAddressStatus(1);
+    } else {
+      // Clear billing address when switching to a different address
+      setBillingAddress(billingFormData);
+      setSameAddressStatus(0);
+    }
+  };
 
   return (
     <div className=" mx-auto p-6 bg-white">
@@ -13,7 +54,7 @@ export default function BillingAddressForm() {
             name="billingAddress"
             className="form-radio h-4 w-4 text-blue-600"
             checked={!useDifferentAddress}
-            onChange={() => setUseDifferentAddress(false)}
+            onChange={() => handleAddressToggle(false)}
           />
           <span>Same as shipping address</span>
         </label>
@@ -25,7 +66,7 @@ export default function BillingAddressForm() {
             name="billingAddress"
             className="form-radio h-4 w-4 text-blue-600"
             checked={useDifferentAddress}
-            onChange={() => setUseDifferentAddress(true)}
+            onChange={() => handleAddressToggle(true)}
           />
           <span>Use a different billing address</span>
         </label>
@@ -39,9 +80,12 @@ export default function BillingAddressForm() {
             <select
               id="country"
               name="country"
+              value={billingFormData.country}
+              onChange={handleInputChange}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option>Sri Lanka</option>
+              <option value="">Select Country</option>
+              <option value="Sri Lanka">Sri Lanka</option>
               {/* Add more options as needed */}
             </select>
           </div>
@@ -52,6 +96,9 @@ export default function BillingAddressForm() {
               </label>
               <input
                 type="text"
+                name="firstName"
+                value={billingFormData.firstName}
+                onChange={handleInputChange}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -61,6 +108,9 @@ export default function BillingAddressForm() {
               </label>
               <input
                 type="text"
+                name="lastName"
+                value={billingFormData.lastName}
+                onChange={handleInputChange}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -69,6 +119,9 @@ export default function BillingAddressForm() {
             <label className="block text-sm font-medium mb-1">Address</label>
             <input
               type="text"
+              name="address"
+              value={billingFormData.address}
+              onChange={handleInputChange}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -78,6 +131,9 @@ export default function BillingAddressForm() {
             </label>
             <input
               type="text"
+              name="apartment"
+              value={billingFormData.apartment}
+              onChange={handleInputChange}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -86,6 +142,9 @@ export default function BillingAddressForm() {
               <label className="block text-sm font-medium mb-1">City</label>
               <input
                 type="text"
+                name="city"
+                value={billingFormData.city}
+                onChange={handleInputChange}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -95,6 +154,9 @@ export default function BillingAddressForm() {
               </label>
               <input
                 type="text"
+                name="postalCode"
+                value={billingFormData.postalCode}
+                onChange={handleInputChange}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -105,6 +167,9 @@ export default function BillingAddressForm() {
             </label>
             <input
               type="text"
+              name="phone"
+              value={billingFormData.phone}
+              onChange={handleInputChange}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
