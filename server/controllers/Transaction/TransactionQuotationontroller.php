@@ -2,22 +2,26 @@
 
 require_once './models/Transaction/TransactionQuotationItem.php'; // Ensure the model file is named correctly
 
-class TransactionQuotationItemController {
+class TransactionQuotationItemController
+{
 
     private $model;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->model = new TransactionQuotationItem($pdo);
     }
 
     // Get all transaction quotation items
-    public function getAllRecords() {
+    public function getAllRecords()
+    {
         $records = $this->model->getAllItems();
         echo json_encode($records);
     }
 
     // Get a single transaction quotation item by ID
-    public function getRecordById($item_id) {
+    public function getRecordById($item_id)
+    {
         $record = $this->model->getItemById($item_id);
         if ($record) {
             echo json_encode($record);
@@ -28,15 +32,18 @@ class TransactionQuotationItemController {
     }
 
     // Create a new transaction quotation item
-    public function createRecord() {
+    public function createRecord()
+    {
         $data = json_decode(file_get_contents("php://input"), true);
-        
+
         // Validate required fields
-        if ($data && isset($data['user_id']) && isset($data['product_id']) && 
-            isset($data['item_price']) && isset($data['item_discount']) && 
-            isset($data['quantity']) && isset($data['added_date']) && 
-            isset($data['customer_id']) && isset($data['table_id']) && 
-            isset($data['quote_number']) && isset($data['cost_price'])) {
+        if (
+            $data && isset($data['user_id']) && isset($data['product_id']) &&
+            isset($data['item_price']) && isset($data['item_discount']) &&
+            isset($data['quantity']) && isset($data['added_date']) &&
+            isset($data['customer_id']) && isset($data['table_id']) &&
+            isset($data['quote_number']) && isset($data['cost_price'])
+        ) {
 
             $data['is_active'] = $data['is_active'] ?? 1; // Default to 1 if not provided
             $data['hold_status'] = $data['hold_status'] ?? 0; // Default to 0 if not provided
@@ -51,15 +58,18 @@ class TransactionQuotationItemController {
     }
 
     // Update an existing transaction quotation item
-    public function updateRecord($item_id) {
+    public function updateRecord($item_id)
+    {
         $data = json_decode(file_get_contents("php://input"), true);
 
         // Validate required fields
-        if ($data && isset($data['user_id']) && isset($data['product_id']) && 
-            isset($data['item_price']) && isset($data['item_discount']) && 
-            isset($data['quantity']) && isset($data['added_date']) && 
-            isset($data['customer_id']) && isset($data['table_id']) && 
-            isset($data['quote_number']) && isset($data['cost_price'])) {
+        if (
+            $data && isset($data['user_id']) && isset($data['product_id']) &&
+            isset($data['item_price']) && isset($data['item_discount']) &&
+            isset($data['quantity']) && isset($data['added_date']) &&
+            isset($data['customer_id']) && isset($data['table_id']) &&
+            isset($data['quote_number']) && isset($data['cost_price'])
+        ) {
 
             $this->model->updateItem($item_id, $data);
             echo json_encode(['message' => 'Transaction Quotation Item updated successfully']);
@@ -70,9 +80,9 @@ class TransactionQuotationItemController {
     }
 
     // Delete a transaction quotation item by ID
-    public function deleteRecord($item_id) {
+    public function deleteRecord($item_id)
+    {
         $this->model->deleteItem($item_id);
         echo json_encode(['message' => 'Transaction Quotation Item deleted successfully']);
     }
 }
-?>

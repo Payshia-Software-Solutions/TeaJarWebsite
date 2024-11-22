@@ -3,7 +3,7 @@ import React from "react";
 const VideoComponent = ({ videoUrl }) => {
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="rounded-lg shadow-md w-full" style={{ height: "550px" }}>
+      <div className="rounded-lg shadow-md w-full h-screen">
         <video
           controls
           autoPlay

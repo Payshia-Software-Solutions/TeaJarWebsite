@@ -2,17 +2,20 @@
 
 require_once './models/Payment.php';
 require_once './models/Transaction/TransactionInvoice.php'; // Ensure the model file is named correctly
+require_once './models/Transaction/TransactionInvoiceItem.php'; // Ensure the model file is named correctly
 
 
 class PaymentController
 {
     private $pdo;
     private $model;
+    private $model2;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
         $this->model = new TransactionInvoice($pdo);
+        $this->model2 = new TransactionInvoiceItem($pdo);
     }
 
     // Method to initiate the payment and redirect to PayHere Checkout
@@ -190,8 +193,8 @@ class PaymentController
             'invoice_date' => date('Y-m-d'), // Current date
             'inv_amount' => $total_amount, // Total amount before discount
             'grand_total' => $data['totalAmount'], // Final amount after discount, shipping, etc.
-            'discount_amount' => isset($_POST['discountAmount']) ? $_POST['discountAmount'] : 0,
-            'discount_percentage' => isset($_POST['discountPercentage']) ? $_POST['discountPercentage'] : 0,
+            'discount_amount' => isset($data['discountAmount']) ? $data['discountAmount'] : 0,
+            'discount_percentage' => isset($data['discountPercentage']) ? $data['discountPercentage'] : 0,
             'customer_code' => $customer_details['email'], // Assuming customer_code can be the email
             'service_charge' => 0, // If applicable
             'tendered_amount' => $data['totalAmount'], // Amount paid
@@ -212,14 +215,44 @@ class PaymentController
         // Call the createInvoice method to insert the data
         $invoiceId = $this->model->createInvoice($invoice_data);
 
-        // $invoiceId = 1;
-        // echo $invoiceId;
         // If invoice was created successfully, proceed with payment gateway
         if ($invoiceId) {
 
+            // Prepare items for saving
+            $invoiceItems = [];
+            foreach ($itemsList as $item) {
+                $invoiceItems[] = [
+                    'user_id' => $customer_details['email'] ?? 1, // Replace with actual user logic
+                    'product_id' => $item['id'],
+                    'item_price' => $item['price'],
+                    'item_discount' => $item['discount'] ?? 0,
+                    'quantity' => $item['quantity'],
+                    'added_date' => date('Y-m-d H:i:s'),
+                    'is_active' => 1,
+                    'customer_id' => $data['email'] ?? null,
+                    'hold_status' => $data['hold_status'] ?? 0,
+                    'table_id' => $data['table_id'] ?? null,
+                    'invoice_number' => $invoiceNumber,
+                    'cost_price' => $item['cost_price'] ?? $item['price'], // Adjust if cost differs
+                    'printed_status' => $data['printed_status'] ?? 0,
+                    'item_remark' => $item['remark'] ?? null,
+                ];
+            }
+
+            // Save items using batch insert
+            $this->model2->createItems($invoiceItems);
+
+            // Respond with success
+            http_response_code(201);
+            echo json_encode([
+                'message' => 'Invoice and items created successfully',
+                'invoice_id' => $invoiceId,
+                'total_amount' => $total_amount,
+            ]);
+
             // Your PayHere credentials
             $merchant_id = '1227940';
-            $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz';
+            $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';
 
             // Generate the hash for security
             $hash = strtoupper(
