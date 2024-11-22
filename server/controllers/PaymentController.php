@@ -219,7 +219,7 @@ class PaymentController
 
             // Your PayHere credentials
             $merchant_id = '1227940';
-            $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';
+            $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz';
 
             // Generate the hash for security
             $hash = strtoupper(
@@ -428,7 +428,7 @@ class PaymentController
         $md5sig = $data['md5sig'];
 
         // Step 4: Your PayHere Merchant Secret
-        $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw=='; // Replace with your Merchant Secret
+        $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; // Replace with your Merchant Secret
 
         // Step 5: Recreate the MD5 signature using received data and your secret key
         $local_md5sig = strtoupper(
