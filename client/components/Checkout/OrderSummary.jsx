@@ -11,6 +11,7 @@ const OrderSummary = () => {
       setCart(JSON.parse(savedCart));
     }
   }, []);
+  const shippingFee = 0;
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce(
@@ -18,11 +19,13 @@ const OrderSummary = () => {
     0
   );
 
+  const finalAmount = totalPrice + shippingFee;
+
   return (
     <div className="p-6">
       {/* Product Item */}
       {cart.map((item) => (
-        <div className="flex items-start mb-4">
+        <div key={item.id} className="flex items-start mb-4">
           <img
             src={`https://kdu-admin.payshia.com/pos-system/assets/images/products/${item.id}/${item.imgUrl}`}
             alt={item.name}
@@ -59,7 +62,7 @@ const OrderSummary = () => {
         </div>
         <div className="flex justify-between">
           <span>Shipping</span>
-          <span>Rs 372.00</span>
+          <span>Rs {shippingFee.toFixed(2)}</span>
         </div>
       </div>
 
@@ -67,7 +70,7 @@ const OrderSummary = () => {
       <div className="border-t border-gray-700 mt-4 pt-4">
         <div className="flex justify-between items-center font-semibold text-lg">
           <span className="text-gray-400">LKR</span>
-          <span>Rs 3,922.00</span>
+          <span>Rs {finalAmount.toFixed(2)}</span>
         </div>
       </div>
     </div>

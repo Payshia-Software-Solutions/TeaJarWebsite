@@ -13,6 +13,27 @@ class PaymentController
     // Method to initiate the payment and redirect to PayHere Checkout
     public function initiatePayment()
     {
+        // Check if all necessary POST parameters are set
+        if (!isset(
+            $_POST['order_id'],
+            $_POST['amount'],
+            $_POST['currency'],
+            $_POST['return_url'],
+            $_POST['cancel_url'],
+            $_POST['notify_url'],
+            $_POST['first_name'],
+            $_POST['last_name'],
+            $_POST['email'],
+            $_POST['phone'],
+            $_POST['address'],
+            $_POST['city'],
+            $_POST['country']
+        )) {
+            // If any required field is missing, return an error
+            echo json_encode(['error' => 'Missing required parameters']);
+            exit;
+        }
+
         // Get the payment details from the POST request
         $order_id = $_POST['order_id'];
         $amount = number_format($_POST['amount'], 2, '.', '');
@@ -31,6 +52,12 @@ class PaymentController
             'city' => $_POST['city'],
             'country' => $_POST['country']
         ];
+
+        // Validate amount
+        if (!is_numeric($amount) || $amount <= 0) {
+            echo json_encode(['error' => 'Invalid amount']);
+            exit;
+        }
 
         // Your PayHere credentials
         $merchant_id = '1227940';
@@ -66,11 +93,9 @@ class PaymentController
         foreach ($form_data as $key => $value) {
             echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
         }
-        // echo '<button type="submit">Submit</button>';
         echo "Redirecting...";
         echo '</form></body></html>';
     }
-
     // Method to handle payment notifications from PayHere
     public function paymentNotification()
     {

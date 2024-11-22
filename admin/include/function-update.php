@@ -727,7 +727,7 @@ function UpdateOpeningBalance($ProductKey, $openingStock, $product_name, $item_l
     $result = $link->query($sql);
     if ($result->num_rows > 0) {
         // Update Opening Stock
-        $sql = "UPDATE `transaction_stock_entry` SET `quantity` = ? WHERE WHERE `product_id` LIKE '$ProductKey' AND `ref_id` LIKE 'OB' AND `is_active` = 1";
+        $sql = "UPDATE `transaction_stock_entry` SET `quantity` = ? WHERE `product_id` LIKE '$ProductKey' AND `ref_id` LIKE 'OB' AND `is_active` = 1";
 
         if ($stmt_sql = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt_sql, "s", $openingStock);

@@ -59,83 +59,88 @@ const MainCart = () => {
 
   return (
     <div className="mt-14 px-4 sm:px-8 md:px-14">
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-2xl font-bold mb-4">Cart</h1>
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+        <h1 className="text-xl sm:text-2xl font-bold mb-4">Cart</h1>
 
         {cart.length === 0 ? (
           <p className="text-gray-500 text-center">Your cart is empty</p>
         ) : (
-          <table className="w-full border-collapse">
-            <thead>
-              <tr>
-                <th className="text-left">Image</th>
-                <th className="text-left">Product Name</th>
-                <th className="text-right">Price</th>
-                <th className="text-center">Quantity</th>
-                <th className="text-right">Total</th>
-                <th className="text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.map((item) => (
-                <tr key={item.id} className="border-b">
-                  <td className="py-2">
-                    <img
-                      src={`https://kdu-admin.payshia.com/pos-system/assets/images/products/${item.id}/${item.imgUrl}`}
-                      alt={item.name}
-                      className="w-16 h-16 object-cover rounded-xl"
-                    />
-                  </td>
-                  <td className="py-2">
-                    <h3 className="font-semibold">{item.productName}</h3>
-                  </td>
-                  <td className="py-2 text-right">
-                    <p className="text-gray-600">LKR {item.price}</p>
-                  </td>
-                  <td className="py-2 text-center">
-                    <div className="flex items-center justify-center gap-2">
-                      <button
-                        onClick={() => updateQuantity(item.id, -1)}
-                        className="p-1 hover:bg-gray-100 rounded"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      <span>{item.quantity}</span>
-                      <button
-                        onClick={() => updateQuantity(item.id, 1)}
-                        className="p-1 hover:bg-gray-100 rounded"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                  <td className="py-2 text-right">
-                    <p className="font-semibold">
-                      LKR {(item.price * item.quantity).toFixed(2)}
-                    </p>
-                  </td>
-                  <td className="py-2 text-center">
-                    <button
-                      onClick={() => removeFromCart(item.id)}
-                      className="p-1 hover:bg-gray-100 rounded"
-                    >
-                      <Trash2 className="w-4 h-4 text-red-500" />
-                    </button>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="hidden sm:table-row">
+                  <th className="text-left">Image</th>
+                  <th className="text-left">Product Name</th>
+                  <th className="text-right">Price</th>
+                  <th className="text-center">Quantity</th>
+                  <th className="text-right">Total</th>
+                  <th className="text-center">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {cart.map((item) => (
+                  <tr
+                    key={item.id}
+                    className="border-b flex flex-col sm:table-row sm:flex-row items-center sm:items-start"
+                  >
+                    <td className="py-2 flex justify-center sm:table-cell">
+                      <img
+                        src={`https://kdu-admin.payshia.com/pos-system/assets/images/products/${item.id}/${item.imgUrl}`}
+                        alt={item.name}
+                        className="w-16 h-16 object-cover rounded-xl"
+                      />
+                    </td>
+                    <td className="py-2 text-center sm:text-left sm:table-cell">
+                      <h3 className="font-semibold">{item.productName}</h3>
+                    </td>
+                    <td className="py-2 text-center sm:text-right sm:table-cell">
+                      <p className="text-gray-600">LKR {item.price}</p>
+                    </td>
+                    <td className="py-2 text-center sm:table-cell">
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          onClick={() => updateQuantity(item.id, -1)}
+                          className="p-1 hover:bg-gray-100 rounded"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                        <span>{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, 1)}
+                          className="p-1 hover:bg-gray-100 rounded"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                    <td className="py-2 text-center sm:text-right sm:table-cell">
+                      <p className="font-semibold">
+                        LKR {(item.price * item.quantity).toFixed(2)}
+                      </p>
+                    </td>
+                    <td className="py-2 text-center sm:table-cell">
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="p-1 hover:bg-gray-100 rounded"
+                      >
+                        <Trash2 className="w-4 h-4 text-red-500" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
 
         <div className="mt-4 border-t pt-4">
-          <div className="flex justify-between font-semibold">
+          <div className="flex justify-between text-sm sm:text-base font-semibold">
             <span>Total:</span>
             <span>LKR {totalPrice.toFixed(2)}</span>
           </div>
           <div className="flex justify-end mt-4">
             <Link href="checkout">
-              <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-600">
+              <button className="bg-black text-white px-4 py-2 text-sm sm:text-base rounded hover:bg-gray-600">
                 Checkout
               </button>
             </Link>
