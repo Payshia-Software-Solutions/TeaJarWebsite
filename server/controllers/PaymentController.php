@@ -124,9 +124,9 @@ class PaymentController
         $order_id = 12345;
         $totalAmount = number_format($data['totalAmount'], 2, '.', ''); // Ensure amount is formatted
         $currency = "LKR";
-        $return_url = "http://localhost/TeaJarWebsite/server/payment/success";
-        $cancel_url = "http://localhost:3000/checkout";
-        $notify_url = "http://localhost/TeaJarWebsite/server/payment/notify";
+        $return_url = "http://teajarceylon.payshia.com/order-confirmation";
+        $cancel_url = "http://teajarceylon.payshia.com/checkout";
+        $notify_url = "https://kduserver.payshia.com/payment/notify";
         $promoCode = $data['promoCode'];  // The promo code applied to the order
         $paymentMethod = $data['paymentMethod']; // Payment method (e.g., "card")
 
