@@ -34,11 +34,10 @@ const PaymentOptions = () => {
               Bank Card / Bank Account - PayHere
             </span>
             <div className="flex space-x-2">
-              <img src="/visa.png" alt="Visa" className="w-6 h-6" />
+              {/* <img src="/visa.png" alt="Visa" className="w-6 h-6" />
               <img src="/mastercard.png" alt="MasterCard" className="w-6 h-6" />
               <img src="/amex.png" alt="Amex" className="w-6 h-6" />
-              <img src="/discover.png" alt="Discover" className="w-6 h-6" />
-              <span className="text-gray-500 font-semibold">+1</span>
+              <img src="/discover.png" alt="Discover" className="w-6 h-6" /> */}
             </div>
           </label>
           {selectedMethod === "card" && (
@@ -70,7 +69,7 @@ const PaymentOptions = () => {
         </div>
 
         {/* Mintpay Option */}
-        <div
+        {/* <div
           className={`border rounded-md ${
             selectedMethod === "mintpay"
               ? "border-indigo-500"
@@ -94,10 +93,10 @@ const PaymentOptions = () => {
             </span>
             <img src="/visa.png" alt="Visa" className="w-6 h-6" />
           </label>
-        </div>
+        </div> */}
 
         {/* Koko Option */}
-        <div
+        {/* <div
           className={`border rounded-md ${
             selectedMethod === "koko" ? "border-indigo-500" : "border-gray-300"
           }`}
@@ -119,7 +118,7 @@ const PaymentOptions = () => {
             </span>
             <img src="/visa.png" alt="Visa" className="w-6 h-6" />
           </label>
-        </div>
+        </div> */}
 
         {/* Cash on Delivery Option */}
         <div

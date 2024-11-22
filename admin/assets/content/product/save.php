@@ -1,4 +1,11 @@
 <?php
+
+use Symfony\Component\HttpClient\HttpClient;
+
+$client = HttpClient::create();
+$dotenv = Dotenv\Dotenv::createImmutable('../../../');
+$dotenv->load();
+
 require_once('../../../include/config.php');
 include '../../../include/function-update.php';
 
@@ -71,6 +78,8 @@ $QueryResult = SaveProduct($link, $product_code, $product_name, $display_name, $
 // Decode the JSON response
 $response = json_decode($QueryResult);
 $UpdateKey = $lastInsertedId = $response->last_inserted_id;
+
+$response = $client->request('POST', $_ENV["SERVER_URL"]  . '/products/generate-slug/' . $UpdateKey, []);
 
 // Image Upload
 $dir = '../../../pos-system/assets/images/products/' . $UpdateKey;
