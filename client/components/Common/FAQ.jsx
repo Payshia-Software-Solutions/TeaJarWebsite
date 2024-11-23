@@ -30,11 +30,9 @@ const FAQs = () => {
   ];
 
   return (
-    <section className="bg-theme py-16 ">
+    <section className="bg-theme py-10 px-10">
       <div className="w-full max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4 text-white text-center mt-10">
-          FAQs
-        </h2>
+        <h2 className="text-2xl font-bold mb-4 text-white text-center">FAQs</h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div key={index}>

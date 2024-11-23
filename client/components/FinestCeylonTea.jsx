@@ -1,5 +1,6 @@
 import React from "react";
 import { Italiana, Julius_Sans_One } from "next/font/google";
+import Image from "next/image";
 
 const italiana = Italiana({
   weight: "400", // Italiana only comes with regular weight (400)
@@ -18,46 +19,58 @@ function FinestCeylonTea() {
         <div className="px-8 py-4 sm:px-6 lg:px-96">
           <div className="text-center text-white">
             <div className={italiana.className}>
-              <h2 className="text-[40px]">Finest Ceylon Tea</h2>
+              <h2 className="text-[28px] md:text-[44px] ">Finest Ceylon Tea</h2>
             </div>
             <div className={juliusSansOne.className}>
-              <p className="leading-8 mt-4 max-w-2xl mx-auto">
-                Finest Ceylon Tea is a premium blend of handpicked tea leaves
-                from Sri Lanka's lush highlands, offering a rich, aromatic
-                flavor with a hint of citrus, perfect for a refreshing cup any
-                time of day.
+              <p className="leading-6 md:leading-8 mt-4 max-w-2xl mx-auto text-[15px] md:text-[22px]">
+                Our single-origin Ceylon teas are ethically sourced and crafted
+                to ensure factory-fresh quality, reflecting the rich heritage
+                and values of Ceylon tea. Enjoy the true essence of Ceylon tea
+                with Tea Jar.
               </p>
             </div>
           </div>
         </div>
 
         <div className={italiana.className}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 justify-center items-center text-white text-[40px] mt-16">
-            <div className="text-center hover:scale-110 duration-200 py-2 my-2 mx-0">
-              <img
+          <div className="flex justify-center items-center space-x-6 px-10 gap-0 md:gap-4">
+            <div className="text-center hover:scale-110 duration-200 py-2 my-2">
+              <Image
                 src="/assets/images/fct/fct1.png"
                 alt="Ethical Grown"
-                className="object-cover mx-auto w-40 h-40 "
+                className="object-contain mx-auto h-16 md:h-24"
+                height={100} // Set a fixed height
+                width={100} // Let width adjust automatically
               />
-              <p className=" mt-2">Ethical Grown</p>
+              <p className="mt-2 text-[15px] md:text-[20px] text-white">
+                Ethically Grown
+              </p>
             </div>
 
-            <div className="text-center hover:scale-110 duration-200 py-2 my-2 mx-0">
-              <img
+            <div className="text-center hover:scale-110 duration-200 py-2 my-2">
+              <Image
                 src="/assets/images/fct/fct2.png"
                 alt="Hand Picked"
-                className="object-cover mx-auto w-40 h-40"
+                className="object-contain mx-auto h-16 md:h-24"
+                height={100} // Set a fixed height
+                width={100} // Let width adjust automatically
               />
-              <p className=" mt-2">Hand Picked</p>
+              <p className="mt-2 text-[15px] md:text-[20px] text-white">
+                Hand Picked
+              </p>
             </div>
 
-            <div className="text-center hover:scale-110 duration-200 py-2 my-2 mx-0">
-              <img
+            <div className="text-center hover:scale-110 duration-200 py-2 my-2">
+              <Image
                 src="/assets/images/fct/fct3.png"
                 alt="Packaging"
-                className="object-cover mx-auto w-40 h-40"
+                className="object-contain mx-auto h-16 md:h-24"
+                height={100} // Set a fixed height
+                width={100} // Let width adjust automatically
               />
-              <p className=" mt-2">Packaging</p>
+              <p className="mt-2 text-[15px] md:text-[20px] text-white">
+                Factory Fresh
+              </p>
             </div>
           </div>
         </div>

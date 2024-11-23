@@ -105,6 +105,7 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
               "/assets/products/1/cardamom.jpg",
             ]}
             Rate={"(5.6)"}
+            category={singleitem.category_id}
           />
         ))}
       </div>

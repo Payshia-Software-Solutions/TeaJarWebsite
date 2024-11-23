@@ -23,6 +23,9 @@ const config: Config = {
         babout: "#2A2F28", // Custom color named 'about'
         theme: "#353D32", // Custom color named 'about'
         navC: "#1A1E1C",
+        beige: '#f5f5dc',
+        brown: '#6b4f4f',
+        'green-800': '#355e3b',
       },
     },
   },

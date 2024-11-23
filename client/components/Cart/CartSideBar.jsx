@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
+import { FaShoppingCart } from "react-icons/fa"; // For the cart icon
+import { MdCheckout } from "react-icons/md"; // For the checkout icon
 import Link from "next/link";
 
 function CartSideBar({ closeCart }) {
@@ -140,11 +142,19 @@ function CartSideBar({ closeCart }) {
                 <span>Total:</span>
                 <span>{totalPrice.toFixed(2)}</span>
               </div>
-              <Link href="/cart">
-                <button className="w-full mt-4 bg-black text-white py-2 rounded hover:bg-gray-800">
-                  Checkout
-                </button>
-              </Link>
+
+              <div className="flex gap-4 justify-between mt-8 w-full">
+                <Link href="/cart" className="flex flex-col w-full">
+                  <button className="w-full bg-black text-white py-3 px-6 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 ease-in-out">
+                    View Cart
+                  </button>
+                </Link>
+                <Link href="/checkout" className="flex flex-col w-full">
+                  <button className="w-full bg-black text-white py-3 px-6 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 ease-in-out">
+                    Checkout
+                  </button>
+                </Link>
+              </div>
             </div>
           </>
         )}

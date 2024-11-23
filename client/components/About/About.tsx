@@ -25,15 +25,15 @@ function About() {
 
   return (
     <section className="bg-babout text-white">
-      <div className="mx-auto max-w-screen-2xl px-8 py-16 sm:px-6 lg:px-96">
+      <div className="mx-auto max-w-screen-2xl px-8 py-4 sm:px-6 lg:px-96">
         <div className="text-center">
           <div className={italiana.className}>
-            <h1 className="text-[40px] -font-bold text-white mt-24">
+            <h1 className="text-[40px] md:text-[40px] -font-bold text-white mt-24">
               About Us
             </h1>
           </div>
           <div className={juliusSansOne.className}>
-            <div className="text-white leading-8 mt-8 ">
+            <div className="text-white leading-6 md:leading-8 mt-2 text-[12px] md:text-[15px]">
               Tea Jar is dedicated to offering premium, sustainably sourced teas
               that blend exceptional taste with environmental care. We carefully
               select the finest tea leaves to ensure rich flavors and aromas,

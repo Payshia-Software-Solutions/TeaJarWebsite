@@ -14,8 +14,10 @@ const Subscribe = () => {
   return (
     <div className="w-full bg-[#f8f6f4] py-16">
       <div className="max-w-xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-serif mb-4">Subscribe to our emails</h2>
-        <p className="text-gray-600 mb-6">
+        <h2 className="mb-2 font-bold text-[24px] md:text-[36px]">
+          Subscribe to our emails
+        </h2>
+        <p className="text-gray-600 mb-6 text-[12px] md:text-[20px]">
           Be the first to know about new collections and exclusive offers.
         </p>
 

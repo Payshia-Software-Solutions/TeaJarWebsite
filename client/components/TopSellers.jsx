@@ -89,44 +89,45 @@ function TopSellers() {
         <section
           ref={sectionRef}
           style={{ backgroundColor: bgColor }}
-          className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
+          className="transition-all duration-500 py-9 lg:flex lg:items-center overflow-hidden"
         >
-          <div className="max-w-full px-4 py-16 sm:px-6 mx-auto">
+          <div className="max-w-full pl-4 sm:pl-6 mx-auto">
             {/*Navigation buttons */}
-            <div className="text-center items-center mb-10">
+            <div className="text-center items-center">
               <SectionHeader sectionTitle="Shop Our Best Selling Categories" />
-              <div className="flex gap-4 justify-center p-1 my-3">
+              {/* <div className="flex gap-4 justify-center p-1 my-3">
                 <button onClick={handlePrev}>
                   <FaArrowLeft className="w-14 h-14 border-4 p-2 rounded-full text-white " />
                 </button>
                 <button onClick={handleNext}>
                   <FaArrowRight className="w-14 h-14 border-4 p-2 rounded-full text-white " />
                 </button>
-              </div>
+              </div> */}
             </div>
-
             {/* Swiper setup */}
             <div className="swiper-wrapper-center">
               <Swiper
                 ref={swiperRef} // Reference to Swiper instance
-                slidesPerView={1} // Default view for very small screens
-                spaceBetween={0} // Adjust the space between the slides
-                pagination={{
-                  clickable: true,
-                }}
+                slidesPerView={1.5} // Show 1 full slide and half of the next slide
+                spaceBetween={0} // Adjust spacing between slides as needed
+                // pagination={{
+                //   clickable: true,
+                // }}
+
+                pagination={false}
                 grabCursor={true} // Enable grab cursor functionality
                 breakpoints={{
                   576: {
-                    slidesPerView: 2, // Show 2 slides on small screens
-                    spaceBetween: 0,
+                    slidesPerView: 2.5, // Maintain same behavior on small screens
+                    spaceBetween: 4,
                   },
                   768: {
-                    slidesPerView: 3, // Show 3 slides on tablets
-                    spaceBetween: 0,
+                    slidesPerView: 3.5, // Show 2 full slides and half of the next on tablets
+                    spaceBetween: 4,
                   },
                   1024: {
-                    slidesPerView: 5, // Show 4 slides on larger screens
-                    spaceBetween: 0,
+                    slidesPerView: 4.5, // Show 3 full slides and half of the next on larger screens
+                    spaceBetween: 4,
                   },
                 }}
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
@@ -148,20 +149,21 @@ function TopSellers() {
                         "/assets/products/1/cardamom.jpg",
                       ]}
                       Rate={"(5.6)"}
+                      category={singleitem.category_id}
                     />
                   </SwiperSlide>
                 ))}
               </Swiper>
             </div>
 
-            <div className="flex flex-wrap justify-center items-center mt-6">
-              <Link href="shop">
+            <div className="max-w-full flex justify-center px-4 sm:px-6 mx-auto">
+              <Link href="shop" className="">
                 <button
-                  className="px-6 py-2 text-sm font-medium text-white-700 transition-all duration-200 
+                  className="w-full md:w-auto px-6 py-2 text-sm font-medium text-white-700 transition-all duration-200 
                      border border-gray-200 rounded-md hover:bg-gray-50 hover:text-gray-900 
                      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200"
                 >
-                  View All
+                  Shop More
                 </button>
               </Link>
             </div>

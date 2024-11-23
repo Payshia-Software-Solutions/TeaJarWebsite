@@ -48,12 +48,9 @@ const BrewingGuide = ({ steps = defaultBrewingSteps }) => {
         Brewing Information
       </h2>
 
-      <div className="flex justify-center gap-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {steps.map((step, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center text-center w-48"
-          >
+          <div key={index} className="flex flex-col items-center text-center">
             <div className="mb-3 p-4 rounded-full bg-gray-100">
               {renderIcon(step.icon)}
             </div>

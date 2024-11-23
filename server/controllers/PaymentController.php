@@ -109,6 +109,8 @@ class PaymentController
     {
         $data = json_decode(file_get_contents("php://input"), true);
 
+        // var_dump($data);
+
         // Check if all necessary POST parameters are set
         if (!isset(
             $data['totalAmount'],
@@ -163,7 +165,6 @@ class PaymentController
             'country' => $shippingAddress['country'],
             'postal_code' => $shippingAddress['postalCode']
         ];
-
         // var_dump($totalAmount);
 
         // Validate totalAmount
@@ -210,6 +211,7 @@ class PaymentController
             'cost_value' => $total_amount, // Assuming cost value is the same as inv_amount
             'remark' => 'Payment initiated', // Optional remark
             'ref_hold' => null, // Optional reference hold, if needed
+            'promo_code_id' => $promoCode, // Optional reference hold, if needed
         ];
 
         // Call the createInvoice method to insert the data
@@ -229,12 +231,12 @@ class PaymentController
                     'quantity' => $item['quantity'],
                     'added_date' => date('Y-m-d H:i:s'),
                     'is_active' => 1,
-                    'customer_id' => $data['email'] ?? null,
+                    'customer_id' => $customer_details['email'] ?? null,
                     'hold_status' => $data['hold_status'] ?? 0,
-                    'table_id' => $data['table_id'] ?? null,
+                    'table_id' => 0,
                     'invoice_number' => $invoiceNumber,
                     'cost_price' => $item['cost_price'] ?? $item['price'], // Adjust if cost differs
-                    'printed_status' => $data['printed_status'] ?? 0,
+                    'printed_status' =>  0,
                     'item_remark' => $item['remark'] ?? null,
                 ];
             }
@@ -252,8 +254,8 @@ class PaymentController
 
             // Your PayHere credentials
             $merchant_id = '1227940';
-            // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';            
-            $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz';
+            $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw=='; // Local            
+            // $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; //Payshia
 
             // Generate the hash for security
             $hash = strtoupper(
@@ -462,8 +464,8 @@ class PaymentController
         $md5sig = $data['md5sig'];
 
         // Step 4: Your PayHere Merchant Secret
-        // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';  
-        $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; // Replace with your Merchant Secret
+        $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';
+        // $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; // Replace with your Merchant Secret
 
         // Step 5: Recreate the MD5 signature using received data and your secret key
         $local_md5sig = strtoupper(

@@ -62,7 +62,7 @@ const RecommendedCategories = () => {
   });
 
   return (
-    <div className="bg-theme ">
+    <div className="bg-theme">
       <div className="" {...swipeHandlers}>
         <div className=" w-full justify-center">
           <AnimatePresence>
@@ -73,31 +73,33 @@ const RecommendedCategories = () => {
               animate={{ opacity: 1, scale: 1 }} // Grows to full size
               transition={{ duration: 0.5 }} // Adjust the duration as needed
             >
-              <div className="min-h-screen">
+              <div className="min-h-fit md:min-h-screen">
                 <div
-                  className={`flex w-full items-stretch ${
-                    currentIndex % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                  className={`flex w-full items-stretch flex-col md:flex-row ${
+                    currentIndex % 2 === 0
+                      ? "md:flex-row"
+                      : "md:flex-row-reverse"
                   }`}
                   style={{ width: "100%" }}
                 >
                   {/* Video Container */}
-                  <div className="w-1/3 flex-grow">
+                  <div className="w-full md:w-1/3 flex-grow">
                     <VideoComponent videoUrl={currentCategory.videoUrl} />
                   </div>
 
                   {/* Content Container */}
-                  <div className="w-2/3 flex flex-col pl-0">
-                    <div className="p-10 flex-grow flex flex-col">
-                      <div className="flex items-center justify-start mb-10">
+                  <div className="w-full md:w-2/3 flex flex-col pl-0">
+                    <div className="p-6 sm:p-10 flex-grow flex flex-col">
+                      <div className="flex items-center justify-start mb-6 sm:mb-10">
                         <h1
-                          className={`text-4xl border-b text-white ${italiana.className}`}
+                          className={`text-2xl sm:text-4xl border-b text-white ${italiana.className}`}
                         >
                           {currentCategory.name}
                         </h1>
                       </div>
-                      <div className="flex flex-1">
+                      <div className="flex flex-col md:flex-row flex-1">
                         {/* List Container */}
-                        <div className="w-1/3">
+                        <div className="w-full md:w-1/3 mb-6 md:mb-0">
                           <ul className="space-y-4 text-gray-400">
                             {currentCategory.products.map((product) => (
                               <motion.li
@@ -121,9 +123,9 @@ const RecommendedCategories = () => {
                         </div>
 
                         {/* Image Container */}
-                        <div className="w-2/3 pl-6">
+                        <div className="w-full md:w-2/3 pl-0 md:pl-6">
                           <img
-                            className="rounded-xl shadow-md h-full object-cover"
+                            className="rounded-xl shadow-md w-full h-full object-cover"
                             src="./assets/ourteas/black-tea.jpg"
                             alt=""
                           />
