@@ -1,7 +1,11 @@
 "use client";
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
-import Checkout from "@/components/Checkout";
+import TeaJarStory from "@/components/About/TeaJarStory";
+import CeylonFinestTea from "@/components/About/CeylonFinestTea";
+import KduGroup from "@/components/About/KduGroup";
+import HistorySection from "@/components/About/HistorySection";
+import TeaManufacturing from "@/components/About/TeaManufacturing";
 
 function page() {
   const crumbs = [
@@ -13,9 +17,12 @@ function page() {
     { label: "About", href: "/about" },
   ];
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8  mt-[60px]">
-      <Breadcrumb crumbs={crumbs} />
-      <Checkout />
+    <div>
+      {/* <Breadcrumb crumbs={crumbs} /> */}
+      <TeaJarStory />
+      <CeylonFinestTea />
+      <HistorySection />
+      {/* <TeaManufacturing /> */}
     </div>
   );
 }

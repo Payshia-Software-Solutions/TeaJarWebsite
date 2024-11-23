@@ -67,9 +67,9 @@ function NavBar() {
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
-              <a className="block text-teal-600 text-3xl font-bold" href="./">
+              <Link className="block text-teal-600 text-3xl font-bold" href="/">
                 <img src="/assets/white-logo.png" alt="" className="h-12" />
-              </a>
+              </Link>
             </div>
 
             <div className="hidden md:block">

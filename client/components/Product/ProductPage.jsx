@@ -7,6 +7,7 @@ import BrewingGuide from "@/components/Common/BrewingGuide";
 import TeaDetails from "@/components/Common/TeaDetails";
 import ProductHeader from "@/components/Product/ProductHeader";
 import SecureBanner from "@/components/Common/SecureBanner";
+import RelatedProducts from "@/components/RelatedProducts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "@/config";
@@ -194,6 +195,8 @@ const ProductPage = ({ product, product_images, product_info }) => {
           <ReviewSection />
         </div>
       </div>
+
+      <RelatedProducts />
 
       <Subscribe />
       {/* <SecureBanner /> */}

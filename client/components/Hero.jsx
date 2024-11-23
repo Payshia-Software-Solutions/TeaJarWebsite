@@ -22,12 +22,12 @@ function Hero() {
   return (
     <section
       className={`relative my-0 h-screen text-white transition-all duration-500 ease-in-out ${
-        scrolled ? "m-5 lg:m-12" : ""
+        scrolled ? "m-0 lg:m-12" : ""
       }`}
     >
       <video
         className={`absolute inset-0 w-full h-screen lg:h-full object-cover transition-all duration-500 ease-in-out ${
-          scrolled ? "rounded-3xl" : ""
+          scrolled ? "rounded-none md:rounded-3xl" : ""
         }`}
         src="/assets/videos/V2_TeaJar_HERO_5MB.mp4" // Replace with the path to your video file
         autoPlay
@@ -56,7 +56,7 @@ function Hero() {
         <img
           src="./assets/images/tea-cup.png"
           alt="Tea Cup Image"
-          className="absolute mx-auto"
+          className="absolute mx-auto w-64 md:w-[450px]"
         />
       </div>
     </section>

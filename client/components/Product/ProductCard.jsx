@@ -50,6 +50,7 @@ const ProductCard = ({
     "https://images.unsplash.com/photo-1546868871-7041f2a55e12",
     "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
   ],
+  category,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -57,18 +58,58 @@ const ProductCard = ({
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "LKR",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 2, // Ensures at least 2 decimal places
+      maximumFractionDigits: 2, // Ensures no more than 2 decimal places
     })
       .format(amount)
-      .replace("LKR", "Rs");
+      .replace("LKR", "Rs"); // Replaces 'LKR' with 'Rs'
   };
 
   const installmentAmount = Math.round(price / 3);
 
+  const TeaTypes = {
+    1: "Tea Bag",
+    2: "Pyramid Tea Bag",
+    3: "Loose Leaf Tea",
+  };
+
+  const TeaIcons = {
+    1: "/assets/icons/teabag-icon.svg", // Icon for Tea Bag
+    2: "/assets/icons/pyramid-tea-bags.png", // Icon for Pyramid Tea Bag
+    3: "/assets/icons/loose-leaf-icon.svg", // Icon for Loose Leaf Tea
+  };
+
+  const teaType = TeaTypes[category]; // Get the tea type based on the category
+  const teaIcon = TeaIcons[category]; // Get the icon URL based on the category
+  if (!teaType || !teaIcon) return null; // Return nothing if category doesn't match
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      id,
+      productName: title,
+      price,
+      imgUrl: images[0],
+      quantity: 1,
+    };
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = cart.findIndex((item) => item.id === cartItem.id);
+
+    if (existingItemIndex !== -1) {
+      cart[existingItemIndex].quantity += 1;
+    } else {
+      cart.push(cartItem);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    toast.success(`${title} has been added to your cart!`, {
+      position: "top-right",
+      autoClose: 3000,
+    });
+  };
   return (
     <Link href={"/products/" + slug}>
-      <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group">
+      <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group ">
         <div
           className="relative aspect-square cursor-pointer overflow-hidden"
           onMouseEnter={() => setCurrentImageIndex(1)}
@@ -99,17 +140,30 @@ const ProductCard = ({
           ))}
         </div>
 
-        <div className="p-2 space-y-2">
-          <h3 className="font-serif text-sm lg:text-lg text-gray-800 leading-tight hover:text-gray-600 transition-colors duration-200">
-            {title}
-          </h3>
+        <div className="p-2">
+          <div className="h-10 md:h-14">
+            <h3 className="text-sm lg:text-lg text-black font-bold leading-tight hover:text-gray-600 transition-colors duration-200">
+              {title}
+            </h3>
+          </div>
 
-          <div className="space-y-2">
-            <p className="text-black  font-bold text-lg lg:text-xl">
+          <div className="flex justify-between mt-2">
+            <div className="flex items-center gap-2">
+              <Image
+                src={teaIcon} // Dynamic icon based on category
+                alt={`${teaType} icon`} // Dynamic alt text based on tea type
+                width={20} // Specify fixed width
+                height={20} // Adjusted height for proper scaling
+              />
+              <p className="hidden lg:block text-[12px]">{teaType}</p>{" "}
+              {/* Dynamic text */}
+            </div>
+            <div className="text-black text-end font-bold text-lg lg:text-xl">
               {formatPrice(price)}
-            </p>
+            </div>
+          </div>
 
-            <div className="space-y-1 text-sm text-gray-600">
+          {/* <div className="space-y-1 text-sm text-gray-600">
               <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200 text-[10px]">
                 <span>
                   or 3 X {formatPrice(installmentAmount)} with MintPay
@@ -123,8 +177,7 @@ const ProductCard = ({
                   <KOKOLogo />
                 </span>
               </div>
-            </div>
-          </div>
+            </div> */}
         </div>
       </div>
     </Link>
