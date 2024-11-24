@@ -5,20 +5,23 @@ import { FaShoppingCart } from "react-icons/fa"; // For the cart icon
 import { MdCheckout } from "react-icons/md"; // For the checkout icon
 import Link from "next/link";
 
-function CartSideBar({ closeCart }) {
+function CartSideBar({ closeCart, isCartOpen }) {
   const [cart, setCart] = useState([]);
   const sidebarRef = useRef(null); // Ref for the sidebar
 
   // Load cart from localStorage on component mount
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
-    // const savedCart = localStorage.getItem("cart");
-    // console.log(savedCart);
     if (savedCart) {
       setCart(savedCart);
-      // console.log(cart);
     }
   }, []);
+
+  const handleClick = (event, url) => {
+    event.preventDefault(); // Prevent the default link behavior temporarily
+    closeCart(); // Close the cart
+    window.location.href = url;
+  };
 
   // Detect clicks outside the cart sidebar
   useEffect(() => {
@@ -35,39 +38,29 @@ function CartSideBar({ closeCart }) {
   }, [closeCart]);
 
   // Save cart to localStorage whenever it changes
-  //   useEffect(() => {
-  //     localStorage.setItem("cart", JSON.stringify(cart));
-  //   }, [cart]);
-
   const removeFromCart = (productId) => {
     setCart((prevCart) => {
       const updatedCart = prevCart.filter((item) => item.id !== productId);
-
       // Update localStorage after removing the item
       localStorage.setItem("cart", JSON.stringify(updatedCart));
-
       return updatedCart;
     });
   };
 
   const updateQuantity = (productId, delta) => {
     setCart((prevCart) => {
-      // Map over the cart to find and update the product quantity
       const updatedCart = prevCart
         .map((item) => {
           if (item.id === productId) {
             const newQuantity = item.quantity + delta;
-            // Return the item with updated quantity if newQuantity > 0
             return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
           }
           return item;
         })
         .filter((item) => item !== null); // Filter out items with quantity <= 0
 
-      // Save updated cart to localStorage
       localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-      return updatedCart; // Update the state with the modified cart
+      return updatedCart;
     });
   };
 
@@ -78,11 +71,19 @@ function CartSideBar({ closeCart }) {
   );
 
   return (
-    <div className="relative">
+    <div
+      className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-all duration-300 ${
+        !isCartOpen ? "hidden" : "block"
+      }`}
+    >
       <div
         ref={sidebarRef}
-        style={{ position: "fixed", zIndex: 1000 }}
-        className="right-0 top-0 h-full w-96 bg-white shadow-lg p-4 overflow-y-auto"
+        className={`fixed top-0 right-0 h-full w-screen md:w-96 bg-white shadow-lg p-4 overflow-y-auto transition-transform transform ${
+          isCartOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        style={{
+          transform: isCartOpen ? "translateX(0)" : "translateX(100%)",
+        }}
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Shopping Cart</h2>
@@ -144,16 +145,18 @@ function CartSideBar({ closeCart }) {
               </div>
 
               <div className="flex gap-4 justify-between mt-8 w-full">
-                <Link href="/cart" className="flex flex-col w-full">
-                  <button className="w-full bg-black text-white py-3 px-6 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 ease-in-out">
-                    View Cart
-                  </button>
-                </Link>
-                <Link href="/checkout" className="flex flex-col w-full">
-                  <button className="w-full bg-black text-white py-3 px-6 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 ease-in-out">
-                    Checkout
-                  </button>
-                </Link>
+                <button
+                  onClick={(event) => handleClick(event, "/cart")}
+                  className="w-full bg-black text-white py-3 px-6 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 ease-in-out"
+                >
+                  View Cart
+                </button>
+                <button
+                  onClick={(event) => handleClick(event, "/checkout")}
+                  className="w-full bg-black text-white py-3 px-6 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 ease-in-out"
+                >
+                  Checkout
+                </button>
               </div>
             </div>
           </>

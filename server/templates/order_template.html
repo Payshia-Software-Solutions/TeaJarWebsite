@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Tea Jar - Order Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333333;
+        box-sizing: border-box; /* Fix box-sizing issues */
+        overflow-x: hidden; /* Hide any horizontal overflow */
+      }
+      * {
+        box-sizing: inherit;
+      }
+      .container {
+        width: 100% !important;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+      }
+      .logo {
+        text-align: center;
+        padding: 20px;
+      }
+      .logo img {
+        max-width: 40%;
+        height: auto;
+      }
+      .promo-banner {
+        background-color: #8b4513;
+        color: #ffffff;
+        padding: 15px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header {
+        text-align: center;
+        padding: 20px;
+        background-color: #f5f5dc;
+        border-radius: 8px;
+      }
+      .order-details {
+        margin: 20px 0;
+        border: 1px solid #d2b48c;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .product-row {
+        display: inline-block;
+        width: 100%;
+        margin: 10px 0;
+        border-bottom: 1px solid #d2b48c;
+        padding-bottom: 10px;
+      }
+      .product-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-right: 10px;
+        vertical-align: top;
+        max-width: 100%;
+        height: auto;
+      }
+      .total-section {
+        margin-top: 20px;
+        border-top: 2px solid #d2b48c;
+        padding-top: 10px;
+      }
+      .button {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #8b4513;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+      }
+      .similar-products {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f5f5dc;
+        border-radius: 8px;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-size: 12px;
+        background-color: #f5f5dc;
+        border-radius: 8px;
+      }
+      .social-links {
+        margin: 15px 0;
+      }
+      .social-links a {
+        margin: 0 10px;
+        color: #8b4513;
+        text-decoration: none;
+      }
+      @media only screen and (max-width: 600px) {
+        .container {
+          width: calc(100% - 20px) !important;
+          padding: 10px;
+        }
+        .promo-banner,
+        .header,
+        .order-details,
+        .similar-products,
+        .footer {
+          padding: 10px;
+        }
+        .product-image {
+          width: 70px;
+          height: 70px;
+        }
+        .button {
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Logo -->
+      <div class="logo">
+        <img
+          src="https://teajarceylon.payshia.com/_next/image?url=%2Fassets%2Ftea-jar-logo.png&w=128&q=75"
+          alt="Tea Jar Logo"
+        />
+      </div>
+
+      <!-- Promotional Banner -->
+      <div class="promo-banner">
+        🍵 Enjoy 15% off your next purchase with code: TEATIME15
+      </div>
+
+      <div class="header">
+        <h1>Thank you for your Tea Jar order!</h1>
+        <p>Your tea is on its way to delight your senses.</p>
+      </div>
+
+      <div class="order-details">
+        <h2>Order #[ORDER_NUMBER]</h2>
+        <p>Order Date: [ORDER_DATE]</p>
+        <p>Shipping Address:</p>
+        <p>
+          [CUSTOMER_NAME]<br />
+          [STREET_ADDRESS]<br />
+          [CITY], [STATE] [ZIP]<br />
+          [COUNTRY]
+        </p>
+
+        <h3>Order Summary</h3>
+        <!-- Placeholder for Order Items -->
+        [ORDER_ITEMS]
+
+        <div class="total-section">
+          <p>Subtotal: $[SUBTOTAL]</p>
+          <p>Shipping: $[SHIPPING]</p>
+          <p>Tax: $[TAX]</p>
+          <p><strong>Total: $[TOTAL]</strong></p>
+        </div>
+      </div>
+
+      <!-- Recommended Products Section -->
+      <div class="similar-products">
+        <h3>You Might Also Enjoy</h3>
+        <p>Explore our other premium teas:</p>
+        [RECOMMENDED_PRODUCTS]
+      </div>
+
+      <div style="margin: 20px 0">
+        <p>Expected Delivery: [DELIVERY_DATE]</p>
+        <p>
+          Brewing tips and care instructions will be included with your order.
+        </p>
+        <p>Questions? Contact our tea experts at [CUSTOMER_SERVICE_EMAIL]</p>
+      </div>
+
+      <div class="footer">
+        <div class="social-links">
+          Follow us for tea inspiration:<br />
+          <a href="[INSTAGRAM_URL]">Instagram</a> |
+          <a href="[FACEBOOK_URL]">Facebook</a> |
+          <a href="[PINTEREST_URL]">Pinterest</a>
+        </div>
+        <p>
+          Tea Jar<br />
+          [COMPANY_ADDRESS]<br />
+          [COMPANY_CONTACT]
+        </p>
+        <p>This email was sent to [CUSTOMER_EMAIL]</p>
+        <p style="font-size: 11px">
+          To unsubscribe from promotional emails,
+          <a href="[UNSUBSCRIBE_URL]">click here</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

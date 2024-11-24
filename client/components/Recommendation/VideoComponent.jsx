@@ -5,7 +5,6 @@ const VideoComponent = ({ videoUrl }) => {
     <div className="flex items-center justify-center h-full">
       <div className="rounded-lg shadow-md w-full h-60 md:h-screen">
         <video
-          controls
           autoPlay
           muted
           className="w-full h-60 md:h-full object-cover shadow-md"

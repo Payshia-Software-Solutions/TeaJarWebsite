@@ -1,5 +1,10 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
+require './vendor/autoload.php'; // Ensure PHPMailer is loaded via Composer
 require_once './models/Payment.php';
 require_once './models/Transaction/TransactionInvoice.php'; // Ensure the model file is named correctly
 require_once './models/Transaction/TransactionInvoiceItem.php'; // Ensure the model file is named correctly
@@ -214,6 +219,47 @@ class PaymentController
             'promo_code_id' => $promoCode, // Optional reference hold, if needed
         ];
 
+        $emailItems = [];
+        foreach ($itemsList as $item) {
+            $emailItems[] = [
+                "image_url" => "https://kdu-admin.payshia.com/pos-system/assets/images/products/" . $item['id'] . "/" . $item['imgUrl'],
+                "name" => $item['productName'],
+                "quantity" => $item['quantity'],
+                "price" => $item['price']
+            ];
+        }
+
+        $orderData = [
+            "orderData" => [
+                "order_id" => $invoiceNumber,
+                "order_date" => date('Y-m-d H:i:s'),
+                "customer_name" => $customer_details['first_name'],
+                "address" => "123 Main Street",
+                "city" => "New York",
+                "state" => "NY",
+                "zip" => "10001",
+                "country" => "USA",
+                "total" => 150.75,
+                "subtotal" => 100.75,
+                "shipping" => 20.00,
+                "tax" => 30.00,
+                "tracking_url" => "https://example.com/track/12345",
+                "delivery_date" => "2024-11-30",
+                "customer_service_email" => "support@teajar.com",
+                "instagram_url" => "https://www.instagram.com/teajar",
+                "facebook_url" => "https://www.facebook.com/teajar",
+                "pinterest_url" => "https://www.pinterest.com/teajar",
+                "company_address" => "Tea Jar, 456 Tea Lane, New York, NY, 10001, USA",
+                "company_contact" => "1-800-123-4567",
+                "unsubscribe_url" => "https://teajar.com/unsubscribe",
+                "customer_email" => "thilinaruwan112@gmail.com",
+                "items" => $emailItems
+            ],
+            "customer_email" => "thilinaruwan112@gmail.com"
+        ];
+
+        $this->sendOrderConfirmationEmail($orderData, $email);
+
         // Call the createInvoice method to insert the data
         $invoiceId = $this->model->createInvoice($invoice_data);
 
@@ -254,8 +300,8 @@ class PaymentController
 
             // Your PayHere credentials
             $merchant_id = '1227940';
-            // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw=='; // Local            
-            $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; //Payshia
+            $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw=='; // Local            
+            // $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; //Payshia
 
             // Generate the hash for security
             $hash = strtoupper(
@@ -294,8 +340,6 @@ class PaymentController
             echo json_encode(['error' => 'Failed to create invoice']);
         }
     }
-
-
 
     // Create a new transaction invoice
     public function createInvoice($data)
@@ -464,8 +508,8 @@ class PaymentController
         $md5sig = $data['md5sig'];
 
         // Step 4: Your PayHere Merchant Secret
-        // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';
-        $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; // Replace with your Merchant Secret
+        $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';
+        // $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; // Replace with your Merchant Secret
 
         // Step 5: Recreate the MD5 signature using received data and your secret key
         $local_md5sig = strtoupper(
@@ -554,5 +598,110 @@ class PaymentController
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result['status'] : 'not found';
+    }
+
+    public function sendOrderConfirmationEmail($orderData, $customerEmail)
+    {
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'mail.pharmacollege.lk';                //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'no-reply@pharmacollege.lk';             //SMTP username
+            $mail->Password   = 'HxeX6O]{zwB.';                         //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                      //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            // Recipients
+            $mail->setFrom('info@pharmacollege.lk', 'Ceylon Pharma College');
+            $mail->addAddress($customerEmail); // Add the customer's email
+
+            // Generate email content
+            $emailContent = $this->generateEmailHTML($orderData);
+
+            // Content
+            $mail->isHTML(true); // Email format is HTML
+            $mail->Subject = 'Order Confirmation - Tea Jar'; // Email subject
+            $mail->Body = $emailContent; // Email body content
+
+            // Send the email
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            // Log the error
+            error_log("Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            return false;
+        }
+    }
+
+
+    /**
+     * Generate the HTML for an order confirmation email.
+     *
+     * @param array $orderData An associative array containing order details.
+     * @return string The generated email HTML.
+     * @throws Exception If the email template file is not found.
+     */
+    public function generateEmailHTML($orderData)
+    {
+        // Load the email template
+        $templateFile = './templates/order_template.html';
+        if (!file_exists($templateFile)) {
+            throw new Exception("Email template file not found: {$templateFile}");
+        }
+
+        $emailTemplate = file_get_contents($templateFile);
+
+        // Replace placeholders with order data
+        $placeholders = [
+            '[ORDER_NUMBER]' => $orderData['order_id'],
+            '[ORDER_DATE]' => $orderData['order_date'],
+            '[CUSTOMER_NAME]' => $orderData['customer_name'],
+            '[STREET_ADDRESS]' => $orderData['address'],
+            '[CITY]' => $orderData['city'],
+            '[STATE]' => $orderData['state'],
+            '[ZIP]' => $orderData['zip'],
+            '[COUNTRY]' => $orderData['country'],
+            '[TOTAL]' => number_format($orderData['total'], 2),
+            '[SUBTOTAL]' => number_format($orderData['subtotal'], 2),
+            '[SHIPPING]' => number_format($orderData['shipping'], 2),
+            '[TAX]' => number_format($orderData['tax'], 2),
+            '[ORDER_TRACKING_URL]' => $orderData['tracking_url'],
+            '[RECOMMENDED_PRODUCTS]' => '', // You can add logic to generate recommended products if available
+            '[DELIVERY_DATE]' => $orderData['delivery_date'],
+            '[CUSTOMER_SERVICE_EMAIL]' => $orderData['customer_service_email'],
+            '[INSTAGRAM_URL]' => $orderData['instagram_url'],
+            '[FACEBOOK_URL]' => $orderData['facebook_url'],
+            '[PINTEREST_URL]' => $orderData['pinterest_url'],
+            '[COMPANY_ADDRESS]' => $orderData['company_address'],
+            '[COMPANY_CONTACT]' => $orderData['company_contact'],
+            '[CUSTOMER_EMAIL]' => $orderData['customer_email'],
+            '[UNSUBSCRIBE_URL]' => $orderData['unsubscribe_url'],
+        ];
+
+        foreach ($placeholders as $placeholder => $value) {
+            $emailTemplate = str_replace($placeholder, $value, $emailTemplate);
+        }
+
+        // Generate product rows dynamically
+        $productRows = '';
+        foreach ($orderData['items'] as $item) {
+            $productRows .= "
+            <div class='product-row' style='margin-bottom: 15px;'>
+                <img src='{$item['image_url']}' class='product-image' alt='{$item['name']}' style='width: 50px; height: 50px; margin-right: 10px; vertical-align: middle;'>
+                <div style='display: inline-block; vertical-align: middle;'>
+                    <strong>{$item['name']}</strong><br>
+                    Quantity: {$item['quantity']}<br>
+                    Price: \$" . number_format($item['price'], 2) . "
+                </div>
+            </div>
+        ";
+        }
+
+        $emailTemplate = str_replace('[ORDER_ITEMS]', $productRows, $emailTemplate);
+
+        return $emailTemplate;
     }
 }
