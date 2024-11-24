@@ -8,6 +8,7 @@ import { Italiana, Julius_Sans_One } from "next/font/google";
 import { SlArrowDown } from "react-icons/sl";
 import CartSideBar from "@/components/Cart/CartSideBar";
 import { IoCartOutline } from "react-icons/io5";
+import MobileMenu from "./MobileMenu";
 
 const juliusSansOne = Julius_Sans_One({
   weight: "400", // Julius Sans One only has a regular weight
@@ -19,8 +20,12 @@ function NavBar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isTeasDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const [isAboutDropdownVisible, setAboutDropdownVisible] = useState(false);
+  const [isTeasDropdownOpen, setIsTeasDropdownOpen] = React.useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = React.useState(false);
 
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
@@ -53,8 +58,17 @@ function NavBar() {
   };
 
   // Drop down function
-  const toggleDropdown = (state) => {
+  const toggleTeasDropdown = (state) => {
     setIsDropdownVisible(state);
+  };
+
+  const toggleAboutDropdown = (state) => {
+    setAboutDropdownVisible(state);
+  };
+
+  // Close mobile menu when a link is clicked
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -92,14 +106,71 @@ function NavBar() {
                         Shop
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/about"
+                    <li
+                      className="relative group"
+                      onMouseEnter={() => toggleAboutDropdown(true)}
+                      onMouseLeave={() => toggleAboutDropdown(false)}
+                    >
+                      <button
+                        className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
+                        type="button"
                       >
-                        About Us
-                      </Link>
+                        <Link href="/about">About Us</Link>
+
+                        <svg
+                          className="w-2.5 h-2.5 ms-3"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 10 6"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m1 1 4 4 4-4"
+                          />
+                        </svg>
+                      </button>
+                      {isAboutDropdownVisible && (
+                        <div
+                          id="dropdownAbout"
+                          className="absolute z-10 bg-navC divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                        >
+                          <ul
+                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownAboutButton"
+                          >
+                            <li>
+                              <a
+                                href="/tea-jar-story"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Tea Jar Story
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="/tea-heritage"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Our Tea Heritage
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="/kdu-group"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                KDU Group
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
                     </li>
+
                     <li>
                       <Link
                         className="text-gray-500 transition hover:text-gray-500/75"
@@ -120,8 +191,8 @@ function NavBar() {
                     {/* Our Tea Dropdown */}
                     <li
                       className="relative group"
-                      onMouseEnter={() => toggleDropdown(true)}
-                      onMouseLeave={() => toggleDropdown(false)}
+                      onMouseEnter={() => toggleTeasDropdown(true)}
+                      onMouseLeave={() => toggleTeasDropdown(false)}
                     >
                       <button
                         className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
@@ -145,14 +216,14 @@ function NavBar() {
                           />
                         </svg>
                       </button>
-                      {isDropdownVisible && (
+                      {isTeasDropdownVisible && (
                         <div
-                          id="dropdownDelay"
+                          id="dropdownTeas"
                           className="absolute z-10 bg-navC divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
                         >
                           <ul
                             className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownDelayButton"
+                            aria-labelledby="dropdownTeasButton"
                           >
                             <li>
                               <a
@@ -239,125 +310,19 @@ function NavBar() {
             </div>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 h-screen ${
-            isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          <div
-            className={`fixed top-0 right-0 h-screen w-3/4 bg-navC shadow-lg transition-transform duration-300 ${
-              isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-            }`}
-          >
-            <button
-              className="absolute top-4 right-4 text-gray-600"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-            <nav aria-label="Mobile Navigation" className="p-5">
-              <div className="flex justify-center border-b mb-3 pb-3">
-                <Image
-                  src="/assets/white-logo.png"
-                  alt="White Logo"
-                  width={48} // Adjust width (based on h-12 or height 12)
-                  height={48} // Adjust height proportionally
-                  className="h-12"
-                />
-              </div>
-
-              <ul className="flex flex-col gap-4 border-b mb-3 pb-3 font-italiana text-white">
-                <div className={juliusSansOne.className}>
-                  <li>
-                    <Link className=" transition hover:text-gray-500" href="/">
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className=" transition hover:text-gray-500"
-                      href="/our-teas"
-                    >
-                      Our Teas
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className=" transition hover:text-gray-500"
-                      href="/about"
-                    >
-                      About
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="transition hover:text-gray-500"
-                      href="/shop"
-                    >
-                      Shop
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className=" transition hover:text-gray-500"
-                      href="/blogs"
-                    >
-                      Blogs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className=" transition hover:text-gray-500"
-                      href="/contact"
-                    >
-                      Contact Us
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className=" transition hover:text-gray-500"
-                      href="/our-teas"
-                    >
-                      Our Teas
-                    </Link>
-                  </li>
-                </div>
-              </ul>
-
-              <div className="flex justify-between items-center gap-4 mt-5">
-                <Link
-                  className="flex-grow rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow text-center"
-                  href="#"
-                >
-                  Login
-                </Link>
-              </div>
-            </nav>
-          </div>
-        </div>
       </header>
       <div>
         {/* Side Bar Cart */}
-
+        {isMobileMenuOpen && (
+          <MobileMenu
+            isMobileMenuOpen={isMobileMenuOpen}
+            setIsMobileMenuOpen={setIsMobileMenuOpen}
+          />
+        )}
         {/* Conditionally render the CartSideBar */}
-        {isCartOpen && <CartSideBar closeCart={closeCart} />}
+        {isCartOpen && (
+          <CartSideBar closeCart={closeCart} isCartOpen={isCartOpen} />
+        )}
       </div>
     </div>
   );

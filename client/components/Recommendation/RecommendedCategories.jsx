@@ -64,7 +64,7 @@ const RecommendedCategories = () => {
   return (
     <div className="bg-theme">
       <div className="" {...swipeHandlers}>
-        <div className=" w-full justify-center">
+        <div className=" w-full justify-center overflow-hidden">
           <AnimatePresence>
             <motion.div
               key={currentIndex}
