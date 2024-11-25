@@ -11,10 +11,10 @@ const Footer = () => {
       { title: "Tea Growing Regions", href: "/regions" },
     ],
     "Our Policies": [
-      { title: "Privacy Policy", href: "/privacy" },
-      { title: "Refund Policy", href: "/refund" },
-      { title: "Terms of Service", href: "/terms" },
-      { title: "Shipping Policy", href: "/shipping" },
+      { title: "Privacy Policy", href: "/policies/privacy-policy" },
+      { title: "Refund Policy", href: "/policies/refund-policy" },
+      { title: "Terms of Service", href: "/policies/terms-and-conditions" },
+      { title: "Shipping Policy", href: "/policies/shipping-policy" },
     ],
     "Quick Links": [
       { title: "Search", href: "/search" },

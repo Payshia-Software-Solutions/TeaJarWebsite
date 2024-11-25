@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { Italiana, Julius_Sans_One } from "next/font/google";
 import { SlArrowDown } from "react-icons/sl";
 import CartSideBar from "@/components/Cart/CartSideBar";
-import { IoCartOutline } from "react-icons/io5";
+import { IoCartOutline, IoPerson, IoMenu } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
 
 const juliusSansOne = Julius_Sans_One({
@@ -23,7 +23,7 @@ function NavBar() {
   const [isTeasDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const [isAboutDropdownVisible, setAboutDropdownVisible] = useState(false);
+  // const [isAboutDropdownVisible, setAboutDropdownVisible] = useState(false);
   const [isTeasDropdownOpen, setIsTeasDropdownOpen] = React.useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = React.useState(false);
 
@@ -70,247 +70,564 @@ function NavBar() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+  const [isTeaDropdownVisible, setTeaDropdownVisible] = useState(false);
+  const [isAboutDropdownVisible, setAboutDropdownVisible] = useState(false);
+  const [isOurTeasDropdownVisible, setOurTeasDropdownVisible] = useState(false);
 
+  const handleAboutMouseEnter = () => {
+    setTeaDropdownVisible(false); // Close the Tea dropdown
+    setAboutDropdownVisible(true); // Open the About dropdown
+    setOurTeasDropdownVisible(false); // Close the Tea dropdown
+  };
+
+  const handleOurTeasMouseEnter = () => {
+    setAboutDropdownVisible(false); // Open the About dropdown
+    setOurTeasDropdownVisible(true); // Close the Tea dropdown
+  };
+
+  // Search Function
+
+  const [query, setQuery] = useState("");
+  const [products, setProducts] = useState([]);
+  const [isSearchDropdownVisible, setIsSearchDropdownVisible] = useState(false);
+
+  // Mock product data
+  const mockProducts = [
+    { id: 1, name: "Green Tea", price: 10, image: "/assets/green-tea.jpg" },
+    { id: 2, name: "Black Tea", price: 12, image: "/assets/black-tea.jpg" },
+    { id: 3, name: "Matcha", price: 15, image: "/assets/matcha.jpg" },
+    { id: 4, name: "Chai", price: 8, image: "/assets/chai.jpg" },
+  ];
+  // Handle input change
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+
+    if (value.length > 0) {
+      // Filter products based on the query
+      const filteredProducts = mockProducts.filter((product) =>
+        product.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setProducts(filteredProducts);
+      setIsDropdownVisible(true);
+    } else {
+      setIsDropdownVisible(false);
+    }
+  };
+
+  // Handle click outside (to close the dropdown)
+  const handleBlur = () => {
+    setTimeout(() => setIsSearchDropdownVisible(false), 200); // Delay to allow click events on items
+  };
   return (
     <div>
       <header
-        className={`fixed shadow top-0 left-0 w-full bg-navC transition-transform duration-300 z-50 ${
+        className={`fixed top-0 left-0 w-full bg-black text-white z-50 transition-transform duration-300 ${
           isVisible ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="md:flex md:items-center md:gap-12">
-              <Link className="block text-teal-600 text-3xl font-bold" href="/">
+        {/* Top Bar */}
+        <div className="bg-[#FF2400] text-sm py-2 px-4 flex  justify-center items-center">
+          <p>Free shipping from 1st December to 31st December</p>
+        </div>
+
+        {/* Main Navbar */}
+        {/* Main Navbar */}
+        <div className="px-4 py-0 md:py-4 max-w-7xl mx-auto">
+          {/* Logo Row (Mobile-Responsive Centering) */}
+          <div className="flex items-center justify-between md:hidden md:gap-4">
+            {/* Logo */}
+            <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
+              <Link href="/" className="text-2xl font-bold text-orange-500">
                 <img src="/assets/white-logo.png" alt="" className="h-12" />
               </Link>
             </div>
+          </div>
 
-            <div className="hidden md:block">
-              <nav aria-label="Global">
-                <div className={juliusSansOne.className}>
-                  <ul className="flex items-center gap-6 text-sm font-italiana">
-                    <li>
-                      <Link
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/"
-                      >
-                        Home
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/shop"
-                      >
-                        Shop
-                      </Link>
-                    </li>
-                    <li
-                      className="relative group"
-                      onMouseEnter={() => toggleAboutDropdown(true)}
-                      onMouseLeave={() => toggleAboutDropdown(false)}
-                    >
-                      <button
-                        className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
-                        type="button"
-                      >
-                        <Link href="/about">About Us</Link>
-
-                        <svg
-                          className="w-2.5 h-2.5 ms-3"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 10 6"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m1 1 4 4 4-4"
-                          />
-                        </svg>
-                      </button>
-                      {isAboutDropdownVisible && (
-                        <div
-                          id="dropdownAbout"
-                          className="absolute z-10 bg-navC divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                        >
-                          <ul
-                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownAboutButton"
-                          >
-                            <li>
-                              <a
-                                href="/tea-jar-story"
-                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                Tea Jar Story
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="/tea-heritage"
-                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                Our Tea Heritage
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="/kdu-group"
-                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                KDU Group
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      )}
-                    </li>
-
-                    <li>
-                      <Link
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/blogs"
-                      >
-                        Blogs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/contact"
-                      >
-                        Contact Us
-                      </Link>
-                    </li>
-
-                    {/* Our Tea Dropdown */}
-                    <li
-                      className="relative group"
-                      onMouseEnter={() => toggleTeasDropdown(true)}
-                      onMouseLeave={() => toggleTeasDropdown(false)}
-                    >
-                      <button
-                        className="text-gray-500 bg-navC hover:text-gray-500/75 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
-                        type="button"
-                      >
-                        <Link href="/our-teas">Our Teas</Link>
-
-                        <svg
-                          className="w-2.5 h-2.5 ms-3"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 10 6"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m1 1 4 4 4-4"
-                          />
-                        </svg>
-                      </button>
-                      {isTeasDropdownVisible && (
-                        <div
-                          id="dropdownTeas"
-                          className="absolute z-10 bg-navC divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                        >
-                          <ul
-                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownTeasButton"
-                          >
-                            <li>
-                              <a
-                                href="/our-teas/green"
-                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                Green Tea
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="#"
-                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                Black Tea
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="#"
-                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                Herbal Tea
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      )}
-                    </li>
-                  </ul>
-                </div>
-              </nav>
+          {/* Navigation and Actions */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
+              <Link href="/" className="text-2xl font-bold text-orange-500">
+                <img src="/assets/white-logo.png" alt="" className="h-12" />
+              </Link>
             </div>
+            {/* Navigation */}
+            <nav className="hidden md:flex gap-8 items-center">
+              <Link
+                href="/"
+                className="hover:text-gray-300"
+                onMouseEnter={() => setTeaDropdownVisible(false)}
+              >
+                Home
+              </Link>
 
-            <div className="flex items-center gap-4 content-end">
-              <div className="hidden sm:flex sm:gap-4">
-                <a
-                  className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                  href="#"
+              <Link href="/shop" className="relative">
+                <button
+                  onMouseEnter={() => setTeaDropdownVisible(true)}
+                  className="hover:text-gray-300"
                 >
-                  Login
-                </a>
+                  Shop
+                </button>
+                {isTeaDropdownVisible && (
+                  <div
+                    onMouseLeave={() => setTeaDropdownVisible(false)}
+                    className="fixed w-screen left-0 bg-emerald-950 text-white  "
+                    style={{ top: "100%" }}
+                  >
+                    <div className="shadow-lg py-4 px-6 grid grid-cols-4 gap-6 max-w-7xl mx-auto">
+                      {/* Column 1 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          SHOP TEA
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/shop/all-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Shop All Teas
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/shop/top-sellers"
+                              className="hover:text-gray-300"
+                            >
+                              Top Sellers
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/shop/bundle-save"
+                              className="hover:text-gray-300"
+                            >
+                              Bundle Up & Save
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* Column 2 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          SHOP BY TEA
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/tea/black-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Black Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/tea/green-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Green Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/tea/matcha"
+                              className="hover:text-gray-300"
+                            >
+                              Matcha
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/tea/chai"
+                              className="hover:text-gray-300"
+                            >
+                              Chai
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* Column 3 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          TEA FORMAT
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/format/loose-leaf"
+                              className="hover:text-gray-300"
+                            >
+                              Loose Leaf
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/format/tea-bags"
+                              className="hover:text-gray-300"
+                            >
+                              Tea Bags
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/format/refills"
+                              className="hover:text-gray-300"
+                            >
+                              Refills
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/format/tins"
+                              className="hover:text-gray-300"
+                            >
+                              Tins
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* Column 4 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          TEA EDITS
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/edits/breakfast-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Breakfast Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/edits/iced-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Iced Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/edits/wellness"
+                              className="hover:text-gray-300"
+                            >
+                              Wellness
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </Link>
 
-                <div className="flex">
+              <div className="relative">
+                <button
+                  onMouseEnter={() => handleAboutMouseEnter(true)}
+                  className="hover:text-gray-300"
+                >
+                  About Us
+                </button>
+                {isAboutDropdownVisible && (
+                  <div
+                    onMouseLeave={() => setAboutDropdownVisible(false)}
+                    className="fixed w-screen left-0 bg-emerald-950 text-white  "
+                    style={{ top: "100%" }}
+                  >
+                    <div className="shadow-lg py-4 px-6 grid grid-cols-4 gap-6 max-w-7xl mx-auto">
+                      {/* Column 1 */}
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/tea-jar-story"
+                              className="hover:text-gray-300"
+                            >
+                              Tea Jar Story
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/tea-heritage"
+                              className="hover:text-gray-300"
+                            >
+                              Our Tea Heritage
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/kdu-group"
+                              className="hover:text-gray-300"
+                            >
+                              KDU Group
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative">
+                <button
+                  onMouseEnter={() => handleOurTeasMouseEnter(true)}
+                  className="hover:text-gray-300"
+                >
+                  Our Teas
+                </button>
+                {isOurTeasDropdownVisible && (
+                  <div
+                    onMouseLeave={() => setOurTeasDropdownVisible(false)}
+                    className="fixed w-screen left-0 bg-emerald-950 text-white  "
+                    style={{ top: "100%" }}
+                  >
+                    <div className="shadow-lg py-4 px-6 grid grid-cols-4 gap-6 max-w-7xl mx-auto">
+                      {/* Column 1 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          SHOP TEA
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/shop/all-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Shop All Teas
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/shop/top-sellers"
+                              className="hover:text-gray-300"
+                            >
+                              Top Sellers
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/shop/bundle-save"
+                              className="hover:text-gray-300"
+                            >
+                              Bundle Up & Save
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* Column 2 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          SHOP BY TEA
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/tea/black-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Black Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/tea/green-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Green Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/tea/matcha"
+                              className="hover:text-gray-300"
+                            >
+                              Matcha
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/tea/chai"
+                              className="hover:text-gray-300"
+                            >
+                              Chai
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* Column 3 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          TEA FORMAT
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/format/loose-leaf"
+                              className="hover:text-gray-300"
+                            >
+                              Loose Leaf
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/format/tea-bags"
+                              className="hover:text-gray-300"
+                            >
+                              Tea Bags
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/format/refills"
+                              className="hover:text-gray-300"
+                            >
+                              Refills
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/format/tins"
+                              className="hover:text-gray-300"
+                            >
+                              Tins
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* Column 4 */}
+                      <div>
+                        <h3 className="font-bold mb-3 text-gray-400">
+                          TEA EDITS
+                        </h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/edits/breakfast-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Breakfast Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/edits/iced-tea"
+                              className="hover:text-gray-300"
+                            >
+                              Iced Tea
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/edits/wellness"
+                              className="hover:text-gray-300"
+                            >
+                              Wellness
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <Link
+                onMouseEnter={() => setOurTeasDropdownVisible(false)}
+                href="/contact"
+                className="hover:text-gray-300"
+              >
+                Contact Us
+              </Link>
+            </nav>
+
+            {/* Search and User Actions */}
+            <div className="flex justify-between items-center gap-4">
+              {/* Search Box */}
+              <div className="w-full md:w-auto  md:hidden justify-center md:justify-start mb-4 md:mb-0">
+                <Link href="/" className="text-2xl font-bold text-orange-500">
+                  <img src="/assets/white-logo.png" alt="" className="h-12" />
+                </Link>
+              </div>
+
+              <div className="flex-grow relative hidden md:flex">
+                <input
+                  type="text"
+                  className="w-full bg-gray-700 text-sm text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  placeholder="Find products"
+                  value={query}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="flex items-center gap-4">
+                <div className="flex gap-4">
                   <button
                     onClick={() => setIsCartOpen(!isCartOpen)}
-                    className=" bg-navC  px-5 py-2.5 flex  text-[#2BB32A] border border-[#2BB32A]  rounded-md font-medium"
+                    className="hover:text-gray-300"
                   >
-                    <IoCartOutline className=" w-6 h-6" />
+                    <IoCartOutline className="w-6 h-6" />
+                  </button>
+
+                  <button className="hover:text-gray-300 hidden md:flex">
+                    <IoPerson className="w-6 h-6" />
+                  </button>
+
+                  <button
+                    className="hover:text-gray-300 flex md:hidden"
+                    onClick={toggleMobileMenu}
+                  >
+                    <IoMenu className="w-6 h-6" />
                   </button>
                 </div>
-              </div>
-
-              <div className="block md:hidden">
-                <button
-                  onClick={() => setIsCartOpen(!isCartOpen)}
-                  className="rounded bg-navC p-2 text-gray-600 transition hover:text-gray-600/75"
-                >
-                  <IoCartOutline className="ml-3 w-6 h-6" />
-                </button>
-              </div>
-
-              <div className="block md:hidden">
-                <button
-                  onClick={toggleMobileMenu}
-                  className="rounded bg-navC p-2 text-gray-600 transition hover:text-gray-600/75"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                </button>
               </div>
             </div>
           </div>
         </div>
       </header>
+      {/* Product Dropdown */}
+      {isSearchDropdownVisible && products.length > 0 && (
+        <div className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg z-50">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="flex items-center gap-4 p-4 hover:bg-gray-100 cursor-pointer"
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-12 h-12 object-cover rounded-md"
+              />
+              <div>
+                <p className="text-sm font-medium">{product.name}</p>
+                <p className="text-sm text-gray-600">${product.price}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* No results */}
+      {isSearchDropdownVisible && products.length === 0 && (
+        <div className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg z-50 p-4 text-gray-500">
+          No products found.
+        </div>
+      )}
       <div>
         {/* Side Bar Cart */}
         {isMobileMenuOpen && (

@@ -29,17 +29,16 @@ function About() {
         <div className="text-center">
           <div className={italiana.className}>
             <h1 className="text-[40px] md:text-[40px] -font-bold text-white mt-24">
-              About Us
+              Our Journey
             </h1>
           </div>
           <div className={juliusSansOne.className}>
             <div className="text-white leading-6 md:leading-8 mt-2 text-[12px] md:text-[15px]">
-              Tea Jar is dedicated to offering premium, sustainably sourced teas
-              that blend exceptional taste with environmental care. We carefully
-              select the finest tea leaves to ensure rich flavors and aromas,
-              all while prioritizing eco-friendly packaging and ethical
-              practices. Whether enjoyed alone or shared, each cup embodies a
-              moment of tranquility and connection with nature.
+              Since 1978, Tea Jar has been dedicated to crafting the finest
+              Ceylon teas, from classic black to exquisite flavors. Backed by
+              the K.D.U. Group, we combine over 30 years of expertise with
+              traditional craftsmanship and modern innovation, delivering
+              exceptional quality that delights tea lovers around the world.
             </div>
           </div>
           <div className={italiana.className}>

@@ -261,9 +261,7 @@ class PaymentController
         $invoiceId = $this->model->createInvoice($invoice_data);
 
         // If invoice was created successfully, proceed with payment gateway
-        if ($invoiceId) {
-
-            $this->sendOrderConfirmationEmail($orderData, $email);
+        if ($invoiceId && $paymentMethod == 'card') {
             // Prepare items for saving
             $invoiceItems = [];
             foreach ($itemsList as $item) {
@@ -504,6 +502,8 @@ class PaymentController
         $payhere_currency = $data['payhere_currency'];
         $status_code = $data['status_code'];
         $md5sig = $data['md5sig'];
+
+
 
         // Step 4: Your PayHere Merchant Secret
         // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';

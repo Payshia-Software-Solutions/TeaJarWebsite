@@ -18,58 +18,69 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getFilteredProducts($category = null, $department = null, $minPrice = null, $maxPrice = null, $sortBy = null)
+    public function getFilteredProducts($category = null, $departments = null, $minPrice = null, $maxPrice = null, $sortBy = null)
     {
         // Start building the query
-        $query = "SELECT * FROM `master_product` WHERE 1=1"; // Default to true for flexible filters
+        $query = "SELECT * FROM `master_product` WHERE 1=1"; // Default condition for flexible filters
 
         // Add filters dynamically based on the parameters
+        $params = [];
+
         if ($category) {
             $query .= " AND `category_id` = :category";
+            $params[':category'] = $category;
         }
-        if ($department) {
-            $query .= " AND `department_id` = :department";
+
+        if ($departments && is_array($departments)) {
+            // Add dynamic placeholders for multiple departments
+            $placeholders = implode(',', array_fill(0, count($departments), '?'));
+            $query .= " AND `department_id` IN ($placeholders)";
+            $params = array_merge($params, $departments); // Add department values to params array
         }
-        if ($minPrice) {
+
+        if ($minPrice !== null) {
             $query .= " AND `selling_price` >= :minPrice";
+            $params[':minPrice'] = $minPrice;
         }
-        if ($maxPrice) {
+
+        if ($maxPrice !== null) {
             $query .= " AND `selling_price` <= :maxPrice";
+            $params[':maxPrice'] = $maxPrice;
         }
 
         // Add sorting logic based on the sort parameter
-        if ($sortBy) {
-            switch ($sortBy) {
-                case 'low-to-high':
-                    $query .= " ORDER BY `selling_price` ASC";
-                    break;
-                case 'high-to-low':
-                    $query .= " ORDER BY `selling_price` DESC";
-                    break;
-                case 'newest':
-                    $query .= " ORDER BY `created_at` DESC";
-                    break;
-                case 'oldest':
-                    $query .= " ORDER BY `created_at` ASC";
-                    break;
-                default:
-                    // Default sorting, e.g., by product ID
-                    $query .= " ORDER BY `product_id` ASC";
-                    break;
-            }
-        } else {
-            // Default sorting by product ID if no sorting parameter
-            $query .= " ORDER BY `product_id` ASC";
+        switch ($sortBy) {
+            case 'low-to-high':
+                $query .= " ORDER BY `selling_price` ASC";
+                break;
+            case 'high-to-low':
+                $query .= " ORDER BY `selling_price` DESC";
+                break;
+            case 'newest':
+                $query .= " ORDER BY `created_at` DESC";
+                break;
+            case 'oldest':
+                $query .= " ORDER BY `created_at` ASC";
+                break;
+            default:
+                // Default sorting, e.g., by product ID
+                $query .= " ORDER BY `product_id` ASC";
+                break;
         }
 
         // Prepare the statement
         $stmt = $this->pdo->prepare($query);
 
-        // Bind parameters if they are provided
-        if ($category) $stmt->bindParam(':category', $category, PDO::PARAM_INT);
-        if ($department) $stmt->bindParam(':department', $department, PDO::PARAM_INT);
-        if ($minPrice) $stmt->bindParam(':minPrice', $minPrice, PDO::PARAM_INT);
-        if ($maxPrice) $stmt->bindParam(':maxPrice', $maxPrice, PDO::PARAM_INT);
+        // Bind parameters dynamically
+        $bindIndex = 1; // Index for positional placeholders
+        foreach ($params as $key => $value) {
+            // Use positional binding for department array
+            if (is_int($key)) {
+                $stmt->bindValue($bindIndex++, $value, PDO::PARAM_INT);
+            } else {
+                $stmt->bindValue($key, $value, PDO::PARAM_INT);
+            }
+        }
 
         // Execute the query
         $stmt->execute();

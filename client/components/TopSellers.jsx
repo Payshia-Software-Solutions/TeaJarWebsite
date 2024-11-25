@@ -94,7 +94,7 @@ function TopSellers() {
           <div className="max-w-full pl-4 sm:pl-6 mx-auto">
             {/*Navigation buttons */}
             <div className="text-center items-center">
-              <SectionHeader sectionTitle="Shop Our Best Selling Categories" />
+              <SectionHeader sectionTitle="Shop Our Best Selling Products" />
               {/* <div className="flex gap-4 justify-center p-1 my-3">
                 <button onClick={handlePrev}>
                   <FaArrowLeft className="w-14 h-14 border-4 p-2 rounded-full text-white " />
@@ -133,7 +133,7 @@ function TopSellers() {
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
                 className="mySwiper"
               >
-                {products.map((singleitem) => (
+                {products.slice(0, 10).map((singleitem, index) => (
                   <SwiperSlide key={singleitem.product_id} className="p-2 mb-6">
                     <ProductCard
                       key={singleitem.product_code} // Ensure to use a unique key
