@@ -89,7 +89,7 @@ const MainPage = () => {
     }
   };
   return (
-    <section className="py-20">
+    <section className="pt-40 md:py-28">
       <div className="w-full container mx-auto">
         <div className="flex flex-col md:flex-row">
           {/* Left Column */}

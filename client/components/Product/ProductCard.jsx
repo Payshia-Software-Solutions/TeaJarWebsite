@@ -78,7 +78,6 @@ const ProductCard = ({
     2: "/assets/icons/pyramid-tea-bags.png", // Icon for Pyramid Tea Bag
     3: "/assets/icons/loose-leaf-icon.svg", // Icon for Loose Leaf Tea
   };
-
   const teaType = TeaTypes[category]; // Get the tea type based on the category
   const teaIcon = TeaIcons[category]; // Get the icon URL based on the category
   if (!teaType || !teaIcon) return null; // Return nothing if category doesn't match

@@ -230,42 +230,38 @@ class PaymentController
         }
 
         $orderData = [
-            "orderData" => [
-                "order_id" => $invoiceNumber,
-                "order_date" => date('Y-m-d H:i:s'),
-                "customer_name" => $customer_details['first_name'],
-                "address" => "123 Main Street",
-                "city" => "New York",
-                "state" => "NY",
-                "zip" => "10001",
-                "country" => "USA",
-                "total" => 150.75,
-                "subtotal" => 100.75,
-                "shipping" => 20.00,
-                "tax" => 30.00,
-                "tracking_url" => "https://example.com/track/12345",
-                "delivery_date" => "2024-11-30",
-                "customer_service_email" => "support@teajar.com",
-                "instagram_url" => "https://www.instagram.com/teajar",
-                "facebook_url" => "https://www.facebook.com/teajar",
-                "pinterest_url" => "https://www.pinterest.com/teajar",
-                "company_address" => "Tea Jar, 456 Tea Lane, New York, NY, 10001, USA",
-                "company_contact" => "1-800-123-4567",
-                "unsubscribe_url" => "https://teajar.com/unsubscribe",
-                "customer_email" => "thilinaruwan112@gmail.com",
-                "items" => $emailItems
-            ],
-            "customer_email" => "thilinaruwan112@gmail.com"
+            "order_id" => $invoiceNumber,
+            "order_date" => date('Y-m-d H:i:s'),
+            "customer_name" => $customer_details['first_name'],
+            "address" => "123 Main Street",
+            "city" => "New York",
+            "state" => "NY",
+            "zip" => "10001",
+            "country" => "USA",
+            "total" => 150.75,
+            "subtotal" => 100.75,
+            "shipping" => 20.00,
+            "tax" => 30.00,
+            "tracking_url" => "https://example.com/track/12345",
+            "delivery_date" => "2024-11-30",
+            "customer_service_email" => "support@teajar.com",
+            "instagram_url" => "https://www.instagram.com/teajar",
+            "facebook_url" => "https://www.facebook.com/teajar",
+            "pinterest_url" => "https://www.pinterest.com/teajar",
+            "company_address" => "Tea Jar, 456 Tea Lane, New York, NY, 10001, USA",
+            "company_contact" => "1-800-123-4567",
+            "unsubscribe_url" => "https://teajar.com/unsubscribe",
+            "customer_email" => "thilinaruwan112@gmail.com",
+            "items" => $emailItems
         ];
 
-        $this->sendOrderConfirmationEmail($orderData, $email);
+        // exit;
 
         // Call the createInvoice method to insert the data
         $invoiceId = $this->model->createInvoice($invoice_data);
 
         // If invoice was created successfully, proceed with payment gateway
-        if ($invoiceId) {
-
+        if ($invoiceId && $paymentMethod == 'card') {
             // Prepare items for saving
             $invoiceItems = [];
             foreach ($itemsList as $item) {
@@ -507,6 +503,8 @@ class PaymentController
         $status_code = $data['status_code'];
         $md5sig = $data['md5sig'];
 
+
+
         // Step 4: Your PayHere Merchant Secret
         // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';
         $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz'; // Replace with your Merchant Secret
@@ -646,6 +644,8 @@ class PaymentController
      */
     public function generateEmailHTML($orderData)
     {
+
+        // var_dump($orderData);
         // Load the email template
         $templateFile = './templates/order_template.html';
         if (!file_exists($templateFile)) {
@@ -688,6 +688,7 @@ class PaymentController
         // Generate product rows dynamically
         $productRows = '';
         foreach ($orderData['items'] as $item) {
+            // var_dump($item);
             $productRows .= "
             <div class='product-row' style='margin-bottom: 15px;'>
                 <img src='{$item['image_url']}' class='product-image' alt='{$item['name']}' style='width: 50px; height: 50px; margin-right: 10px; vertical-align: middle;'>

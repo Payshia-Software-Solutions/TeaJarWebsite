@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const CeylonFinestTea = () => {
   return (
-    <div className="bg-green-50 h-screen flex items-center ">
-      <section className="flex flex-col-reverse md:flex-row items-center mx-auto w-full h-full overflow-hidden">
+    <div className="bg-green-50 min-h-screen md:h-screen flex items-center ">
+      <section className="flex flex-col-reverse md:flex-row items-center mx-auto w-full  h-full overflow-hidden">
         {/* Left Content */}
         <motion.div
           className="md:w-1/2 w-full px-4 py-8 md:px-12 flex flex-col items-center md:items-start text-center md:text-left"
@@ -81,13 +81,13 @@ const CeylonFinestTea = () => {
 
         {/* Right Image */}
         <motion.div
-          className="md:w-1/2 w-full flex justify-center bg-slate-900 h-64 md:h-full"
+          className="md:w-1/2 w-full flex justify-center bg-slate-900 h-[400px] md:h-full"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <div className="w-full h-full relative">
+          <div className="w-full h-[full] relative">
             <Image
               src="/assets/about/ceylon-finest-tea.jpg"
               alt="Tea bag over a cup of tea"
