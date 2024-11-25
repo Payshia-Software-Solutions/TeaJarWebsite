@@ -53,16 +53,16 @@ class Product
 
         // Add sorting logic based on the sort parameter
         switch ($sortBy) {
-            case 'low-to-high':
+            case 'lowToHigh':
                 $query .= " ORDER BY `selling_price` ASC";
                 break;
-            case 'high-to-low':
+            case 'highToLow':
                 $query .= " ORDER BY `selling_price` DESC";
                 break;
-            case 'newest':
+            case 'newestFirst':
                 $query .= " ORDER BY `created_at` DESC";
                 break;
-            case 'oldest':
+            case 'oldestFirst':
                 $query .= " ORDER BY `created_at` ASC";
                 break;
             default:
