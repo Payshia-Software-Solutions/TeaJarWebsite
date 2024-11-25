@@ -1,4 +1,5 @@
 "use client"; // Ensures this component runs as a client component
+import { useSearchParams } from "next/navigation";
 
 import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa"; // Icon for the hamburger menu
@@ -60,6 +61,21 @@ function SideBar() {
     fetchSections();
   }, []);
 
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const categoryParams = searchParams.get("category");
+    const departmentParams = searchParams.get("department");
+
+    if (categoryParams) {
+      setSelectedCategoryIds(categoryParams.split(",").map(Number));
+    }
+
+    if (departmentParams) {
+      setSelectedDepartmentIds(departmentParams.split(",").map(Number));
+    }
+  }, [searchParams]);
+
   // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -99,45 +115,111 @@ function SideBar() {
   }, []);
 
   // Handle category checkbox change
+  // const handleCategoryChange = (e) => {
+  //   const categoryId = Number(e.target.value); // Ensure the ID is a number
+  //   setSelectedCategoryIds((prev) =>
+  //     prev.includes(categoryId)
+  //       ? prev.filter((id) => id !== categoryId)
+  //       : [...prev, categoryId]
+  //   );
+  // };
+
+  // Handle category checkbox change
   const handleCategoryChange = (e) => {
     const categoryId = Number(e.target.value); // Ensure the ID is a number
-    setSelectedCategoryIds((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId]
+    const updatedCategoryIds = selectedCategoryIds.includes(categoryId)
+      ? selectedCategoryIds.filter((id) => id !== categoryId)
+      : [...selectedCategoryIds, categoryId];
+
+    setSelectedCategoryIds(updatedCategoryIds);
+
+    // Redirect with updated filters
+    const url = buildFilterUrl(
+      updatedCategoryIds,
+      selectedDepartmentIds,
+      minPrice,
+      maxPrice,
+      sortOrder
     );
+    router.push(url);
   };
+
+  // Handle department checkbox change
+  // const handleDepartmentChange = (e) => {
+  //   const departmentId = Number(e.target.value); // Ensure the ID is a number
+  //   setSelectedDepartmentIds((prev) =>
+  //     prev.includes(departmentId)
+  //       ? prev.filter((id) => id !== departmentId)
+  //       : [...prev, departmentId]
+  //   );
+  // };
 
   // Handle department checkbox change
   const handleDepartmentChange = (e) => {
     const departmentId = Number(e.target.value); // Ensure the ID is a number
-    setSelectedDepartmentIds((prev) =>
-      prev.includes(departmentId)
-        ? prev.filter((id) => id !== departmentId)
-        : [...prev, departmentId]
+    const updatedDepartmentIds = selectedDepartmentIds.includes(departmentId)
+      ? selectedDepartmentIds.filter((id) => id !== departmentId)
+      : [...selectedDepartmentIds, departmentId];
+
+    setSelectedDepartmentIds(updatedDepartmentIds);
+
+    // Redirect with updated filters
+    const url = buildFilterUrl(
+      selectedCategoryIds,
+      updatedDepartmentIds,
+      minPrice,
+      maxPrice,
+      sortOrder
     );
+    router.push(url);
   };
 
-  // Build URL with filters
-  const buildFilterUrl = () => {
+  const buildFilterUrl = (
+    categories = [],
+    departments = [],
+    min = "",
+    max = "",
+    sort = ""
+  ) => {
     const params = [];
-    if (selectedCategoryIds.length > 0) {
-      params.push(`category=${selectedCategoryIds.join(",")}`);
+    if (categories.length > 0) {
+      params.push(`category=${categories.join(",")}`);
     }
-    if (selectedDepartmentIds.length > 0) {
-      params.push(`department=${selectedDepartmentIds.join(",")}`);
+    if (departments.length > 0) {
+      params.push(`department=${departments.join(",")}`);
     }
-    if (minPrice) {
-      params.push(`minPrice=${minPrice}`);
+    if (min) {
+      params.push(`minPrice=${min}`);
     }
-    if (maxPrice) {
-      params.push(`maxPrice=${maxPrice}`);
+    if (max) {
+      params.push(`maxPrice=${max}`);
     }
-    if (sortOrder) {
-      params.push(`sort=${sortOrder}`);
+    if (sort) {
+      params.push(`sort=${sort}`);
     }
     return `/shop/filter?${params.join("&")}`;
   };
+
+  // Build URL with filters
+  // const buildFilterUrl = () => {
+  //   const params = [];
+  //   if (selectedCategoryIds.length > 0) {
+  //     params.push(`category=${selectedCategoryIds.join(",")}`);
+  //   }
+  //   if (selectedDepartmentIds.length > 0) {
+  //     params.push(`department=${selectedDepartmentIds.join(",")}`);
+  //   }
+  //   if (minPrice) {
+  //     params.push(`minPrice=${minPrice}`);
+  //   }
+  //   if (maxPrice) {
+  //     params.push(`maxPrice=${maxPrice}`);
+  //   }
+  //   if (sortOrder) {
+  //     params.push(`sort=${sortOrder}`);
+  //   }
+  //   return `/shop/filter?${params.join("&")}`;
+  // };
 
   return (
     <div>
@@ -201,6 +283,7 @@ function SideBar() {
                   <li key={department.id} className="my-1">
                     <label className="text-lg hover:text-gray-300">
                       <input
+                        onClick={() => router.push(buildFilterUrl())}
                         type="checkbox"
                         value={department.id} // Use ID here
                         checked={selectedDepartmentIds.includes(department.id)}
@@ -216,14 +299,46 @@ function SideBar() {
           </div>
 
           {/* Other sections like Price Range, Sort By, etc., here... */}
+          {/* Sort By */}
+          <hr className="border-black border-t-2 mx-auto mb-6" />
+          <div className="my-3">
+            <div className={italiana.className}>
+              <h2 className="text-2xl font-bold my-3">Sort By</h2>
+            </div>
+            <div className={juliusSansOne.className}>
+              <select
+                value={sortOrder}
+                onChange={(e) => {
+                  const newSortOrder = e.target.value;
+                  setSortOrder(newSortOrder);
 
+                  // Redirect with updated sort order
+                  const url = buildFilterUrl(
+                    selectedCategoryIds,
+                    selectedDepartmentIds,
+                    minPrice,
+                    maxPrice,
+                    newSortOrder
+                  );
+                  router.push(url);
+                }}
+                className="w-full p-2 border border-gray-300 rounded-md"
+              >
+                <option value="">Sort by</option>
+                <option value="lowToHigh">Price: Low to High</option>
+                <option value="highToLow">Price: High to Low</option>
+                <option value="newestFirst">Newest First</option>
+                <option value="oldestFirst">Oldest First</option>
+              </select>
+            </div>
+          </div>
           {/* Apply Filters Button */}
-          <button
+          {/* <button
             onClick={() => router.push(buildFilterUrl())}
             className="bg-black text-white p-2 rounded mt-4 w-full"
           >
             Apply Filters
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
