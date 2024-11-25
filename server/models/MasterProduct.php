@@ -18,7 +18,7 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getFilteredProducts($category = null, $departments = null, $minPrice = null, $maxPrice = null, $sortBy = null)
+    public function getFilteredProducts($categories = null, $departments = null, $minPrice = null, $maxPrice = null, $sortBy = null)
     {
         // Start building the query
         $query = "SELECT * FROM `master_product` WHERE 1=1"; // Default condition for flexible filters
@@ -26,9 +26,12 @@ class Product
         // Add filters dynamically based on the parameters
         $params = [];
 
-        if ($category) {
-            $query .= " AND `category_id` = :category";
-            $params[':category'] = $category;
+
+        if ($categories && is_array($categories)) {
+            // Add dynamic placeholders for multiple departments
+            $placeholders = implode(',', array_fill(0, count($categories), '?'));
+            $query .= " AND `section_id` IN ($placeholders)";
+            $params = array_merge($params, $categories); // Add department values to params array
         }
 
         if ($departments && is_array($departments)) {

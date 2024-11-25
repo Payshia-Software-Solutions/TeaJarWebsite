@@ -85,6 +85,11 @@ function NavBar() {
     setOurTeasDropdownVisible(true); // Close the Tea dropdown
   };
 
+  const handleShopMouseEnter = () => {
+    setAboutDropdownVisible(false); // Open the About dropdown
+    setTeaDropdownVisible(true); // Close the Tea dropdown
+  };
+
   // Search Function
 
   const [query, setQuery] = useState("");
@@ -163,7 +168,7 @@ function NavBar() {
 
               <Link href="/shop" className="relative">
                 <button
-                  onMouseEnter={() => setTeaDropdownVisible(true)}
+                  onMouseEnter={() => handleShopMouseEnter(true)}
                   className="hover:text-gray-300"
                 >
                   Shop

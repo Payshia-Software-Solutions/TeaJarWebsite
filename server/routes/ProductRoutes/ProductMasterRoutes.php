@@ -15,7 +15,7 @@ return [
     },
     'GET /products/filter-by' => function () use ($productController) {
         // Sanitize and capture query parameters from the URL
-        $category = isset($_GET['category']) ? $_GET['category'] : null;
+        $category = isset($_GET['category']) ? explode(',', $_GET['category']) : null;
 
         // Handle multiple departments
         $department = isset($_GET['department']) ? explode(',', $_GET['department']) : null;
