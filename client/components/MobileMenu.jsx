@@ -108,15 +108,6 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                     Flavoured Teas
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/our-teas/exclusive-teas"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Exclusive Teas
-                  </Link>
-                </li>
               </ul>
             )}
           </div>
@@ -185,13 +176,6 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
             className="block py-2 text-lg font-medium transition hover:text-teal-400"
           >
             Shop
-          </Link>
-          <Link
-            href="/blogs"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 text-lg font-medium transition hover:text-teal-400"
-          >
-            Blogs
           </Link>
           <Link
             href="/contact"

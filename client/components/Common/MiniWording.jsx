@@ -81,6 +81,12 @@ function MiniWording() {
             className="white-image"
           />
         </div>
+
+        <div className="flex justify-center mt-4">
+          <p className={`${juliusSansOne.className} text-white`}>
+            Founder, Saman Upasena
+          </p>
+        </div>
       </div>
     </section>
   );

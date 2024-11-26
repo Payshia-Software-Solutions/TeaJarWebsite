@@ -17,47 +17,47 @@ const amenities = [
   {
     id: 1,
     name: "Tea Testing",
-    icon: "./assets/images/outlet-amenities/tea-testing.png",
+    icon: "./assets/icons/tea-testing.png",
   },
   {
     id: 2,
     name: "Factory Visit",
-    icon: "./assets/images/outlet-amenities/factory-visit.png",
+    icon: "./assets/icons/factory-visit.png",
   },
   {
     id: 3,
     name: "Field Visit",
-    icon: "./assets/images/outlet-amenities/field-visit.png",
+    icon: "./assets/icons/field-visit.png",
   },
   {
     id: 4,
     name: "Retail",
-    icon: "./assets/images/outlet-amenities/retail.png",
+    icon: "./assets/icons/retail.png",
   },
   {
     id: 5,
     name: "Gem & Jewelry",
-    icon: "./assets/images/outlet-amenities/gem.png",
+    icon: "./assets/icons/gem.png",
   },
   {
     id: 6,
     name: "Dining",
-    icon: "./assets/images/outlet-amenities/dining.png",
+    icon: "./assets/icons/dining.png",
   },
   {
     id: 7,
     name: "Create Own Tea",
-    icon: "./assets/images/outlet-amenities/create-own-tea.png",
+    icon: "./assets/icons/create-own-tea.png",
   },
   {
     id: 8,
     name: "Personal Gift Wrapping",
-    icon: "./assets/images/outlet-amenities/gift.png",
+    icon: "./assets/icons/gift.png",
   },
   {
     id: 9,
     name: "Afternoon Tea",
-    icon: "./assets/images/outlet-amenities/afternoon-tea.png",
+    icon: "./assets/icons/afternoon-tea.png",
   },
 ];
 
@@ -100,14 +100,14 @@ function Outlets() {
   ];
 
   return (
-    <section className="relative flex items-center justify-center h-full bg-[#353D32]">
+    <section className="relative flex items-center justify-center min-h-screen h-full bg-[#353D32]">
       <div className="relative w-full m-0">
         {/* Background Image */}
         <motion.img
           key={mainImage}
           src={mainImage}
           alt=""
-          className="w-full object-cover"
+          className="w-full object-cover hidden md:block"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -135,7 +135,7 @@ function Outlets() {
                   </div>
 
                   <div className="flex flex-col justify-between ">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 mb-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-4">
                       {descriptions.map((desc, index) => (
                         <div key={index}>
                           <img
@@ -156,6 +156,13 @@ function Outlets() {
 
                     {/* Description Sections */}
                     <div className="bg-[#4A5243] p-4 sm:p-6 lg:p-8 rounded-lg text-white">
+                      {/* Additional Image for Mobile Screens */}
+                      <img
+                        src={mainImage}
+                        alt="Mobile Specific Image"
+                        className="block sm:hidden w-full object-cover mb-2 rounded-md shadow-lg"
+                      />
+
                       <motion.div
                         key={activeDescription.title}
                         initial={{ opacity: 0 }}
@@ -175,7 +182,7 @@ function Outlets() {
                         transition={{ duration: 0.7, delay: 0.2 }}
                         className={juliusSansOne.className}
                       >
-                        <p className="leading-5 md:leading-8 text-[12px] md:text-[14px] text-center md:text-justify">
+                        <p className="leading-5 md:leading-6 text-[12px] md:text-[14px] text-center md:text-justify">
                           {activeDescription.description}
                         </p>
 

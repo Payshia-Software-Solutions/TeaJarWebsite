@@ -411,45 +411,6 @@ function NavBar() {
                           </li>
                         </ul>
                       </div>
-
-                      <div>
-                        <ul className="space-y-2">
-                          <li>
-                            <Link
-                              href="/our-teas/exclusive-teas"
-                              className="hover:text-gray-300"
-                            >
-                              Exclusive Teas
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <ul className="space-y-2">
-                          <li>
-                            <Link
-                              href="/our-teas/factory-series-teas"
-                              className="hover:text-gray-300"
-                            >
-                              Factory Series Teas
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <ul className="space-y-2">
-                          <li>
-                            <Link
-                              href="/our-teas/green-teas"
-                              className="hover:text-gray-300"
-                            >
-                              Green Teas
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
                     </div>
                   </div>
                 )}

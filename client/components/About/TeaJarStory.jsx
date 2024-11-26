@@ -43,10 +43,10 @@ const TeaJarSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Image
-              src="/assets/tea-jar-logo.png"
+              src="/assets/gold-logo.png"
               alt="Tea Jar Logo"
-              className="rounded-lg"
-              width={120}
+              className=""
+              width={250}
               height={240}
             />
           </motion.div>
