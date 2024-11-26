@@ -23,21 +23,11 @@ const juliusSansOne = Julius_Sans_One({
 function ContactUs() {
   return (
     <div
-      className="py-4 md:py-8 mt-4 lg:py-12 bg-white text-black"
-      style={{ backgroundImage: "url('/assets/bg-img/leaf-bg.svg')" }}
+      className="py-4 md:py-8  lg:py-12 bg-white text-black"
+      // style={{ backgroundImage: "url('/assets/bg-img/leaf-bg.svg')" }}
     >
-      {/* Heading */}
-      <div className="mb-4 text-center">
-        <div className={italiana.className}>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-            Contact Us
-          </h2>
-        </div>
-        <div className="border-b-4 md:border-b-6 lg:border-b-8 border-[#bc9307] my-4 md:my-5"></div>
-      </div>
-
       {/* Image */}
-      <div className="w-full h-auto mt-4">
+      <div className="w-full h-auto">
         <img
           src="/assets/images/home/peach.jpg"
           alt="Contact Background"

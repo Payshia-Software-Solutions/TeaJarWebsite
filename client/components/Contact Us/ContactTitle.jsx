@@ -1,7 +1,7 @@
 import React from "react";
 
 // Font import
-import { Italiana, Montserrat,Julius_Sans_One } from "next/font/google"; // Add Montserrat for thin italic
+import { Italiana, Montserrat, Julius_Sans_One } from "next/font/google"; // Add Montserrat for thin italic
 const italiana = Italiana({
   weight: "400",
   subsets: ["latin"],
@@ -25,7 +25,7 @@ function ContactTitle({ header, description }) {
           <h2 className="text-3xl font-bold">{header}</h2>
         </div>
       </div>
-      
+
       {/* Description with thin 100 italic Montserrat */}
       <div className={juliusSansOne.className}>
         <p className="mt-4">{description}</p>
