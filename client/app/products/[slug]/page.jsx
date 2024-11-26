@@ -1,5 +1,6 @@
 import ProductPage from "@/components/Product/ProductPage";
 import config from "@/config";
+import Breadcrumb from "@/components/Breadcrumb";
 
 // Generate static params for all products
 export async function generateStaticParams() {
@@ -48,8 +49,19 @@ const ProductServerPage = async ({ params }) => {
         </div>
       );
     }
-
     const product = await res.json();
+    const crumbs = [
+      {
+        label: "Home",
+        href: "/",
+        icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+      },
+      { label: "Products", href: "/shop" },
+      {
+        label: product.product_name,
+        href: "/products/moraccan-mint-green-tea",
+      },
+    ];
 
     // Fetch product images based on product ID
     const imagesRes = await fetch(
@@ -65,11 +77,16 @@ const ProductServerPage = async ({ params }) => {
 
     // Pass both product data and images to the ProductPage component
     return (
-      <ProductPage
-        product={product}
-        product_images={images}
-        product_info={productInfo}
-      />
+      <div>
+        <div className="max-w-7xl mx-auto px-4 pt-8 pb-4 mt-20 md:mt-28">
+          <Breadcrumb className="mb-3" crumbs={crumbs} />
+        </div>
+        <ProductPage
+          product={product}
+          product_images={images}
+          product_info={productInfo}
+        />
+      </div>
     );
   } catch (error) {
     console.error("Error fetching product data:", error);

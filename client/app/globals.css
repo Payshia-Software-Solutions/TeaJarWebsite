@@ -128,11 +128,7 @@
 
 
 /* Custom CSS to center the Swiper */
-.swiper-wrapper-center {
-  display: flex;
-  justify-content: center;
-  /* Center the Swiper container */
-}
+
 
 .mySwiper {
   width: auto;
@@ -140,8 +136,16 @@
   margin: 0 auto;
   /* Center it horizontally */
 }
+.swiper-wrapper-center-home {
+  width: 100%;
+  margin: 0 auto;
+}
 
-
+.swiper-wrapper-center {
+  width: 100%;
+  max-width: 1200px; /* Or another suitable value for your layout */
+  margin: 0 auto;
+}
 
 .steam {
   width: 50px;
@@ -176,4 +180,8 @@
     transform: translateY(-150px) scale(2);
     opacity: 0;
   }
+}
+
+.white-image {
+  filter: invert(100%) brightness(100%);
 }

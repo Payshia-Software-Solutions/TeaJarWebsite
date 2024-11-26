@@ -19,11 +19,11 @@ class ProductController
         echo json_encode($records);
     }
 
-    public function getFilteredRecords($category = null, $department = null, $minPrice = null, $maxPrice = null, $sortBy = null)
+    public function getFilteredRecords($category = null, $department = null, $minPrice = null, $maxPrice = null, $sortBy = null, $teaFormat = null)
     {
 
         // Fetch filtered products from the model
-        $products = $this->model->getFilteredProducts($category, $department, $minPrice, $maxPrice, $sortBy);
+        $products = $this->model->getFilteredProducts($category, $department, $minPrice, $maxPrice, $sortBy, $teaFormat);
 
         // Return filtered products as JSON
         echo json_encode($products);

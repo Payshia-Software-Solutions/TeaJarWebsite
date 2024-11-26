@@ -1,6 +1,4 @@
 "use client"; // Ensures this component runs as a client component
-import { useSearchParams } from "next/navigation";
-
 import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa"; // Icon for the hamburger menu
 import { Italiana, Julius_Sans_One } from "next/font/google"; // Import Google Fonts
@@ -21,6 +19,8 @@ function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
   const [selectedDepartmentIds, setSelectedDepartmentIds] = useState([]);
+  const [selectedTeaFormatIds, setSelectedTeaFormatIds] = useState([]);
+
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sortOrder, setSortOrder] = useState("");
@@ -28,14 +28,17 @@ function SideBar() {
   const [categories, setCategories] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [sections, setSections] = useState([]);
+  const [teaFormats, setTeaFormats] = useState([]);
 
   const [categoriesError, setCategoriesError] = useState(null);
   const [departmentsError, setDepartmentsError] = useState(null);
   const [sectionsError, setSectionsError] = useState(null);
+  const [teaFormatsError, setTeaFormatsError] = useState(true);
 
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [departmentsLoading, setDepartmentsLoading] = useState(true);
   const [sectionsLoading, setSectionsLoading] = useState(true);
+  const [teaFormatsLoading, setTeaFormatsLoading] = useState(true);
 
   const router = useRouter();
 
@@ -61,20 +64,40 @@ function SideBar() {
     fetchSections();
   }, []);
 
-  const searchParams = useSearchParams();
-
+  // Fetch Tea Formats
   useEffect(() => {
-    const categoryParams = searchParams.get("category");
-    const departmentParams = searchParams.get("department");
+    const fetchTeaFormats = async () => {
+      try {
+        setTeaFormatsLoading(true);
+        const res = await fetch(`${config.API_BASE_URL}/categories`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        setTeaFormats(data);
+      } catch (error) {
+        setTeaFormatsError("Failed to fetch Sections");
+        console.error(error);
+      } finally {
+        setTeaFormatsLoading(false);
+      }
+    };
+    fetchTeaFormats();
+  }, []);
+  // const searchParams = useSearchParams();
 
-    if (categoryParams) {
-      setSelectedCategoryIds(categoryParams.split(",").map(Number));
-    }
+  // useEffect(() => {
+  //   // Ensure this is only run client-side
+  //   if (typeof window === "undefined") return;
+  //   const categoryParams = searchParams.get("category");
+  //   const departmentParams = searchParams.get("department");
 
-    if (departmentParams) {
-      setSelectedDepartmentIds(departmentParams.split(",").map(Number));
-    }
-  }, [searchParams]);
+  //   if (categoryParams) {
+  //     setSelectedCategoryIds(categoryParams.split(",").map(Number));
+  //   }
+
+  //   if (departmentParams) {
+  //     setSelectedDepartmentIds(departmentParams.split(",").map(Number));
+  //   }
+  // }, [searchParams]);
 
   // Fetch categories
   useEffect(() => {
@@ -139,7 +162,8 @@ function SideBar() {
       selectedDepartmentIds,
       minPrice,
       maxPrice,
-      sortOrder
+      sortOrder,
+      selectedTeaFormatIds
     );
     router.push(url);
   };
@@ -169,7 +193,29 @@ function SideBar() {
       updatedDepartmentIds,
       minPrice,
       maxPrice,
-      sortOrder
+      sortOrder,
+      selectedTeaFormatIds
+    );
+    router.push(url);
+  };
+
+  // Handle department checkbox change
+  const handleTeaFormatChange = (e) => {
+    const teaFormatId = Number(e.target.value); // Ensure the ID is a number
+    const updatedTeaFormatIds = selectedTeaFormatIds.includes(teaFormatId)
+      ? selectedTeaFormatIds.filter((id) => id !== teaFormatId)
+      : [...selectedTeaFormatIds, teaFormatId];
+
+    setSelectedTeaFormatIds(updatedTeaFormatIds);
+
+    // Redirect with updated filters
+    const url = buildFilterUrl(
+      selectedCategoryIds,
+      updatedDepartmentIds,
+      minPrice,
+      maxPrice,
+      sortOrder,
+      selectedTeaFormatIds
     );
     router.push(url);
   };
@@ -179,7 +225,8 @@ function SideBar() {
     departments = [],
     min = "",
     max = "",
-    sort = ""
+    sort = "",
+    teaFormats = []
   ) => {
     const params = [];
     if (categories.length > 0) {
@@ -196,6 +243,9 @@ function SideBar() {
     }
     if (sort) {
       params.push(`sort=${sort}`);
+    }
+    if (teaFormats.length > 0) {
+      params.push(`teaFormat=${teaFormats.join(",")}`);
     }
     return `/shop/filter?${params.join("&")}`;
   };
@@ -298,6 +348,36 @@ function SideBar() {
             </div>
           </div>
 
+          <hr className="border-black border-t-2 mx-auto mb-6" />
+
+          {/* Tea by Range */}
+          <div className="my-3 ">
+            <div className={italiana.className}>
+              <h2 className="text-2xl font-bold my-3">Tea Format</h2>
+            </div>
+            <div className={juliusSansOne.className}>
+              <ul>
+                {teaFormatsLoading && <p>Loading Tea Formats...</p>}
+                {teaFormatsError && <p>{teaFormatsError}</p>}
+                {teaFormats.map((teaFormat) => (
+                  <li key={teaFormat.id} className="my-1">
+                    <label className="text-lg hover:text-gray-300">
+                      <input
+                        onClick={() => router.push(buildFilterUrl())}
+                        type="checkbox"
+                        value={teaFormat.id} // Use ID here
+                        checked={selectedTeaFormatIds.includes(teaFormat.id)}
+                        onChange={handleTeaFormatChange}
+                        className="mr-2"
+                      />
+                      {teaFormat.category_name}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           {/* Other sections like Price Range, Sort By, etc., here... */}
           {/* Sort By */}
           <hr className="border-black border-t-2 mx-auto mb-6" />
@@ -332,6 +412,7 @@ function SideBar() {
               </select>
             </div>
           </div>
+
           {/* Apply Filters Button */}
           {/* <button
             onClick={() => router.push(buildFilterUrl())}

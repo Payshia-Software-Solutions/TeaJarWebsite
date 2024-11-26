@@ -100,10 +100,10 @@ function RelatedProducts() {
           className="transition-all duration-500 py-9 lg:flex lg:items-center overflow-hidden"
         >
           <div>
-            <div className="max-w-full pl-4 sm:pl-6 mx-auto">
+            <div className="max-w-full pl-2 sm:pl-3 mx-auto">
               {/*Navigation buttons */}
               <h2
-                className={`text-[28px] md:text-[44px] mb-6 text-black font-bold`}
+                className={`text-[28px] md:text-[44px] mb-2 md:mb-4 text-black font-bold`}
               >
                 Related Products
               </h2>
@@ -145,26 +145,32 @@ function RelatedProducts() {
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
                 className="mySwiper"
               >
-                {products.map((singleitem) => (
-                  <SwiperSlide key={singleitem.product_id} className="p-2 mb-6">
-                    <ProductCard
-                      key={singleitem.product_code} // Ensure to use a unique key
-                      title={singleitem.product_name}
-                      slug={singleitem.slug}
-                      id={singleitem.product_id}
-                      price={+singleitem.selling_price}
-                      images={[
-                        "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
-                          singleitem.product_id +
-                          "/" +
-                          singleitem.image_path,
-                        "/assets/products/1/cardamom.jpg",
-                      ]}
-                      Rate={"(5.6)"}
-                      category={singleitem.category_id}
-                    />
-                  </SwiperSlide>
-                ))}
+                {products
+                  .sort(() => Math.random() - 0.5) // Shuffle the array
+                  .slice(0, 10) // Get the first 10 items
+                  .map((singleitem) => (
+                    <SwiperSlide
+                      key={singleitem.product_id}
+                      className="p-2 mb-6"
+                    >
+                      <ProductCard
+                        key={singleitem.product_code} // Ensure to use a unique key
+                        title={singleitem.product_name}
+                        slug={singleitem.slug}
+                        id={singleitem.product_id}
+                        price={+singleitem.selling_price}
+                        images={[
+                          "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
+                            singleitem.product_id +
+                            "/" +
+                            singleitem.image_path,
+                          "/assets/products/1/cardamom.jpg",
+                        ]}
+                        Rate={"(5.6)"}
+                        category={singleitem.category_id}
+                      />
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </div>
           </div>

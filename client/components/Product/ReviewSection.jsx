@@ -13,14 +13,14 @@ const ReviewSection = () => {
   };
 
   const reviews = [
-    {
-      id: 1,
-      author: "Sasani Dissanayake",
-      rating: 5,
-      date: "11/08/2024",
-      content: "Great Product & Love This 💚💛",
-      verified: true,
-    },
+    // {
+    //   id: 1,
+    //   author: "Sasani Dissanayake",
+    //   rating: 5,
+    //   date: "11/08/2024",
+    //   content: "Great Product & Love This 💚💛",
+    //   verified: true,
+    // },
   ];
 
   const ratingCounts = {
@@ -64,7 +64,7 @@ const ReviewSection = () => {
 
   return (
     <div className="max-w-3xl mx-auto ">
-      <h2 className="text-2xl font-serif text-center mb-8">Customer Reviews</h2>
+      <h2 className="text-2xl text-center my-3 md:my-8">Customer Reviews</h2>
 
       <div className="grid md:grid-cols-3 gap-8 mb-8">
         {/* Overall Rating */}
@@ -81,7 +81,6 @@ const ReviewSection = () => {
           <p className="text-sm text-gray-600">
             Based on {totalReviews} reviews
           </p>
-          <p className="text-xs text-gray-500 mt-1">collected by Judge.me</p>
         </div>
 
         {/* Rating Breakdown */}
@@ -142,6 +141,7 @@ const ReviewSection = () => {
             <p className="text-sm text-gray-500">{review.date}</p>
           </div>
         ))}
+        {<p>No reviews yet!</p>}
       </div>
 
       {/* Pagination */}
