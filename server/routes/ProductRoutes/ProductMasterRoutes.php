@@ -26,9 +26,10 @@ return [
 
         // Sort (if provided)
         $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+        $teaFormat = isset($_GET['teaFormat']) ? explode(',', $_GET['teaFormat']) : null;
 
         // Call the controller's filtered function with sanitized values
-        $productController->getFilteredRecords($category, $department, $minPrice, $maxPrice, $sort);
+        $productController->getFilteredRecords($category, $department, $minPrice, $maxPrice, $sort, $teaFormat);
     },
 
 

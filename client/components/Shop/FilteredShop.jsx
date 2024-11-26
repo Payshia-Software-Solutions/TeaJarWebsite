@@ -67,19 +67,17 @@ function FilteredShop() {
                 )}
                 {!loading &&
                   filteredProducts.map((product) => (
-                    <div>
-                      <ProductCard
-                        key={product.product_code}
-                        title={product.product_name}
-                        slug={product.slug}
-                        id={product.product_id}
-                        price={+product.selling_price}
-                        images={[
-                          `https://kdu-admin.payshia.com/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
-                        ]}
-                        category={product.category_id}
-                      />
-                    </div>
+                    <ProductCard
+                      key={product.product_code}
+                      title={product.product_name}
+                      slug={product.slug}
+                      id={product.product_id}
+                      price={+product.selling_price}
+                      images={[
+                        `https://kdu-admin.payshia.com/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                      ]}
+                      category={product.category_id}
+                    />
                   ))}
               </div>
             </div>

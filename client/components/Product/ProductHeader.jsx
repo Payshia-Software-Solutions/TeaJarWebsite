@@ -47,18 +47,29 @@ const ProductHeader = ({
 
       {/* Product Specifications */}
       <div className="flex flex-wrap gap-6 mb-4 text-gray-600">
-        <div className="flex items-center gap-2">
-          <ShoppingBag className="w-5 h-5" />
-          <span>{bagsPerPack} bags per pack</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Coffee className="w-5 h-5" />
-          <span>{servingsPerPack} servings per pack</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Scale className="w-5 h-5" />
-          <span>{gramsPerPack} grams per pack</span>
-        </div>
+        {/* Bags Per Pack */}
+        {bagsPerPack > 0 && (
+          <div className="flex items-center gap-2">
+            <ShoppingBag className="w-5 h-5" />
+            <span>{bagsPerPack} bags per pack</span>
+          </div>
+        )}
+
+        {/* Servings Per Pack */}
+        {servingsPerPack > 0 && (
+          <div className="flex items-center gap-2">
+            <Coffee className="w-5 h-5" />
+            <span>{servingsPerPack} servings per pack</span>
+          </div>
+        )}
+
+        {/* Grams Per Pack */}
+        {gramsPerPack > 0 && (
+          <div className="flex items-center gap-2">
+            <Scale className="w-5 h-5" />
+            <span>{gramsPerPack} grams per pack</span>
+          </div>
+        )}
       </div>
 
       {/* Price and Shipping */}

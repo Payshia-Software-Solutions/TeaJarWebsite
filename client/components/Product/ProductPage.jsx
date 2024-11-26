@@ -117,7 +117,7 @@ const ProductPage = ({ product, product_images, product_info }) => {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto px-4 py-8 mt-28">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left Column - Images */}
           <div className="space-y-4">
@@ -196,10 +196,9 @@ const ProductPage = ({ product, product_images, product_info }) => {
         </div>
       </div>
 
-      <RelatedProducts />
-
-      <Subscribe />
-      {/* <SecureBanner /> */}
+      <div className="max-w-7xl mx-auto px-4">
+        <RelatedProducts />
+      </div>
 
       {/* ToastContainer to display the notifications */}
       <ToastContainer />

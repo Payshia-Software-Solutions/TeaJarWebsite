@@ -11,21 +11,29 @@ const FAQs = () => {
 
   const faqs = [
     {
-      question: "What are the payment methods available?",
-      answer: "Payment methods available are...",
+      question: "What types of tea does Tea Jar offer?",
+      answer:
+        "We offer a wide variety of teas, including black tea, green tea, white tea, herbal tea, artisanal tea, and fruit teas.",
     },
     {
-      question: "How long does it take to deliver an online order?",
-      answer: "Delivery time is...",
+      question: "Why is Tea Jar tea special?",
+      answer:
+        "Our tea is crafted with 45 years of expertise, offering exceptional quality, directly sourced from lush tea gardens and delivered as factory-fresh teas straight from Sri Lanka",
     },
     {
-      question:
-        "Do you offer international shipping for orders outside of Sri Lanka?",
-      answer: "Yes, we offer international shipping...",
+      question: "What certifications do your teas have?",
+      answer:
+        "Our teas are certified with ISO 22000, ISO 9001:2015, HACCP, GMP, and Ethical Tea Partnership standards, ensuring quality, safety, and sustainability.",
     },
     {
-      question: "How can I obtain a skin and wellness consultation?",
-      answer: "To obtain a consultation, please...",
+      question: "Where is Tea Jar tea sourced from?",
+      answer:
+        "Tea Jar teas are proudly produced in our own tea factories, offering the finest Ceylon tea directly from Sri Lankans lush tea gardens.",
+    },
+    {
+      question: "How can I contact customer support?",
+      answer:
+        "You can contact our customer support team via email(info@teajarceylon.com) , phone(+94 718705150) , or by filling out the contact form on our website. We are here to assist you!",
     },
   ];
 

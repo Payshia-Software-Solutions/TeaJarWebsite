@@ -132,11 +132,10 @@ function NavBar() {
         }`}
       >
         {/* Top Bar */}
-        <div className="bg-[#FF2400] text-sm py-2 px-4 flex  justify-center items-center">
+        <div className="bg-[#D22B2B] text-sm py-2 px-4 flex  justify-center items-center">
           <p>Free shipping from 1st December to 31st December</p>
         </div>
 
-        {/* Main Navbar */}
         {/* Main Navbar */}
         <div className="px-4 py-0 md:py-4 max-w-7xl mx-auto">
           {/* Logo Row (Mobile-Responsive Centering) */}
@@ -144,7 +143,7 @@ function NavBar() {
             {/* Logo */}
             <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
               <Link href="/" className="text-2xl font-bold text-orange-500">
-                <img src="/assets/white-logo.png" alt="" className="h-12" />
+                <img src="/assets/gold-logo.png" alt="" className="h-12" />
               </Link>
             </div>
           </div>
@@ -153,7 +152,7 @@ function NavBar() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
               <Link href="/" className="text-2xl font-bold text-orange-500">
-                <img src="/assets/white-logo.png" alt="" className="h-12" />
+                <img src="/assets/gold-logo.png" alt="" className="h-12" />
               </Link>
             </div>
             {/* Navigation */}
@@ -187,27 +186,8 @@ function NavBar() {
                         </h3>
                         <ul className="space-y-2">
                           <li>
-                            <Link
-                              href="/shop/all-teas"
-                              className="hover:text-gray-300"
-                            >
+                            <Link href="/shop" className="hover:text-gray-300">
                               Shop All Teas
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/shop/top-sellers"
-                              className="hover:text-gray-300"
-                            >
-                              Top Sellers
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/shop/bundle-save"
-                              className="hover:text-gray-300"
-                            >
-                              Bundle Up & Save
                             </Link>
                           </li>
                         </ul>
@@ -220,7 +200,7 @@ function NavBar() {
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/tea/black-tea"
+                              href="/shop/filter?category=1"
                               className="hover:text-gray-300"
                             >
                               Black Tea
@@ -228,7 +208,7 @@ function NavBar() {
                           </li>
                           <li>
                             <Link
-                              href="/tea/green-tea"
+                              href="/shop/filter?category=2"
                               className="hover:text-gray-300"
                             >
                               Green Tea
@@ -236,18 +216,10 @@ function NavBar() {
                           </li>
                           <li>
                             <Link
-                              href="/tea/matcha"
+                              href="/shop/filter?category=3"
                               className="hover:text-gray-300"
                             >
-                              Matcha
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/tea/chai"
-                              className="hover:text-gray-300"
-                            >
-                              Chai
+                              Herbal Tea
                             </Link>
                           </li>
                         </ul>
@@ -564,7 +536,11 @@ function NavBar() {
               {/* Search Box */}
               <div className="w-full md:w-auto  md:hidden justify-center md:justify-start mb-4 md:mb-0">
                 <Link href="/" className="text-2xl font-bold text-orange-500">
-                  <img src="/assets/white-logo.png" alt="" className="h-12" />
+                  <img
+                    src="/assets/gold-logo.png"
+                    alt=""
+                    className="h-8 mt-2"
+                  />
                 </Link>
               </div>
 

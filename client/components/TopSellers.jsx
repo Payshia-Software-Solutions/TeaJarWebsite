@@ -105,7 +105,7 @@ function TopSellers() {
               </div> */}
             </div>
             {/* Swiper setup */}
-            <div className="swiper-wrapper-center">
+            <div className="swiper-wrapper-center-home">
               <Swiper
                 ref={swiperRef} // Reference to Swiper instance
                 slidesPerView={1.5} // Show 1 full slide and half of the next slide
@@ -133,26 +133,32 @@ function TopSellers() {
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
                 className="mySwiper"
               >
-                {products.slice(0, 10).map((singleitem, index) => (
-                  <SwiperSlide key={singleitem.product_id} className="p-2 mb-6">
-                    <ProductCard
-                      key={singleitem.product_code} // Ensure to use a unique key
-                      title={singleitem.product_name}
-                      slug={singleitem.slug}
-                      id={singleitem.product_id}
-                      price={+singleitem.selling_price}
-                      images={[
-                        "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
-                          singleitem.product_id +
-                          "/" +
-                          singleitem.image_path,
-                        "/assets/products/1/cardamom.jpg",
-                      ]}
-                      Rate={"(5.6)"}
-                      category={singleitem.category_id}
-                    />
-                  </SwiperSlide>
-                ))}
+                {products
+                  .sort(() => Math.random() - 0.5) // Shuffle the array
+                  .slice(0, 10)
+                  .map((singleitem, index) => (
+                    <SwiperSlide
+                      key={singleitem.product_id}
+                      className="p-2 mb-6"
+                    >
+                      <ProductCard
+                        key={singleitem.product_code} // Ensure to use a unique key
+                        title={singleitem.product_name}
+                        slug={singleitem.slug}
+                        id={singleitem.product_id}
+                        price={+singleitem.selling_price}
+                        images={[
+                          "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
+                            singleitem.product_id +
+                            "/" +
+                            singleitem.image_path,
+                          "/assets/products/1/cardamom.jpg",
+                        ]}
+                        Rate={"(5.6)"}
+                        category={singleitem.category_id}
+                      />
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </div>
 
