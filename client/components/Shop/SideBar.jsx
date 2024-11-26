@@ -211,11 +211,11 @@ function SideBar() {
     // Redirect with updated filters
     const url = buildFilterUrl(
       selectedCategoryIds,
-      updatedDepartmentIds,
+      selectedDepartmentIds,
       minPrice,
       maxPrice,
       sortOrder,
-      selectedTeaFormatIds
+      updatedTeaFormatIds
     );
     router.push(url);
   };

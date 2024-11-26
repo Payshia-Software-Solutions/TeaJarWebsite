@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-function Breadcrumb({ crumbs }) {
+function Breadcrumb({ crumbs, fontColor = "grey" }) {
   return (
     <nav aria-label="Breadcrumb">
       <ol className="flex items-center gap-1 text-sm text-gray-600">
@@ -10,7 +10,7 @@ function Breadcrumb({ crumbs }) {
             <li>
               <Link
                 href={crumb.href}
-                className="block transition hover:text-gray-700"
+                className={`block transition text-${fontColor} hover:text-gray-700`}
               >
                 {crumb.icon ? (
                   <svg
@@ -18,7 +18,7 @@ function Breadcrumb({ crumbs }) {
                     className="h-4 w-4"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    stroke={fontColor}
                   >
                     <path
                       strokeLinecap="round"
@@ -38,7 +38,7 @@ function Breadcrumb({ crumbs }) {
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
                   viewBox="0 0 20 20"
-                  fill="currentColor"
+                  fill={fontColor}
                 >
                   <path
                     fillRule="evenodd"

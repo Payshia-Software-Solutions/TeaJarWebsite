@@ -25,10 +25,10 @@ const TeaDetails = ({
         <p className="text-gray-700">{ingredients}</p>
       </section>
 
-      <section>
+      {/* <section>
         <h2 className="text-xl font-semibold text-amber-700 mb-2">Tea Grade</h2>
         <p className="text-gray-700">{teaGrade}</p>
-      </section>
+      </section> */}
 
       <section>
         <h2 className="text-xl font-semibold text-amber-700 mb-2">
