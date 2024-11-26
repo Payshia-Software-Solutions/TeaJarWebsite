@@ -9,6 +9,7 @@ import { SlArrowDown } from "react-icons/sl";
 import CartSideBar from "@/components/Cart/CartSideBar";
 import { IoCartOutline, IoPerson, IoMenu } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
+import config from "@/config"; // Import your configuration
 
 const juliusSansOne = Julius_Sans_One({
   weight: "400", // Julius Sans One only has a regular weight
@@ -30,6 +31,29 @@ function NavBar() {
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
 
+  const [selectedDepartmentIds, setSelectedDepartmentIds] = useState([]);
+  const [departmentsLoading, setDepartmentsLoading] = useState(true);
+  const [departmentsError, setDepartmentsError] = useState(null);
+  const [departments, setDepartments] = useState([]);
+
+  // Fetch departments
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        setDepartmentsLoading(true);
+        const res = await fetch(`${config.API_BASE_URL}/departments`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        setDepartments(data);
+      } catch (error) {
+        setDepartmentsError("Failed to fetch Departments");
+        console.error(error);
+      } finally {
+        setDepartmentsLoading(false);
+      }
+    };
+    fetchDepartments();
+  }, []);
   useEffect(() => {
     if (pathname !== "/") {
       setIsVisible(false);
@@ -232,7 +256,7 @@ function NavBar() {
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/format/loose-leaf"
+                              href="/shop/filter?teaFormat=3"
                               className="hover:text-gray-300"
                             >
                               Loose Leaf
@@ -240,7 +264,7 @@ function NavBar() {
                           </li>
                           <li>
                             <Link
-                              href="/format/tea-bags"
+                              href="/shop/filter?teaFormat=1"
                               className="hover:text-gray-300"
                             >
                               Tea Bags
@@ -248,15 +272,15 @@ function NavBar() {
                           </li>
                           <li>
                             <Link
-                              href="/format/refills"
+                              href="/shop/filter?teaFormat=2"
                               className="hover:text-gray-300"
                             >
-                              Refills
+                              Luxury Leaf Tea Bags
                             </Link>
                           </li>
                           <li>
                             <Link
-                              href="/format/tins"
+                              href="/shop/filter?teaFormat=4"
                               className="hover:text-gray-300"
                             >
                               Tins
@@ -270,30 +294,18 @@ function NavBar() {
                           TEA EDITS
                         </h3>
                         <ul className="space-y-2">
-                          <li>
-                            <Link
-                              href="/edits/breakfast-tea"
-                              className="hover:text-gray-300"
-                            >
-                              Breakfast Tea
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/edits/iced-tea"
-                              className="hover:text-gray-300"
-                            >
-                              Iced Tea
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/edits/wellness"
-                              className="hover:text-gray-300"
-                            >
-                              Wellness
-                            </Link>
-                          </li>
+                          {departmentsLoading && <p>Loading Departments...</p>}
+                          {departmentsError && <p>{departmentsError}</p>}
+                          {departments.map((department) => (
+                            <li key={department.id}>
+                              <Link
+                                href={`/shop/filter?department=${department.id}`}
+                                className="hover:text-gray-300"
+                              >
+                                {department.department_name}
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </div>
@@ -375,144 +387,65 @@ function NavBar() {
                     <div className="shadow-lg py-4 px-6 grid grid-cols-4 gap-6 max-w-7xl mx-auto">
                       {/* Column 1 */}
                       <div>
-                        <h3 className="font-bold mb-3 text-gray-400">
-                          SHOP TEA
-                        </h3>
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/shop/all-teas"
+                              href="/our-teas/exceptional-teas"
                               className="hover:text-gray-300"
                             >
-                              Shop All Teas
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/shop/top-sellers"
-                              className="hover:text-gray-300"
-                            >
-                              Top Sellers
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/shop/bundle-save"
-                              className="hover:text-gray-300"
-                            >
-                              Bundle Up & Save
+                              Exceptional Teas
                             </Link>
                           </li>
                         </ul>
                       </div>
-                      {/* Column 2 */}
+
                       <div>
-                        <h3 className="font-bold mb-3 text-gray-400">
-                          SHOP BY TEA
-                        </h3>
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/tea/black-tea"
+                              href="/our-teas/flavoured-teas"
                               className="hover:text-gray-300"
                             >
-                              Black Tea
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/tea/green-tea"
-                              className="hover:text-gray-300"
-                            >
-                              Green Tea
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/tea/matcha"
-                              className="hover:text-gray-300"
-                            >
-                              Matcha
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/tea/chai"
-                              className="hover:text-gray-300"
-                            >
-                              Chai
+                              Flavoured Teas
                             </Link>
                           </li>
                         </ul>
                       </div>
-                      {/* Column 3 */}
+
                       <div>
-                        <h3 className="font-bold mb-3 text-gray-400">
-                          TEA FORMAT
-                        </h3>
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/format/loose-leaf"
+                              href="/our-teas/exclusive-teas"
                               className="hover:text-gray-300"
                             >
-                              Loose Leaf
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/format/tea-bags"
-                              className="hover:text-gray-300"
-                            >
-                              Tea Bags
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/format/refills"
-                              className="hover:text-gray-300"
-                            >
-                              Refills
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/format/tins"
-                              className="hover:text-gray-300"
-                            >
-                              Tins
+                              Exclusive Teas
                             </Link>
                           </li>
                         </ul>
                       </div>
-                      {/* Column 4 */}
+
                       <div>
-                        <h3 className="font-bold mb-3 text-gray-400">
-                          TEA EDITS
-                        </h3>
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/edits/breakfast-tea"
+                              href="/our-teas/factory-series-teas"
                               className="hover:text-gray-300"
                             >
-                              Breakfast Tea
+                              Factory Series Teas
                             </Link>
                           </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/edits/iced-tea"
+                              href="/our-teas/green-teas"
                               className="hover:text-gray-300"
                             >
-                              Iced Tea
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/edits/wellness"
-                              className="hover:text-gray-300"
-                            >
-                              Wellness
+                              Green Teas
                             </Link>
                           </li>
                         </ul>

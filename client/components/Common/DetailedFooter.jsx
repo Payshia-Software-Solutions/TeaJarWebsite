@@ -5,10 +5,9 @@ const Footer = () => {
 
   const footerLinks = {
     "Our Story": [
-      { title: "The Tea Jar Story", href: "/about" },
-      { title: "Our Tea Heritage", href: "/heritage" },
-      { title: "Sustainable Sourcing", href: "/sustainability" },
-      { title: "Tea Growing Regions", href: "/regions" },
+      { title: "The Tea Jar Story", href: "/tea-jar-story" },
+      { title: "Our Tea Heritage", href: "/tea-heritage" },
+      { title: "KDU Group", href: "/tea-heritage" },
     ],
     "Our Policies": [
       { title: "Privacy Policy", href: "/policies/privacy-policy" },
@@ -17,12 +16,12 @@ const Footer = () => {
       { title: "Shipping Policy", href: "/policies/shipping-policy" },
     ],
     "Quick Links": [
-      { title: "Search", href: "/search" },
+      { title: "Search", href: "#" },
       { title: "Contact", href: "/contact" },
-      { title: "Store Locator", href: "/stores" },
-      { title: "Tea Menu", href: "/menu" },
-      { title: "Wholesale Program", href: "/wholesale" },
-      { title: "Tea Education", href: "/education" },
+      { title: "Store Locator", href: "#" },
+      { title: "Tea Menu", href: "#" },
+      { title: "Wholesale Program", href: "#" },
+      { title: "Tea Education", href: "#" },
     ],
   };
 
@@ -54,27 +53,33 @@ const Footer = () => {
             <h3 className="text-white font-serif text-lg mb-4">Tea Jar</h3>
             <div className="space-y-4 text-sm">
               <p>
-                Corporate Office: 123 Tea Garden Road,
+                Corporate Office: KDU Exports PVT LTD,
                 <br />
-                Kandy, Sri Lanka
+                427 A, Galle Road, Colombo 03, Sri Lanka
+              </p>
+
+              <p>
+                Factory: KDU Exports PVT LTD,
+                <br />
+                Galpadithanna Tea Factory, Lellopitiya,Rathnapura.
               </p>
 
               <div>
-                <p className="mb-2">Customer Service: (+94) 77 123 4567</p>
+                <p className="mb-2">Customer Service: (+94)70 11 98 800</p>
                 <p>Service Hours: Daily 9 am - 6 pm</p>
               </div>
 
               <div>
-                <p className="mb-2">Wholesale Inquiries: (+94) 11 234 5678</p>
-                <p>Email: info@teajar.com</p>
+                <p className="mb-2">Wholesale Inquiries: (+94)70 11 98 800</p>
+                <p>Email: info@teajarceylon.com</p>
               </div>
 
-              <div>
+              {/* <div>
                 <p className="font-medium mb-2">Tea Tasting Sessions:</p>
                 <a href="/tea-tasting" className="text-white hover:underline">
                   Click Here For Available Slots
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

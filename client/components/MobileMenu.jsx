@@ -92,29 +92,29 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
               <ul className="mt-2 space-y-2 pl-4">
                 <li>
                   <Link
-                    href="/our-teas/green"
+                    href="/our-teas/exceptional-teas"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-sm font-medium transition hover:text-teal-400"
                   >
-                    Green Tea
+                    Exceptional Teas
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/our-teas/black"
+                    href="/our-teas/flavoured-teas"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-sm font-medium transition hover:text-teal-400"
                   >
-                    Black Tea
+                    Flavoured Teas
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/our-teas/herbal"
+                    href="/our-teas/exclusive-teas"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-sm font-medium transition hover:text-teal-400"
                   >
-                    Herbal Tea
+                    Exclusive Teas
                   </Link>
                 </li>
               </ul>
