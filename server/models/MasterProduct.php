@@ -13,7 +13,7 @@ class Product
     // Fetch all products
     public function getAllProducts()
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` ORDER BY `product_id` ASC");
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `active_status` LIKE 1 ORDER BY `product_id` ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
