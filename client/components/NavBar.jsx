@@ -9,6 +9,8 @@ import { SlArrowDown } from "react-icons/sl";
 import CartSideBar from "@/components/Cart/CartSideBar";
 import { IoCartOutline, IoPerson, IoMenu } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
+import { FaTruck } from "react-icons/fa";
+
 import config from "@/config"; // Import your configuration
 
 const juliusSansOne = Julius_Sans_One({
@@ -156,8 +158,11 @@ function NavBar() {
         }`}
       >
         {/* Top Bar */}
-        <div className="bg-[#D22B2B] text-sm py-2 px-4 flex  justify-center items-center">
-          <p>Free shipping from 1st December to 31st December</p>
+        <div className="bg-[#D22B2B] text-sm py-2 px-4 flex justify-center items-center text-white">
+          <FaTruck className="w-5 h-5 mr-2" />
+          <p className="text-center whitespace-nowrap">
+            Enjoy Free Shipping from December 1st to 31st!
+          </p>
         </div>
 
         {/* Main Navbar */}

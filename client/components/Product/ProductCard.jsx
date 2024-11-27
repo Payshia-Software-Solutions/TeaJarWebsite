@@ -51,6 +51,7 @@ const ProductCard = ({
     "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
   ],
   category,
+  imageStyle = null,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -74,8 +75,8 @@ const ProductCard = ({
   };
 
   const TeaIcons = {
-    1: "/assets/icons/teabag-icon.svg", // Icon for Tea Bag
-    2: "/assets/icons/pyramid-tea-bags.png", // Icon for Pyramid Tea Bag
+    1: "/assets/icons/tea-bag.png", // Icon for Tea Bag
+    2: "/assets/icons/teabag-icon.svg", // Icon for Pyramid Tea Bag
     3: "/assets/icons/loose-leaf-icon.svg", // Icon for Loose Leaf Tea
   };
   const teaType = TeaTypes[category]; // Get the tea type based on the category
@@ -106,6 +107,8 @@ const ProductCard = ({
       autoClose: 3000,
     });
   };
+
+  // console.log(title);
   return (
     <Link href={"/products/" + slug}>
       <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group ">
@@ -181,6 +184,10 @@ const ProductCard = ({
       </div>
     </Link>
   );
+};
+
+ProductCard.defaultProps = {
+  imageStyle: null, // Default value for imageStyle is null
 };
 
 export default ProductCard;
