@@ -50,11 +50,12 @@ function Shop() {
               title="Tea by Range"
               description="Your virtual guide to tea! Discover all types of tea, from herbal infusions to black teas and matcha."
             />
-            <ProductsByRange range_id={1} searchQuery={searchQuery} />
+
+            <ProductsByRange range_id={7} searchQuery={searchQuery} />
             <ProductsByRange range_id={2} searchQuery={searchQuery} />
+            <ProductsByRange range_id={1} searchQuery={searchQuery} />
             <ProductsByRange range_id={3} searchQuery={searchQuery} />
             <ProductsByRange range_id={5} searchQuery={searchQuery} />
-            <ProductsByRange range_id={7} searchQuery={searchQuery} />
             <ProductsByRange range_id={8} searchQuery={searchQuery} />
           </div>
         </div>

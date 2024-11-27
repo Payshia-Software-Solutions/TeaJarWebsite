@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import TopSellerProduct from "@/components/Product/TopSellerProduct";
-import ProductCard from "@/components/Product/ProductCard";
+import ProductCard from "@/components/Product/ProductCardHomepage";
 import SectionHeader from "@/components/Common/SectionHeader";
 import Link from "next/link";
 import config from "@/config";
@@ -48,6 +48,7 @@ function TopSellers() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const productIds = [39, 40, 13, 14, 15, 11, 5, 9, 43, 35];
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -57,7 +58,10 @@ function TopSellers() {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
-        setProducts(data);
+        const filteredProducts = data.filter((product) =>
+          productIds.includes(product.product_id)
+        );
+        setProducts(filteredProducts);
       } catch (error) {
         setError("Failed to fetch products");
         console.error("Failed to fetch products:", error);
@@ -67,7 +71,6 @@ function TopSellers() {
     };
     fetchProducts();
   }, []);
-
   // Handlers to navigate Swiper slides
   const handlePrev = () => {
     if (swiperRef.current) {
@@ -81,7 +84,55 @@ function TopSellers() {
     }
   };
 
-  console.log(products);
+  const [fallbackImages, setFallbackImages] = useState({});
+  const defaultFrontImage = "/assets/loadings.gif";
+  const defaultOtherImage = "/assets/loadings.gif";
+
+  useEffect(() => {
+    const fetchFallbackImages = async () => {
+      const images = { ...fallbackImages }; // Preserve existing images to avoid redundant fetching
+      const fetchRequests = products.map(async (product) => {
+        if (!images[product.product_id]) {
+          try {
+            const response = await fetch(
+              `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+
+              const otherImage = data.find(
+                (img) => img.image_prefix === "Other"
+              );
+
+              images[product.product_id] = [
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                otherImage
+                  ? `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${otherImage.image_path}`
+                  : `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            } else {
+              images[product.product_id] = [
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            }
+          } catch (error) {
+            console.error(
+              `Error fetching fallback images for product ${product.product_id}:`,
+              error
+            );
+            images[product.product_id] = [defaultFrontImage, defaultOtherImage];
+          }
+        }
+      });
+
+      await Promise.all(fetchRequests); // Wait for all fetches to complete
+      setFallbackImages(images);
+    };
+
+    fetchFallbackImages();
+  }, [products]);
 
   return (
     <section className="bg-babout text-white">
@@ -133,32 +184,29 @@ function TopSellers() {
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
                 className="mySwiper"
               >
-                {products
-                  .sort(() => Math.random() - 0.5) // Shuffle the array
-                  .slice(0, 10)
-                  .map((singleitem, index) => (
+                {products.map((singleitem, index) => {
+                  const images = fallbackImages[singleitem.product_id] || [
+                    defaultFrontImage,
+                    defaultOtherImage,
+                  ];
+                  return (
                     <SwiperSlide
                       key={singleitem.product_id}
                       className="p-2 mb-6"
                     >
                       <ProductCard
-                        key={singleitem.product_code} // Ensure to use a unique key
+                        key={singleitem.product_code}
                         title={singleitem.product_name}
                         slug={singleitem.slug}
                         id={singleitem.product_id}
                         price={+singleitem.selling_price}
-                        images={[
-                          "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
-                            singleitem.product_id +
-                            "/" +
-                            singleitem.image_path,
-                          "/assets/products/1/cardamom.jpg",
-                        ]}
+                        images={images}
                         Rate={"(5.6)"}
                         category={singleitem.category_id}
                       />
                     </SwiperSlide>
-                  ))}
+                  );
+                })}
               </Swiper>
             </div>
 

@@ -10,8 +10,7 @@ import MiniWording from "@/components/Common/MiniWording";
 import Subscribe from "@/components/Common/Subscribe";
 import DiscountModel from "@/components/Common/DiscountModel";
 import FAQ from "@/components/Common/FAQ";
-import SectionHeader from "@/components/Common/SectionHeader";
-import RecommendedCategories from "@/components/Recommendation/RecommendedCategories";
+import RecommendedCollections from "@/components/RecommendedCollection/RecommendedCollections";
 
 export default function Home() {
   return (
@@ -21,7 +20,7 @@ export default function Home() {
       <About />
       <TopSellers />
       <FinestCeylonTea />
-      <RecommendedCategories />
+      <RecommendedCollections />
       <MiniWording />
       <Outlet />
       <FAQ />

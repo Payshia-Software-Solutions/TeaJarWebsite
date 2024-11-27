@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import CeylonFinestTea from "@/components/About/CeylonFinestTea";
+import TeaHeritage from "@/components/About/TeaHeritage";
 
 function page() {
   return (
     <div>
-      <CeylonFinestTea />
+      <TeaHeritage />
     </div>
   );
 }

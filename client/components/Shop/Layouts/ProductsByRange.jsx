@@ -2,16 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import ProductCard from "@/components/Product/ProductCard";
-// Font imports
-import { Italiana, Julius_Sans_One } from "next/font/google";
+import { Italiana } from "next/font/google";
 import config from "@/config";
 
 const italiana = Italiana({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-const juliusSansOne = Julius_Sans_One({
   weight: "400",
   subsets: ["latin"],
 });
@@ -21,9 +15,12 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const [rangeName, setRangeName] = useState("Range Name");
   const [rangeNameError, setRangeNameError] = useState(null);
+  const [fallbackImages, setFallbackImages] = useState({});
+
+  const defaultFrontImage = "/assets/loadings.gif";
+  const defaultOtherImage = "/assets/loadings.gif";
 
   useEffect(() => {
     const fetchRangeName = async () => {
@@ -41,7 +38,6 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
         console.error("Failed to fetch range name:", error);
       }
     };
-
     fetchRangeName();
   }, [range_id]);
 
@@ -64,12 +60,10 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, [range_id]);
 
   useEffect(() => {
-    // Filter products based on searchQuery
     setFilteredProducts(
       products.filter((product) =>
         product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -77,10 +71,58 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
     );
   }, [searchQuery, products]);
 
-  const [images, setImages] = useState([]);
+  useEffect(() => {
+    const fetchFallbackImages = async () => {
+      const images = { ...fallbackImages }; // Preserve existing images to avoid redundant fetching
+      const fetchRequests = filteredProducts.map(async (product) => {
+        if (!images[product.product_id]) {
+          try {
+            const response = await fetch(
+              `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+              const frontImage = data.find(
+                (img) => img.image_prefix === "Front Image"
+              );
+              const otherImage = data.find(
+                (img) => img.image_prefix === "Other"
+              );
+
+              images[product.product_id] = [
+                frontImage
+                  ? `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${frontImage.image_path}`
+                  : `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                otherImage
+                  ? `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${otherImage.image_path}`
+                  : `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            } else {
+              images[product.product_id] = [
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            }
+          } catch (error) {
+            console.error(
+              `Error fetching fallback images for product ${product.product_id}:`,
+              error
+            );
+            images[product.product_id] = [defaultFrontImage, defaultOtherImage];
+          }
+        }
+      });
+
+      await Promise.all(fetchRequests); // Wait for all fetches to complete
+      setFallbackImages(images);
+    };
+
+    fetchFallbackImages();
+  }, [filteredProducts]);
 
   return (
-    <div className="bg-gray-100 bg-opacity-10 rounded-2xl  my-3">
+    <div className="bg-gray-100 bg-opacity-10 rounded-2xl my-3">
       <div className={italiana.className}>
         <h2 className="text-3xl m-3 text-black font-bold">
           {rangeNameError || rangeName}
@@ -93,21 +135,25 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
         {!loading && !error && filteredProducts.length === 0 && (
           <p>No products match your search.</p>
         )}
-        {filteredProducts.map((singleitem) => (
-          <ProductCard
-            key={singleitem.product_code}
-            title={singleitem.product_name}
-            slug={singleitem.slug}
-            id={singleitem.product_id}
-            price={+singleitem.selling_price}
-            images={[
-              `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${singleitem.product_id}/${singleitem.image_path}`,
-              "/assets/products/1/cardamom.jpg",
-            ]}
-            Rate={"(5.6)"}
-            category={singleitem.category_id}
-          />
-        ))}
+        {filteredProducts.map((singleitem) => {
+          const images = fallbackImages[singleitem.product_id] || [
+            defaultFrontImage,
+            defaultOtherImage,
+          ];
+
+          return (
+            <ProductCard
+              key={singleitem.product_code}
+              title={singleitem.product_name}
+              slug={singleitem.slug}
+              id={singleitem.product_id}
+              price={+singleitem.selling_price}
+              images={images}
+              Rate={"(5.6)"}
+              category={singleitem.category_id}
+            />
+          );
+        })}
       </div>
     </div>
   );

@@ -274,7 +274,7 @@ function SideBar() {
   return (
     <div>
       {/* Hamburger Icon for Mobile View */}
-      <div className="md:hidden p-4 mt-8">
+      <div className="hidden p-4 mt-8">
         <button onClick={toggleSidebar} className="text-2xl fixed">
           <FaBars />
         </button>

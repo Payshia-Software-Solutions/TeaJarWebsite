@@ -21,7 +21,7 @@ class Product
     public function getFilteredProducts($categories = null, $departments = null, $minPrice = null, $maxPrice = null, $sortBy = null, $teaFormats = null)
     {
         // Start building the query
-        $query = "SELECT * FROM `master_product` WHERE 1=1"; // Default condition for flexible filters
+        $query = "SELECT * FROM `master_product` WHERE 1=1 AND  `active_status` LIKE 1"; // Default condition for flexible filters
 
         // Add filters dynamically based on the parameters
         $params = [];
@@ -118,7 +118,7 @@ class Product
 
     public function getRecordBySection($section)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `section_id` = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `section_id` = ? AND  `active_status` LIKE 1");
         $stmt->execute([$section]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -126,14 +126,14 @@ class Product
     // Fetch a single product by ID
     public function getRecordByDepartment($department)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `department_id` = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `department_id` = ? AND  `active_status` LIKE 1");
         $stmt->execute([$department]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getRecordByCategory($category)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `category_id` = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `category_id` = ? AND  `active_status` LIKE 1");
         $stmt->execute([$category]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
