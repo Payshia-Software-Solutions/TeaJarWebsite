@@ -1,4 +1,38 @@
 import React from "react";
+// Shipping Policy Page Metadata
+export const metadata = {
+  title: "Shipping Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+  description:
+    "Find out about Tea Jar's shipping policy, including delivery times, shipping charges, and regions served. We aim to deliver the finest tea to your doorsteps.",
+  keywords: [
+    "Shipping Policy",
+    "Ceylon Tea Shipping",
+    "Tea Delivery",
+    "Shipping Terms",
+    "Tea Jar Shipping",
+  ],
+  openGraph: {
+    title: "Shipping Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Learn about the shipping options, delivery times, and charges when ordering Ceylon tea from Tea Jar.",
+    url: "https://www.teajarceylon.com/shipping-policy",
+    images: [
+      {
+        url: "https://www.teajarceylon.com/images/shipping-policy-banner.jpg", // Replace with your image URL
+        width: 1200,
+        height: 630,
+        alt: "Tea Jar Shipping Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shipping Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Understand Tea Jar's shipping policy including charges and delivery timelines for Ceylon tea orders.",
+    image: "https://www.teajarceylon.com/images/shipping-policy-banner.jpg", // Replace with your image URL
+  },
+};
 
 function DeliveryAndReturnPolicy() {
   return (

@@ -15,8 +15,8 @@ const ubuntu = Ubuntu({
 
 const interFont = InterFont({ subsets: ["latin"] });
 export const metadata: Metadata = {
-  title: "Tea Jar | World No 1 Tea Provider in Sri Lanka",
-  description: "World No 1 Tea Provider in Sri Lanka",
+  title: "Tea Jar | Finest Ceylon Tea in Sri Lanka",
+  description: "Finest Ceylon Tea in Sri Lanka",
 };
 
 export default function RootLayout({
@@ -28,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" type="image/png" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#000000" />
       </head>
       <body

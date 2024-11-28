@@ -36,7 +36,7 @@ const amenities = [
   },
   {
     id: 5,
-    name: "Gem & Jewelry",
+    name: "Gem & Jewellery",
     icon: "./assets/icons/new-icons/gem.png",
   },
   {
@@ -84,14 +84,14 @@ function Outlets() {
       description:
         "Tea Jar Lounge Colombo is the ideal place for those seeking a personalized tea experience where you can create your own tea, selecting from a variety of flavors and ingredients with the help of our experts. Our dedicated private tea rooms provide the perfect setting to make your visit feel like home, offering a space for you to relax and enjoy your tea in a way that’s tailored to your preferences. You can also purchase our teas and have them wrapped as personalized gifts for your loved ones. At Tea Jar Lounge Colombo, every sip is more than just tea—it’s an experience made just for you.",
       image: "/assets/outlets/colombo.jpg",
-      features: [1, 2, 3, 4],
+      features: [1, 4, 6, 7, 8, 9],
     },
     {
       title: "Tea Jar by the Lake Weerawila",
       description:
         "Tea Jar by the Lake, centered at Doubletree by Hilton Weerawila, offers the perfect setting for a personalized tea experience with breathtaking views of the lake. During your stay, you can purchase our exclusive tea products, enjoy a tailored tea tasting session, and discover the ideal tea pairings curated just for you. Relax by the lake with a warm cup of tea, and let this unforgettable experience become a cherished memory.",
       image: "/assets/outlets/tjl.jpg",
-      features: [5, 6, 7, 8, 9],
+      features: [1, 4, 7, 8],
     },
     ,
     {
@@ -99,7 +99,7 @@ function Outlets() {
       description:
         "Nestled in the charming town of Ella, Tea Jar Boutique is the perfect destination for tea enthusiasts from all over the world. Discover our carefully curated selection of Tea Jar products, thoughtfully handpicked for you. Before making your purchase, enjoy the chance to sample our teas and savor their authentic flavors, ensuring you choose the perfect blend to take home.",
       image: "/assets/outlets/tjl.jpg",
-      features: [1, 2, 7, 8, 9],
+      features: [1, 4],
     },
   ];
 
@@ -206,7 +206,9 @@ function Outlets() {
                                   alt={amenity.name}
                                   className="w-[50px] mb-2"
                                 />
-                                <p className="text-[12px]">{amenity.name}</p>
+                                <p className="text-[12px] text-center">
+                                  {amenity.name}
+                                </p>
                               </div>
                             );
                           })}

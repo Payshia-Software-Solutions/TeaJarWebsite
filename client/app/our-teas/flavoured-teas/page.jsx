@@ -6,6 +6,43 @@ import { Josefin_Sans, Sulphur_Point } from "next/font/google";
 import Link from "next/link";
 import TeaCard from "@/components/Common/TeaCard";
 
+// Flavoured Teas Page Metadata
+export const metadata = {
+  title: "Flavoured Teas | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+  description:
+    "Indulge in our collection of flavoured teas, expertly blended with premium Ceylon tea leaves and natural flavors. Enjoy a variety of unique and refreshing tea blends.",
+  keywords: [
+    "Flavoured Teas",
+    "Ceylon Flavoured Teas",
+    "Tea Blends",
+    "Fruit Flavoured Tea",
+    "Herbal Tea Blends",
+    "Best Flavoured Tea",
+  ],
+  openGraph: {
+    title: "Flavoured Teas | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Enjoy the finest flavoured teas blended with premium Ceylon tea. Our range of refreshing and unique flavours will provide you with an unforgettable tea experience.",
+    url: "https://www.teajarceylon.com/flavoured-teas", // Replace with your actual URL
+    images: [
+      {
+        url: "https://www.teajarceylon.com/assets/our-teas/flavoured/main-cover-v1.jpg", // Replace with your image URL
+        width: 1200,
+        height: 630,
+        alt: "Flavoured Teas from Tea Jar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Flavoured Teas | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Discover a wide selection of flavoured teas made with the finest Ceylon tea leaves and natural ingredients for a refreshing experience.",
+    image:
+      "https://www.teajarceylon.com/assets/our-teas/flavoured/main-cover-v1.jpg", // Replace with your image URL
+  },
+};
+
 const Josefin_Sans_font = Sulphur_Point({
   weight: "300",
   subsets: ["latin"],

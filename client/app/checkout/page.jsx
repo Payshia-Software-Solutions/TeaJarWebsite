@@ -9,6 +9,8 @@ import PaymentNotice from "@/components/Checkout/PaymentNotice";
 import OrderSummary from "@/components/Checkout/OrderSummary";
 import Payment from "@/components/Payment/Payment";
 import config from "@/config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MainPage = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
@@ -38,6 +40,64 @@ const MainPage = () => {
   }, []);
 
   const handlePayment = async () => {
+    // Validate contact details
+    if (!contactDetails.email || !validateEmail(contactDetails.email)) {
+      toast.error("Please enter a valid email address.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    // Validate delivery address
+    if (
+      !deliveryAddress.firstName ||
+      !deliveryAddress.lastName ||
+      !deliveryAddress.address ||
+      !deliveryAddress.city ||
+      !deliveryAddress.postalCode
+    ) {
+      toast.error("Please fill in all required fields for delivery.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    // Validate billing address if applicable
+    if (
+      sameAddressStatus === 0 &&
+      (!billingAddress.firstName ||
+        !billingAddress.lastName ||
+        !billingAddress.address ||
+        !billingAddress.city ||
+        !billingAddress.postalCode)
+    ) {
+      toast.error("Please fill in all required fields for billing address.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    // Validate promo code if provided
+    if (promoCode && !isValidPromoCode(promoCode)) {
+      toast.error("Invalid promo code.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    // Validate payment method
+    if (!selectedPaymentMethod) {
+      toast.error("Please select a payment method.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     // Collect data from forms
     const orderData = {
       items: cart,
@@ -88,8 +148,20 @@ const MainPage = () => {
       alert("There was an issue processing your order.");
     }
   };
+
+  // Helper function to validate email
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  // Helper function to validate promo code (you can adjust this based on your criteria)
+  const isValidPromoCode = (code) => {
+    // Example validation: check if promo code has at least 5 characters
+    return code.length >= 5;
+  };
   return (
-    <section className="pt-40 md:py-28">
+    <section className="pt-20 md:py-28">
       <div className="w-full container mx-auto">
         <div className="flex flex-col md:flex-row">
           {/* Left Column */}
@@ -130,6 +202,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 };
