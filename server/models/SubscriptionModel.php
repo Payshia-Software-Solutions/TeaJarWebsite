@@ -9,9 +9,19 @@ class SubscriptionModel
     }
 
 
-    // Create a new subscription record
+    public function isEmailSubscribed($email)
+    {
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM subscriptions WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetchColumn() > 0;
+    }
+
     public function createSubscription($data)
     {
+        if ($this->isEmailSubscribed($data['email'])) {
+            return false; // Indicate that the email is already subscribed
+        }
+
         $stmt = $this->pdo->prepare("
             INSERT INTO subscriptions (name, email) 
             VALUES (?, ?)
