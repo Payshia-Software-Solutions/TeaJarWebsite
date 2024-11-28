@@ -20,8 +20,6 @@ const DiscountModel = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Reset error message
-
     try {
       const response = await fetch("https://kduserver.payshia.com/subscribe", {
         method: "POST",
@@ -31,21 +29,21 @@ const DiscountModel = () => {
         body: JSON.stringify({ name, email }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to subscribe. Please try again.");
-      }
-
-      const data = await response.json();
-      if (data.code) {
-        setSuccessCode(data.code); // Use the discount code from the server
+      if (response.status === 201) {
+        const data = await response.json();
+        setSuccessCode(data.code);
+        setShowSuccess(true);
+      } else if (response.status === 409) {
+        const data = await response.json();
+        alert(data.error); // Show 'already subscribed' message
       } else {
-        setSuccessCode("TEAJAR2024"); // Fallback code if no code is returned
+        alert("An error occurred. Please try again later.");
       }
     } catch (error) {
-      setErrorMessage(error.message || "An unexpected error occurred.");
+      console.error("Error:", error);
+      alert("Failed to connect to the server.");
     }
   };
-
   const handleClose = () => {
     setIsVisible(false);
     setSuccessCode("");
@@ -64,21 +62,22 @@ const DiscountModel = () => {
           <X size={24} />
         </button>
 
-        <div className="flex flex-col md:flex-row items-center">
+        <div className="flex flex-row items-center md:items-start">
           {/* Left side content */}
-          <div className="w-full md:w-1/2">
+          <div className=" text-white rounded-t-lg relative w-1/2">
             <Image
               src="/assets/promo-banners/promo-banner.jpeg"
               alt="Promo Banner"
-              className="rounded-t-lg md:rounded-l-lg object-fill"
-              layout="intrinsic"
-              width={400}
-              height={300}
+              className="rounded-l-lg object-fill"
+              layout="intrinsic" // Maintain aspect ratio
+              width={400} // Adjust as needed
+              height={300} // Adjust as needed
             />
           </div>
 
           {/* Right side content */}
-          <div className="p-6 md:p-8 w-full md:w-1/2 flex items-center justify-center">
+          {/* p-6 md:p-8 w-full md:w-1/2 flex items-center justify-center */}
+          <div className="p-3 md:p-8 w-1/2 flex items-center justify-center">
             <div>
               {!successCode ? (
                 <>
@@ -126,8 +125,17 @@ const DiscountModel = () => {
                     Thank You for Subscribing!
                   </h3>
                   <p className="text-[15px] mb-4">Your discount code:</p>
-                  <div className="bg-gray-100 text-black py-2 px-4 rounded font-bold text-[20px]">
-                    {successCode}
+                  <div className="bg-gray-100 text-black py-2 px-4 rounded font-bold text-[20px] flex items-center justify-center gap-4">
+                    <span>{successCode}</span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(successCode);
+                        alert("Discount code copied to clipboard!");
+                      }}
+                      className="bg-green-600 text-white py-1 px-3 rounded hover:bg-green-700 text-[15px]"
+                    >
+                      Copy Code
+                    </button>
                   </div>
                   <button
                     onClick={handleClose}

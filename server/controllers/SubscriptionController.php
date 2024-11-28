@@ -17,7 +17,10 @@ class SubscriptionController
         $data = json_decode(file_get_contents("php://input"), true);
 
         if ($data && isset($data['name']) && isset($data['email'])) {
-            if ($this->model->createSubscription($data)) {
+            if ($this->model->isEmailSubscribed($data['email'])) {
+                http_response_code(409); // Conflict
+                echo json_encode(['error' => 'You have already subscribed.']);
+            } elseif ($this->model->createSubscription($data)) {
                 http_response_code(201);
                 echo json_encode(['message' => 'Subscription successful', 'code' => 'TEAJAR2024']);
             } else {
