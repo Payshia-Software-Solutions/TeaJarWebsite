@@ -48,7 +48,7 @@ function TopSellers() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const productIds = [5, 11, 35, 20, 15, 43, 5, 9];
+  const productIds = [55, 5, 11, 35, 20, 15, 43, 5, 9];
   useEffect(() => {
     const fetchProducts = async () => {
       try {

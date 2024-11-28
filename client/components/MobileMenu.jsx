@@ -406,6 +406,16 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                     Flavoured Teas
                   </Link>
                 </li>
+
+                <li>
+                  <Link
+                    href="/our-teas/classic-teas"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-500"
+                  >
+                    Classic Teas
+                  </Link>
+                </li>
               </ul>
             )}
           </div>
