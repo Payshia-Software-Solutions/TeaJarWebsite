@@ -1,14 +1,41 @@
 "use client";
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import config from "@/config";
 
 const Subscribe = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState(""); // Added name state
+  const [successCode, setSuccessCode] = useState(null); // Added state for success code
+  const [showSuccess, setShowSuccess] = useState(false); // Added state to show success message
+  const [isVisible, setIsVisible] = useState(true); // Added state for visibility
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle subscription logic here
-    console.log("Subscribing email:", email);
+    try {
+      const response = await fetch(`${config.API_BASE_URL}/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email }), // Sending name and email
+      });
+
+      if (response.status === 201) {
+        const data = await response.json();
+        setSuccessCode(data.code);
+        setShowSuccess(true); // Show success message
+      } else if (response.status === 409) {
+        const data = await response.json();
+        // setIsVisible(false); // Hide form if already subscribed
+        alert(data.error); // Show 'already subscribed' message
+      } else {
+        alert("An error occurred. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to connect to the server.");
+    }
   };
 
   return (
@@ -21,25 +48,46 @@ const Subscribe = () => {
           Be the first to know about new collections and exclusive offers.
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          <div className="relative w-full max-w-md">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              className="w-full px-4 py-3 bg-transparent border border-gray-300 rounded-none focus:outline-none focus:ring-1 focus:ring-black"
-              required
-            />
+        {isVisible && (
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col items-center space-y-4"
+          >
+            <div className="relative w-full max-w-md flex space-x-4">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your Name"
+                className="w-full px-4 py-3 bg-transparent border border-gray-300 rounded-none focus:outline-none focus:ring-1 focus:ring-black"
+                required
+              />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                className="w-full px-4 py-3 bg-transparent border border-gray-300 rounded-none focus:outline-none focus:ring-1 focus:ring-black"
+                required
+              />
+            </div>
             <button
               type="submit"
-              className="absolute right-4 top-1/2 -translate-y-1/2 hover:opacity-70"
+              className="w-full max-w-md px-4 py-3 bg-black text-white rounded-none hover:opacity-70"
               aria-label="Subscribe"
             >
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 inline-block ml-2" />
+              Subscribe
             </button>
-          </div>
-        </form>
+          </form>
+        )}
+
+        {showSuccess && (
+          <p className="text-green-500 mt-4">
+            Thank you for subscribing! A confirmation email has been sent to{" "}
+            {email}.
+          </p>
+        )}
       </div>
     </div>
   );

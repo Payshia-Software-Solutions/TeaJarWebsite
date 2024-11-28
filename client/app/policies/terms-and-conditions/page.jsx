@@ -1,4 +1,39 @@
 import React from "react";
+// Terms and Conditions Page Metadata
+export const metadata = {
+  title: "Terms and Conditions | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+  description:
+    "Review the Terms and Conditions for using Tea Jar's website. This includes the rules and guidelines for using our online store and services.",
+  keywords: [
+    "Terms and Conditions",
+    "Website Terms",
+    "Terms of Service",
+    "Tea Jar Terms",
+    "Ceylon Tea Terms",
+  ],
+  openGraph: {
+    title: "Terms and Conditions | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Read Tea Jar's Terms and Conditions to understand the rules and guidelines for using our website and services.",
+    url: "https://www.teajarceylon.com/terms-and-conditions",
+    images: [
+      {
+        url: "https://www.teajarceylon.com/images/terms-and-conditions-banner.jpg", // Replace with your image URL
+        width: 1200,
+        height: 630,
+        alt: "Tea Jar Terms and Conditions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms and Conditions | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Explore the Terms and Conditions of Tea Jar for a safe and seamless shopping experience.",
+    image:
+      "https://www.teajarceylon.com/images/terms-and-conditions-banner.jpg", // Replace with your image URL
+  },
+};
 
 function TermsOfService() {
   return (

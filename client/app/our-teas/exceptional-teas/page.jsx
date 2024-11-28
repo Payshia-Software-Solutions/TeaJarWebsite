@@ -10,6 +10,43 @@ const CorinthiaFont = Corinthia({
   subsets: ["latin"],
 });
 
+// Exceptional Teas Page Metadata
+export const metadata = {
+  title: "Exceptional Teas | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+  description:
+    "Explore our collection of exceptional teas from the finest Ceylon tea estates. Experience the rich flavors and quality of premium tea blends.",
+  keywords: [
+    "Exceptional Teas",
+    "Ceylon Teas",
+    "Premium Tea",
+    "Finest Ceylon Tea",
+    "Premium Tea Blends",
+    "Best Tea from Sri Lanka",
+  ],
+  openGraph: {
+    title: "Exceptional Teas | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Discover our exceptional collection of Ceylon teas, sourced from the best tea estates in Sri Lanka. Enjoy premium quality tea blends with every sip.",
+    url: "https://www.teajarceylon.com/exceptional-teas", // Replace with your actual URL
+    images: [
+      {
+        url: "https://www.teajarceylon.com/assets/our-teas/exceptional/main-cover-new.jpg", // Replace with your image URL
+        width: 1200,
+        height: 630,
+        alt: "Exceptional Teas from Tea Jar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Exceptional Teas | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Taste the finest exceptional teas from Tea Jar. Sourced from the best tea estates in Sri Lanka for a premium tea experience.",
+    image:
+      "https://www.teajarceylon.com/assets/our-teas/exceptional/main-cover-new.jpg", // Replace with your image URL
+  },
+};
+
 const page = async () => {
   const crumbs = [
     {

@@ -2,6 +2,29 @@ import ProductPage from "@/components/Product/ProductPage";
 import config from "@/config";
 import Breadcrumb from "@/components/Breadcrumb";
 
+export async function generateMetadata({ params }) {
+  const res = await fetch(
+    `${config.API_BASE_URL}/products/get-by-slug/${params.slug}`
+  );
+  const product = await res.json();
+
+  return {
+    title: `${product.product_name} - Tea Jar | Finest Ceylon Tea in Sri Lanka`,
+    description: product.product_description || "Default description for SEO.",
+    openGraph: {
+      title: product.product_name,
+      description:
+        product.product_description || "Default Open Graph description.",
+      images: [
+        {
+          url: `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+          alt: product.product_name,
+        },
+      ],
+    },
+  };
+}
+
 // Generate static params for all products
 export async function generateStaticParams() {
   try {
@@ -34,7 +57,7 @@ const ProductServerPage = async ({ params }) => {
         },
       }
     );
-    console.log(`${config.API_BASE_URL}/products/get-by-slug/${slug}`);
+    // console.log(`${config.API_BASE_URL}/products/get-by-slug/${slug}`);
 
     if (!res.ok) {
       // If the product doesn't exist, return a 404 page

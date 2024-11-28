@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
+import config from "@/config";
 
 const DiscountModel = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [successCode, setSuccessCode] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false); // Added state to show success message
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -21,12 +23,12 @@ const DiscountModel = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://kduserver.payshia.com/subscribe", {
+      const response = await fetch(`${config.API_BASE_URL}/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email }),
+        body: JSON.stringify({ name, email }), // Sending name and email
       });
 
       if (response.status === 201) {
@@ -35,6 +37,7 @@ const DiscountModel = () => {
         setShowSuccess(true);
       } else if (response.status === 409) {
         const data = await response.json();
+        setIsVisible(false);
         alert(data.error); // Show 'already subscribed' message
       } else {
         alert("An error occurred. Please try again later.");
@@ -66,7 +69,7 @@ const DiscountModel = () => {
           {/* Left side content */}
           <div className=" text-white rounded-t-lg relative w-1/2">
             <Image
-              src="/assets/promo-banners/promo-banner.jpeg"
+              src="/assets/promo-banners/pop_banner.jpg"
               alt="Promo Banner"
               className="rounded-l-lg object-fill"
               layout="intrinsic" // Maintain aspect ratio
@@ -85,8 +88,8 @@ const DiscountModel = () => {
                     Subscribe Tea Jar!
                   </h3>
                   <p className="text-[10px] md:text-[15px] text-center mb-2 md:mb-4">
-                    Early access to our Black Friday is LIVE! Enjoy up to 40%
-                    off & secure your favourites before they sell out.
+                    Early access to our festive season.Enjoy upto 30% off and
+                    secure your favorites before they sell out.
                   </p>
                   <form
                     onSubmit={handleSubmit}
@@ -121,28 +124,34 @@ const DiscountModel = () => {
                 </>
               ) : (
                 <div className="text-center">
-                  <h3 className="text-[25px] md:text-[30px] font-bold text-green-600 mb-2">
+                  <h3 className="text-[20px] md:text-[25px] lg:text-[30px] font-bold text-green-600 mb-2">
                     Thank You for Subscribing!
                   </h3>
-                  <p className="text-[15px] mb-4">Your discount code:</p>
-                  <div className="bg-gray-100 text-black py-2 px-4 rounded font-bold text-[20px] flex items-center justify-center gap-4">
+                  <p className="text-[12px] md:text-[14px] lg:text-[15px] mb-4">
+                    Your discount code:
+                  </p>
+                  <div className="bg-gray-100 text-black py-2 px-4 rounded font-bold text-[18px] md:text-[20px] flex items-center justify-center gap-2 md:gap-4">
                     <span>{successCode}</span>
+                  </div>
+
+                  {/* Buttons container */}
+                  <div className="mt-2 flex flex-col items-center gap-2">
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(successCode);
                         alert("Discount code copied to clipboard!");
                       }}
-                      className="bg-green-600 text-white py-1 px-3 rounded hover:bg-green-700 text-[15px]"
+                      className="bg-green-600 text-white py-3 px-3 rounded hover:bg-green-700 text-[12px] md:text-[15px] w-full"
                     >
                       Copy Code
                     </button>
+                    <button
+                      onClick={handleClose}
+                      className="bg-black text-white py-3 px-3 rounded hover:bg-gray-800 text-[14px] md:text-[15px] w-full"
+                    >
+                      Close
+                    </button>
                   </div>
-                  <button
-                    onClick={handleClose}
-                    className="mt-4 bg-black text-white py-2 px-6 rounded hover:bg-gray-800"
-                  >
-                    Close
-                  </button>
                 </div>
               )}
             </div>

@@ -1,5 +1,40 @@
 import React from "react";
 
+// Refund Policy Page Metadata
+export const metadata = {
+  title: "Refund Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+  description:
+    "Learn about Tea Jar's refund policy. We aim to make your shopping experience hassle-free with clear terms and conditions on refunds and returns.",
+  keywords: [
+    "Refund Policy",
+    "Returns Policy",
+    "Ceylon Tea Refund",
+    "Refund Terms",
+    "Tea Jar Refunds",
+  ],
+  openGraph: {
+    title: "Refund Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Get to know our refund policy and how Tea Jar handles returns, exchanges, and refunds. Shop with confidence.",
+    url: "https://www.teajarceylon.com/refund-policy",
+    images: [
+      {
+        url: "https://www.teajarceylon.com/images/refund-policy-banner.jpg", // Replace with your image URL
+        width: 1200,
+        height: 630,
+        alt: "Tea Jar Refund Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Refund Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Explore Tea Jar's refund policy and terms for returns and exchanges.",
+    image: "https://www.teajarceylon.com/images/refund-policy-banner.jpg", // Replace with your image URL
+  },
+};
+
 function RefundPolicy() {
   return (
     <div className="p-6 max-w-4xl mx-auto text-gray-800 font-sans pt-44">

@@ -1,5 +1,40 @@
 import React from "react";
 
+// Privacy Policy Page Metadata
+export const metadata = {
+  title: "Privacy Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+  description:
+    "Read the Privacy Policy of Tea Jar to learn how we collect, use, and protect your personal data when you shop with us. Your privacy is important to us.",
+  keywords: [
+    "Privacy Policy",
+    "Data Protection",
+    "Privacy Terms",
+    "Personal Data",
+    "Ceylon Tea Privacy",
+  ],
+  openGraph: {
+    title: "Privacy Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Discover how Tea Jar protects your personal information with our privacy policy. Learn more about how we use your data safely.",
+    url: "https://www.teajarceylon.com/privacy-policy",
+    images: [
+      {
+        url: "https://www.teajarceylon.com/images/privacy-policy-banner.jpg", // Replace with your image URL
+        width: 1200,
+        height: 630,
+        alt: "Tea Jar Privacy Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+    description:
+      "Read our Privacy Policy to understand how Tea Jar handles and protects your personal data.",
+    image: "https://www.teajarceylon.com/images/privacy-policy-banner.jpg", // Replace with your image URL
+  },
+};
+
 function PrivacyPolicy() {
   return (
     <div className="p-6 max-w-4xl mx-auto text-gray-800 font-sans pt-40">
