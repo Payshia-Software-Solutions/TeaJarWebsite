@@ -16,48 +16,48 @@ const juliusSansOne = Julius_Sans_One({
 const amenities = [
   {
     id: 1,
-    name: "Tea Testing",
-    icon: "./assets/icons/tea-testing.png",
+    name: "Tea Tasting",
+    icon: "./assets/icons/new-icons/tea-testing.png",
   },
   {
     id: 2,
     name: "Factory Visit",
-    icon: "./assets/icons/factory-visit.png",
+    icon: "./assets/icons/new-icons/factory-visit.png",
   },
   {
     id: 3,
     name: "Field Visit",
-    icon: "./assets/icons/field-visit.png",
+    icon: "./assets/icons/new-icons/field-visit.png",
   },
   {
     id: 4,
     name: "Retail",
-    icon: "./assets/icons/retail.png",
+    icon: "./assets/icons/new-icons/retail.png",
   },
   {
     id: 5,
     name: "Gem & Jewelry",
-    icon: "./assets/icons/gem.png",
+    icon: "./assets/icons/new-icons/gem.png",
   },
   {
     id: 6,
     name: "Dining",
-    icon: "./assets/icons/dining.png",
+    icon: "./assets/icons/new-icons/dining.png",
   },
   {
     id: 7,
     name: "Create Own Tea",
-    icon: "./assets/icons/create-own-tea.png",
+    icon: "./assets/icons/new-icons/create-own-tea.png",
   },
   {
     id: 8,
     name: "Personal Gift Wrapping",
-    icon: "./assets/icons/gift.png",
+    icon: "./assets/icons/new-icons/gift.png",
   },
   {
     id: 9,
     name: "Afternoon Tea",
-    icon: "./assets/icons/afternoon-tea.png",
+    icon: "./assets/icons/new-icons/afternoon-tea.png",
   },
 ];
 
@@ -66,36 +66,40 @@ function Outlets() {
     title: "Tea Jar Lounge",
     description:
       "Welcome to our flagship Tea Jar Lounge in Ratnapura, the perfect place to experience authentic Ceylon tea. Here, you can purchase our exclusive tea collections, explore a curated selection of gems and jewelry, and gather with loved ones to celebrate your special moments. Alongside our premium teas, enjoy an extensive food and beverage menu and take a journey through our mini museum, which showcases the rich heritage of Ceylon tea. Tea Jar Lounge offers more than just tea—it’s a destination to connect, celebrate, and discover the true essence of Ceylon tea culture.",
+    features: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   });
 
-  const [mainImage, setMainImage] = useState(
-    "/assets/outlets/exterior-of-tea-jar-lounge.jpg"
-  );
+  const [mainImage, setMainImage] = useState("/assets/outlets/tjl.jpg");
 
   const descriptions = [
     {
       title: "Tea Jar Lounge Rathnapura",
       description:
         "Welcome to our flagship Tea Jar Lounge in Ratnapura, the perfect place to experience authentic Ceylon tea. Here, you can purchase our exclusive tea collections, explore a curated selection of gems and jewelry, and gather with loved ones to celebrate your special moments. Alongside our premium teas, enjoy an extensive food and beverage menu and take a journey through our mini museum, which showcases the rich heritage of Ceylon tea. Tea Jar Lounge offers more than just tea—it’s a destination to connect, celebrate, and discover the true essence of Ceylon tea culture.",
+      image: "/assets/outlets/tjl.jpg",
+      features: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     },
     {
       title: "Tea Jar Lounge Colombo",
       description:
         "Tea Jar Lounge Colombo is the ideal place for those seeking a personalized tea experience where you can create your own tea, selecting from a variety of flavors and ingredients with the help of our experts. Our dedicated private tea rooms provide the perfect setting to make your visit feel like home, offering a space for you to relax and enjoy your tea in a way that’s tailored to your preferences. You can also purchase our teas and have them wrapped as personalized gifts for your loved ones. At Tea Jar Lounge Colombo, every sip is more than just tea—it’s an experience made just for you.",
-      image: "/assets/images/outlet/card2.png",
+      image: "/assets/outlets/colombo.jpg",
+      features: [1, 2, 3, 4],
     },
     {
       title: "Tea Jar by the Lake Weerawila",
       description:
         "Tea Jar by the Lake, centered at Doubletree by Hilton Weerawila, offers the perfect setting for a personalized tea experience with breathtaking views of the lake. During your stay, you can purchase our exclusive tea products, enjoy a tailored tea tasting session, and discover the ideal tea pairings curated just for you. Relax by the lake with a warm cup of tea, and let this unforgettable experience become a cherished memory.",
-      image: "/assets/images/outlet/card3.jpg",
+      image: "/assets/outlets/tjl.jpg",
+      features: [5, 6, 7, 8, 9],
     },
     ,
     {
       title: "Tea Jar Boutique Ella",
       description:
         "Nestled in the charming town of Ella, Tea Jar Boutique is the perfect destination for tea enthusiasts from all over the world. Discover our carefully curated selection of Tea Jar products, thoughtfully handpicked for you. Before making your purchase, enjoy the chance to sample our teas and savor their authentic flavors, ensuring you choose the perfect blend to take home.",
-      image: "/assets/images/outlet/card3.jpg",
+      image: "/assets/outlets/tjl.jpg",
+      features: [1, 2, 7, 8, 9],
     },
   ];
 
@@ -127,7 +131,7 @@ function Outlets() {
                 </div>
 
                 {/* Right side: Main content */}
-                <div className="bg-[#353d32a6] px-5 py-5 rounded-2xl opacity-85 w-full">
+                <div className="bg-[#353d32a6] px-5 py-5  opacity-85 w-full">
                   <div className={italiana.className}>
                     <h2 className="text-[30px] font-normal sm:text-[32px] md:text-[40px] lg:text-[48px] text-center text-white mb-4 sm:mb-4 md:mb-8 lg:mb-10">
                       Find your nearest Store
@@ -139,9 +143,9 @@ function Outlets() {
                       {descriptions.map((desc, index) => (
                         <div key={index}>
                           <img
-                            src={`/assets/images/outlet/card${index + 1}.png`}
+                            src={`${desc.image}`}
                             alt={`Thumbnail ${index + 1}`}
-                            className="rounded-lg object-cover w-full h-auto cursor-pointer hover:scale-y-95 duration-300"
+                            className="object-cover w-full h-auto cursor-pointer hover:scale-y-95 duration-300"
                             onClick={() => {
                               setActiveDescription(desc); // Set the description
                               setMainImage(desc.image); // Set the corresponding main image
@@ -160,7 +164,7 @@ function Outlets() {
                       <img
                         src={mainImage}
                         alt="Mobile Specific Image"
-                        className="block sm:hidden w-full object-cover mb-2 rounded-md shadow-lg"
+                        className="block sm:hidden w-full object-cover mb-2 shadow-lg"
                       />
 
                       <motion.div
@@ -188,21 +192,24 @@ function Outlets() {
 
                         <div className="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-5 gap-5 mt-5">
                           {/* Loop through the amenities array to render each amenity */}
-                          {amenities.map((amenity) => (
-                            <div
-                              key={amenity.id}
-                              className="icon-box flex flex-col justify-center items-center text-center"
-                            >
-                              <img
-                                className="w-[40px] sm:w-[50px] mb-2"
-                                src={amenity.icon}
-                                alt={amenity.name}
-                              />
-                              <p className="text-[8px] md:text-[14px]">
-                                {amenity.name}
-                              </p>
-                            </div>
-                          ))}
+                          {activeDescription.features.map((featureId) => {
+                            const amenity = amenities.find(
+                              (item) => item.id === featureId
+                            );
+                            return (
+                              <div
+                                key={amenity.id}
+                                className="flex flex-col items-center"
+                              >
+                                <img
+                                  src={amenity.icon}
+                                  alt={amenity.name}
+                                  className="w-[50px] mb-2"
+                                />
+                                <p className="text-[12px]">{amenity.name}</p>
+                              </div>
+                            );
+                          })}
                         </div>
                       </motion.div>
                     </div>

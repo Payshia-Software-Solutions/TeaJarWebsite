@@ -14,7 +14,7 @@ const Josefin_Sans_font = Sulphur_Point({
 const teaData = [
   {
     title: "Cinnamon",
-    imageSrc: "/assets/our-teas/flavoured/teas/peach.jpg",
+    imageSrc: "/assets/our-teas/flavoured/teas/cardamom.jpg",
     description:
       "A sweet and savoury brew infused with pieces of Sri Lanka's home grown, export quality cinnamon that is bound to lighten your day with its soothing tones and warm, heady aroma. Start your day with this robust blend of factory fresh Ceylon Black Tea and woody spice, as you inhale the distinctive aroma of this intoxicating herbal tea.",
     packing: "2g x 25 Enveloped Tea Bags x 56",
@@ -58,7 +58,7 @@ const teaData = [
     productCode: "KDUEXFL0005",
     linkUrl: "/products/-strawberry-flavored-25-enveloped-tea-bags",
     reverse: false,
-    bgColor: "#f89a3b",
+    bgColor: "#e23649",
   },
   ,
   {
@@ -71,7 +71,7 @@ const teaData = [
     productCode: "KDUEXFL0006",
     linkUrl: "/products/-peach-flavored-25-enveloped-tea-bags",
     reverse: true,
-    bgColor: "#f89a3b",
+    bgColor: "#f5b022",
   },
   ,
   {
@@ -84,7 +84,7 @@ const teaData = [
     productCode: "KDUEXFL0003",
     linkUrl: "/products/apple-flavoured-tea",
     reverse: false,
-    bgColor: "#f89a3b",
+    bgColor: "#cd1f25",
   },
 ];
 
@@ -124,16 +124,9 @@ const page = async () => {
             className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-8xl font-bold`}
           >
             <div
-              className={`${Josefin_Sans_font.className} lowercase flex justify-center text-center  text-[45px] md:text-[65px]`}
+              className={`${Josefin_Sans_font.className} lowercase flex justify-center text-center  text-[45px] md:text-[75px]`}
             >
               Flavoured Ceylon Black Tea
-            </div>
-            <div className="flex justify-center">
-              <Breadcrumb
-                className="mb-3 text-white"
-                crumbs={crumbs}
-                fontColor={"white"}
-              />
             </div>
           </div>
         </div>

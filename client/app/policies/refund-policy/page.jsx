@@ -71,10 +71,10 @@ function RefundPolicy() {
         <li>
           If you still haven’t received the refund, please contact us at{" "}
           <a
-            href="mailto:info@teajar.com"
+            href="mailto:marketing@teajarceylon.com"
             className="text-blue-500 hover:underline"
           >
-            info@teajarceylon.com
+            marketing@teajarceylon.com
           </a>
           .
         </li>
