@@ -204,7 +204,7 @@ function NavBar() {
                 {isTeaDropdownVisible && (
                   <div
                     onMouseLeave={() => setTeaDropdownVisible(false)}
-                    className="fixed w-screen left-0 bg-emerald-950 text-white  "
+                    className="fixed w-screen left-0 bg-emerald-950 text-white shadow-md"
                     style={{ top: "100%" }}
                   >
                     <div className="shadow-lg py-4 px-6 grid grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -217,6 +217,14 @@ function NavBar() {
                           <li>
                             <Link href="/shop" className="hover:text-gray-300">
                               Shop All Teas
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/shop/filter?department=11"
+                              className="hover:text-gray-300"
+                            >
+                              Advent Calender
                             </Link>
                           </li>
                         </ul>
@@ -288,7 +296,7 @@ function NavBar() {
                               href="/shop/filter?teaFormat=4"
                               className="hover:text-gray-300"
                             >
-                              Tins
+                              Canisters
                             </Link>
                           </li>
                         </ul>
@@ -328,7 +336,7 @@ function NavBar() {
                 {isAboutDropdownVisible && (
                   <div
                     onMouseLeave={() => setAboutDropdownVisible(false)}
-                    className="fixed w-screen left-0 bg-emerald-950 text-white  "
+                    className="fixed w-screen left-0 bg-emerald-950 text-white  shadow-md"
                     style={{ top: "100%" }}
                   >
                     <div className="shadow-lg py-4 px-6 grid grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -386,7 +394,7 @@ function NavBar() {
                 {isOurTeasDropdownVisible && (
                   <div
                     onMouseLeave={() => setOurTeasDropdownVisible(false)}
-                    className="fixed w-screen left-0 bg-emerald-950 text-white  "
+                    className="fixed w-screen left-0 bg-emerald-950 text-white shadow-md"
                     style={{ top: "100%" }}
                   >
                     <div className="shadow-lg py-4 px-6 grid grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -412,6 +420,19 @@ function NavBar() {
                               className="hover:text-gray-300"
                             >
                               Flavoured Teas
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/our-teas/classic-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Classic Teas
                             </Link>
                           </li>
                         </ul>

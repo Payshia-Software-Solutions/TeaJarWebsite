@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
     title: `${product.product_name} - Tea Jar | Finest Ceylon Tea in Sri Lanka`,
     description: product.product_description || "Default description for SEO.",
     openGraph: {
-      title: product.product_name,
+      title: `${product.product_name} - Tea Jar | Finest Ceylon Tea in Sri Lanka`,
       description:
         product.product_description || "Default Open Graph description.",
       images: [

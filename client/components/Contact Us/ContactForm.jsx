@@ -25,7 +25,7 @@ function ContactForm() {
     <div className="container mb-6 mx-auto  py-8 px-6 md:px-8 lg:px-24  rounded-xl text-black">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Side - Contact Information */}
-        <div className="bg-gray-100 bg-opacity-50 p-4 rounded-xl shadow-md col-span-1 max-w-full md:max-w-sm md:max-h-96">
+        <div className="bg-gray-100 bg-opacity-50 p-4 rounded-xl shadow-md col-span-1 max-w-full md:max-w-sm">
           <div className="my-4">
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <FiPhone className="mr-2 text-teal-600 w-6 h-6" />

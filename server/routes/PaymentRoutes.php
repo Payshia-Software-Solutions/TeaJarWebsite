@@ -24,6 +24,12 @@ return [
     },
 
     // Route to handle payment notification callback from PayHere
+    'POST /payment/send-invoice-email/{invoice_number}' => function ($invoice_number) use ($paymentController) {
+        $paymentController->paymentNotify($invoice_number);
+    },
+
+
+    // Route to handle payment notification callback from PayHere
     'POST /payment/sent-order-confirmation' => function () use ($paymentController) {
         // Parse the request body (expected to be in JSON format)
         $input = json_decode(file_get_contents('php://input'), true);

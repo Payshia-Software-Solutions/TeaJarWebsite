@@ -229,34 +229,6 @@ class PaymentController
             ];
         }
 
-        $orderData = [
-            "order_id" => $invoiceNumber,
-            "order_date" => date('Y-m-d H:i:s'),
-            "customer_name" => $customer_details['first_name'],
-            "address" => "123 Main Street",
-            "city" => "New York",
-            "state" => "NY",
-            "zip" => "10001",
-            "country" => "USA",
-            "total" => 150.75,
-            "subtotal" => 100.75,
-            "shipping" => 20.00,
-            "tax" => 30.00,
-            "tracking_url" => "https://example.com/track/12345",
-            "delivery_date" => "2024-11-30",
-            "customer_service_email" => "support@teajar.com",
-            "instagram_url" => "https://www.instagram.com/teajar",
-            "facebook_url" => "https://www.facebook.com/teajar",
-            "pinterest_url" => "https://www.pinterest.com/teajar",
-            "company_address" => "Tea Jar, 456 Tea Lane, New York, NY, 10001, USA",
-            "company_contact" => "1-800-123-4567",
-            "unsubscribe_url" => "https://teajar.com/unsubscribe",
-            "customer_email" => "thilinaruwan112@gmail.com",
-            "items" => $emailItems
-        ];
-
-        // exit;
-
         // Call the createInvoice method to insert the data
         $invoiceId = $this->model->createInvoice($invoice_data);
 
@@ -539,6 +511,9 @@ class PaymentController
                 'invoice_status' => 'Paid', // Mark the invoice as paid
             ];
 
+            // Send Invoice
+            $invoiceSendMailStatus = $this->SendInvoiceEmail($order_id);
+
             // Call the model to update the invoice status
             try {
                 $rowCount = $this->model->updateInvoiceStatus($order_id, $invoice_data);
@@ -574,6 +549,40 @@ class PaymentController
         }
     }
 
+    public function SendInvoiceEmail($invoiceNumber)
+    {
+        $InvoiceInfo = $this->model->getInvoiceById($invoiceNumber);
+        $invoiceItems = $this->model2->getRecordsByInvoice($invoiceNumber);
+
+        $orderData = [
+            "order_id" => $invoiceNumber,
+            "order_date" => date('Y-m-d H:i:s'),
+            "customer_name" => $InvoiceInfo['created_by'],
+            "address" => "123 Main Street",
+            "city" => "New York",
+            "state" => "NY",
+            "zip" => "10001",
+            "country" => "USA",
+            "total" => 150.75,
+            "subtotal" => 100.75,
+            "shipping" => 20.00,
+            "tax" => 30.00,
+            "tracking_url" => "https://example.com/track/12345",
+            "delivery_date" => "2024-11-30",
+            "customer_service_email" => "support@teajar.com",
+            "instagram_url" => "https://www.instagram.com/teajar",
+            "facebook_url" => "https://www.facebook.com/teajar",
+            "pinterest_url" => "https://www.pinterest.com/teajar",
+            "company_address" => "Tea Jar, 456 Tea Lane, New York, NY, 10001, USA",
+            "company_contact" => "1-800-123-4567",
+            "unsubscribe_url" => "https://teajar.com/unsubscribe",
+            "customer_email" => "thilinaruwan112@gmail.com",
+            "items" => $invoiceItems
+        ];
+
+        $emailStatus = $this->sendOrderConfirmationEmail($orderData, $InvoiceInfo['created_by']);
+        return $emailStatus;
+    }
 
 
 

@@ -90,7 +90,7 @@ function Outlets() {
       title: "Tea Jar by the Lake Weerawila",
       description:
         "Tea Jar by the Lake, centered at Doubletree by Hilton Weerawila, offers the perfect setting for a personalized tea experience with breathtaking views of the lake. During your stay, you can purchase our exclusive tea products, enjoy a tailored tea tasting session, and discover the ideal tea pairings curated just for you. Relax by the lake with a warm cup of tea, and let this unforgettable experience become a cherished memory.",
-      image: "/assets/outlets/tjl.jpg",
+      image: "/assets/outlets/teajar-by-the-lake.jpg",
       features: [1, 4, 7, 8],
     },
     ,
@@ -98,7 +98,7 @@ function Outlets() {
       title: "Tea Jar Boutique Ella",
       description:
         "Nestled in the charming town of Ella, Tea Jar Boutique is the perfect destination for tea enthusiasts from all over the world. Discover our carefully curated selection of Tea Jar products, thoughtfully handpicked for you. Before making your purchase, enjoy the chance to sample our teas and savor their authentic flavors, ensuring you choose the perfect blend to take home.",
-      image: "/assets/outlets/tjl.jpg",
+      image: "/assets/outlets/ella-outlet.jpg",
       features: [1, 4],
     },
   ];
