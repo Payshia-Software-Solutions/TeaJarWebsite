@@ -28,11 +28,11 @@ const Footer = () => {
   return (
     <footer className="bg-[#1c1c1c] text-gray-300 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Footer Sections */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="text-white font-serif text-lg mb-4">{title}</h3>
+              <h3 className="text-white  text-lg mb-4">{title}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.title}>
@@ -47,11 +47,10 @@ const Footer = () => {
               </ul>
             </div>
           ))}
-
           {/* Company Information */}
-          <div>
-            <h3 className="text-white font-serif text-lg mb-4">Tea Jar</h3>
-            <div className="space-y-4 text-sm">
+          <div className="hidden md:block text-start  ">
+            <h3 className="text-white text-lg mb-4">Tea Jar</h3>
+            <div className="space-y-4 text-sm ">
               <p>
                 Corporate Office: KDU Exports PVT LTD,
                 <br />
@@ -71,7 +70,7 @@ const Footer = () => {
 
               <div>
                 <p className="mb-2">Wholesale Inquiries: (+94)70 11 98 800</p>
-                <p>Email: info@teajarceylon.com</p>
+                <p>Email: marketing@teajarceylon.com</p>
               </div>
 
               {/* <div>
@@ -81,6 +80,40 @@ const Footer = () => {
                 </a>
               </div> */}
             </div>
+          </div>
+        </div>
+        {/* Company Information */}
+        <div className="md:hidden text-center md:text-start ">
+          <h3 className="text-white text-lg mt-8 mb-4">Tea Jar</h3>
+          <div className="space-y-4 text-sm ">
+            <p>
+              Corporate Office: KDU Exports PVT LTD,
+              <br />
+              427 A, Galle Road, Colombo 03, Sri Lanka
+            </p>
+
+            <p>
+              Factory: KDU Exports PVT LTD,
+              <br />
+              Galpadithanna Tea Factory, Lellopitiya,Rathnapura.
+            </p>
+
+            <div>
+              <p className="mb-2">Customer Service: (+94)70 11 98 800</p>
+              <p>Service Hours: Daily 9 am - 6 pm</p>
+            </div>
+
+            <div>
+              <p className="mb-2">Wholesale Inquiries: (+94)70 11 98 800</p>
+              <p>Email: marketing@teajarceylon.com</p>
+            </div>
+
+            {/* <div>
+                <p className="font-medium mb-2">Tea Tasting Sessions:</p>
+                <a href="/tea-tasting" className="text-white hover:underline">
+                  Click Here For Available Slots
+                </a>
+              </div> */}
           </div>
         </div>
 

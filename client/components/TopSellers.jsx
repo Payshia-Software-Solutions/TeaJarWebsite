@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import TopSellerProduct from "@/components/Product/TopSellerProduct";
-import ProductCard from "@/components/Product/ProductCardHomepage";
+import ProductCard from "@/components/Product/ProductCard";
 import SectionHeader from "@/components/Common/SectionHeader";
 import Link from "next/link";
 import config from "@/config";
@@ -48,7 +48,7 @@ function TopSellers() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const productIds = [39, 40, 13, 14, 15, 11, 5, 9, 43, 35];
+  const productIds = [5, 11, 35, 20, 15, 43, 5, 9];
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -58,9 +58,15 @@ function TopSellers() {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
-        const filteredProducts = data.filter((product) =>
-          productIds.includes(product.product_id)
-        );
+        // Filter and sort products by productIds order
+        const filteredProducts = data
+          .filter((product) => productIds.includes(product.product_id))
+          .sort(
+            (a, b) =>
+              productIds.indexOf(a.product_id) -
+              productIds.indexOf(b.product_id)
+          );
+
         setProducts(filteredProducts);
       } catch (error) {
         setError("Failed to fetch products");

@@ -62,7 +62,7 @@ function FinestCeylonTea() {
 
             <div className="text-center hover:scale-110 duration-200 py-2 my-2">
               <Image
-                src="/assets/images/fct/fct3.png"
+                src="/assets/icons/factory-fresh.png"
                 alt="Packaging"
                 className="object-contain mx-auto h-16 md:h-24"
                 height={100} // Set a fixed height

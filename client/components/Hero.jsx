@@ -65,7 +65,7 @@ function Hero() {
         <img
           src="./assets/images/tea-cup-w.png"
           alt="Tea Cup Image"
-          className="absolute mx-auto w-64 md:w-[350px]"
+          className="absolute mx-auto w-56 md:w-[350px]"
         />
       </div>
     </section>

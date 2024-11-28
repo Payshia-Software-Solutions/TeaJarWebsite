@@ -33,7 +33,7 @@ const FAQs = () => {
     {
       question: "How can I contact customer support?",
       answer:
-        "You can contact our customer support team via email(info@teajarceylon.com) , phone(+94 718705150) , or by filling out the contact form on our website. We are here to assist you!",
+        "You can contact our customer support team via email(marketing@teajarceylon.com) , phone((+94)70 11 98 800) , or by filling out the contact form on our website. We are here to assist you!",
     },
   ];
 

@@ -168,10 +168,10 @@ function TermsOfService() {
       <footer className="text-sm text-gray-500 mt-6">
         If you have questions about these Terms of Service, please contact us at{" "}
         <a
-          href="mailto:info@teajar.com"
+          href="mailto:marketing@teajarceylon.com"
           className="text-blue-500 hover:underline"
         >
-          info@teajarceylon.com
+          marketing@teajarceylon.com
         </a>
         .
       </footer>

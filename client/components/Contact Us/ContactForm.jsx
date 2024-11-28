@@ -40,12 +40,27 @@ function ContactForm() {
                 Email:
               </h3>
             </div>
-            <p className="ml-8 text-lg"> info@teajarceylon.com</p>
+            <p className="ml-8 text-lg"> marketing@teajarceylon.com</p>
           </div>
           <div className="my-4">
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <GoLocation className="mr-2 text-teal-600 w-6 h-6" />
-              Address:
+              Corporate Address:
+            </h3>
+            <p className="text-lg ml-8">
+              KDU Exports PVT LTD,
+              <br />
+              427 A, Galle Road,
+              <br />
+              Colombo 03, <br />
+              Sri Lanka.
+            </p>
+          </div>
+
+          <div className="my-4">
+            <h3 className="text-lg font-semibold mb-2 flex items-center">
+              <GoLocation className="mr-2 text-teal-600 w-6 h-6" />
+              Factory Address:
             </h3>
             <p className="text-lg ml-8">
               KDU Exports PVT LTD,

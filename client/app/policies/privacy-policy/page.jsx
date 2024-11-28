@@ -6,8 +6,8 @@ function PrivacyPolicy() {
       <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
       <p className="mb-6">
         This Privacy Policy explains how your personal information is collected,
-        used, and shared when you visit or make a purchase from teajar.com (the
-        “Site”).
+        used, and shared when you visit or make a purchase from
+        www.teajarceylon.com (the “Site”).
       </p>
 
       <h2 className="text-2xl font-semibold mb-3">
@@ -159,10 +159,10 @@ function PrivacyPolicy() {
         questions, or if you would like to make a complaint, please contact us
         by email at{" "}
         <a
-          href="mailto:info@teajar.com"
+          href="mailto:marketing@teajarceylon.com"
           className="text-blue-500 hover:underline"
         >
-          info@teajar.com
+          marketing@teajarceylon.com
         </a>{" "}
         or by mail at:
       </p>
@@ -175,7 +175,7 @@ function PrivacyPolicy() {
         <br />
         Sri Lanka
         <br />
-        Phone: +94 718705150
+        Phone: (+94)70 11 98 800
       </address>
     </div>
   );

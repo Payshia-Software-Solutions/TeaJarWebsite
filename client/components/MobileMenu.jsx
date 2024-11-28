@@ -44,7 +44,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
       onClick={() => setIsMobileMenuOpen(false)}
     >
       <div
-        className={`fixed top-0 right-0 h-screen w-3/4 max-w-sm bg-white text-black shadow-lg transition-transform duration-300 ${
+        className={`fixed top-0 overflow-auto right-0 h-screen w-3/4 max-w-sm bg-white text-black shadow-lg transition-transform duration-300 ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
         onClick={(e) => e.stopPropagation()}
@@ -83,127 +83,20 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
         </div>
 
         {/* Navigation */}
-        <nav className="px-4 space-y-4">
+        <nav className="px-4 space-y-4 ">
           {/* Home */}
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 text-lg font-medium transition hover:text-teal-400"
+            className="block py-2 text-lg font-medium transition hover:text-green-400"
           >
             Home
           </Link>
 
-          {/* Our Teas Dropdown */}
-          <div>
-            <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-teal-400"
-              onClick={() => setIsTeasDropdownOpen(!isTeasDropdownOpen)}
-            >
-              Our Teas
-              <svg
-                className={`w-5 h-5 transition-transform ${
-                  isTeasDropdownOpen ? "rotate-180" : ""
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-            {isTeasDropdownOpen && (
-              <ul className="mt-2 space-y-2 pl-4">
-                <li>
-                  <Link
-                    href="/our-teas/exceptional-teas"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Exceptional Teas
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/our-teas/flavoured-teas"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Flavoured Teas
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </div>
-
-          {/* About Dropdown */}
-          <div>
-            <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-teal-400"
-              onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
-            >
-              About Us
-              <svg
-                className={`w-5 h-5 transition-transform ${
-                  isAboutDropdownOpen ? "rotate-180" : ""
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-
-            {isAboutDropdownOpen && (
-              <ul className="mt-2 space-y-2 pl-4">
-                <li>
-                  <Link
-                    href="/tea-jar-story"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Tea Jar Story
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/tea-heritage"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Our Tea Heritage
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/kdu-group"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    KDU Group
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </div>
-
-          {/* Other Links */}
           {/* Shop Dropdown (Modified) */}
           <div>
             <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-teal-400"
+              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-500"
               onClick={() => setIsShopDropdownOpen(!isShopDropdownOpen)}
             >
               Shop
@@ -230,7 +123,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/shop"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400 mb-2"
+                    className="block text-sm font-medium transition hover:text-green-500 mb-2"
                   >
                     Shop All Teas
                   </Link>
@@ -239,7 +132,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 {/* Tea Categories */}
                 <li>
                   <button
-                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-teal-400"
+                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-500"
                     onClick={() =>
                       setIsShopByTeaDropdownOpen(!isShopByTeaDropdownOpen)
                     }
@@ -268,7 +161,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?category=1"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-teal-400"
+                          className="block text-sm font-medium transition hover:text-green-500"
                         >
                           Black Tea
                         </Link>
@@ -277,7 +170,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?category=2"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-teal-400"
+                          className="block text-sm font-medium transition hover:text-green-500"
                         >
                           Green Tea
                         </Link>
@@ -286,7 +179,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?category=3"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-teal-400"
+                          className="block text-sm font-medium transition hover:text-green-500"
                         >
                           Herbal Tea
                         </Link>
@@ -298,7 +191,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 {/* Tea Formats */}
                 <li>
                   <button
-                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-teal-400"
+                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-500"
                     onClick={() =>
                       setIsTeaFormatDropdownOpen(!isTeaFormatDropdownOpen)
                     }
@@ -327,7 +220,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=3"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-teal-400"
+                          className="block text-sm font-medium transition hover:text-green-500"
                         >
                           Loose Leaf
                         </Link>
@@ -336,7 +229,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=1"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-teal-400"
+                          className="block text-sm font-medium transition hover:text-green-500"
                         >
                           Tea Bags
                         </Link>
@@ -345,7 +238,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=2"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-teal-400"
+                          className="block text-sm font-medium transition hover:text-green-500"
                         >
                           Luxury Leaf Tea Bags
                         </Link>
@@ -354,7 +247,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=4"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-teal-400"
+                          className="block text-sm font-medium transition hover:text-green-500"
                         >
                           Tins
                         </Link>
@@ -366,7 +259,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 {/* Tea Edits */}
                 <li>
                   <button
-                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-teal-400"
+                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-500"
                     onClick={() =>
                       setIsTeaEditsDropdownOpen(!isTeaEditsDropdownOpen)
                     }
@@ -398,7 +291,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                           <Link
                             href={`/shop/filter?department=${department.id}`}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-sm font-medium transition hover:text-teal-400"
+                            className="block text-sm font-medium transition hover:text-green-500"
                           >
                             {department.department_name}
                           </Link>
@@ -410,10 +303,117 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
               </ul>
             )}
           </div>
+
+          {/* About Dropdown */}
+          <div>
+            <button
+              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-500"
+              onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
+            >
+              About Us
+              <svg
+                className={`w-5 h-5 transition-transform ${
+                  isAboutDropdownOpen ? "rotate-180" : ""
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            {isAboutDropdownOpen && (
+              <ul className="mt-2 space-y-2 pl-4">
+                <li>
+                  <Link
+                    href="/tea-jar-story"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-500"
+                  >
+                    Tea Jar Story
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/tea-heritage"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-500"
+                  >
+                    Our Tea Heritage
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/kdu-group"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-500"
+                  >
+                    KDU Group
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
+
+          {/* Our Teas Dropdown */}
+          <div>
+            <button
+              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-500"
+              onClick={() => setIsTeasDropdownOpen(!isTeasDropdownOpen)}
+            >
+              Our Teas
+              <svg
+                className={`w-5 h-5 transition-transform ${
+                  isTeasDropdownOpen ? "rotate-180" : ""
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {isTeasDropdownOpen && (
+              <ul className="mt-2 space-y-2 pl-4">
+                <li>
+                  <Link
+                    href="/our-teas/exceptional-teas"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-500"
+                  >
+                    Exceptional Teas
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/our-teas/flavoured-teas"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-500"
+                  >
+                    Flavoured Teas
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
+
           <Link
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 text-lg font-medium transition hover:text-teal-400"
+            className="block py-2 text-lg font-medium transition hover:text-green-500"
           >
             Contact Us
           </Link>

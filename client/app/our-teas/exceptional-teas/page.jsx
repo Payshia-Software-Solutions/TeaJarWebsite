@@ -46,13 +46,6 @@ const page = async () => {
             className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-8xl font-bold`}
           >
             <div className={`${CorinthiaFont.className}`}>Exceptional</div>
-            <div className="flex justify-center">
-              <Breadcrumb
-                className="mb-3 text-white"
-                crumbs={crumbs}
-                fontColor={"white"}
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -86,7 +79,7 @@ const page = async () => {
                 Packing: 2g x 15 Pyramid Enveloped Tea Bags x 54
               </p>
               <p className="font-bold">Net Weight: 30g</p>
-              <p className="font-bold">Product Code: KOUEXT80004</p>
+              <p className="font-bold">Product Code: KDUEXTB0004</p>
 
               <Link
                 href={"/products/-single-origin-ceylon-black-tea-15-tea-bags"}
@@ -113,7 +106,7 @@ const page = async () => {
                 Packing: 2g x 15 Pyramid Enveloped Tea Bags x 54
               </p>
               <p className="font-bold">Net Weight: 30g</p>
-              <p className="font-bold">Product Code: KOUEXT80003</p>
+              <p className="font-bold">Product Code: KDUEXTB0003</p>
 
               <Link href={"/products/pure-ceylon-green-tea-15-tea-bags"}>
                 <button className="btn bg-theme text-white px-4 py-2 rounded-lg w-full mt-3">
@@ -156,7 +149,7 @@ const page = async () => {
                 Packing: 2g x 15 Pyramid Enveloped Tea Bags x 54
               </p>
               <p className="font-bold">Net Weight: 30g</p>
-              <p className="font-bold">Product Code: KOUEXT80002</p>
+              <p className="font-bold">Product Code: KDUEXTB0002</p>
 
               <Link href={"/products/moraccan-mint-green-tea"}>
                 <button className="btn bg-theme text-white px-4 py-2 rounded-lg w-full mt-3">
@@ -211,9 +204,9 @@ const page = async () => {
                 className="w-full object-cover object-bottom"
               />
             </div>
-            <div className="p-6 md:p-10 text-center bg-purple-400 flex-1">
+            <div className="p-6 md:p-10 text-center bg-[#a7a9ab] flex-1">
               <h3 className="text-[25px] md:text-[30px] font-bold text-white uppercase">
-                Earl Gray
+                Earl Grey
               </h3>
               <p>
                 Our take on the typical British blend of fine Nuwara Eliya
@@ -226,7 +219,7 @@ const page = async () => {
                 Packing: 2g x 15 Pyramid Enveloped Tea Bags x 54
               </p>
               <p className="font-bold">Net Weight: 30g</p>
-              <p className="font-bold">Product Code: KOUEXT80001</p>
+              <p className="font-bold">Product Code: KDUEXTB0001</p>
 
               <Link href={"/products/earl-gray-15-leaf-tea-bags"}>
                 <button className="btn bg-theme text-white px-4 py-2 rounded-lg w-full mt-3">
@@ -238,7 +231,7 @@ const page = async () => {
 
           {/* Sixth Column */}
           <div className="flex flex-col-reverse md:flex-col">
-            <div className="p-6 md:p-10 text-center bg-green-400 flex-1">
+            <div className="p-6 md:p-10 text-center bg-[#96a85f] flex-1">
               <h3 className="text-[25px] md:text-[30px] font-bold text-white uppercase">
                 Jasmine Green Tea
               </h3>
@@ -284,7 +277,7 @@ const page = async () => {
                 className="w-full object-cover object-bottom"
               />
             </div>
-            <div className="p-6 md:p-10 text-center bg-amber-400 flex-1">
+            <div className="p-6 md:p-10 text-center bg-[#be6443] flex-1">
               <h3 className="text-[25px] md:text-[30px] font-bold text-white uppercase">
                 Spice Chai Masala
               </h3>
@@ -311,7 +304,7 @@ const page = async () => {
 
           {/* 8th Column */}
           <div className="flex flex-col-reverse md:flex-col">
-            <div className="p-6 md:p-10 text-center bg-rose-400 flex-1">
+            <div className="p-6 md:p-10 text-center bg-[#ce587a] flex-1">
               <h3 className="text-[25px] md:text-[30px] font-bold text-white uppercase">
                 Rose With Vanilla
               </h3>
@@ -357,7 +350,7 @@ const page = async () => {
                 className="w-full object-cover object-bottom"
               />
             </div>
-            <div className="p-6 md:p-10 text-center bg-gray-400 flex-1">
+            <div className="p-6 md:p-10 text-center bg-[#934e65] flex-1">
               <h3 className="text-[25px] md:text-[30px] font-bold text-white uppercase">
                 Berry Delight
               </h3>
