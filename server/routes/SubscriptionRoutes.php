@@ -2,7 +2,9 @@
 require_once 'controllers/SubscriptionController.php';
 
 // Instantiate the controller
-$subscriptionController = new SubscriptionController();
+// Instantiate the controller
+$pdo = $GLOBALS['pdo'];
+$subscriptionController = new SubscriptionController($pdo);
 
 // Parse request method and URI
 $requestMethod = $_SERVER['REQUEST_METHOD'];
