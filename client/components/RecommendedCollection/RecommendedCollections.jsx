@@ -176,12 +176,12 @@ const productData = {
 };
 
 const videoSources = {
-  classic: "/assets/videos/recommendation/factory.mp4",
-  flavoured: "/assets/videos/recommendation/factory.mp4",
-  exceptional: "/assets/videos/recommendation/factory.mp4",
-  exclusive: "/assets/videos/recommendation/factory.mp4",
-  factory: "/assets/videos/recommendation/factory.mp4",
-  organic: "/assets/videos/recommendation/factory.mp4",
+  classic: "/assets/videos/recommendation/Classic.mp4",
+  flavoured: "/assets/videos/recommendation/Flavoured.mp4",
+  exceptional: "/assets/videos/recommendation/Exceptional.mp4",
+  exclusive: "/assets/videos/recommendation/Exclusive.mp4",
+  factory: "/assets/videos/recommendation/Factory-Series.mp4",
+  organic: "/assets/videos/recommendation/Organic.mp4",
 };
 
 const ImageSources = {
