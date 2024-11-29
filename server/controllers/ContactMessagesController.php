@@ -1,4 +1,10 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
+require './vendor/autoload.php';
 require_once './models/ContactMessage.php';
 
 class ContactMessagesController
@@ -21,8 +27,12 @@ class ContactMessagesController
             $data['policy'] === true
         ) {
             $this->model->createMessage($data);
+
+            // Send email notification
+            $emailResult = $this->sendContactEmail($data);
+
             http_response_code(201);
-            echo json_encode(['message' => 'Contact message submitted successfully']);
+            echo json_encode(['message' => 'Contact message submitted successfully', 'emailStatus' => $emailResult]);
         } else {
             http_response_code(400);
             echo json_encode(['error' => 'Invalid input']);
@@ -57,6 +67,79 @@ class ContactMessagesController
         } else {
             http_response_code(404);
             echo json_encode(['error' => 'Message not found']);
+        }
+    }
+
+    function generateContactEmailHTML($contactData)
+    {
+        // Define the template
+        $template = file_get_contents('./templates/contact_template.html'); // Adjust the path to the HTML template file
+
+        // Replace placeholders with actual data
+        $replacements = [
+            '[FULL_NAME]' => htmlspecialchars($contactData['full_name']),
+            '[EMAIL]' => htmlspecialchars($contactData['email']),
+            '[PHONE]' => !empty($contactData['phone']) ? htmlspecialchars($contactData['phone']) : 'N/A',
+            '[SUBJECT]' => htmlspecialchars($contactData['subject']),
+            '[MESSAGE]' => nl2br(htmlspecialchars($contactData['message'])),
+            '[NEWSLETTER]' => $contactData['newsletter'] ? 'Yes' : 'No',
+            '[POLICY_AGREEMENT]' => $contactData['policy'] ? 'Agreed' : 'Not Agreed',
+            '[ADMIN_EMAIL]' => 'admin@example.com', // Set admin email or replace dynamically if needed
+            '[COMPANY_ADDRESS]' => '123 Tea Jar St., Colombo, Sri Lanka', // Update with actual company address
+            '[COMPANY_CONTACT]' => '+94 123 456 789', // Update with actual contact number
+            '[INSTAGRAM_URL]' => 'https://instagram.com/teajar', // Update with actual link
+            '[FACEBOOK_URL]' => 'https://facebook.com/teajar', // Update with actual link
+            '[UNSUBSCRIBE_URL]' => 'https://teajarceylon.com/unsubscribe' // Update with actual unsubscribe link
+        ];
+
+        // Replace placeholders in the template
+        foreach ($replacements as $placeholder => $value) {
+            $template = str_replace($placeholder, $value, $template);
+        }
+
+        return $template;
+    }
+
+    public function sendContactEmail($contactData)
+    {
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'mail.pharmacollege.lk';  // SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = 'no-reply@pharmacollege.lk';  // SMTP username
+            $mail->Password = 'HxeX6O]{zwB.';  // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // Use implicit TLS encryption
+            $mail->Port = 465;  // TCP port for SMTP
+
+            // Recipients
+            $mail->setFrom('info@pharmacollege.lk', 'Tea Jar | Finest Ceylon Tea');
+            $mail->addAddress('support@teajarceylon.com'); // Email recipient for contact form submissions
+
+            // Optional CCs (you can add or remove as needed)
+            $mail->addCC('dupasena@kdugroup.com');
+            $mail->addCC('marketing@teajarceylon.com');
+            $mail->addCC($contactData['email']);
+            $mail->addCC('international@teajarceylon.com');
+
+            // Generate email content
+            $emailContent = $this->generateContactEmailHTML($contactData);
+
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = 'New Contact Form Submission - Tea Jar';  // Subject
+            $mail->Body = $emailContent;  // Email body content
+
+            // Send the email
+            $mail->send();
+            return ['status' => 'success', 'message' => 'Contact email sent successfully'];
+        } catch (Exception $e) {
+            // Log the error
+            error_log("Contact Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            $mailError = "Contact Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            return ['status' => 'error', 'message' => $mailError];
         }
     }
 }
