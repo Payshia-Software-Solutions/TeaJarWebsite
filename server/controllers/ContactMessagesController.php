@@ -84,9 +84,9 @@ class ContactMessagesController
             '[MESSAGE]' => nl2br(htmlspecialchars($contactData['message'])),
             '[NEWSLETTER]' => $contactData['newsletter'] ? 'Yes' : 'No',
             '[POLICY_AGREEMENT]' => $contactData['policy'] ? 'Agreed' : 'Not Agreed',
-            '[ADMIN_EMAIL]' => 'admin@example.com', // Set admin email or replace dynamically if needed
-            '[COMPANY_ADDRESS]' => '123 Tea Jar St., Colombo, Sri Lanka', // Update with actual company address
-            '[COMPANY_CONTACT]' => '+94 123 456 789', // Update with actual contact number
+            '[ADMIN_EMAIL]' => 'marketing@teajarceylon.com', // Set admin email or replace dynamically if needed
+            '[COMPANY_ADDRESS]' => 'KDU Exports PVT LTD, 427 A, Galle Road, Colombo 03, Sri Lanka', // Update with actual company address
+            '[COMPANY_CONTACT]' => '(+94) 70 55 08 800', // Update with actual contact number
             '[INSTAGRAM_URL]' => 'https://instagram.com/teajar', // Update with actual link
             '[FACEBOOK_URL]' => 'https://facebook.com/teajar', // Update with actual link
             '[UNSUBSCRIBE_URL]' => 'https://teajarceylon.com/unsubscribe' // Update with actual unsubscribe link
