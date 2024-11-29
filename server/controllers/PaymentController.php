@@ -696,16 +696,16 @@ class PaymentController
 
         try {
             // Server settings
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'mail.pharmacollege.lk';                //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'no-reply@pharmacollege.lk';             //SMTP username
-            $mail->Password   = 'HxeX6O]{zwB.';                         //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;                                      //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->isSMTP();
+            $mail->Host = 'mail.teajarceylon.com';  // SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = 'no-reply@teajarceylon.com';  // SMTP username
+            $mail->Password = 'g85zvB]2;Hnf';  // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // Use implicit TLS encryption
+            $mail->Port = 465;  // TCP port for SMTP
 
             // Recipients
-            $mail->setFrom('info@pharmacollege.lk', 'Tea Jar | Finest Ceylon Tea');
+            $mail->setFrom('no-reply@teajarceylon.com', 'Tea Jar | Finest Ceylon Tea');
             $mail->addAddress($customerEmail); // Add the customer's email
 
             $mail->addCC('dupasena@kdugroup.com');
