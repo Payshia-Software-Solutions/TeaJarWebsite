@@ -99,6 +99,51 @@ const HistorySection = () => {
             built a legacy of quality and innovation that has cemented our
             position in the global market.
           </motion.p>
+
+          <div className="flex justify-between items-center w-full mt-5 md:mt-8 lg:mt-10">
+            <Image
+              src="/assets/about/logos/double-tree.png"
+              width={100}
+              height={100}
+              alt="Double Tree Logo"
+              className="h-auto max-w-[15%] object-contain"
+            />
+            <Image
+              src="/assets/about/logos/gsr-logo.png"
+              width={100}
+              height={100}
+              alt="GSR Logo"
+              className="h-auto max-w-[15%] object-contain"
+            />
+            <Image
+              src="/assets/about/logos/mimi-hydro.png"
+              width={100}
+              height={100}
+              alt="Mimi Hydro Logo"
+              className="h-auto max-w-[15%] object-contain"
+            />
+            <Image
+              src="/assets/about/logos/the-estate.png"
+              width={100}
+              height={100}
+              alt="The Estate Logo"
+              className="h-auto max-w-[15%] object-contain"
+            />
+            <Image
+              src="/assets/about/logos/tjl.png"
+              width={100}
+              height={100}
+              alt="TJL Logo"
+              className="h-auto max-w-[15%] object-contain"
+            />
+            <Image
+              src="/assets/about/logos/tjbl.png"
+              width={100}
+              height={100}
+              alt="TJBL Logo"
+              className="h-auto max-w-[15%] object-contain"
+            />
+          </div>
         </motion.div>
       </section>
     </div>

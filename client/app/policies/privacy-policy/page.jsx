@@ -210,7 +210,7 @@ function PrivacyPolicy() {
         <br />
         Sri Lanka
         <br />
-        Phone: (+94)70 11 98 800
+        Phone: (+94)70 55 08 800
       </address>
     </div>
   );
