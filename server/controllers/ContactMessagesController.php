@@ -107,20 +107,19 @@ class ContactMessagesController
         try {
             // Server settings
             $mail->isSMTP();
-            $mail->Host = 'mail.pharmacollege.lk';  // SMTP server
+            $mail->Host = 'mail.teajarceylon.com';  // SMTP server
             $mail->SMTPAuth = true;
-            $mail->Username = 'no-reply@pharmacollege.lk';  // SMTP username
-            $mail->Password = 'HxeX6O]{zwB.';  // SMTP password
+            $mail->Username = 'no-reply@teajarceylon.com';  // SMTP username
+            $mail->Password = 'g85zvB]2;Hnf';  // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // Use implicit TLS encryption
             $mail->Port = 465;  // TCP port for SMTP
 
             // Recipients
-            $mail->setFrom('info@pharmacollege.lk', 'Tea Jar | Finest Ceylon Tea');
-            $mail->addAddress('support@teajarceylon.com'); // Email recipient for contact form submissions
+            $mail->setFrom('no-reply@teajarceylon.com', 'Tea Jar | Finest Ceylon Tea');
+            $mail->addAddress('marketing@teajarceylon.com'); // Email recipient for contact form submissions
 
             // Optional CCs (you can add or remove as needed)
             $mail->addCC('dupasena@kdugroup.com');
-            $mail->addCC('marketing@teajarceylon.com');
             $mail->addCC($contactData['email']);
             $mail->addCC('international@teajarceylon.com');
 
@@ -129,7 +128,7 @@ class ContactMessagesController
 
             // Content
             $mail->isHTML(true);
-            $mail->Subject = 'New Contact Form Submission - Tea Jar';  // Subject
+            $mail->Subject = $contactData['subject'] . ' | New Contact Form Submission - Tea Jar';  // Subject
             $mail->Body = $emailContent;  // Email body content
 
             // Send the email
