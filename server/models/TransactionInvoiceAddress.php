@@ -25,6 +25,33 @@ class TransactionInvoiceAddress
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getRecordsByInvoice($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM `transaction_invoice_address` WHERE `order_id` = ?");
+        $stmt->execute([$id]);
+        $addresses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Initialize arrays to store shipping and billing addresses
+        $shippingAddress = null;
+        $billingAddress = null;
+
+        // Loop through the results and separate them based on address type
+        foreach ($addresses as $address) {
+            if ($address['address_type'] == 'shipping') {
+                $shippingAddress = $address;
+            } elseif ($address['address_type'] == 'billing') {
+                $billingAddress = $address;
+            }
+        }
+
+        // Return an array with shipping and billing addresses
+        return [
+            'shipping' => $shippingAddress,
+            'billing' => $billingAddress
+        ];
+    }
+
+
     // Create a new address
     public function createAddress($data)
     {

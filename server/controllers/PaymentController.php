@@ -6,8 +6,10 @@ use PHPMailer\PHPMailer\Exception;
 
 require './vendor/autoload.php'; // Ensure PHPMailer is loaded via Composer
 require_once './models/Payment.php';
+require_once './models/MasterProduct.php';
 require_once './models/Transaction/TransactionInvoice.php'; // Ensure the model file is named correctly
 require_once './models/Transaction/TransactionInvoiceItem.php'; // Ensure the model file is named correctly
+require_once './models/TransactionInvoiceAddress.php';
 
 
 class PaymentController
@@ -15,12 +17,16 @@ class PaymentController
     private $pdo;
     private $model;
     private $model2;
+    private $productModel;
+    private $AddressModel;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
         $this->model = new TransactionInvoice($pdo);
         $this->model2 = new TransactionInvoiceItem($pdo);
+        $this->productModel = new Product($pdo);
+        $this->AddressModel = new TransactionInvoiceAddress($pdo);
     }
 
     // Method to initiate the payment and redirect to PayHere Checkout
@@ -219,6 +225,47 @@ class PaymentController
             'promo_code_id' => $promoCode, // Optional reference hold, if needed
         ];
 
+        $AddressData = [
+            'shipping' => [
+                'user_id' => $customer_details['email'] ?? null,
+                'order_id' => $invoiceNumber ?? null,
+                'address_type' => 'shipping',
+                'first_name' => $shippingAddress['firstName'],
+                'last_name' => $shippingAddress['lastName'],
+                'phone' => $shippingAddress['phone'],
+                'address_line1' => $shippingAddress['address'],
+                'address_line2' => $shippingAddress['address_line2'] ?? null,
+                'city' => $shippingAddress['city'],
+                'state' => $shippingAddress['state'] ?? null,
+                'postal_code' => $shippingAddress['postalCode'],
+                'country' => $shippingAddress['country'],
+                'is_default' => $shippingAddress['is_default'] ?? 0,
+                'save_info' => $shippingAddress['save_info'] ?? 0,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            'billing' => [
+                'user_id' => $customer_details['email'] ?? null,
+                'order_id' => $invoiceNumber ?? null,
+                'address_type' => 'billing',
+                'first_name' => $billingAddress['firstName'],
+                'last_name' => $billingAddress['lastName'],
+                'phone' => $billingAddress['phone'],
+                'address_line1' => $billingAddress['address'],
+                'address_line2' => $billingAddress['address_line2'] ?? null,
+                'city' => $billingAddress['city'],
+                'state' => $billingAddress['state'] ?? null,
+                'postal_code' => $billingAddress['postalCode'],
+                'country' => $billingAddress['country'],
+                'is_default' => $billingAddress['is_default'] ?? 0,
+                'save_info' => $billingAddress['save_info'] ?? 0,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]
+        ];
+
+
+
         $emailItems = [];
         foreach ($itemsList as $item) {
             $emailItems[] = [
@@ -231,6 +278,9 @@ class PaymentController
 
         // Call the createInvoice method to insert the data
         $invoiceId = $this->model->createInvoice($invoice_data);
+        foreach ($AddressData as $address) {
+            $addressSaveStatus = $this->AddressModel->createAddress($address);
+        }
 
         // If invoice was created successfully, proceed with payment gateway
         if ($invoiceId && $paymentMethod == 'card') {
@@ -308,6 +358,8 @@ class PaymentController
             echo json_encode(['error' => 'Failed to create invoice']);
         }
     }
+
+
 
     // Create a new transaction invoice
     public function createInvoice($data)
@@ -551,37 +603,68 @@ class PaymentController
 
     public function SendInvoiceEmail($invoiceNumber)
     {
-        $InvoiceInfo = $this->model->getInvoiceById($invoiceNumber);
-        $invoiceItems = $this->model2->getRecordsByInvoice($invoiceNumber);
+        try {
+            $InvoiceInfo = $this->model->getInvoiceById($invoiceNumber);
+            $invoiceItems = $this->model2->getRecordsByInvoice($invoiceNumber);
+            $addressInfo = $this->AddressModel->getRecordsByInvoice($invoiceNumber);
+            $shippingAddress = $addressInfo['shipping'];
+            $billingAddress = $addressInfo['billing'];
 
-        $orderData = [
-            "order_id" => $invoiceNumber,
-            "order_date" => date('Y-m-d H:i:s'),
-            "customer_name" => $InvoiceInfo['created_by'],
-            "address" => "123 Main Street",
-            "city" => "New York",
-            "state" => "NY",
-            "zip" => "10001",
-            "country" => "USA",
-            "total" => 150.75,
-            "subtotal" => 100.75,
-            "shipping" => 20.00,
-            "tax" => 30.00,
-            "tracking_url" => "https://example.com/track/12345",
-            "delivery_date" => "2024-11-30",
-            "customer_service_email" => "support@teajar.com",
-            "instagram_url" => "https://www.instagram.com/teajar",
-            "facebook_url" => "https://www.facebook.com/teajar",
-            "pinterest_url" => "https://www.pinterest.com/teajar",
-            "company_address" => "Tea Jar, 456 Tea Lane, New York, NY, 10001, USA",
-            "company_contact" => "1-800-123-4567",
-            "unsubscribe_url" => "https://teajar.com/unsubscribe",
-            "customer_email" => "thilinaruwan112@gmail.com",
-            "items" => $invoiceItems
-        ];
+            if (!$InvoiceInfo || !$invoiceItems) {
+                echo "Invoice or items not found";
+            }
 
-        $emailStatus = $this->sendOrderConfirmationEmail($orderData, $InvoiceInfo['created_by']);
-        return $emailStatus;
+            $itemsArray = [];
+            foreach ($invoiceItems as $item) {
+                $productInfo = $this->productModel->getProductById($item['product_id']);
+                $productUrl = "https://kdu-admin.payshia.com/pos-system/assets/images/products/" . $item['product_id'] . "/" . $productInfo['image_path'];
+                $encodedUrl = urlencode($productUrl);
+                $width = 384;
+                $quality = 75;
+
+                $nextJsImageUrl = "https://teajarceylon.com/_next/image?url={$encodedUrl}&w={$width}&q={$quality}";
+
+                $itemsArray[] = [
+                    "image_url" => $nextJsImageUrl,  // Fallback if image URL is missing
+                    "name" => $productInfo['product_name'],                 // Fallback if name is missing
+                    "quantity" => $item['quantity'],                      // Fallback to 1 if quantity is missing
+                    "price" => isset($item['item_price']) ? $item['item_price'] : '0.00'  // Handle missing or null prices safely
+                ];
+            }
+
+            $orderData = [
+                "order_id" => $invoiceNumber,
+                "order_date" => date('Y-m-d H:i:s'),
+                "customer_name" => $InvoiceInfo['customer_code'],
+                "address" => $shippingAddress['address_line1'],
+                "city" => $shippingAddress['city'],
+                "state" => $shippingAddress['state'],
+                "zip" => $shippingAddress['postal_code'],
+                "country" => $shippingAddress['country'],
+                "total" => $InvoiceInfo['grand_total'],
+                "subtotal" => $InvoiceInfo['inv_amount'],
+                "discount" => $InvoiceInfo['discount_amount'],
+                "shipping" => isset($InvoiceInfo['shipping_fee']) ? $InvoiceInfo['shipping_fee'] : 0,
+                "tax" => $InvoiceInfo['service_charge'],
+                "tracking_url" => "https://example.com/track/12345",
+                "delivery_date" => date('Y-m-d H:i:s', strtotime('+5 days', strtotime(date('Y-m-d H:i:s')))),
+                "customer_service_email" => "marketing@teajarceylon.com",
+                "instagram_url" => "https://www.instagram.com/teajar",
+                "facebook_url" => "https://www.facebook.com/teajar",
+                "pinterest_url" => "https://www.pinterest.com/teajar",
+                "company_address" => "KDU Exports PVT LTD, 427 A, Galle Road, Colombo 03, Sri Lanka",
+                "company_contact" => "(+94) 70 55 08 800",
+                "unsubscribe_url" => "https://teajarceylon.com/unsubscribe",
+                "customer_email" => $InvoiceInfo['customer_code'],
+                "items" => $itemsArray
+            ];
+
+            $emailStatus = $this->sendOrderConfirmationEmail($orderData, $InvoiceInfo['customer_code']);
+            // return json_encode($emailStatus);
+            echo json_encode($emailStatus);
+        } catch (Exception $e) {
+            echo "Exception: " . $e->getMessage();
+        }
     }
 
 
@@ -622,8 +705,12 @@ class PaymentController
             $mail->Port       = 465;                                      //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             // Recipients
-            $mail->setFrom('info@pharmacollege.lk', 'Ceylon Pharma College');
+            $mail->setFrom('info@pharmacollege.lk', 'Tea Jar | Finest Ceylon Tea');
             $mail->addAddress($customerEmail); // Add the customer's email
+
+            $mail->addCC('dupasena@kdugroup.com');
+            $mail->addCC('marketing@teajarceylon.com');
+            $mail->addCC('international@teajarceylon.com');
 
             // Generate email content
             $emailContent = $this->generateEmailHTML($orderData);
@@ -635,11 +722,12 @@ class PaymentController
 
             // Send the email
             $mail->send();
-            return true;
+            return ['status' => 'success', 'message' => 'Email Sent Successfully'];
         } catch (Exception $e) {
             // Log the error
             error_log("Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
-            return false;
+            $mailError = "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            return ['status' => 'error', 'message' => $mailError];
         }
     }
 
@@ -670,11 +758,12 @@ class PaymentController
             '[CUSTOMER_NAME]' => $orderData['customer_name'],
             '[STREET_ADDRESS]' => $orderData['address'],
             '[CITY]' => $orderData['city'],
-            '[STATE]' => $orderData['state'],
+            '[STATE]' => isset($orderData['state']) ? $orderData['state'] : "",
             '[ZIP]' => $orderData['zip'],
             '[COUNTRY]' => $orderData['country'],
             '[TOTAL]' => number_format($orderData['total'], 2),
             '[SUBTOTAL]' => number_format($orderData['subtotal'], 2),
+            '[DISCOUNT]' => number_format($orderData['discount'], 2),
             '[SHIPPING]' => number_format($orderData['shipping'], 2),
             '[TAX]' => number_format($orderData['tax'], 2),
             '[ORDER_TRACKING_URL]' => $orderData['tracking_url'],
@@ -683,7 +772,6 @@ class PaymentController
             '[CUSTOMER_SERVICE_EMAIL]' => $orderData['customer_service_email'],
             '[INSTAGRAM_URL]' => $orderData['instagram_url'],
             '[FACEBOOK_URL]' => $orderData['facebook_url'],
-            '[PINTEREST_URL]' => $orderData['pinterest_url'],
             '[COMPANY_ADDRESS]' => $orderData['company_address'],
             '[COMPANY_CONTACT]' => $orderData['company_contact'],
             '[CUSTOMER_EMAIL]' => $orderData['customer_email'],
@@ -704,7 +792,7 @@ class PaymentController
                 <div style='display: inline-block; vertical-align: middle;'>
                     <strong>{$item['name']}</strong><br>
                     Quantity: {$item['quantity']}<br>
-                    Price: \$" . number_format($item['price'], 2) . "
+                    Price: LKR " . number_format($item['price'], 2) . "
                 </div>
             </div>
         ";
