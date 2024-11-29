@@ -55,7 +55,7 @@ function Page() {
         <div className="relative w-full h-[80vh]">
           {/* Adjust height to 50% of the viewport */}
           <Image
-            src="/assets/our-teas/flavoured/main-cover-v1.jpg" // Replace with your image path
+            src="/assets/our-teas/Classic/61.jpg" // Replace with your image path
             alt="Exceptional"
             layout="fill" // Ensures the image fills the container
             objectFit="cover" // Makes the image behave like background-size: cover
@@ -73,9 +73,6 @@ function Page() {
               className={`flex justify-center text-center  text-[45px] md:text-[65px]`}
             >
               Contact Us
-            </div>
-            <div className="flex justify-center mt-3">
-              <Breadcrumb crumbs={crumbs} fontColor={"white"} />
             </div>
           </div>
         </div>

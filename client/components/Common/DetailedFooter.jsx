@@ -64,12 +64,12 @@ const Footer = () => {
               </p>
 
               <div>
-                <p className="mb-2">Customer Service: (+94)70 11 98 800</p>
+                <p className="mb-2">Customer Service: (+94)70 55 08 800</p>
                 <p>Service Hours: Daily 9 am - 6 pm</p>
               </div>
 
               <div>
-                <p className="mb-2">Wholesale Inquiries: (+94)70 11 98 800</p>
+                <p className="mb-2">Wholesale Inquiries: (+94)70 55 08 800</p>
                 <p>Email: marketing@teajarceylon.com</p>
               </div>
 
@@ -99,12 +99,12 @@ const Footer = () => {
             </p>
 
             <div>
-              <p className="mb-2">Customer Service: (+94)70 11 98 800</p>
+              <p className="mb-2">Customer Service: (+94)70 55 08 800</p>
               <p>Service Hours: Daily 9 am - 6 pm</p>
             </div>
 
             <div>
-              <p className="mb-2">Wholesale Inquiries: (+94)70 11 98 800</p>
+              <p className="mb-2">Wholesale Inquiries: (+94)70 55 08 800</p>
               <p>Email: marketing@teajarceylon.com</p>
             </div>
 

@@ -96,7 +96,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
           {/* Shop Dropdown (Modified) */}
           <div>
             <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-500"
+              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
               onClick={() => setIsShopDropdownOpen(!isShopDropdownOpen)}
             >
               Shop
@@ -123,7 +123,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/shop"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-green-500 mb-2"
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2 mb-2"
                   >
                     Shop All Teas
                   </Link>
@@ -132,7 +132,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 {/* Tea Categories */}
                 <li>
                   <button
-                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-500"
+                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                     onClick={() =>
                       setIsShopByTeaDropdownOpen(!isShopByTeaDropdownOpen)
                     }
@@ -161,7 +161,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?category=1"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-green-500"
+                          className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
                           Black Tea
                         </Link>
@@ -170,7 +170,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?category=2"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-green-500"
+                          className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
                           Green Tea
                         </Link>
@@ -179,7 +179,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?category=3"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-green-500"
+                          className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
                           Herbal Tea
                         </Link>
@@ -191,7 +191,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 {/* Tea Formats */}
                 <li>
                   <button
-                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-500"
+                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                     onClick={() =>
                       setIsTeaFormatDropdownOpen(!isTeaFormatDropdownOpen)
                     }
@@ -220,7 +220,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=3"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-green-500"
+                          className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
                           Loose Leaf
                         </Link>
@@ -229,7 +229,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=1"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-green-500"
+                          className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
                           Tea Bags
                         </Link>
@@ -238,7 +238,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=2"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-green-500"
+                          className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
                           Luxury Leaf Tea Bags
                         </Link>
@@ -247,7 +247,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         <Link
                           href="/shop/filter?teaFormat=4"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm font-medium transition hover:text-green-500"
+                          className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
                           Tins
                         </Link>
@@ -259,7 +259,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 {/* Tea Edits */}
                 <li>
                   <button
-                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-500"
+                    className="flex items-center justify-between w-full py-2 text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                     onClick={() =>
                       setIsTeaEditsDropdownOpen(!isTeaEditsDropdownOpen)
                     }
@@ -291,7 +291,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                           <Link
                             href={`/shop/filter?department=${department.id}`}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-sm font-medium transition hover:text-green-500"
+                            className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                           >
                             {department.department_name}
                           </Link>
@@ -307,7 +307,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
           {/* About Dropdown */}
           <div>
             <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-500"
+              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
               onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
             >
               About Us
@@ -335,7 +335,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/tea-jar-story"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-green-500"
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                   >
                     Tea Jar Story
                   </Link>
@@ -344,7 +344,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/tea-heritage"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-green-500"
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                   >
                     Our Tea Heritage
                   </Link>
@@ -353,7 +353,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/kdu-group"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-green-500"
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                   >
                     KDU Group
                   </Link>
@@ -365,7 +365,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
           {/* Our Teas Dropdown */}
           <div>
             <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-500"
+              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
               onClick={() => setIsTeasDropdownOpen(!isTeasDropdownOpen)}
             >
               Our Teas
@@ -392,7 +392,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/our-teas/exceptional-teas"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-green-500"
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                   >
                     Exceptional Teas
                   </Link>
@@ -401,7 +401,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/our-teas/flavoured-teas"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-green-500"
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                   >
                     Flavoured Teas
                   </Link>
@@ -411,7 +411,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   <Link
                     href="/our-teas/classic-teas"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-green-500"
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                   >
                     Classic Teas
                   </Link>
@@ -423,7 +423,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
           <Link
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 text-lg font-medium transition hover:text-green-500"
+            className="block py-2 text-lg font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
           >
             Contact Us
           </Link>
