@@ -6,7 +6,7 @@ import config from "@/config";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
-    fullName: "",
+    full_name: "",
     email: "",
     phone: "",
     subject: "",
@@ -40,7 +40,7 @@ function ContactForm() {
       if (response.ok) {
         alert("Message sent successfully!");
         setFormData({
-          fullName: "",
+          full_name: "",
           email: "",
           phone: "",
           subject: "",

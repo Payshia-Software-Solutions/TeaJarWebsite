@@ -33,42 +33,42 @@ function FinestCeylonTea() {
         </div>
 
         <div className={italiana.className}>
-          <div className="flex justify-center items-center space-x-6 px-10 gap-0 md:gap-4">
-            <div className="text-center hover:scale-110 duration-200 py-2 my-2">
+          <div className="flex justify-center items-start space-x-6 px-10 gap-0 md:gap-4">
+            <div className="flex flex-col items-center hover:scale-110 duration-200 py-2 my-2">
               <Image
                 src="/assets/images/fct/fct1.png"
-                alt="Ethical Grown"
-                className="object-contain mx-auto h-16 md:h-24"
-                height={100} // Set a fixed height
-                width={100} // Let width adjust automatically
+                alt="Ethically Grown"
+                className="object-contain h-16 md:h-24"
+                height={100}
+                width={100}
               />
-              <p className="mt-2 text-[15px] md:text-[20px] text-white">
+              <p className="mt-2 text-[15px] md:text-[20px] text-white text-center">
                 Ethically Grown
               </p>
             </div>
 
-            <div className="text-center hover:scale-110 duration-200 py-2 my-2">
+            <div className="flex flex-col items-center hover:scale-110 duration-200 py-2 my-2">
               <Image
                 src="/assets/images/fct/fct2.png"
                 alt="Hand Picked"
-                className="object-contain mx-auto h-16 md:h-24"
-                height={100} // Set a fixed height
-                width={100} // Let width adjust automatically
+                className="object-contain h-16 md:h-24"
+                height={100}
+                width={100}
               />
-              <p className="mt-2 text-[15px] md:text-[20px] text-white">
+              <p className="mt-2 text-[15px] md:text-[20px] text-white text-center">
                 Hand Picked
               </p>
             </div>
 
-            <div className="text-center hover:scale-110 duration-200 py-2 my-2">
+            <div className="flex flex-col items-center hover:scale-110 duration-200 py-2 my-2">
               <Image
                 src="/assets/icons/factory-fresh.png"
-                alt="Packaging"
-                className="object-contain mx-auto h-16 md:h-24"
-                height={100} // Set a fixed height
-                width={100} // Let width adjust automatically
+                alt="Factory Fresh"
+                className="object-contain h-18 md:h-24"
+                height={100}
+                width={100}
               />
-              <p className="mt-2 text-[15px] md:text-[20px] text-white">
+              <p className="-m-2 md:mt-2 text-[15px] md:text-[20px] text-white text-center">
                 Factory Fresh
               </p>
             </div>
