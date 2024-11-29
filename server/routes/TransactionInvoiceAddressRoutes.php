@@ -14,6 +14,10 @@ return [
     'GET /addresses/{address_id}/' => function ($address_id) use ($addressController) { // Pass address_id as a direct argument
         $addressController->getRecordById($address_id); // Pass address_id directly
     },
+
+    'GET /addresses/by-invoice/{address_id}/' => function ($address_id) use ($addressController) { // Pass address_id as a direct argument
+        $addressController->getRecordsByInvoice($address_id); // Pass address_id directly
+    },
     'POST /addresses/' => function () use ($addressController) {
         $addressController->createRecord();
     },

@@ -30,6 +30,17 @@ class TransactionInvoiceAddressController
         }
     }
 
+    public function getRecordsByInvoice($id)
+    {
+        $record = $this->model->getRecordsByInvoice($id);  // Correct method name: getAddressById()
+        if ($record) {
+            echo json_encode($record);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'Address not found']);
+        }
+    }
+
     // Create a new address record
     public function createRecord()
     {

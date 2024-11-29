@@ -49,7 +49,7 @@ export default function DeliveryForm({ setDeliveryAddress }) {
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              placeholder="Thilina"
+              placeholder="John"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -60,7 +60,7 @@ export default function DeliveryForm({ setDeliveryAddress }) {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              placeholder="Ruwan"
+              placeholder="Doe"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -73,7 +73,7 @@ export default function DeliveryForm({ setDeliveryAddress }) {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            placeholder="533A3"
+            placeholder="Address"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
@@ -87,7 +87,7 @@ export default function DeliveryForm({ setDeliveryAddress }) {
             name="apartment"
             value={formData.apartment}
             onChange={handleChange}
-            placeholder="Austrelikotuwa"
+            placeholder="Apartment, suite, etc. (optional)"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
@@ -100,7 +100,7 @@ export default function DeliveryForm({ setDeliveryAddress }) {
               name="city"
               value={formData.city}
               onChange={handleChange}
-              placeholder="Pelmadulla, Sri Lanka"
+              placeholder="City"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>

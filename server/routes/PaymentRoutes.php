@@ -25,7 +25,7 @@ return [
 
     // Route to handle payment notification callback from PayHere
     'POST /payment/send-invoice-email/{invoice_number}' => function ($invoice_number) use ($paymentController) {
-        $paymentController->paymentNotify($invoice_number);
+        $paymentController->SendInvoiceEmail($invoice_number);
     },
 
 

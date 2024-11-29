@@ -115,7 +115,7 @@ const MainPage = () => {
 
     try {
       const response = await fetch(
-        `${config.API_BASE_URL}/payment/initiate-payment`,
+        `http://localhost/TeaJarWebsite/server/payment/initiate-payment`,
         {
           method: "POST",
           headers: {
