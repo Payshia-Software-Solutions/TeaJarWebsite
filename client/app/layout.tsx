@@ -19,6 +19,7 @@ const interFont = InterFont({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Tea Jar | Finest Ceylon Tea in Sri Lanka",
   description: "Finest Ceylon Tea in Sri Lanka",
+  robots: "index, follow",
 };
 
 export default function RootLayout({
