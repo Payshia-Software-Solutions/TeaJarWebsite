@@ -58,7 +58,6 @@ function Shop() {
             <ProductsByRange range_id={5} searchQuery={searchQuery} />
             <ProductsByRange range_id={9} searchQuery={searchQuery} />
             <ProductsByRange range_id={8} searchQuery={searchQuery} />
-            <ProductsByRange range_id={11} searchQuery={searchQuery} />
             <ProductsByRange range_id={10} searchQuery={searchQuery} />
           </div>
         </div>

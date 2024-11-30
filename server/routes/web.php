@@ -55,6 +55,7 @@ $TransactionInvoiceAddressRoutes = require './routes/TransactionInvoiceAddressRo
 $PromoCodeRoutes = require './routes/PromoCodeRoutes.php';
 $SubscriptionRoutes = require './routes/SubscriptionRoutes.php';
 $ContactRoutes = require './routes/ContactRoutes.php';
+$ModeRoutes = require './routes/ModeRoutes.php';
 
 // Combine all routes
 $routes = array_merge(
@@ -92,7 +93,8 @@ $routes = array_merge(
     $TransactionInvoiceAddressRoutes,
     $PromoCodeRoutes,
     $SubscriptionRoutes,
-    $ContactRoutes
+    $ContactRoutes,
+    $ModeRoutes
 );
 
 // Define the home route with trailing slash

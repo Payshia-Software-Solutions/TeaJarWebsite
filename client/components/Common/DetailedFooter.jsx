@@ -124,7 +124,7 @@ const Footer = () => {
             <div className="flex items-center gap-2">
               <span>Powered by</span>
               <a
-                href="https://example.com"
+                href="https://www.payshia.com"
                 className="text-white hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"

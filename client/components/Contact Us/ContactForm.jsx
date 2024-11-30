@@ -148,6 +148,18 @@ function ContactForm() {
               Sri Lanka.
             </p>
           </div>
+
+          <div className="my-4">
+            <h3 className="text-lg font-semibold mb-2 flex items-center">
+              <GoLocation className="mr-2 text-teal-600 w-6 h-6" />
+              Factory Address:
+            </h3>
+            <p className="text-lg ml-8">
+              Galpadithanna Tea Factory, <br />
+              Lellopitiya, <br />
+              Rathnapura.
+            </p>
+          </div>
         </div>
         <div className="col-span-1 md:col-span-2">
           <form onSubmit={handleSubmit} className="space-y-4">
