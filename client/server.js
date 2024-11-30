@@ -23,7 +23,7 @@ const url = require("url");
 function getModeFromApi() {
   return new Promise((resolve, reject) => {
     // Replace this URL with your actual endpoint
-    const apiUrl = "http://localhost/TeaJarWebsite/server/api/get-mode"; // Example with http
+    const apiUrl = "https://kduserver.payshia.com/api/get-mode"; // Example with http
 
     // Parse the URL to get the protocol
     const parsedUrl = url.parse(apiUrl);
@@ -56,6 +56,20 @@ function getModeFromApi() {
       });
   });
 }
+
+// Poll for mode every 5 minutes (300000ms)
+setInterval(() => {
+  getModeFromApi()
+    .then((fetchedMode) => {
+      if (fetchedMode !== mode) {
+        mode = fetchedMode; // Update the mode
+        console.log(`Mode updated to: ${mode}`);
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching mode:", err);
+    });
+}, 300000); // Poll every 5 minutes
 
 // Fetch the mode and start the server
 getModeFromApi()

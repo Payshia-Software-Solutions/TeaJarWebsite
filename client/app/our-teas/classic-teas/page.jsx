@@ -21,7 +21,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       packing: "2g x 25 Enveloped Tea Bags x 72",
       netWeight: "50g",
       productCode: "KDUSOP0001",
-      imageSrc: "/assets/our-teas/Classic/60.jpg",
+      imageSrc: "/assets/our-teas/Classic/61.jpg",
       productURL:
         "/products/single-origin-premium-ceylon-black-tea-100-enveloped-tea-bags",
     },
@@ -32,7 +32,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       packing: "2g x 100 Enveloped Tea Bags x 36",
       netWeight: "200g",
       productCode: "KDUSOP0002",
-      imageSrc: "/assets/our-teas/Classic/61.jpg",
+      imageSrc: "/assets/our-teas/Classic/60.jpg",
       reverse: true,
       productURL:
         "/products/single-origin-premium-ceylon-black-tea-25-enveloped-tea-bags",
