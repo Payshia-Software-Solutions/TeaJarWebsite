@@ -38,7 +38,7 @@ const RecommendedCategories = () => {
           },
         ];
 
-        console.log(categoriesData);
+        // console.log(categoriesData);
 
         setCategories(categoriesData);
       } catch (error) {

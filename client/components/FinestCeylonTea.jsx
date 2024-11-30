@@ -68,7 +68,7 @@ function FinestCeylonTea() {
                 height={100}
                 width={100}
               />
-              <p className="-m-2 md:mt-2 text-[15px] md:text-[20px] text-white text-center">
+              <p className="-m-4 md:mt-2 text-[15px] md:text-[20px] text-white text-center">
                 Factory Fresh
               </p>
             </div>

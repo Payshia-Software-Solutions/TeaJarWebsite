@@ -184,6 +184,15 @@ const videoSources = {
   organic: "/assets/videos/recommendation/Organic.mp4",
 };
 
+const objectPositions = {
+  classic: "object-bottom",
+  flavoured: "object-bottom",
+  exceptional: "object-bottom",
+  exclusive: "object-bottom",
+  factory: "object-cover",
+  organic: "object-bottom",
+};
+
 const ImageSources = {
   classic: "/assets/our-teas/classic.jpg",
   flavoured: "/assets/our-teas/flavoured-1.jpg",
@@ -195,6 +204,9 @@ const ImageSources = {
 
 const ProductVideoSelector = () => {
   const defaultCategory = "classic";
+  const [objectPosition, setObjectPosition] = useState(
+    objectPositions[defaultCategory]
+  );
   const [videoSrc, setVideoSrc] = useState(videoSources[defaultCategory]);
   const [imgSrc, setImageSrc] = useState(ImageSources[defaultCategory]);
   const [products, setProducts] = useState(productData[defaultCategory]);
@@ -232,6 +244,7 @@ const ProductVideoSelector = () => {
     setActiveTab(category);
     setVideoSrc(videoSources[category] || videoSources.classic);
     setImageSrc(ImageSources[category] || ImageSources.classic);
+    setObjectPosition(objectPositions[category] || ImageSources.classic);
     setProducts(productData[category] || []);
   };
 
@@ -246,7 +259,7 @@ const ProductVideoSelector = () => {
           autoPlay
           muted
           loop
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover ${objectPosition}`}
         ></video>
       </div>
 

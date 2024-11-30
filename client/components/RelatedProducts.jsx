@@ -90,7 +90,7 @@ function RelatedProducts() {
     }
   };
 
-  console.log(products);
+  // console.log(products);
 
   return (
     <section className="text-black">
