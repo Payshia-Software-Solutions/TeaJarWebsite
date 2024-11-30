@@ -1,5 +1,5 @@
 <?php
-require_once './controllers/WebsiteModeController.php';
+require_once './controllers/ModeController.php';
 
 $pdo = $GLOBALS['pdo'];
 $websiteModeController = new WebsiteModeController($pdo);
