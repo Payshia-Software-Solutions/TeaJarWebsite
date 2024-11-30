@@ -15,7 +15,7 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [rangeName, setRangeName] = useState("Range Name");
+  const [rangeName, setRangeName] = useState("Collection Name");
   const [rangeNameError, setRangeNameError] = useState(null);
   const [fallbackImages, setFallbackImages] = useState({});
 
@@ -122,7 +122,7 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
   }, [filteredProducts]);
 
   return (
-    <div className="bg-gray-100 bg-opacity-10 rounded-2xl my-3">
+    <div className="bg-gray-100 bg-opacity-10 rounded-2xl mt-10">
       <div className={italiana.className}>
         <h2 className="text-3xl m-3 text-black font-bold">
           {rangeNameError || rangeName}

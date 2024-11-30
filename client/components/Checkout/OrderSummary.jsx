@@ -76,7 +76,7 @@ const OrderSummary = ({
           setPromoCode(coupon);
           setDiscountAmount(discountValue);
           setFinalPayAmount(calculatedFinalPayAmount); // Use the calculated value here
-          console.log(calculatedFinalPayAmount);
+          // console.log(calculatedFinalPayAmount);
           setCouponError(""); // Clear any errors
         }
       }

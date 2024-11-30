@@ -12,7 +12,7 @@ class Department
     // Fetch all departments
     public function getAllDepartments()
     {
-        $stmt = $this->pdo->prepare("SELECT `id`, `section_id`, `department_name`, `is_active`, `created_at`, `created_by`, `pos_display` FROM `master_departments` WHERE `is_active` = 1 ORDER BY `pos_display` ASC");
+        $stmt = $this->pdo->prepare("SELECT `id`, `section_id`, `department_name`, `is_active`, `created_at`, `created_by`, `pos_display` FROM `master_departments` WHERE `is_active` = 1 ORDER BY `order_by` ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

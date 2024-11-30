@@ -249,7 +249,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                           onClick={() => setIsMobileMenuOpen(false)}
                           className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                         >
-                          Tins
+                          Canisters
                         </Link>
                       </li>
                     </ul>
@@ -264,7 +264,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                       setIsTeaEditsDropdownOpen(!isTeaEditsDropdownOpen)
                     }
                   >
-                    Shop by Range
+                    Shop by Collection
                     <svg
                       className={`w-5 h-5 transition-transform ${
                         isTeaEditsDropdownOpen ? "rotate-180" : ""
@@ -414,6 +414,36 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                     className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
                   >
                     Classic Teas
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/our-teas/exclusive-teas"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
+                  >
+                    Exclusive Teas
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/our-teas/factory-teas"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
+                  >
+                    Factory Teas
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/our-teas/organic-teas"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-sm font-medium transition hover:text-green-700 hover:bg-gray-100 hover:p-2"
+                  >
+                    Organic Teas
                   </Link>
                 </li>
               </ul>

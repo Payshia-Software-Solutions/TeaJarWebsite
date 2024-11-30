@@ -79,7 +79,7 @@ const OrderConfirmationPage = () => {
     );
   }
 
-  console.log(invoiceItemData);
+  // console.log(invoiceItemData);
 
   const crumbs = [
     {

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Info } from "lucide-react";
 import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
+
 import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MintPayLogo = () => (
   <Link
@@ -83,12 +87,13 @@ const ProductCard = ({
   const teaIcon = TeaIcons[category]; // Get the icon URL based on the category
   if (!teaType || !teaIcon) return null; // Return nothing if category doesn't match
 
+  // console.log(images[0]);
   const handleAddToCart = () => {
     const cartItem = {
       id,
       productName: title,
       price,
-      imgUrl: images[0],
+      imgUrl: images[0].split("/").pop(),
       quantity: 1,
     };
 
@@ -111,7 +116,7 @@ const ProductCard = ({
   // console.log(title);
   return (
     <Link href={"/products/" + slug}>
-      <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group ">
+      <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group relative">
         <div
           className="relative aspect-square cursor-pointer overflow-hidden"
           onMouseEnter={() => setCurrentImageIndex(1)}
@@ -140,11 +145,26 @@ const ProductCard = ({
               />
             </div>
           ))}
+
+          <div className="absolute z-50 w-full bottom-0 px-2 py-2 md:p-4 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-in-out bg-slate-50">
+            <button
+              onClick={(e) => {
+                e.preventDefault(); // Prevent navigation to the product page
+                handleAddToCart();
+              }}
+              className="hidden group-hover:flex w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out"
+            >
+              <ShoppingCart size={16} />
+              Add to Cart
+            </button>
+          </div>
         </div>
 
-        <div className="p-2">
-          <div className="h-10 md:h-14">
-            <h3 className="text-sm lg:text-lg text-black font-bold leading-tight hover:text-gray-600 transition-colors duration-200">
+        <div className="p-2 group">
+          {/* Add to Cart Button */}
+
+          <div className="h-auto md:h-14 lg:h-16">
+            <h3 className="text-sm lg:text-lg text-black font-bold leading-tight hover:text-gray-600 transition-colors duration-200 line-clamp-2">
               {title}
             </h3>
           </div>
@@ -157,7 +177,7 @@ const ProductCard = ({
                 width={20} // Specify fixed width
                 height={20} // Adjusted height for proper scaling
               />
-              <p className="hidden lg:block text-[12px]">{teaType}</p>{" "}
+              <p className="hidden xl:block text-[12px]">{teaType}</p>
               {/* Dynamic text */}
             </div>
             <div className="text-black text-end font-bold text-lg lg:text-xl">
@@ -166,28 +186,24 @@ const ProductCard = ({
           </div>
 
           {/* <div className="space-y-1 text-sm text-gray-600">
-              <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200 text-[10px]">
-                <span>
-                  or 3 X {formatPrice(installmentAmount)} with MintPay
-                </span>
-                <MintPayLogo />
-              </div>
+      <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200 text-[10px]">
+        <span>
+          or 3 X {formatPrice(installmentAmount)} with MintPay
+        </span>
+        <MintPayLogo />
+      </div>
 
-              <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200 text-[10px]">
-                <span>
-                  or pay in 3 @ {formatPrice(installmentAmount)} with KOKO
-                  <KOKOLogo />
-                </span>
-              </div>
-            </div> */}
+      <div className="flex items-center gap-2 hover:text-gray-800 transition-colors duration-200 text-[10px]">
+        <span>
+          or pay in 3 @ {formatPrice(installmentAmount)} with KOKO
+          <KOKOLogo />
+        </span>
+      </div>
+    </div> */}
         </div>
       </div>
     </Link>
   );
-};
-
-ProductCard.defaultProps = {
-  imageStyle: null, // Default value for imageStyle is null
 };
 
 export default ProductCard;

@@ -47,7 +47,7 @@ function Shop() {
               />
             </div> */}
             <ProductSectionHeader
-              title="Tea by Range"
+              title="Tea by Collection"
               description="Your virtual guide to tea! Discover all types of tea, from herbal infusions to black teas and matcha."
             />
 
@@ -56,7 +56,10 @@ function Shop() {
             <ProductsByRange range_id={1} searchQuery={searchQuery} />
             <ProductsByRange range_id={3} searchQuery={searchQuery} />
             <ProductsByRange range_id={5} searchQuery={searchQuery} />
+            <ProductsByRange range_id={9} searchQuery={searchQuery} />
             <ProductsByRange range_id={8} searchQuery={searchQuery} />
+            <ProductsByRange range_id={11} searchQuery={searchQuery} />
+            <ProductsByRange range_id={10} searchQuery={searchQuery} />
           </div>
         </div>
       </div>

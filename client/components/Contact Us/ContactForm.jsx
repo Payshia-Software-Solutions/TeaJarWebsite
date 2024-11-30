@@ -15,6 +15,15 @@ function ContactForm() {
     policy: false,
   });
 
+  const [errors, setErrors] = useState({
+    full_name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+    policy: "",
+  });
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -23,12 +32,63 @@ function ContactForm() {
     });
   };
 
+  const validateForm = () => {
+    let formErrors = {};
+    let isValid = true;
+
+    // Check if full name is empty
+    if (!formData.full_name.trim()) {
+      formErrors.full_name = "Full name is required.";
+      isValid = false;
+    }
+
+    // Check if email is valid
+    if (!formData.email.trim()) {
+      formErrors.email = "Email is required.";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      formErrors.email = "Please enter a valid email.";
+      isValid = false;
+    }
+
+    // Check if phone number is provided and valid
+    if (!formData.phone.trim()) {
+      formErrors.phone = "Phone number is required.";
+      isValid = false;
+    } else if (!/^\+?[0-9]{10,15}$/.test(formData.phone)) {
+      formErrors.phone = "Please enter a valid phone number.";
+      isValid = false;
+    }
+
+    // Check if Subject is empty
+    if (!formData.subject.trim()) {
+      formErrors.subject = "Subject is required.";
+      isValid = false;
+    }
+
+    // Check if message is provided
+    if (!formData.message.trim()) {
+      formErrors.message = "Message is required.";
+      isValid = false;
+    }
+
+    // Check if policy is accepted
+    if (!formData.policy) {
+      formErrors.policy = "You must accept the privacy policy.";
+      isValid = false;
+    }
+
+    setErrors(formErrors);
+    return isValid;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.policy) {
-      alert("Please accept the Privacy Policy.");
+
+    if (!validateForm()) {
       return;
     }
+
     try {
       const response = await fetch(`${config.API_BASE_URL}/contact`, {
         method: "POST",
@@ -48,6 +108,7 @@ function ContactForm() {
           newsletter: false,
           policy: false,
         });
+        setErrors({});
       } else {
         alert("Failed to send the message.");
       }
@@ -92,13 +153,15 @@ function ContactForm() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
-              name="fullName"
+              name="full_name"
               className="w-full p-3 border bg-white border-black rounded-md"
               placeholder="Full Name"
-              value={formData.fullName}
+              value={formData.full_name}
               onChange={handleChange}
-              required
             />
+            {errors.full_name && (
+              <p className="text-red-500 text-sm">{errors.full_name}</p>
+            )}
             <input
               type="email"
               name="email"
@@ -106,8 +169,10 @@ function ContactForm() {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              required
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
             <input
               type="text"
               name="phone"
@@ -115,8 +180,10 @@ function ContactForm() {
               placeholder="Phone Number"
               value={formData.phone}
               onChange={handleChange}
-              required
             />
+            {errors.phone && (
+              <p className="text-red-500 text-sm">{errors.phone}</p>
+            )}
             <input
               type="text"
               name="subject"
@@ -125,6 +192,9 @@ function ContactForm() {
               value={formData.subject}
               onChange={handleChange}
             />
+            {errors.subject && (
+              <p className="text-red-500 text-sm">{errors.subject}</p>
+            )}
             <textarea
               name="message"
               className="w-full p-3 border bg-white border-black rounded-md"
@@ -132,29 +202,35 @@ function ContactForm() {
               placeholder="Message"
               value={formData.message}
               onChange={handleChange}
-              required
             />
-            <div className="flex items-start">
+            {errors.message && (
+              <p className="text-red-500 text-sm">{errors.message}</p>
+            )}
+            <div className="flex items-center">
               <input
                 type="checkbox"
                 name="newsletter"
                 checked={formData.newsletter}
                 onChange={handleChange}
               />
-              <label className="ml-2">Signup for Our Newsletter</label>
+              <label for="newsletter" className="ml-2">
+                Signup for Our Newsletter
+              </label>
             </div>
-            <div className="flex items-start">
+            <div className="flex items-center">
               <input
                 type="checkbox"
                 name="policy"
                 checked={formData.policy}
                 onChange={handleChange}
-                required
               />
-              <label className="ml-2">
+              <label for="policy" className="ml-2">
                 Confirm acceptance of our Privacy Policy
               </label>
             </div>
+            {errors.policy && (
+              <p className="text-red-500 text-sm">{errors.policy}</p>
+            )}
             <button
               type="submit"
               className="px-6 mt-4 py-3 bg-teal-600 text-white rounded-md"

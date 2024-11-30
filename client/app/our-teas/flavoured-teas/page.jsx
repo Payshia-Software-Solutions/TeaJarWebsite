@@ -51,7 +51,7 @@ const Josefin_Sans_font = Sulphur_Point({
 const teaData = [
   {
     title: "Cinnamon",
-    imageSrc: "/assets/our-teas/flavoured/teas/cardamom.jpg",
+    imageSrc: "/assets/our-teas/flavoured/teas/cinnamon.jpg",
     description:
       "A sweet and savoury brew infused with pieces of Sri Lanka's home grown, export quality cinnamon that is bound to lighten your day with its soothing tones and warm, heady aroma. Start your day with this robust blend of factory fresh Ceylon Black Tea and woody spice, as you inhale the distinctive aroma of this intoxicating herbal tea.",
     packing: "2g x 25 Enveloped Tea Bags x 56",

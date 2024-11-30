@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -25,6 +25,7 @@ function NavBar() {
   const pathname = usePathname();
   const [isTeasDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const searchRef = useRef(null);
 
   // const [isAboutDropdownVisible, setAboutDropdownVisible] = useState(false);
   const [isTeasDropdownOpen, setIsTeasDropdownOpen] = React.useState(false);
@@ -38,6 +39,28 @@ function NavBar() {
   const [departmentsError, setDepartmentsError] = useState(null);
   const [departments, setDepartments] = useState([]);
 
+  const formatPrice = (amount) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "LKR",
+      minimumFractionDigits: 2, // Ensures at least 2 decimal places
+      maximumFractionDigits: 2, // Ensures no more than 2 decimal places
+    })
+      .format(amount)
+      .replace("LKR", "Rs"); // Replaces 'LKR' with 'Rs'
+  };
+
+  const TeaTypes = {
+    1: "Tea Bag",
+    2: "Pyramid Tea Bag",
+    3: "Loose Leaf Tea",
+  };
+
+  const TeaIcons = {
+    1: "/assets/icons/tea-bag.png", // Icon for Tea Bag
+    2: "/assets/icons/teabag-icon.svg", // Icon for Pyramid Tea Bag
+    3: "/assets/icons/loose-leaf-icon.svg", // Icon for Loose Leaf Tea
+  };
   // Fetch departments
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -118,38 +141,72 @@ function NavBar() {
 
   // Search Function
 
-  const [query, setQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [isSearchDropdownVisible, setIsSearchDropdownVisible] = useState(false);
+  // Fetch products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${config.API_BASE_URL}/products`);
+        const data = await response.json();
+        setProducts(data); // Assuming the endpoint returns an array of products
+        setFilteredProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
-  // Mock product data
-  const mockProducts = [
-    { id: 1, name: "Green Tea", price: 10, image: "/assets/green-tea.jpg" },
-    { id: 2, name: "Black Tea", price: 12, image: "/assets/black-tea.jpg" },
-    { id: 3, name: "Matcha", price: 15, image: "/assets/matcha.jpg" },
-    { id: 4, name: "Chai", price: 8, image: "/assets/chai.jpg" },
-  ];
-  // Handle input change
+    fetchProducts();
+  }, []);
+
+  // console.log(products);
+  const [query, setQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  // Update the query state as user types
+  // Update query and filter products
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
+    const searchQuery = e.target.value;
+    setQuery(searchQuery);
 
-    if (value.length > 0) {
-      // Filter products based on the query
-      const filteredProducts = mockProducts.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase())
+    const filtered = products
+      .map((product) => {
+        const teaType = TeaTypes[product.category_id];
+        const teaIcon = TeaIcons[product.category_id];
+        if (!teaType || !teaIcon) return null; // Skip products without matching categories
+        return {
+          ...product,
+          teaType,
+          teaIcon, // Add teaType and teaIcon to product object
+        };
+      })
+      .filter(
+        (product) =>
+          product &&
+          product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setProducts(filteredProducts);
-      setIsDropdownVisible(true);
-    } else {
-      setIsDropdownVisible(false);
-    }
+
+    setFilteredProducts(filtered);
   };
 
-  // Handle click outside (to close the dropdown)
+  // console.log(filteredProducts);
+
   const handleBlur = () => {
-    setTimeout(() => setIsSearchDropdownVisible(false), 200); // Delay to allow click events on items
+    // Optional: Hide search results or do other operations when input loses focus
   };
+
+  // Detect clicks outside of the search bar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setQuery(""); // Clear the search query to hide the dropdown
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <div>
       <header
@@ -403,6 +460,19 @@ function NavBar() {
                         <ul className="space-y-2">
                           <li>
                             <Link
+                              href="/our-teas/classic-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Classic Teas
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
                               href="/our-teas/exceptional-teas"
                               className="hover:text-gray-300"
                             >
@@ -429,10 +499,36 @@ function NavBar() {
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/our-teas/classic-teas"
+                              href="/our-teas/exclusive-teas"
                               className="hover:text-gray-300"
                             >
-                              Classic Teas
+                              Exclusive Teas
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/our-teas/factory-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Factory Teas
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/our-teas/organic-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Organic Teas
                             </Link>
                           </li>
                         </ul>
@@ -464,7 +560,7 @@ function NavBar() {
                 </Link>
               </div>
 
-              <div className="flex-grow relative hidden md:flex">
+              <div ref={searchRef} className="flex-grow relative flex">
                 <input
                   type="text"
                   className="w-full bg-gray-700 text-sm text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -473,6 +569,48 @@ function NavBar() {
                   onChange={handleInputChange}
                   onBlur={handleBlur}
                 />
+                {/* Display the filtered products */}
+                {query && (
+                  <div className="fixed md:absolute left-0 md:left-auto bg-white w-full md:w-[16vw] mt-11 md:mt-12 border border-gray-300 rounded-md shadow-md z-10">
+                    {filteredProducts.length > 0 ? (
+                      filteredProducts.slice(0, 5).map((product) => (
+                        <Link
+                          href={`/products/${product.slug}`}
+                          key={product.product_id} // Move the key to the Link component for optimization
+                          onClick={() => setQuery("")} // Clear search query on click
+                        >
+                          <div className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            <Image
+                              src={`${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`}
+                              alt={product.product_name}
+                              className="object-cover rounded mr-4"
+                              width={50}
+                              height={50}
+                            />
+                            <div>
+                              <p className="text-[12px] leading-1 font-medium text-black w-full">
+                                {product.product_name}
+                              </p>
+                              <p className="text-[10px] text-gray-500 flex gap-2 justify-start items-center md:justify-between">
+                                <Image
+                                  src={product.teaIcon} // Dynamic icon based on category
+                                  alt={`${product.teaType} icon`} // Dynamic alt text based on tea type
+                                  width={12} // Specify fixed width
+                                  height={4} // Adjusted height for proper scaling
+                                />
+                                {formatPrice(product.selling_price)}
+                              </p>
+                            </div>
+                          </div>
+                        </Link>
+                      ))
+                    ) : (
+                      <div className="px-4 py-2 text-gray-500">
+                        No results found
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Buttons */}
@@ -511,7 +649,7 @@ function NavBar() {
             >
               <img
                 src={product.image}
-                alt={product.name}
+                alt={product.product_name}
                 className="w-12 h-12 object-cover rounded-md"
               />
               <div>

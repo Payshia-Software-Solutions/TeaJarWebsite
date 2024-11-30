@@ -24,9 +24,9 @@ function FilteredShop() {
       setLoading(true);
       try {
         const queryString = searchParams.toString();
-        console.log(queryString);
+        // console.log(queryString);
         const response = await fetch(
-          `https://kduserver.payshia.com/products/filter-by?${queryString}`
+          `${config.API_BASE_URL}/products/filter-by?${queryString}`
         );
         const data = await response.json();
         setFilteredProducts(data); // Update the state with the fetched products
@@ -114,7 +114,7 @@ function FilteredShop() {
             />
 
             {/* Product List */}
-            <div className="bg-gray-100 bg-opacity-10 rounded-2xl p-4 my-3">
+            <div className="bg-gray-100 bg-opacity-10 rounded-2xl  my-3">
               <hr className="border-black border-t-2 mx-auto mb-6" />
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-2 gap-2">
                 {loading && <p>Loading products...</p>}
