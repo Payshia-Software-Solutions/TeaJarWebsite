@@ -93,54 +93,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
             Home
           </Link>
 
-          {/* Our Teas Dropdown */}
-          <div>
-            <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-teal-400"
-              onClick={() => setIsTeasDropdownOpen(!isTeasDropdownOpen)}
-            >
-              Our Teas
-              <svg
-                className={`w-5 h-5 transition-transform ${
-                  isTeasDropdownOpen ? "rotate-180" : ""
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-            {isTeasDropdownOpen && (
-              <ul className="mt-2 space-y-2 pl-4">
-                <li>
-                  <Link
-                    href="/our-teas/exceptional-teas"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Exceptional Teas
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/our-teas/flavoured-teas"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Flavoured Teas
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </div>
-
+         
           {/* About Dropdown */}
           <div>
             <button
