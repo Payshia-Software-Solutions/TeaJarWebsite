@@ -113,8 +113,16 @@ class Product
     {
         $stmt = $this->pdo->prepare("SELECT * FROM `master_product` WHERE `slug` = ?");
         $stmt->execute([$slug]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($product) {
+            // Remove HTML tags from product_description
+            $product['product_description'] = strip_tags($product['product_description']);
+        }
+
+        return $product;
     }
+
 
     public function getRecordBySection($section)
     {

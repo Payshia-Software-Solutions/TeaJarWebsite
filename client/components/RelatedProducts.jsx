@@ -1,40 +1,23 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
-import TopSellerProduct from "@/components/Product/TopSellerProduct";
 import ProductCard from "@/components/Product/ProductCard";
-import SectionHeader from "@/components/Common/SectionHeader";
-import Link from "next/link";
+import LazyLoadSection from "@/components/LazyLoadingSection";
 import config from "@/config";
 
+// Import custom styles
+import "@/app/globals.css";
 // Import Swiper core and required modules
 import { Pagination, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import LazyLoadSection from "@/components/LazyLoadingSection";
-import { Italiana, Julius_Sans_One } from "next/font/google";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
-// Import custom styles
-import "@/app/globals.css";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-
-const italiana = Italiana({
-  weight: "400", // Italiana only comes with regular weight (400)
-  subsets: ["latin"],
-});
-const juliusSansOne = Julius_Sans_One({
-  weight: "400", // Julius Sans One only has a regular weight
-  subsets: ["latin"],
-});
 function RelatedProducts() {
   const [bgColor, setBgColor] = useState("#353D32"); // Initial background color
   const sectionRef = useRef(null);
   const swiperRef = useRef(null); // To reference the Swiper instance
 
-  // Scroll effect for background color (optional feature)
+  // Scroll effect for background color
   useEffect(() => {
     const handleScroll = () => {
       if (sectionRef.current) {
@@ -56,6 +39,9 @@ function RelatedProducts() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fallbackImages, setFallbackImages] = useState({});
+  const defaultFrontImage = "/assets/loadings.gif";
+  const defaultOtherImage = "/assets/loadings.gif";
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -77,20 +63,52 @@ function RelatedProducts() {
     fetchProducts();
   }, []);
 
-  // Handlers to navigate Swiper slides
-  const handlePrev = () => {
-    if (swiperRef.current) {
-      swiperRef.current.swiper.slidePrev();
-    }
-  };
+  // Fetch fallback images
+  useEffect(() => {
+    const fetchFallbackImages = async () => {
+      const images = { ...fallbackImages }; // Preserve existing images to avoid redundant fetching
+      const fetchRequests = products.map(async (product) => {
+        if (!images[product.product_id]) {
+          try {
+            const response = await fetch(
+              `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`
+            );
 
-  const handleNext = () => {
-    if (swiperRef.current) {
-      swiperRef.current.swiper.slideNext();
-    }
-  };
+            if (response.ok) {
+              const data = await response.json();
 
-  // console.log(products);
+              const otherImage = data.find(
+                (img) => img.image_prefix === "Other"
+              );
+
+              images[product.product_id] = [
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                otherImage
+                  ? `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${otherImage.image_path}`
+                  : `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            } else {
+              images[product.product_id] = [
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            }
+          } catch (error) {
+            console.error(
+              `Error fetching fallback images for product ${product.product_id}:`,
+              error
+            );
+            images[product.product_id] = [defaultFrontImage, defaultOtherImage];
+          }
+        }
+      });
+
+      await Promise.all(fetchRequests); // Wait for all fetches to complete
+      setFallbackImages(images);
+    };
+
+    fetchFallbackImages();
+  }, [products]);
 
   return (
     <section className="text-black">
@@ -101,76 +119,60 @@ function RelatedProducts() {
         >
           <div>
             <div className="max-w-full pl-2 sm:pl-3 mx-auto">
-              {/*Navigation buttons */}
-              <h2
-                className={`text-[28px] md:text-[44px] mb-2 md:mb-4 text-black font-bold`}
-              >
+              <h2 className="text-[28px] md:text-[44px] mb-2 md:mb-4 text-black font-bold">
                 Related Products
               </h2>
-              {/* <div className="flex gap-4 justify-center p-1 my-3">
-                <button onClick={handlePrev}>
-                  <FaArrowLeft className="w-14 h-14 border-4 p-2 rounded-full text-white " />
-                </button>
-                <button onClick={handleNext}>
-                  <FaArrowRight className="w-14 h-14 border-4 p-2 rounded-full text-white " />
-                </button>
-              </div> */}
             </div>
-            {/* Swiper setup */}
             <div className="swiper-wrapper-center">
               <Swiper
-                ref={swiperRef} // Reference to Swiper instance
-                slidesPerView={1.5} // Show 1 full slide and half of the next slide
-                spaceBetween={0} // Adjust spacing between slides as needed
-                // pagination={{
-                //   clickable: true,
-                // }}
-
+                ref={swiperRef}
+                slidesPerView={1.5}
+                spaceBetween={0}
                 pagination={false}
-                grabCursor={true} // Enable grab cursor functionality
+                grabCursor={true}
                 breakpoints={{
                   576: {
-                    slidesPerView: 2.5, // Maintain same behavior on small screens
+                    slidesPerView: 2.5,
                     spaceBetween: 4,
                   },
                   768: {
-                    slidesPerView: 3.5, // Show 2 full slides and half of the next on tablets
+                    slidesPerView: 3.5,
                     spaceBetween: 4,
                   },
                   1024: {
-                    slidesPerView: 4.5, // Show 3 full slides and half of the next on larger screens
+                    slidesPerView: 4.5,
                     spaceBetween: 4,
                   },
                 }}
-                modules={[Pagination, A11y]} // Include necessary Swiper modules
+                modules={[Pagination, A11y]}
                 className="mySwiper"
               >
                 {products
-                  .sort(() => Math.random() - 0.5) // Shuffle the array
-                  .slice(0, 10) // Get the first 10 items
-                  .map((singleitem) => (
-                    <SwiperSlide
-                      key={singleitem.product_id}
-                      className="p-2 mb-6"
-                    >
-                      <ProductCard
-                        key={singleitem.product_code} // Ensure to use a unique key
-                        title={singleitem.product_name}
-                        slug={singleitem.slug}
-                        id={singleitem.product_id}
-                        price={+singleitem.selling_price}
-                        images={[
-                          "https://kdu-admin.payshia.com/pos-system/assets/images/products/" +
-                            singleitem.product_id +
-                            "/" +
-                            singleitem.image_path,
-                          "/assets/products/1/cardamom.jpg",
-                        ]}
-                        Rate={"(5.6)"}
-                        category={singleitem.category_id}
-                      />
-                    </SwiperSlide>
-                  ))}
+                  .sort(() => Math.random() - 0.5)
+                  .slice(0, 10)
+                  .map((singleitem) => {
+                    const images = fallbackImages[singleitem.product_id] || [
+                      defaultFrontImage,
+                      defaultOtherImage,
+                    ];
+                    return (
+                      <SwiperSlide
+                        key={singleitem.product_id}
+                        className="p-2 mb-6"
+                      >
+                        <ProductCard
+                          key={singleitem.product_code}
+                          title={singleitem.product_name}
+                          slug={singleitem.slug}
+                          id={singleitem.product_id}
+                          price={+singleitem.selling_price}
+                          images={images}
+                          Rate={"(5.6)"}
+                          category={singleitem.category_id}
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
               </Swiper>
             </div>
           </div>

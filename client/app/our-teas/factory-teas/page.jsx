@@ -39,7 +39,7 @@ const teaData = [
   },
   {
     title: "PEAK VIEW PEKOE 1",
-    imageSrc: "/assets/our-teas/factory/51.jpg",
+    imageSrc: "/assets/our-teas/factory/52.jpg",
     description:
       "Manufactured maintaining the highest standards, the tea produced at Peak View Tea Factory is compliant with HACCP and ISO 22000 food standards, producing over 150,000 kilograms of low-grown tea leaves per month. When brewed, this tea carries a distinctive flavour and has a brighter and bolder colour.",
     packing: " 175g Loose Tea x 30 Canisters",

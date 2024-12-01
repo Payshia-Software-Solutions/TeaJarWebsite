@@ -20,6 +20,7 @@
         "aceternity-ui": "^0.2.2",
         "axios": "^1.7.3",
         "clsx": "^2.1.1",
+        "cookie": "^1.0.2",
         "crypto-js": "^4.2.0",
         "framer-motion": "^11.11.7",
         "lucide-react": "^0.456.0",

@@ -473,10 +473,10 @@ function NavBar() {
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/our-teas/exceptional-teas"
+                              href="/our-teas/flavoured-teas"
                               className="hover:text-gray-300"
                             >
-                              Exceptional Teas
+                              Flavoured Teas
                             </Link>
                           </li>
                         </ul>
@@ -486,10 +486,10 @@ function NavBar() {
                         <ul className="space-y-2">
                           <li>
                             <Link
-                              href="/our-teas/flavoured-teas"
+                              href="/our-teas/exceptional-teas"
                               className="hover:text-gray-300"
                             >
-                              Flavoured Teas
+                              Exceptional Teas
                             </Link>
                           </li>
                         </ul>
