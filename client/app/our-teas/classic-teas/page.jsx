@@ -21,7 +21,11 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       packing: "2g x 25 Enveloped Tea Bags x 72",
       netWeight: "50g",
       productCode: "KDUSOP0001",
+<<<<<<< Updated upstream
       imageSrc: "/assets/our-teas/Classic/61.jpg",
+=======
+      imageSrc: "/assets/our-teas/Classic/60.jpg",
+>>>>>>> Stashed changes
       productURL:
         "/products/single-origin-premium-ceylon-black-tea-100-enveloped-tea-bags",
     },
@@ -32,7 +36,11 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       packing: "2g x 100 Enveloped Tea Bags x 36",
       netWeight: "200g",
       productCode: "KDUSOP0002",
+<<<<<<< Updated upstream
       imageSrc: "/assets/our-teas/Classic/60.jpg",
+=======
+      imageSrc: "/assets/our-teas/Classic/61.jpg",
+>>>>>>> Stashed changes
       reverse: true,
       productURL:
         "/products/single-origin-premium-ceylon-black-tea-25-enveloped-tea-bags",
@@ -135,6 +143,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
           <div className="flex justify-start p-4">
             <div className="w-full">
               <p className="text-center mb-4 text-sm sm:text-base md:text-lg">
+<<<<<<< Updated upstream
                 From a single estate in Sri Lanka's Upcountry, Ceylon green tea
                 exudes perfection with its delicate aroma and light hue.
                 Cultivated amidst the misty hills, it offers a refreshing
@@ -153,6 +162,20 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
                 </p>
                 <p className="font-bold text-sm sm:text-base md:text-lg">
                   Product Code: KDUEXGT0001
+=======
+              From a single estate in Sri Lanka's Upcountry, Ceylon green tea exudes perfection with its delicate aroma and light hue.
+              Cultivated amidst the misty hills, it offers a refreshing experience with every sip. Its subtle yet complex flavors tantalize the palate, leaving a lingering sense of tranquility. With a gentle infusion and a hint of sweetness, this tea captures the essence of nature's purity, making it a cherished delight for discerning tea connoisseurs.
+              </p>
+              <div className="text-center">
+                <p className="font-bold mt-6 text-sm sm:text-base md:text-lg">
+                Packing: 2g x 25 Enveloped Tea Bags x 56
+                </p>
+                <p className="font-bold text-sm sm:text-base md:text-lg">
+                Net Weight: 50g
+                </p>
+                <p className="font-bold text-sm sm:text-base md:text-lg">
+                Product Code: KDUEXGT0001
+>>>>>>> Stashed changes
                 </p>
               </div>
             </div>

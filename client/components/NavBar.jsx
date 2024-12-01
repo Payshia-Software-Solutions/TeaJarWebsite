@@ -436,6 +436,8 @@ function NavBar() {
                           </li>
                         </ul>
                       </div>
+
+
                     </div>
                   </div>
                 )}
@@ -529,6 +531,47 @@ function NavBar() {
                               className="hover:text-gray-300"
                             >
                               Organic Teas
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/our-teas/classic-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Classic  Teas
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/our-teas/exclusive-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Exclusive  Teas
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+
+
+                      <div>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link
+                              href="/our-teas/factory-teas"
+                              className="hover:text-gray-300"
+                            >
+                              Factory  Teas
                             </Link>
                           </li>
                         </ul>

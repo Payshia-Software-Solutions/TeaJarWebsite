@@ -4,6 +4,8 @@ import config from "@/config";
 import Image from "next/image";
 import { Corinthia } from "next/font/google";
 import Link from "next/link";
+import ExceptionalCard from "@/components/Exceptional/ExceptionalCard";
+import Exceptionalmain from "@/components/Exceptional/ExceptionalMain";
 
 const CorinthiaFont = Corinthia({
   weight: "400",
@@ -58,6 +60,126 @@ const page = async () => {
     {
       label: "Exceptional Teas",
       href: "/our-teas/exceptional-teas",
+    },
+  ];
+
+  const teaData = [
+    {
+      title: "Single Origin Ceylon Black Tea",
+      imageSrc: "/assets/our-teas/exceptional/loose/37.jpg",
+      description:
+        "Award-winning, world-renowned Ceylon Orange Pekoe 1 tea manufactured in the region of Ratnapura, home to the world's largest orthodox black tea production factory, our very own state-of-the-art Galpadithanne Tea Factory. This single-origin tea is light in color with a delicate aroma and wonderful flavor.",
+      packing: "125g Loose Tea x 30 Canisters",
+      netWeight: "125g",
+      productCode: "KDUEX0001",
+      linkUrl: "/products/single-origin-ceylon-black-tea-loose-leaf-125g-",
+      buttonText: "Shop Now",
+      bgColor: "#da6828",
+      reverse: false,
+    },
+    {
+      title: "Pure Ceylon Green Tea",
+      imageSrc: "/assets/our-teas/exceptional/loose/43.jpg",
+      description:
+        "This delightful Ceylon Tea is a perfect balance of a subtle fragrant green tea brew, complemented by gentle fresh herb notes.",
+      packing: "175g Loose Tea x 30 Canisters",
+      netWeight: "175g",
+      productCode: "KDUEX0002",
+      linkUrl: "/products/pure-ceylon-green-tea-loose-leaf-175g",
+      buttonText: "Shop Now",
+      bgColor: "#6c9a55",
+      reverse: true,
+    },
+    {
+      title: "Moroccan Mint Green Tea",
+      imageSrc: "/assets/our-teas/exceptional/loose/45.jpg",
+      description:
+        "An aromatic twist on the classic Ceylon green tea, incorporating the essence of crisp mint and spearmint leaves. Refreshing way to cool off after a hard day's haggling.",
+      packing: "125g Loose Tea x 30 Canisters",
+      netWeight: "125g",
+      productCode: "KDUEX0003",
+      linkUrl: "/products/moroccan-mint-green-tea-loose-leaf-125g",
+      buttonText: "Shop Now",
+      bgColor: "#628ca0",
+      reverse: false,
+    },
+    {
+      title: "Pure Chamomile Flowers",
+      imageSrc: "/assets/our-teas/exceptional/loose/46.jpg",
+      description:
+        "A fragrant infusion of golden chamomile flowers, enriches this herbal tea of sun-drenched warmth. A gentle and uplifting aroma giving you the perfect way to relax at the end of the day.",
+      packing: "175g Loose Tea x 30 Canisters",
+      netWeight: "175g",
+      productCode: "KDUEX0004",
+      linkUrl: "#",
+      buttonText: "Shop Now",
+      bgColor: "#e1b03b",
+      reverse: false,
+    },
+    {
+      title: "Earl Grey",
+      imageSrc: "/assets/our-teas/exceptional/loose/41.jpg",
+      description:
+        "Our take on the typical British blend of fine Nuwara Eliya Ceylon Black tea is perfectly balanced with flavours of citrusy bergamot. We've even added a scattering of blue cornflower petals for an elegant final flourish. Renowned for its unique bergamot aroma.",
+      packing: "100g Loose Tea x 30 Canisters",
+      netWeight: "100g",
+      productCode: "KDUEX0005",
+      linkUrl: "/products/earl-grey-black-tea-loose-leaf-100g",
+      buttonText: "Shop Now",
+      bgColor: "#a6a8aa",
+      reverse: true,
+    },
+    {
+      title: "Jasmine Green Tea",
+      imageSrc: "/assets/our-teas/exceptional/loose/47.jpg",
+      description:
+        "Replenish your senses with a delightful floral infusion of factory fresh pure Ceylon Green Tea, brewed with natural jasmine petals. Carefully selected from the best tea gardens in Sri Lanka, tea green, grassy tones and invigorating aroma of this brew is mildly sweet, giving it a delicately floral flavor that is completely exhilarating.",
+      packing: "175g Loose Tea x 30 Canisters",
+      netWeight: "175g",
+      productCode: "KDUEX0006",
+      linkUrl: "/products/-jasmine-green-tea-175g-loose-tea",
+      buttonText: "Shop Now",
+      bgColor: "#84964c",
+      reverse: false,
+    },
+    {
+      title: "Spice Chai Masala",
+      imageSrc: "/assets/our-teas/exceptional/loose/40.jpg",
+      description:
+        "A vibrant coloured tea infused with different spices, this blend takes you to another level. Designed to tantalize every taste bud in your mouth, we have combined the spicy flavors of cardamom, ginger, clove, black pepper, and cinnamon to create the perfect balance of rich sweetness and delicate spice.",
+      packing: "175g Loose Tea x 30 Canisters",
+      netWeight: "175g",
+      productCode: "KDUEX0007",
+      linkUrl: "/products/spice-chai-masala-tea-175g-loose-tea",
+      buttonText: "Shop Now",
+      bgColor: "#b45a3a",
+      reverse: false,
+    },
+    {
+      title: "Rose with Vanilla",
+      imageSrc: "/assets/our-teas/exceptional/loose/42.jpg",
+      description:
+        "A balance of fragrances come together to compose this smooth, refreshing blend. Delicate red rose petals infused with sweet vanilla extract and our factory-fresh Ceylon Black Tea create this most harmonious bouquet of flavor and aromas that will invigorate the senses. The smoky, woody tones of vanilla give this blend an earthy punch.",
+      packing: "175g Loose Tea x 30 Canisters",
+      netWeight: "175g",
+      productCode: "KDUEX0008",
+      linkUrl: "/products/rose-with-vanilla-175g-loose-tea",
+      buttonText: "Shop Now",
+      bgColor: "#cc5678",
+      reverse: true,
+    },
+    {
+      title: "Berry Delight",
+      imageSrc: "/assets/our-teas/exceptional/loose/44.jpg",
+      description:
+        "Berry Delight tea is a flavourful blend combining Ceylon black tea with a medley of berries, creating a vibrant and aromatic infusion. The robust black tea base is complemented by the sweet and tangy notes of strawberries, blueberries, and raspberries. A delightful tea experience that balances richness with fruity freshness.",
+      packing: "175g Loose Tea x 30 Canisters",
+      netWeight: "175g",
+      productCode: "KDUEX0009",
+      linkUrl: "/products/bery-delight-loose-tea-175g",
+      buttonText: "Shop Now",
+      bgColor: "#944e66",
+      reverse: false,
     },
   ];
 
@@ -412,6 +534,31 @@ const page = async () => {
               </Link>
             </div>
           </div>
+        </div>
+      </div>
+      {/*Exceptional Loose Tea  */}
+
+      {/* Main Section */}
+      <Exceptionalmain />
+
+      {/* Cards Section */}
+      <div className="mt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {teaData.map((tea, index) => (
+            <ExceptionalCard
+              key={index}
+              title={tea.title}
+              description={tea.description}
+              imageSrc={tea.imageSrc}
+              packing={tea.packing}
+              netWeight={tea.netWeight}
+              productCode={tea.productCode}
+              linkUrl={tea.linkUrl}
+              buttonText={tea.buttonText}
+              reverse={tea.reverse}
+              bgColor={tea.bgColor}
+            />
+          ))}
         </div>
       </div>
     </div>
