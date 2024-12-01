@@ -5,17 +5,11 @@ import FactoryTeaCard from "@/components/Factory/FactoryTeaCard";
 import MainTeaCard from "@/components/Factory/MainTeaCard";
 import TallTeaCard from "@/components/Factory/TallTeaCard";
 
-
 const Josefin_Sans_font = Sulphur_Point({
   weight: "300",
   subsets: ["latin"],
 });
 
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 const productData = [
   {
     title: "CEYLON ORGANIC GREEN TEA",
@@ -49,10 +43,6 @@ const productData = [
 function page() {
   return (
     <div className="md:mt-16 mt-20">
-<<<<<<< Updated upstream
-=======
-   
->>>>>>> Stashed changes
       {/* <div className="relative w-full h-[90vh] md:h-screen p-1">
         <Image
           src="/assets/our-teas/factory/48.jpg"
@@ -87,11 +77,6 @@ function page() {
         </div>
       </div> */}
 
-<<<<<<< Updated upstream
-=======
-      
-
->>>>>>> Stashed changes
       <div className="mt-16 px-1 pt-1">
         {" "}
         <MainTeaCard />
