@@ -1,72 +1,64 @@
-"use client"; // This makes sure the component runs as a client component
+"use client";
 
-import React from "react";
-import ItemCard from "@/components/Shop/ItemCard";
+import React, { useEffect, useState } from "react";
 import SideBar from "@/components/Shop/SideBar";
+import config from "@/config";
 
-//font import
+// Components
+import ProductSectionHeader from "./Layouts/ProductSectionHeader";
+import ProductsByRange from "./Layouts/ProductsByRange";
+
+// Font imports
 import { Italiana, Julius_Sans_One } from "next/font/google";
 
 const italiana = Italiana({
-  weight: "400", // Italiana only comes with regular weight (400)
+  weight: "400",
   subsets: ["latin"],
 });
 
 const juliusSansOne = Julius_Sans_One({
-  weight: "400", // Julius Sans One only has a regular weight
+  weight: "400",
   subsets: ["latin"],
 });
 
-function shop() {
+// Backend connection
+function Shop() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
-    <section className="bg-white">
-      {/* Main container */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
-        {/* Sidebar */}
-        <div className="md:col-span-3">
-          <SideBar />
-        </div>
-
-        {/* Items section */}
-        <div className="md:col-span-9">
-          <div className="text-black text-center p-3 bg-gray-200 mb-3">
-            <div className={italiana.className}>
-              <h2 className="text-3xl md:text-5xl">Tea by Type</h2>
-            </div>
-            <div className={juliusSansOne.className}>
-              <p className="m-3 text-sm md:text-base">
-                Your virtual guide to tea! Discover all types of tea, from
-                herbal infusions to black teas and matcha.
-              </p>
+    <section className="h-full">
+      <div className="">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div className="md:col-span-3">
+            <div className="sticky top-10">
+              <SideBar />
             </div>
           </div>
 
-          {/* Grid of items */}
-          <div>
-            <div className={italiana.className}>
-              <h2 className="text-3xl  m-3 font-bold  ">Herbel</h2>
-            </div>
-            <hr className="border-black border-t-2 mx-auto  mb-6" />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
-            </div>
-          </div>
+          <div className="md:col-span-9">
+            {/* Search Box */}
+            {/* <div className="mb-6">
+              <input
+                type="text"
+                placeholder="Search for products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
+              />
+            </div> */}
+            <ProductSectionHeader
+              title="Tea by Collection"
+              description="Your virtual guide to tea! Discover all types of tea, from herbal infusions to black teas and matcha."
+            />
 
-          {/*another item section  */}
-          <div className="p-1 my-3">
-            <div className={italiana.className}>
-              <h2 className="text-3xl  m-3 font-bold  ">Green</h2>
-            </div>
-            <hr className="border-black border-t-2 mx-auto  mb-6" />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-6">
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
-            </div>
+            <ProductsByRange range_id={7} searchQuery={searchQuery} />
+            <ProductsByRange range_id={2} searchQuery={searchQuery} />
+            <ProductsByRange range_id={1} searchQuery={searchQuery} />
+            <ProductsByRange range_id={3} searchQuery={searchQuery} />
+            <ProductsByRange range_id={5} searchQuery={searchQuery} />
+            <ProductsByRange range_id={9} searchQuery={searchQuery} />
+            <ProductsByRange range_id={8} searchQuery={searchQuery} />
+            <ProductsByRange range_id={10} searchQuery={searchQuery} />
           </div>
         </div>
       </div>
@@ -74,4 +66,4 @@ function shop() {
   );
 }
 
-export default shop;
+export default Shop;

@@ -19,7 +19,7 @@ function SectionHeader({
     <header>
       <div className={italiana.className}>
         <h2
-          className={`  text-[64px] mb-6  text-white text-${textColor} text-center`}
+          className={`text-[28px] md:text-[44px] mb-6 text-white text-center`}
         >
           {sectionTitle}
         </h2>

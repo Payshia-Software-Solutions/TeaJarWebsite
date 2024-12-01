@@ -3,7 +3,19 @@ import React, { useState, useEffect } from "react";
 
 function Hero() {
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isFading, setIsFading] = useState(false);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsFading(true); // Start fade-out animation
+      setTimeout(() => {
+        setIsVisible(false); // Remove the logo after the animation
+      }, 1500); // Match this to the animation duration (1 second)
+    }, 3000); // Show logo for 2 seconds
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -22,14 +34,14 @@ function Hero() {
   return (
     <section
       className={`relative my-0 h-screen text-white transition-all duration-500 ease-in-out ${
-        scrolled ? "m-5 lg:m-12" : ""
+        scrolled ? "m-0 lg:m-12" : ""
       }`}
     >
       <video
         className={`absolute inset-0 w-full h-screen lg:h-full object-cover transition-all duration-500 ease-in-out ${
-          scrolled ? "rounded-3xl" : ""
+          scrolled ? "rounded-none md:rounded-3xl" : ""
         }`}
-        src="/assets/videos/hero-video.mp4" // Replace with the path to your video file
+        src="/assets/videos/TeaJar_HERO_V1-2.mp4" // Replace with the path to your video file
         autoPlay
         loop
         muted
@@ -37,27 +49,23 @@ function Hero() {
 
       <div className="relative mx-auto max-w-screen-xl px-4 flex h-screen items-center">
         <div className="mx-auto max-w-3xl text-center">
-          <div
-            className="hidden "
-            style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
-          >
-            <h1 className="bg-white bg-clip-text lg:text-7xl font-extrabold text-transparent text-5xl">
-              Tea Jar
-            </h1>
-            <p className="mx-auto max-w-xl sm:text-xl/relaxed uppercase">
-              The Heart of our Family since 1978
-            </p>
-          </div>
-          <img src="/assets/white-logo.png" alt="" className="w-1/2 mx-auto" />
+          {isVisible && (
+            <img
+              src="/assets/white-logo.png"
+              alt="Logo"
+              className={`w-1/2 mx-auto transition-opacity duration-1000 ${
+                isFading ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          )}
         </div>
       </div>
 
       <div className="flex items-center justify-center">
         <img
-          src="./assets/images/tea-cup.png"
+          src="./assets/images/tea-cup-w.png"
           alt="Tea Cup Image"
-          srcset=""
-          className="absolute mx-auto"
+          className="absolute mx-auto w-56 md:w-[350px]"
         />
       </div>
     </section>

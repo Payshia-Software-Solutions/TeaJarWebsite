@@ -2,7 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import TopSellerProduct from "@/components/Product/TopSellerProduct";
+import ProductCard from "@/components/Product/ProductCard";
 import SectionHeader from "@/components/Common/SectionHeader";
+import Link from "next/link";
+import config from "@/config";
 
 // Import Swiper core and required modules
 import { Pagination, A11y } from "swiper/modules";
@@ -41,6 +44,39 @@ function TopSellers() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const productIds = [55, 56, 5, 11, 34, 15, 4, 9, 39, 43];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`${config.API_BASE_URL}/products`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        // Filter and sort products by productIds order
+        const filteredProducts = data
+          .filter((product) => productIds.includes(product.product_id))
+          .sort(
+            (a, b) =>
+              productIds.indexOf(a.product_id) -
+              productIds.indexOf(b.product_id)
+          );
+
+        setProducts(filteredProducts);
+      } catch (error) {
+        setError("Failed to fetch products");
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
   // Handlers to navigate Swiper slides
   const handlePrev = () => {
     if (swiperRef.current) {
@@ -54,108 +90,142 @@ function TopSellers() {
     }
   };
 
+  const [fallbackImages, setFallbackImages] = useState({});
+  const defaultFrontImage = "/assets/loadings.gif";
+  const defaultOtherImage = "/assets/loadings.gif";
+
+  useEffect(() => {
+    const fetchFallbackImages = async () => {
+      const images = { ...fallbackImages }; // Preserve existing images to avoid redundant fetching
+      const fetchRequests = products.map(async (product) => {
+        if (!images[product.product_id]) {
+          try {
+            const response = await fetch(
+              `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+
+              const otherImage = data.find(
+                (img) => img.image_prefix === "Other"
+              );
+
+              images[product.product_id] = [
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                otherImage
+                  ? `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${otherImage.image_path}`
+                  : `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            } else {
+              images[product.product_id] = [
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+                `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+              ];
+            }
+          } catch (error) {
+            console.error(
+              `Error fetching fallback images for product ${product.product_id}:`,
+              error
+            );
+            images[product.product_id] = [defaultFrontImage, defaultOtherImage];
+          }
+        }
+      });
+
+      await Promise.all(fetchRequests); // Wait for all fetches to complete
+      setFallbackImages(images);
+    };
+
+    fetchFallbackImages();
+  }, [products]);
+
   return (
     <section className="bg-babout text-white">
       <LazyLoadSection>
         <section
           ref={sectionRef}
           style={{ backgroundColor: bgColor }}
-          className="transition-all duration-500 lg:min-h-screen lg:flex lg:items-center overflow-hidden"
+          className="transition-all duration-500 py-9 lg:flex lg:items-center overflow-hidden"
         >
-          <div className="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="max-w-full pl-4 sm:pl-6 mx-auto">
             {/*Navigation buttons */}
             <div className="text-center items-center">
-              <SectionHeader 
-               sectionTitle="Top Sellers" />
-              <div className="flex gap-4 justify-center p-1 my-3">
+              <SectionHeader sectionTitle="Shop Our Best Selling Products" />
+              {/* <div className="flex gap-4 justify-center p-1 my-3">
                 <button onClick={handlePrev}>
                   <FaArrowLeft className="w-14 h-14 border-4 p-2 rounded-full text-white " />
                 </button>
                 <button onClick={handleNext}>
                   <FaArrowRight className="w-14 h-14 border-4 p-2 rounded-full text-white " />
                 </button>
-              </div>
+              </div> */}
             </div>
-
             {/* Swiper setup */}
-            <div className="swiper-wrapper-center">
+            <div className="swiper-wrapper-center-home">
               <Swiper
                 ref={swiperRef} // Reference to Swiper instance
-                slidesPerView={1} // Default view for very small screens
-                spaceBetween={30} // Adjust the space between the slides
-                pagination={{
-                  clickable: true,
-                }}
+                slidesPerView={1.5} // Show 1 full slide and half of the next slide
+                spaceBetween={0} // Adjust spacing between slides as needed
+                // pagination={{
+                //   clickable: true,
+                // }}
+
+                pagination={false}
                 grabCursor={true} // Enable grab cursor functionality
                 breakpoints={{
                   576: {
-                    slidesPerView: 2, // Show 2 slides on small screens
-                    spaceBetween: 20,
+                    slidesPerView: 2.5, // Maintain same behavior on small screens
+                    spaceBetween: 4,
                   },
                   768: {
-                    slidesPerView: 3, // Show 3 slides on tablets
-                    spaceBetween: 30,
+                    slidesPerView: 3.5, // Show 2 full slides and half of the next on tablets
+                    spaceBetween: 4,
                   },
                   1024: {
-                    slidesPerView: 4, // Show 4 slides on larger screens
-                    spaceBetween: 40,
+                    slidesPerView: 4.5, // Show 3 full slides and half of the next on larger screens
+                    spaceBetween: 4,
                   },
                 }}
                 modules={[Pagination, A11y]} // Include necessary Swiper modules
                 className="mySwiper"
               >
-                <SwiperSlide  className="p-2 mb-6">
-                  <TopSellerProduct
-                    className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/apple.jpg"
-                    productName="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price="USD 0.3$"
-                  />
-                </SwiperSlide >
-                <SwiperSlide className="p-2 mb-6">
-                  <TopSellerProduct
-                    className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/cardamom.jpg"
-                    productName="Cardamom Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="Aromatic cardamom spices up this black tea."
-                    price="USD 0.3$"
-                  />
-                </SwiperSlide>
-                <SwiperSlide className="p-2 mb-6">
-                  <TopSellerProduct
-                    className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/cinnamon.jpg"
-                    productName="Cinnamon Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="Sweet and spicy cinnamon flavors blend perfectly with tea."
-                    price="USD 0.3$"
-                  />
-                </SwiperSlide >
-                <SwiperSlide className="p-2 mb-6">
-                  <TopSellerProduct
-                    className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/apple.jpg"
-                    productName="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price="USD 0.3$"
-                  />
-                </SwiperSlide>
-
-                <SwiperSlide  className="p-2 mb-6">
-                  <TopSellerProduct
-                    className="top-seller-product w-64 h-64 "
-                    imgUrl="/assets/products/1/apple.jpg"
-                    productName="Apple Flavored Tea Bags"
-                    range="Flavoured"
-                    miniDescription="A delightful blend of apple and fine Ceylon tea."
-                    price="USD 0.3$"
-                  />
-                </SwiperSlide>
+                {products.map((singleitem, index) => {
+                  const images = fallbackImages[singleitem.product_id] || [
+                    defaultFrontImage,
+                    defaultOtherImage,
+                  ];
+                  return (
+                    <SwiperSlide
+                      key={singleitem.product_id}
+                      className="p-2 mb-6"
+                    >
+                      <ProductCard
+                        key={singleitem.product_code}
+                        title={singleitem.product_name}
+                        slug={singleitem.slug}
+                        id={singleitem.product_id}
+                        price={+singleitem.selling_price}
+                        images={images}
+                        Rate={"(5.6)"}
+                        category={singleitem.category_id}
+                      />
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
+            </div>
+
+            <div className="max-w-full flex justify-center px-4 sm:px-6 mx-auto">
+              <Link href="shop" className="">
+                <button
+                  className="w-full md:w-auto px-6 py-2 text-sm font-medium text-white-700 transition-all duration-200 
+                     border border-gray-200 rounded-md hover:bg-gray-50 hover:text-gray-900 
+                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200"
+                >
+                  Shop More
+                </button>
+              </Link>
             </div>
           </div>
         </section>

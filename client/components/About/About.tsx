@@ -1,16 +1,16 @@
-"use client"
+"use client";
 import React, { useRef } from "react";
 import { Italiana, Julius_Sans_One } from "next/font/google";
 import { faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const italiana = Italiana({
-  weight: "400", 
+  weight: "400",
   subsets: ["latin"],
 });
 
 const juliusSansOne = Julius_Sans_One({
-  weight: "400", 
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -25,24 +25,20 @@ function About() {
 
   return (
     <section className="bg-babout text-white">
-      <div className="mx-auto max-w-screen-2xl px-8 py-16 sm:px-6 lg:px-96">
+      <div className="mx-auto max-w-screen-2xl px-8 py-4 sm:px-6 lg:px-96">
         <div className="text-center">
           <div className={italiana.className}>
-            <h1 className="text-[64px] -font-bold text-white mt-24">
-              About Us
+            <h1 className="text-[40px] md:text-[40px] -font-bold text-white mt-24">
+              Our Journey
             </h1>
           </div>
           <div className={juliusSansOne.className}>
-          <div className="text-white leading-8 mt-8 ">
-              The Green Leaf Cafe was established three years ago in the heart
-              of Portland, Oregon, as a place dedicated to sustainability and
-              respect for nature. Committed to reducing plastic use and
-              pollution, we offer organic and locally sourced, seasonal food.
-              Our café is not just a spot to enjoy delicious and healthy meals;
-              it's also a hub for those who wish to make conscious choices and
-              adopt a sustainable lifestyle. Every meal and beverage served is a
-              testament to our deep respect for nature, providing a culinary
-              experience that combines taste with environmental awareness
+            <div className="text-white leading-6 md:leading-8 mt-2 text-[12px] md:text-[15px]">
+              Since 1978, Tea Jar has been dedicated to crafting the finest
+              Ceylon teas, from classic black to exquisite flavors. Backed by
+              the K.D.U. Group, we combine over 30 years of expertise with
+              traditional craftsmanship and modern innovation, delivering
+              exceptional quality that delights tea lovers around the world.
             </div>
           </div>
           <div className={italiana.className}>

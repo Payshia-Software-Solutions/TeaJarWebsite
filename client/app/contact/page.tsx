@@ -1,7 +1,45 @@
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import ContactUS from "@/components/Contact Us/ContactUs";
+import ContactForm from "@/components/Contact Us/ContactForm";
+import Image from "next/image";
+import type { Metadata } from "next";
 
-function page() {
+export const metadata: Metadata = {
+  title: "Contact Us | Tea Jar - Finest Ceylon Tea in Sri Lanka",
+  description:
+    "Get in touch with Tea Jar for the finest Ceylon Tea. Reach out to us for inquiries, support, or wholesale opportunities.",
+  keywords: [
+    "contact",
+    "tea jar",
+    "Ceylon tea",
+    "support",
+    "wholesale",
+    "inquiries",
+  ],
+  openGraph: {
+    title: "Contact Us - Tea Jar",
+    description:
+      "Contact Tea Jar for inquiries and information about our finest Ceylon Tea.",
+    url: "https://https://teajarceylon.com/contact",
+    images: [
+      {
+        url: "/assets/our-teas/flavoured/main-cover-v1.jpg", // Replace with your image path
+        width: 800,
+        height: 600,
+        alt: "Contact Us Image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | Tea Jar",
+    description:
+      "Get in touch with Tea Jar for inquiries, support, and wholesale opportunities.",
+  },
+};
+
+function Page() {
   const crumbs = [
     {
       label: "Home",
@@ -10,11 +48,41 @@ function page() {
     },
     { label: "Contact Us", href: "/contact" },
   ];
+
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8  mt-[60px]">
-      <Breadcrumb crumbs={crumbs} />
+    <div>
+      <div className="flex flex-col items-center justify-center">
+        <div className="relative w-full h-[80vh]">
+          {/* Adjust height to 50% of the viewport */}
+          <Image
+            src="/assets/our-teas/Classic/61.jpg" // Replace with your image path
+            alt="Exceptional"
+            layout="fill" // Ensures the image fills the container
+            objectFit="cover" // Makes the image behave like background-size: cover
+            className="shadow-lg"
+          />
+
+          {/* Black overlay */}
+          <div className="absolute inset-0 bg-black opacity-50 "></div>
+          {/* Text */}
+
+          <div
+            className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-8xl font-bold`}
+          >
+            <div
+              className={`flex justify-center text-center  text-[45px] md:text-[65px]`}
+            >
+              Contact Us
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto py-8">
+        <ContactForm />
+      </div>
     </div>
   );
 }
 
-export default page;
+export default Page;

@@ -1,6 +1,25 @@
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 
+export const metadata = {
+  title: "Contact - Finest Ceylon Tea in Sri Lanka",
+  description: "Welcome to My Website! Discover amazing content here.",
+  keywords: ["home", "my website", "amazing content"],
+  openGraph: {
+    title: "Home Page - My Website",
+    description: "Explore amazing content on My Website.",
+    url: "https://mywebsite.com",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 800,
+        height: 600,
+        alt: "My Website Home Image",
+      },
+    ],
+  },
+};
+
 function page() {
   const crumbs = [
     {

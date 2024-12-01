@@ -21,6 +21,8 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ClientPreloader.jsx" ,
+    "app/our-teas/classic-teas/page.jsx"],
+
   "exclude": ["node_modules"]
 }

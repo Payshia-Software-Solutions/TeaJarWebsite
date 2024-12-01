@@ -19,9 +19,83 @@ ini_set('display_errors', 1);
 
 // Include route files
 $ProductMasterRoutes = require './routes/ProductRoutes/ProductMasterRoutes.php';
+$CompanyRoutes = require './routes/CompanyRoutes/CompanyRoutes.php';
+$CitiesRoutes = require './routes/Citiesroutes.php';
+$Categories = require './routes/CategoriesRoutes.php';
+$MasterCustomer = require './routes/MasterCustomerRoutes.php';
+
+// Transactions Route files 
+$TransactionCancellation = require './routes/Transaction/TransactionCancellationRoutes.php';
+$TransactionExpenses = require './routes/Transaction/TransactionExpensesRoutes.php';
+$TransactionExpensesTypes = require './routes/Transaction/TransactionExpensesTypesRoutes.php'; // TransactionRefund
+$TransactionGoodReceiveNote = require './routes/Transaction/TransactionGoodReceiveNoteRoutes.php';
+$TransactionGoodReceiveNoteItems = require './routes/Transaction/TransactionGoodReceiveNoteItemsRoutes.php';
+$TransactionInvoice = require './routes/Transaction/TransactionInvoiceRoutes.php';
+$TransactionInvoiceItem = require './routes/Transaction/TransactionInvoiceItemRoutes.php';
+$TransactionProduction = require './routes/Transaction/TransactionProductionRoutes.php';
+$TransactionProductionItems = require './routes/Transaction/TransactionProductionItemRoutes.php';
+$TransactionPurchaseOrder = require './routes/Transaction/TransactionPurchaseOrderRoutes.php';
+$TransactionPurchaseOrderItem = require './routes/Transaction/TransactionPurchaseOrderItemRoutes.php';
+$TransactionQuotation = require './routes/Transaction/TransactionQuotationRoutes.php';
+$TransactionQuotationItem = require './routes/Transaction/TransactionQuotationItemRoutes.php';
+$TransactionReceipt = require './routes/Transaction/TransactionReceiptRoutes.php';
+$TransactionRecipe = require './routes/Transaction/TransactionRecipeRoutes.php';
+$TransactionRefund = require './routes/Transaction/TransactionRefundRoutes.php';
+$TransactionRemovalRemark = require './routes/Transaction/TransactionRemovalRemarkRoutes.php';
+$TransactionReturn = require './routes/Transaction/TransactionReturnRoutes.php';
+$TransactionReturnItems = require './routes/Transaction/TransactionReturnItemsRoutes.php';
+$TransactionStockEntry = require './routes/Transaction/TransactionStockEntryRoutes.php';
+$UserAccount = require './routes/User/UserAccountRoutes.php';
+$SectionRoutes = require './routes/MasterSectionRoutes.php';
+$DepartmentRoutes = require './routes/DepartmentRoutes.php';
+$PaymentRoutes = require './routes/PaymentRoutes.php';
+$ProductImageRoutes = require './routes/ProductImageRoutes.php';
+$ProductEcomRoutes = require './routes/ProductEcomRoutes.php';
+$TransactionInvoiceAddressRoutes = require './routes/TransactionInvoiceAddressRoutes.php';
+$PromoCodeRoutes = require './routes/PromoCodeRoutes.php';
+$SubscriptionRoutes = require './routes/SubscriptionRoutes.php';
+$ContactRoutes = require './routes/ContactRoutes.php';
+$ModeRoutes = require './routes/ModeRoutes.php';
 
 // Combine all routes
-$routes = array_merge($ProductMasterRoutes);
+$routes = array_merge(
+    $ProductMasterRoutes,
+    $CompanyRoutes,
+    $CitiesRoutes,
+    $Categories,
+    $MasterCustomer,
+    $TransactionCancellation,
+    $TransactionExpenses,
+    $TransactionExpensesTypes,
+    $TransactionGoodReceiveNote,
+    $TransactionGoodReceiveNoteItems,
+    $TransactionInvoice,
+    $TransactionInvoiceItem,
+    $TransactionProduction,
+    $TransactionProductionItems,
+    $TransactionPurchaseOrder,
+    $TransactionPurchaseOrderItem,
+    $TransactionQuotation,
+    $TransactionQuotationItem,
+    $TransactionReceipt,
+    $TransactionRecipe,
+    $TransactionRefund,
+    $TransactionRemovalRemark,
+    $TransactionReturn,
+    $TransactionReturnItems,
+    $TransactionStockEntry,
+    $UserAccount,
+    $SectionRoutes,
+    $DepartmentRoutes,
+    $PaymentRoutes,
+    $ProductImageRoutes,
+    $ProductEcomRoutes,
+    $TransactionInvoiceAddressRoutes,
+    $PromoCodeRoutes,
+    $SubscriptionRoutes,
+    $ContactRoutes,
+    $ModeRoutes
+);
 
 // Define the home route with trailing slash
 $routes['GET /'] = function () {
@@ -31,20 +105,20 @@ $routes['GET /'] = function () {
 
 // Get request method and URI
 $method = $_SERVER['REQUEST_METHOD'];
-$uri = trim($_SERVER['REQUEST_URI'], '/');
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);  // Get only the path, not query parameters
 
 // Ensure URI always has a trailing slash
 if (substr($uri, -1) !== '/') {
-    $uri .= '/';
+    // $uri .= '/';
 }
 
 // Determine if the application is running on localhost
 if ($_SERVER['HTTP_HOST'] === 'localhost') {
     // Adjust URI if needed (only on localhost)
-    $uri = str_replace('TeaJarWebsite/server', '', $uri);
+    $uri = str_replace('TeaJarWebsite/server/', '', $uri);
 } else {
     // Adjust URI if needed (if using a subdirectory)
-    $uri = '/' . $uri;
+    $uri = $uri;
 }
 
 // Set the header for JSON responses, except for HTML pages
