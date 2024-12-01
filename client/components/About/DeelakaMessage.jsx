@@ -5,7 +5,7 @@ import Image from "next/image";
 
 function DeelakaMessage() {
   return (
-    <div className="bg-green-50 min-h-screen md:h-screen flex items-center ">
+    <div className="bg-green-50 min-h-screen flex items-center ">
       <section className="flex flex-col-reverse md:flex-row items-center mx-auto w-full  h-full overflow-hidden">
         {/* Left Content */}
         <motion.div
@@ -23,7 +23,7 @@ function DeelakaMessage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <h1 className="text-[25px] md:text-[40px] mb-4">
+            <h1 className="text-[25px] md:text-[40px] mt-10 mb-4">
               Managing Director's Message
             </h1>
             <p className="text-sm md:text-lg mb-4 leading-relaxed">
@@ -84,7 +84,7 @@ function DeelakaMessage() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <div className="w-full h-[full] relative">
+          <div className="w-full h-screen relative">
             <Image
               src="/assets/about/deelaka_nbg.png"
               alt="Photo of Deelaka Upasena"
