@@ -116,8 +116,12 @@ class Product
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($product) {
-            // Remove HTML tags from product_description
+            // Remove HTML tags
             $product['product_description'] = strip_tags($product['product_description']);
+            // Remove \r, \n, and other unnecessary whitespace characters
+            $product['product_description'] = preg_replace("/\r|\n/", '', $product['product_description']);
+            // Trim extra spaces
+            $product['product_description'] = trim($product['product_description']);
         }
 
         return $product;
