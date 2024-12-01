@@ -21,16 +21,8 @@
       "@/*": ["./*"]
     }
   },
-<<<<<<< Updated upstream
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ClientPreloader.jsx"],
-=======
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "app/our-teas/classic-teas/page.jsx"
-  ],
->>>>>>> Stashed changes
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ClientPreloader.jsx" ,
+    "app/our-teas/classic-teas/page.jsx"],
+
   "exclude": ["node_modules"]
 }
