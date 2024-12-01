@@ -52,11 +52,9 @@ const Josefin_Sans_font = Sulphur_Point({
 const teaData = [
   {
     title: "Cinnamon",
-<<<<<<< Updated upstream
-    imageSrc: "/assets/our-teas/flavoured/teas/cinnamon.jpg",
-=======
+
     imageSrc: "/assets/our-teas/flavoured/teas/cardamom.webp",
->>>>>>> Stashed changes
+
     description:
       "A sweet and savoury brew infused with pieces of Sri Lanka's home grown, export quality cinnamon that is bound to lighten your day with its soothing tones and warm, heady aroma. Start your day with this robust blend of factory fresh Ceylon Black Tea and woody spice, as you inhale the distinctive aroma of this intoxicating herbal tea.",
     packing: "2g x 25 Enveloped Tea Bags x 56",
@@ -222,7 +220,7 @@ const page = async () => {
   ];
 
   return (
-    <div>
+    <div className="mt-10">
       <div className="max-w-7xl mx-auto px-4 pt-8 pb-4"></div>
       <div className="flex flex-col items-center justify-center">
         <div className="relative w-full h-[80vh]">

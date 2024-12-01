@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 import React from "react";
 import ExclusiveTeaCard from "@/components/Exclusive/ExclusiveTeaCard";
 import Image from "next/image";
