@@ -13,6 +13,11 @@ return [
         $paymentController->initiatePayment();
     },
 
+    // Route to initiate payment and redirect to PayHere checkout
+    'POST /payment/initiate-cod-invoice' => function () use ($paymentController) {
+        $paymentController->initiateCodInvoice();
+    },
+
     // Route to handle payment notification callback from PayHere
     'GET /payment/success' => function () use ($paymentController) {
         $paymentController->paymentReturn();

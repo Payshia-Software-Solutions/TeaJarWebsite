@@ -185,3 +185,17 @@
 .white-image {
   filter: invert(100%) brightness(100%);
 }
+/* globals.css or a separate CSS file */
+.preloader-fade {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.preloader-fade-out {
+  opacity: 0;
+  pointer-events: none; /* Disable interaction when faded out */
+}
+
+.hidden {
+  display: none;
+}
