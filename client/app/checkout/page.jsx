@@ -114,34 +114,63 @@ const MainPage = () => {
     // console.log(orderData);
 
     try {
-      const response = await fetch(
-        `${config.API_BASE_URL}/payment/initiate-payment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(orderData),
+      if (selectedPaymentMethod === "cod") {
+        // COD order logic
+        const response = await fetch(
+          `${config.API_BASE_URL}/initiate-cod-invoice`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderData),
+          }
+        );
+
+        if (response.status === 201) {
+          const data = await response.json();
+          const invoiceNumber = data.invoice_id || data.order_id;
+
+          toast.success("Order placed successfully!", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+
+          // Redirect to order confirmation page
+          window.location.href = `/order-confirmation?order_id=${invoiceNumber}`;
+        } else {
+          throw new Error("Failed to create COD invoice.");
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Order creation failed");
-      }
-
-      const html = await response.text(); // Read the response as HTML text
-
-      // Create a new div element to inject the HTML into the page
-      const iframeContainer = document.createElement("div");
-      iframeContainer.innerHTML = html;
-
-      // Check if the response contains the form and submit it
-      const form = iframeContainer.querySelector("form");
-      if (form) {
-        document.body.appendChild(form); // Append the form to the document body
-        form.submit(); // Submit the form to initiate the payment
       } else {
-        alert("Failed to initiate payment.");
+        const response = await fetch(
+          `${config.API_BASE_URL}/payment/initiate-payment`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderData),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Order creation failed");
+        }
+
+        const html = await response.text(); // Read the response as HTML text
+
+        // Create a new div element to inject the HTML into the page
+        const iframeContainer = document.createElement("div");
+        iframeContainer.innerHTML = html;
+
+        // Check if the response contains the form and submit it
+        const form = iframeContainer.querySelector("form");
+        if (form) {
+          document.body.appendChild(form); // Append the form to the document body
+          form.submit(); // Submit the form to initiate the payment
+        } else {
+          alert("Failed to initiate payment.");
+        }
       }
     } catch (error) {
       console.error("Error:", error);

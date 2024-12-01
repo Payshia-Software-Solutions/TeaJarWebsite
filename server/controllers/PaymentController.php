@@ -359,6 +359,203 @@ class PaymentController
         }
     }
 
+    public function initiateCodInvoice()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        // Check if all necessary POST parameters are set
+        if (!isset(
+            $data['totalAmount'],
+            $data['paymentMethod'],
+            $data['contactDetails'],
+            $data['shippingAddress'],
+            $data['sameAddressStatus'],
+            $data['items'],
+        )) {
+            // If any required field is missing, return an error
+            echo json_encode(['error' => 'Missing required parameters']);
+            exit;
+        }
+
+        // Get the payment details from the POST request
+        $totalAmount = number_format($data['totalAmount'], 2, '.', ''); // Ensure amount is formatted
+        $promoCode = $data['promoCode'];  // The promo code applied to the order
+        $paymentMethod = $data['paymentMethod']; // Payment method (e.g., "card")
+
+        // Get the contact details
+        $contactDetails = $data['contactDetails'];
+        $email = $contactDetails['email'];
+        $subscribe = $contactDetails['subscribe'];
+
+        // Get shipping address
+        $shippingAddress = $data['shippingAddress'];
+
+        // Get billing address (will be used only if sameAddressStatus is 0)
+        $billingAddress = $data['billingAddress'];
+
+        // Check if the shipping address and billing address are the same
+        $sameAddressStatus = $data['sameAddressStatus'];
+
+        if ($sameAddressStatus == 1) {
+            // If the addresses are the same, use the shipping address as the billing address
+            $billingAddress = $shippingAddress;
+        }
+
+        // Customer details (shipping details)
+        $customer_details = [
+            'first_name' => $shippingAddress['firstName'],
+            'last_name' => $shippingAddress['lastName'],
+            'email' => $email,
+            'phone' => $shippingAddress['phone'],
+            'address' => $shippingAddress['address'],
+            'city' => $shippingAddress['city'],
+            'country' => $shippingAddress['country'],
+            'postal_code' => $shippingAddress['postalCode']
+        ];
+        // var_dump($totalAmount);
+
+        // Validate totalAmount
+        if (!is_numeric($totalAmount) || $totalAmount <= 0) {
+            echo json_encode(['error' => 'Invalid amount']);
+            exit;
+        }
+
+        // Prepare the order items as a string
+        $items = "";
+        foreach ($data['items'] as $item) {
+            $items .= $item['productName'] . " (ID: " . $item['id'] . ") x " . $item['quantity'] . ", ";
+        }
+        $items = rtrim($items, ", "); // Remove trailing comma
+
+        // Extract order items and calculate total
+        $itemsList = isset($data['items']) ? $data['items'] : [];
+        $total_amount = 0;
+        foreach ($itemsList as $item) {
+            $total_amount += $item['price'] * $item['quantity'];  // Calculate total based on price and quantity
+        }
+
+        $invoiceNumber = uniqid();
+        // Prepare the invoice data
+        $invoice_data = [
+            'invoice_number' => $invoiceNumber,
+            'invoice_date' => date('Y-m-d'), // Current date
+            'inv_amount' => $total_amount, // Total amount before discount
+            'grand_total' => $data['totalAmount'], // Final amount after discount, shipping, etc.
+            'discount_amount' => isset($data['discountAmount']) ? $data['discountAmount'] : 0,
+            'discount_percentage' => isset($data['discountPercentage']) ? $data['discountPercentage'] : 0,
+            'customer_code' => $customer_details['email'], // Assuming customer_code can be the email
+            'service_charge' => 0, // If applicable
+            'tendered_amount' => $data['totalAmount'], // Amount paid
+            'close_type' => 'Pending', // Assuming paid status
+            'invoice_status' => 'pending', // Initial status
+            'current_time' => date('Y-m-d H:i:s'),
+            'location_id' => 1, // Adjust as needed
+            'table_id' => 1, // Adjust as needed
+            'order_ready_status' => 0, // Order is not ready initially
+            'created_by' => 'Online', // Change to the actual user or system responsible
+            'is_active' => 1,
+            'steward_id' => 1, // Adjust as needed
+            'cost_value' => $total_amount, // Assuming cost value is the same as inv_amount
+            'remark' => 'Payment initiated', // Optional remark
+            'ref_hold' => null, // Optional reference hold, if needed
+            'promo_code_id' => $promoCode, // Optional reference hold, if needed
+        ];
+
+        $AddressData = [
+            'shipping' => [
+                'user_id' => $customer_details['email'] ?? null,
+                'order_id' => $invoiceNumber ?? null,
+                'address_type' => 'shipping',
+                'first_name' => $shippingAddress['firstName'],
+                'last_name' => $shippingAddress['lastName'],
+                'phone' => $shippingAddress['phone'],
+                'address_line1' => $shippingAddress['address'],
+                'address_line2' => $shippingAddress['address_line2'] ?? null,
+                'city' => $shippingAddress['city'],
+                'state' => $shippingAddress['state'] ?? null,
+                'postal_code' => $shippingAddress['postalCode'],
+                'country' => $shippingAddress['country'],
+                'is_default' => $shippingAddress['is_default'] ?? 0,
+                'save_info' => $shippingAddress['save_info'] ?? 0,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            'billing' => [
+                'user_id' => $customer_details['email'] ?? null,
+                'order_id' => $invoiceNumber ?? null,
+                'address_type' => 'billing',
+                'first_name' => $billingAddress['firstName'],
+                'last_name' => $billingAddress['lastName'],
+                'phone' => $billingAddress['phone'],
+                'address_line1' => $billingAddress['address'],
+                'address_line2' => $billingAddress['address_line2'] ?? null,
+                'city' => $billingAddress['city'],
+                'state' => $billingAddress['state'] ?? null,
+                'postal_code' => $billingAddress['postalCode'],
+                'country' => $billingAddress['country'],
+                'is_default' => $billingAddress['is_default'] ?? 0,
+                'save_info' => $billingAddress['save_info'] ?? 0,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]
+        ];
+
+        $emailItems = [];
+        foreach ($itemsList as $item) {
+            $emailItems[] = [
+                "image_url" => "https://kdu-admin.payshia.com/pos-system/assets/images/products/" . $item['id'] . "/" . $item['imgUrl'],
+                "name" => $item['productName'],
+                "quantity" => $item['quantity'],
+                "price" => $item['price']
+            ];
+        }
+
+        // Call the createInvoice method to insert the data
+        $invoiceId = $this->model->createInvoice($invoice_data);
+        foreach ($AddressData as $address) {
+            $addressSaveStatus = $this->AddressModel->createAddress($address);
+        }
+
+        // If invoice was created successfully, proceed with payment gateway
+        if ($invoiceId && $paymentMethod == 'cod') {
+            // Prepare items for saving
+            $invoiceItems = [];
+            foreach ($itemsList as $item) {
+                $invoiceItems[] = [
+                    'user_id' => $customer_details['email'] ?? 1, // Replace with actual user logic
+                    'product_id' => $item['id'],
+                    'item_price' => $item['price'],
+                    'item_discount' => $item['discount'] ?? 0,
+                    'quantity' => $item['quantity'],
+                    'added_date' => date('Y-m-d H:i:s'),
+                    'is_active' => 1,
+                    'customer_id' => $customer_details['email'] ?? null,
+                    'hold_status' => $data['hold_status'] ?? 0,
+                    'table_id' => 0,
+                    'invoice_number' => $invoiceNumber,
+                    'cost_price' => $item['cost_price'] ?? $item['price'], // Adjust if cost differs
+                    'printed_status' =>  0,
+                    'item_remark' => $item['remark'] ?? null,
+                ];
+            }
+
+            // Save items using batch insert
+            $this->model2->createItems($invoiceItems);
+
+            // Respond with success
+            http_response_code(201);
+            // Send Invoice
+            $invoiceSendMailStatus = $this->SendInvoiceEmail($invoiceId);
+            echo json_encode([
+                'message' => 'Invoice and items created successfully',
+                'invoice_id' => $invoiceId,
+                'total_amount' => $total_amount,
+            ]);
+        } else {
+            echo json_encode(['error' => 'Failed to create invoice']);
+        }
+    }
+
 
 
     // Create a new transaction invoice
