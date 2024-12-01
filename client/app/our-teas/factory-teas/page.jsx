@@ -5,7 +5,6 @@ import FactoryTeaCard from "@/components/Factory/FactoryTeaCard";
 import MainTeaCard from "@/components/Factory/MainTeaCard";
 import TallTeaCard from "@/components/Factory/TallTeaCard";
 
-
 const Josefin_Sans_font = Sulphur_Point({
   weight: "300",
   subsets: ["latin"],
@@ -40,11 +39,7 @@ const teaData = [
   },
   {
     title: "PEAK VIEW PEKOE 1",
-<<<<<<< Updated upstream
     imageSrc: "/assets/our-teas/factory/52.jpg",
-=======
-    imageSrc: "/assets/our-teas/factory/51.jpg",
->>>>>>> Stashed changes
     description:
       "Manufactured maintaining the highest standards, the tea produced at Peak View Tea Factory is compliant with HACCP and ISO 22000 food standards, producing over 150,000 kilograms of low-grown tea leaves per month. When brewed, this tea carries a distinctive flavour and has a brighter and bolder colour.",
     packing: " 175g Loose Tea x 30 Canisters",
@@ -70,39 +65,6 @@ const teaData = [
   },
 ];
 
-<<<<<<< Updated upstream
-=======
-const productData = [
-  {
-    title: "CEYLON ORGANIC GREEN TEA",
-    imageSrc: "/assets/our-teas/factory/54.jpg",
-    description:
-      "Renowned for its unique taste and purity, the Ceylon Green Tea Pekoe has an acquired taste with a slight hint of bitterness that ends in sweetness. This high-grown tea is rich in colour and is a great addition to maintaining a healthy diet due to its antioxidant properties.",
-    linkUrl: "#",
-    packing: " 175g Loose Tea x 30 Canisters",
-    netWeight: "175g",
-    productCode: "KDUEXOT0001",
-    buttonText: "Shop Now",
-    bgColor: "#8d957d",
-    titleColor: "#5d6452",
-
-    reverse: false, // Default false for image above content
-  },
-  {
-    title: "CEYLON ORGANIC BLACK TEA",
-    imageSrc: "/assets/our-teas/factory/55.jpg",
-    description:
-      "Although this Orange Pekoe one (OP 1) black tea can be found in many parts of the country, the low-grown high-quality blend that is made with long wiry leaves is a common favourite in Asia. This tea is fragrant and subtle with a smooth malty taste and deep amber colour.",
-    packing: "125g Loose Tea x 30 Canisters",
-    netWeight: "125g",
-    productCode: "KDUEXOT0002",
-    linkUrl: "/products/ruby-soursop-flavour-100g-loose-tea",
-    buttonText: "Shop Now",
-    bgColor: "#cc8b50",
-    reverse: false,
-  },
-];
->>>>>>> Stashed changes
 function page() {
   return (
     <div className="mt-10">
@@ -160,33 +122,6 @@ function page() {
           ))}
         </div>
       </div>
-<<<<<<< Updated upstream
-=======
-
-      <div className="">
-        {" "}
-        <MainTeaCard />
-      </div>
-      <div>
-        <div className="grid  gap-1 grid-cols-1   md:grid-cols-2">
-          {productData.map((tea, index) => (
-            <TallTeaCard
-              key={index}
-              title={tea.title}
-              description={tea.description}
-              imageSrc={tea.imageSrc}
-              packing={tea.packing}
-              netWeight={tea.netWeight}
-              productCode={tea.productCode}
-              linkUrl={tea.linkUrl}
-              buttonText={tea.buttonText}
-              reverse={tea.reverse}
-              bgColor={tea.bgColor}
-            />
-          ))}
-        </div>
-      </div>
->>>>>>> Stashed changes
     </div>
   );
 }
