@@ -3,6 +3,7 @@ const { parse } = require("url");
 const next = require("next");
 const fs = require("fs");
 const path = require("path");
+const cookie = require("cookie"); // Use cookie parser for handling cookies
 const https = require("https"); // Use 'https' or 'http' depending on your endpoint
 
 // Default mode, will be updated from the remote API
@@ -82,14 +83,44 @@ getModeFromApi()
         const parsedUrl = parse(req.url, true);
         const { pathname, query } = parsedUrl;
 
-        // Serve Maintenance or Coming Soon Mode pages if applicable
-        if (mode === "maintenance") {
-          serveStaticHtml(res, "maintenance.html", 503);
+        // Parse cookies
+        const cookies = cookie.parse(req.headers.cookie || "");
+
+        // Set a cookie if developer access is requested via query parameter
+        if (query.developer === "true") {
+          res.setHeader(
+            "Set-Cookie",
+            cookie.serialize("developer-access", "true", {
+              httpOnly: true,
+              path: "/",
+              maxAge: 3600 * 24, // 1 day
+            })
+          );
+          console.log("Developer access granted via query.");
+        } else if (query.developer === "false") {
+          res.setHeader(
+            "Set-Cookie",
+            cookie.serialize("developer-access", "", {
+              httpOnly: true,
+              path: "/",
+              expires: new Date(0), // Set cookie to expire
+            })
+          );
+          console.log("Developer access removed.");
+        }
+
+        // Check if developer access
+        const isDeveloper =
+          query.developer === "true" || cookies["developer-access"] === "true";
+
+        // Handle based on mode
+        if (mode === "coming-soon" && !isDeveloper) {
+          serveStaticHtml(res, "coming-soon.html", 200);
           return;
         }
 
-        if (mode === "coming-soon") {
-          serveStaticHtml(res, "coming-soon.html", 200);
+        if (mode === "maintenance" && !isDeveloper) {
+          serveStaticHtml(res, "maintenance.html", 503);
           return;
         }
 
@@ -118,6 +149,37 @@ getModeFromApi()
         const parsedUrl = parse(req.url, true);
         const { pathname, query } = parsedUrl;
 
+        console.log(query.developer);
+        // Parse cookies
+        const cookies = cookie.parse(req.headers.cookie || "");
+
+        // Set a cookie if developer access is requested via query parameter
+        if (query.developer === "true") {
+          res.setHeader(
+            "Set-Cookie",
+            cookie.serialize("developer-access", "true", {
+              httpOnly: true,
+              path: "/",
+              maxAge: 3600 * 24, // 1 day
+            })
+          );
+          console.log("Developer access granted via query.");
+        } else if (query.developer === "false") {
+          res.setHeader(
+            "Set-Cookie",
+            cookie.serialize("developer-access", "", {
+              httpOnly: true,
+              path: "/",
+              expires: new Date(0), // Set cookie to expire
+            })
+          );
+          console.log("Developer access removed.");
+        }
+
+        // Check if developer access
+        const isDeveloper =
+          query.developer === "true" || cookies["developer-access"] === "true";
+
         // API endpoint to get the current mode
         if (pathname === "/api/get-mode") {
           res.writeHead(200, { "Content-Type": "application/json" });
@@ -126,16 +188,16 @@ getModeFromApi()
         }
 
         // Serve Maintenance or Coming Soon Mode pages if applicable
-        if (mode === "maintenance") {
-          serveStaticHtml(res, "maintenance.html", 503);
-          return;
-        }
-
-        if (mode === "coming-soon") {
+        // Handle based on mode
+        if (mode === "coming-soon" && !isDeveloper) {
           serveStaticHtml(res, "coming-soon.html", 200);
           return;
         }
 
+        if (mode === "maintenance" && !isDeveloper) {
+          serveStaticHtml(res, "maintenance.html", 503);
+          return;
+        }
         // Normal handling for Next.js pages
         await handle(req, res, parsedUrl);
       }).listen(port, (err) => {
