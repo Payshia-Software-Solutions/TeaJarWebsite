@@ -858,7 +858,7 @@ class PaymentController
 
             $emailStatus = $this->sendOrderConfirmationEmail($orderData, $InvoiceInfo['customer_code']);
             // return json_encode($emailStatus);
-            echo json_encode($emailStatus);
+            // echo json_encode($emailStatus);
         } catch (Exception $e) {
             echo "Exception: " . $e->getMessage();
         }
