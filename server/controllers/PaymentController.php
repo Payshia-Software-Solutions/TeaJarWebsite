@@ -545,10 +545,10 @@ class PaymentController
             // Respond with success
             http_response_code(201);
             // Send Invoice
-            $invoiceSendMailStatus = $this->SendInvoiceEmail($invoiceId);
+            $invoiceSendMailStatus = $this->SendInvoiceEmail($invoiceNumber);
             echo json_encode([
                 'message' => 'Invoice and items created successfully',
-                'invoice_id' => $invoiceId,
+                'invoice_id' => $invoiceNumber,
                 'total_amount' => $total_amount,
             ]);
         } else {
@@ -905,9 +905,9 @@ class PaymentController
             $mail->setFrom('no-reply@teajarceylon.com', 'Tea Jar | Finest Ceylon Tea');
             $mail->addAddress($customerEmail); // Add the customer's email
 
-            $mail->addCC('dupasena@kdugroup.com');
-            $mail->addCC('marketing@teajarceylon.com');
-            $mail->addCC('international@teajarceylon.com');
+            // $mail->addCC('dupasena@kdugroup.com');
+            // $mail->addCC('marketing@teajarceylon.com');
+            // $mail->addCC('international@teajarceylon.com');
 
             // Generate email content
             $emailContent = $this->generateEmailHTML($orderData);

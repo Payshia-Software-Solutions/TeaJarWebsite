@@ -117,7 +117,7 @@ const MainPage = () => {
       if (selectedPaymentMethod === "cod") {
         // COD order logic
         const response = await fetch(
-          `${config.API_BASE_URL}/initiate-cod-invoice`,
+          `${config.API_BASE_URL}/payment/initiate-cod-invoice`,
           {
             method: "POST",
             headers: {
