@@ -1,15 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { Josefin_Sans, Sulphur_Point } from "next/font/google";
-<<<<<<< Updated upstream
 import FactoryTeaCard from "@/components/Factory/FactoryTeaCard";
 import MainTeaCard from "@/components/Factory/MainTeaCard";
 import TallTeaCard from "@/components/Factory/TallTeaCard";
-=======
-import FactoryTeaCard from "../../../components/Factory/FactoryTeaCard";
-import MainTeaCard from "../../../components/Factory/MainTeaCard";
-import TallTeaCard from "../../../components/Factory/TallTeaCard";
->>>>>>> Stashed changes
+
 
 const Josefin_Sans_font = Sulphur_Point({
   weight: "300",
