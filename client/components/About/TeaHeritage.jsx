@@ -4,11 +4,11 @@ import Image from "next/image";
 
 const TeaHeritage = () => {
   return (
-    <div className="bg-yellow-50 min-h-screen md:h-screen flex items-center">
+    <div className="bg-yellow-50 min-h-screen  flex items-center">
       <section className="flex flex-col-reverse md:flex-row items-center mx-auto w-full h-full overflow-hidden">
         {/* Left Content */}
         <motion.div
-          className="md:w-1/2 w-full px-4 py-8 md:px-12 flex flex-col items-center md:items-start text-center md:text-left"
+          className="md:w-1/2 w-full px-4 py-8 md:px-12 flex flex-col items-center md:items-start text-center md:mt-24 md:text-left"
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -90,7 +90,7 @@ const TeaHeritage = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <div className="w-full h-[full] relative">
+          <div className="w-full  md:h-screen relative">
             <Image
               src="/assets/heritage-image.jpg"
               alt="Tea bag over a cup of tea"
