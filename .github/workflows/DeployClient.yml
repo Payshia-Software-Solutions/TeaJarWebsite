@@ -1,47 +1,42 @@
-name: Build and Deploy Next.js to FTP
+name: Build and Deploy Client
 
 on:
   push:
     branches:
-      - main  # Trigger this action on push to the main branch
+      - main  # Trigger only on the main branch
 
 jobs:
-  build_and_deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'  # Specify the Node.js version you're using
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18  # Ensure this matches your project requirements
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./client  # Navigate to client folder for npm install
 
-      # Step 4: Build Next.js
-      - name: Build Next.js
-        run: npm run build
+    - name: Build the Next.js project
+      run: npm run build
+      working-directory: ./client  # Run build in client folder
 
-      # Step 5: Copy .next folder excluding cache and standalone
-      - name: Prepare .next folder
-        run: |
-          mkdir -p dist/.next
-          cp -r .next/* dist/.next/
-          rm -rf dist/.next/cache
-          rm -rf dist/.next/standalone
+    - name: Remove cache and standalone folders
+      run: |
+        rm -rf ./client/.next/cache
+        rm -rf ./client/.next/standalone
+      working-directory: ./client  # Ensure we're working in the correct directory
 
-      # Step 6: Upload to FTP server
-      - name: Upload to FTP server
-        uses: SamKirkland/FTP-Deploy-Action@v5
-        with:
-          server: ${{ secrets.FTP_SERVER }}  # FTP server address
-          username: ${{ secrets.FTP_USERNAME }}  # FTP username
-          password: ${{ secrets.FTP_PASSWORD }}  # FTP password
-          local-dir: dist/.next  # Local directory to deploy
-          remote-dir: /path/to/ftpfolder  # Remote FTP folder path
+    - name: Upload to cPanel via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.TEAJAR_USERNAME }}
+        password: ${{ secrets.TEAJAR_PASSWORD }}
+        local-dir: ./client/.next  # Specify the .next folder to upload
+        server-dir: ./  # Adjust to your server's web directory
