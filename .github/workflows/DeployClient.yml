@@ -41,7 +41,7 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
-        local-dir: ./client/.next.zip  # Upload the zip file
+        local-dir: ./client/.next.zip  # Upload the zip file (no trailing slash for a file)
         server-dir: ./  # Adjust to your server's web directory
 
     - name: Unzip on server (using SSH)
