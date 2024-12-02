@@ -29,15 +29,15 @@ jobs:
     - name: List files before removing cache and standalone
       run: |
         echo "Listing .next folder contents before removal:"
-        ls -R ./client/.next/  # List the contents of the .next folder
+        ls -R .next/  # List the contents of the .next folder
       working-directory: ./client
 
     - name: Remove cache and standalone folders
       run: |
-        rm -rf ./client/.next/cache
-        rm -rf ./client/.next/standalone
+        rm -rf .next/cache
+        rm -rf .next/standalone
         echo "Listing .next folder contents after removal:"
-        ls -R ./client/.next/  # List again after removal
+        ls -R .next/  # List again after removal
       working-directory: ./client  # Ensure we're working in the correct directory
 
     - name: Upload to cPanel via FTP
