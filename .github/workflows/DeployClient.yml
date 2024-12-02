@@ -38,5 +38,5 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
-        local-dir: ./client/.next  # Specify the .next folder to upload
+        local-dir: ./client/.next/  # Specify the .next folder to upload
         server-dir: ./  # Adjust to your server's web directory
