@@ -26,29 +26,25 @@ jobs:
       run: npm run build
       working-directory: ./client  # Run build in client folder
 
+    - name: List files before removing cache and standalone
+      run: |
+        echo "Listing .next folder contents before removal:"
+        ls -R ./client/.next/  # List the contents of the .next folder
+      working-directory: ./client
+
     - name: Remove cache and standalone folders
       run: |
         rm -rf ./client/.next/cache
         rm -rf ./client/.next/standalone
+        echo "Listing .next folder contents after removal:"
+        ls -R ./client/.next/  # List again after removal
       working-directory: ./client  # Ensure we're working in the correct directory
 
-    - name: Zip the .next folder
-      run: zip -r ./client/.next.zip ./client/.next/  # Zip the .next directory into a .zip file
-
-    - name: Upload the zip file to FTP
+    - name: Upload to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
-        local-dir: ./client/.next.zip  # Upload the zip file (no trailing slash for a file)
+        local-dir: ./client/.next/  # Add trailing slash
         server-dir: ./  # Adjust to your server's web directory
-
-    - name: Unzip on server (using SSH)
-      if: success()  # Only run this if previous steps succeed
-      run: |
-        sshpass -p ${{ secrets.FTP_PASSWORD }} ssh ${{ secrets.FTP_USERNAME }}@${{ secrets.FTP_SERVER }} 'unzip ./next.zip -d ./ && rm ./next.zip'  # SSH command to unzip the file
-      env:
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-        FTP_SERVER: ${{ secrets.FTP_SERVER }}
