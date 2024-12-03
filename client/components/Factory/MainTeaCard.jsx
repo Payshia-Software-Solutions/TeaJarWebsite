@@ -9,7 +9,7 @@ const Josefin_Sans_font = Sulphur_Point({
 
 const MainTeaCard = ({
   title = "CEYLON ORGANIC TEA",
-  imageSrc = "/assets/our-teas/factory/58.jpg",
+  imageSrc = "/assets/our-teas/factory/58-optimized.webp",
   description = "Our selection of organic tea features the finest Organic Ceylon Black and Green Tea, sourced from Sri Lanka's best tea estates. Produced using only sustainable agricultural methods and without the use of synthetic chemicals or pesticides. It's no surprise that these teas are an absolute treat for your body. We have introduced our range of organic teas as part of our commitment to healthy living.",
   linkUrl = "#",
   buttonText = "Shop Now",

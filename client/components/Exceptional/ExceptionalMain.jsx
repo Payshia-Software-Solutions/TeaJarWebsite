@@ -9,7 +9,7 @@ const Josefin_Sans_font = Sulphur_Point({
 
 const ExceptionalMain = ({
   title = "Exclusive Collection",
-  imageSrc = "/assets/our-teas/exceptional/loose/56.jpg", // Replace with actual image path
+  imageSrc = "/assets/our-teas/exceptional/loose/56-optimized.webp", // Replace with actual image path
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full">

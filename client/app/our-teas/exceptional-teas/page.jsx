@@ -32,7 +32,7 @@ export const metadata = {
     url: "https://www.teajarceylon.com/exceptional-teas", // Replace with your actual URL
     images: [
       {
-        url: "https://www.teajarceylon.com/assets/our-teas/exceptional/main-cover-new.jpg", // Replace with your image URL
+        url: "https://www.teajarceylon.com/assets/our-teas/exceptional/main-cover-new.webp", // Replace with your image URL
         width: 1200,
         height: 630,
         alt: "Exceptional Teas from Tea Jar",
@@ -45,7 +45,7 @@ export const metadata = {
     description:
       "Taste the finest exceptional teas from Tea Jar. Sourced from the best tea estates in Sri Lanka for a premium tea experience.",
     image:
-      "https://www.teajarceylon.com/assets/our-teas/exceptional/main-cover-new.jpg", // Replace with your image URL
+      "https://www.teajarceylon.com/assets/our-teas/exceptional/main-cover-new.webp", // Replace with your image URL
   },
 };
 
@@ -66,7 +66,7 @@ const page = async () => {
   const teaData = [
     {
       title: "Single Origin Ceylon Black Tea",
-      imageSrc: "/assets/our-teas/exceptional/loose/37.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/37.webp",
       description:
         "Award-winning, world-renowned Ceylon Orange Pekoe 1 tea manufactured in the region of Ratnapura, home to the world's largest orthodox black tea production factory, our very own state-of-the-art Galpadithanne Tea Factory. This single-origin tea is light in color with a delicate aroma and wonderful flavor.",
       packing: "125g Loose Tea x 30 Canisters",
@@ -79,7 +79,7 @@ const page = async () => {
     },
     {
       title: "Pure Ceylon Green Tea",
-      imageSrc: "/assets/our-teas/exceptional/loose/43.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/43.webp",
       description:
         "This delightful Ceylon Tea is a perfect balance of a subtle fragrant green tea brew, complemented by gentle fresh herb notes.",
       packing: "175g Loose Tea x 30 Canisters",
@@ -92,7 +92,7 @@ const page = async () => {
     },
     {
       title: "Moroccan Mint Green Tea",
-      imageSrc: "/assets/our-teas/exceptional/loose/45.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/45.webp",
       description:
         "An aromatic twist on the classic Ceylon green tea, incorporating the essence of crisp mint and spearmint leaves. Refreshing way to cool off after a hard day's haggling.",
       packing: "125g Loose Tea x 30 Canisters",
@@ -105,7 +105,7 @@ const page = async () => {
     },
     {
       title: "Pure Chamomile Flowers",
-      imageSrc: "/assets/our-teas/exceptional/loose/46.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/46.webp",
       description:
         "A fragrant infusion of golden chamomile flowers, enriches this herbal tea of sun-drenched warmth. A gentle and uplifting aroma giving you the perfect way to relax at the end of the day.",
       packing: "175g Loose Tea x 30 Canisters",
@@ -118,7 +118,7 @@ const page = async () => {
     },
     {
       title: "Earl Grey",
-      imageSrc: "/assets/our-teas/exceptional/loose/41.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/41.webp",
       description:
         "Our take on the typical British blend of fine Nuwara Eliya Ceylon Black tea is perfectly balanced with flavours of citrusy bergamot. We've even added a scattering of blue cornflower petals for an elegant final flourish. Renowned for its unique bergamot aroma.",
       packing: "100g Loose Tea x 30 Canisters",
@@ -131,7 +131,7 @@ const page = async () => {
     },
     {
       title: "Jasmine Green Tea",
-      imageSrc: "/assets/our-teas/exceptional/loose/47.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/47.webp",
       description:
         "Replenish your senses with a delightful floral infusion of factory fresh pure Ceylon Green Tea, brewed with natural jasmine petals. Carefully selected from the best tea gardens in Sri Lanka, tea green, grassy tones and invigorating aroma of this brew is mildly sweet, giving it a delicately floral flavor that is completely exhilarating.",
       packing: "175g Loose Tea x 30 Canisters",
@@ -144,7 +144,7 @@ const page = async () => {
     },
     {
       title: "Spice Chai Masala",
-      imageSrc: "/assets/our-teas/exceptional/loose/40.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/40.webp",
       description:
         "A vibrant coloured tea infused with different spices, this blend takes you to another level. Designed to tantalize every taste bud in your mouth, we have combined the spicy flavors of cardamom, ginger, clove, black pepper, and cinnamon to create the perfect balance of rich sweetness and delicate spice.",
       packing: "175g Loose Tea x 30 Canisters",
@@ -157,7 +157,7 @@ const page = async () => {
     },
     {
       title: "Rose with Vanilla",
-      imageSrc: "/assets/our-teas/exceptional/loose/42.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/42.webp",
       description:
         "A balance of fragrances come together to compose this smooth, refreshing blend. Delicate red rose petals infused with sweet vanilla extract and our factory-fresh Ceylon Black Tea create this most harmonious bouquet of flavor and aromas that will invigorate the senses. The smoky, woody tones of vanilla give this blend an earthy punch.",
       packing: "175g Loose Tea x 30 Canisters",
@@ -170,7 +170,7 @@ const page = async () => {
     },
     {
       title: "Berry Delight",
-      imageSrc: "/assets/our-teas/exceptional/loose/44.jpg",
+      imageSrc: "/assets/our-teas/exceptional/loose/44.webp",
       description:
         "Berry Delight tea is a flavourful blend combining Ceylon black tea with a medley of berries, creating a vibrant and aromatic infusion. The robust black tea base is complemented by the sweet and tangy notes of strawberries, blueberries, and raspberries. A delightful tea experience that balances richness with fruity freshness.",
       packing: "175g Loose Tea x 30 Canisters",
@@ -190,7 +190,7 @@ const page = async () => {
         <div className="relative w-full h-[60vh]">
           {/* Adjust height to 50% of the viewport */}
           <Image
-            src="/assets/our-teas/exceptional/main-cover-new.jpg" // Replace with your image path
+            src="/assets/our-teas/exceptional/main-cover-new-optimized.webp" // Replace with your image path
             alt="Exceptional"
             layout="fill" // Ensures the image fills the container
             objectFit="cover" // Makes the image behave like background-size: cover
@@ -215,7 +215,7 @@ const page = async () => {
           <div className="flex flex-col-reverse md:flex-col">
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/black-tea.jpg"
+                src="/assets/our-teas/exceptional/teas/black-tea.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -275,7 +275,7 @@ const page = async () => {
             </div>
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/pure-ceylon-green-tea.jpg"
+                src="/assets/our-teas/exceptional/teas/pure-ceylon-green-tea.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -288,7 +288,7 @@ const page = async () => {
           <div className="flex flex-col-reverse md:flex-col">
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/moroccan-mint.jpg"
+                src="/assets/our-teas/exceptional/teas/moroccan-mint.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -343,7 +343,7 @@ const page = async () => {
             </div>
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/chamomile-flowers.jpg"
+                src="/assets/our-teas/exceptional/teas/chamomile-flowers.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -356,7 +356,7 @@ const page = async () => {
           <div className="flex flex-col">
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/earl-gray.jpg"
+                src="/assets/our-teas/exceptional/teas/earl-gray.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -416,7 +416,7 @@ const page = async () => {
             </div>
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/jasmine-green-tea.jpg"
+                src="/assets/our-teas/exceptional/teas/jasmine-green-tea.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -429,7 +429,7 @@ const page = async () => {
           <div className="flex flex-col">
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/spice-chai-masala.jpg"
+                src="/assets/our-teas/exceptional/teas/spice-chai-masala.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -489,7 +489,7 @@ const page = async () => {
             </div>
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/rose-with-vanilla.jpg"
+                src="/assets/our-teas/exceptional/teas/rose-with-vanilla.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"
@@ -502,7 +502,7 @@ const page = async () => {
           <div className="flex flex-col">
             <div className="h-[70vh] relative">
               <Image
-                src="/assets/our-teas/exceptional/teas/berry-delight.jpg"
+                src="/assets/our-teas/exceptional/teas/berry-delight.webp"
                 alt="Single Origin Ceylon Black Tea"
                 layout="fill"
                 objectFit="cover"

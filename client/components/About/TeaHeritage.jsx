@@ -92,7 +92,7 @@ const TeaHeritage = () => {
         >
           <div className="w-full  md:h-screen relative">
             <Image
-              src="/assets/heritage-image.jpg"
+              src="/assets/heritage-image-optimized.webp"
               alt="Tea bag over a cup of tea"
               layout="fill"
               objectFit="cover"

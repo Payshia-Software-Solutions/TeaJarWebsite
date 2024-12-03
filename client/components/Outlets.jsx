@@ -69,28 +69,28 @@ function Outlets() {
     features: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   });
 
-  const [mainImage, setMainImage] = useState("/assets/outlets/tjl.jpg");
+  const [mainImage, setMainImage] = useState("/assets/outlets/tjl.webp");
 
   const descriptions = [
     {
       title: "Tea Jar Lounge Rathnapura",
       description:
         "Welcome to our flagship Tea Jar Lounge in Ratnapura, the perfect place to experience authentic Ceylon tea. Here, you can purchase our exclusive tea collections, explore a curated selection of gems and jewelry, and gather with loved ones to celebrate your special moments. Alongside our premium teas, enjoy an extensive food and beverage menu and take a journey through our mini museum, which showcases the rich heritage of Ceylon tea. Tea Jar Lounge offers more than just tea—it’s a destination to connect, celebrate, and discover the true essence of Ceylon tea culture.",
-      image: "/assets/outlets/tjl.jpg",
+      image: "/assets/outlets/tjl.webp",
       features: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     },
     {
       title: "Tea Jar Lounge Colombo",
       description:
         "Tea Jar Lounge Colombo is the ideal place for those seeking a personalized tea experience where you can create your own tea, selecting from a variety of flavors and ingredients with the help of our experts. Our dedicated private tea rooms provide the perfect setting to make your visit feel like home, offering a space for you to relax and enjoy your tea in a way that’s tailored to your preferences. You can also purchase our teas and have them wrapped as personalized gifts for your loved ones. At Tea Jar Lounge Colombo, every sip is more than just tea—it’s an experience made just for you.",
-      image: "/assets/outlets/colombo.jpg",
+      image: "/assets/outlets/colombo.webp",
       features: [1, 4, 6, 7, 8, 9],
     },
     {
       title: "Tea Jar by the Lake Weerawila",
       description:
         "Tea Jar by the Lake, centered at Doubletree by Hilton Weerawila, offers the perfect setting for a personalized tea experience with breathtaking views of the lake. During your stay, you can purchase our exclusive tea products, enjoy a tailored tea tasting session, and discover the ideal tea pairings curated just for you. Relax by the lake with a warm cup of tea, and let this unforgettable experience become a cherished memory.",
-      image: "/assets/outlets/tjbl.jpg",
+      image: "/assets/outlets/tjbl.webp",
       features: [1, 4, 7, 8],
     },
     ,
@@ -98,7 +98,7 @@ function Outlets() {
       title: "Tea Jar Boutique Ella",
       description:
         "Nestled in the charming town of Ella, Tea Jar Boutique is the perfect destination for tea enthusiasts from all over the world. Discover our carefully curated selection of Tea Jar products, thoughtfully handpicked for you. Before making your purchase, enjoy the chance to sample our teas and savor their authentic flavors, ensuring you choose the perfect blend to take home.",
-      image: "/assets/outlets/ella-outlet.jpg",
+      image: "/assets/outlets/ella-outlet.webp",
       features: [1, 4],
     },
   ];

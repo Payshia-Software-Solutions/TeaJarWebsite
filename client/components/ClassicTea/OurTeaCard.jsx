@@ -8,7 +8,7 @@ Its rich, malty notes and subtle sweetness create a perfect morning indulgence. 
   packing = "2g x 25 Enveloped Tea Bags x 56",
   netWeight = "50g",
   productCode = "KDUEXEB0001",
-  imageSrc = "/assets/our-teas/Classic/4.jpg", // Replace with actual image path
+  imageSrc = "/assets/our-teas/Classic/4.webp", // Replace with actual image path
   productlink = "/products/english-breakfast-tea-25-enveloped-tea-bags",
 }) => {
   return (
