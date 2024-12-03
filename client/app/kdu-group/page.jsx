@@ -21,7 +21,7 @@ export const metadata = {
     url: "https://www.teajarceylon.com/kdu-group", // Replace with your actual URL
     images: [
       {
-        url: "https://www.teajarceylon.com/assets/about/kdu.jpeg", // Replace with your image URL
+        url: "https://www.teajarceylon.com/assets/about/kdu.webp", // Replace with your image URL
         width: 1200,
         height: 630,
         alt: "KDU Group",

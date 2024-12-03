@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://https://teajarceylon.com/contact",
     images: [
       {
-        url: "/assets/our-teas/flavoured/main-cover-v1.jpg", // Replace with your image path
+        url: "/assets/our-teas/flavoured/main-cover-v1.webp", // Replace with your image path
         width: 800,
         height: 600,
         alt: "Contact Us Image",
@@ -55,7 +55,7 @@ function Page() {
         <div className="relative w-full h-[80vh]">
           {/* Adjust height to 50% of the viewport */}
           <Image
-            src="/assets/our-teas/Classic/61.jpg" // Replace with your image path
+            src="/assets/our-teas/Classic/61.webp" // Replace with your image path
             alt="Exceptional"
             layout="fill" // Ensures the image fills the container
             objectFit="cover" // Makes the image behave like background-size: cover
