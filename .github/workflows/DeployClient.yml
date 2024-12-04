@@ -16,35 +16,30 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18  # Ensure this matches your project requirements
+        node-version: 20
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./client  # Navigate to client folder for npm install
+      working-directory: ./client
 
     - name: Build the Next.js project
       run: npm run build
-      working-directory: ./client  # Run build in client folder
-
-    - name: List files before removing cache and standalone
-      run: |
-        echo "Listing .next folder contents before removal:"
-        ls -R .next/  # List the contents of the .next folder
       working-directory: ./client
 
-    - name: Remove cache and standalone folders
+    - name: Delete `.next` folder on FTP server
       run: |
-        rm -rf .next/cache
-        rm -rf .next/standalone
-        echo "Listing .next folder contents after removal:"
-        ls -R .next/  # List again after removal
-      working-directory: ./client  # Ensure we're working in the correct directory
+        echo "open ${{ secrets.FTP_SERVER }}
+        user ${{ secrets.TEAJAR_USERNAME }} ${{ secrets.TEAJAR_PASSWORD }}
+        cd ./  # Adjust this path to where your .next folder is located
+        rmdir .next -rf
+        bye" > ftp_commands.txt
+        ftp -n < ftp_commands.txt
 
-    - name: Upload to cPanel via FTP
+    - name: Upload new build to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
-        local-dir: ./client/  # Add trailing slash
-        server-dir: ./  # Adjust to your server's web directory
+        local-dir: ./client/  # Path of the built Next.js project
+        server-dir: ./  # Path to your server's web directory
