@@ -62,7 +62,7 @@ function DeelakaMessage() {
             <p className="text-sm md:text-lg leading-relaxed mt-8">
               <div className="flex justify-center md:justify-start">
                 <Image
-                  src={`/assets/about/deelaka-sign.png`}
+                  src={`/assets/about/deelaka-sign.webp`}
                   width={100}
                   height={100}
                   alt="Chairman Signature"
@@ -86,7 +86,7 @@ function DeelakaMessage() {
         >
           <div className="w-full h-screen relative">
             <Image
-              src="/assets/about/deelaka_nbg.png"
+              src="/assets/about/deelaka_nbg.webp"
               alt="Photo of Deelaka Upasena"
               layout="fill"
               objectFit="cover"
