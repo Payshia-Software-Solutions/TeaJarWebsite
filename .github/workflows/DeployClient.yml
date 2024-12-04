@@ -13,6 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Remove .next folder via SSH
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.TEAJAR_USERNAME }}@${{ secrets.FTP_SERVER }} "rm -rf .next/"
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
@@ -39,12 +45,7 @@ jobs:
         echo "Listing .next folder contents after removal:"
         ls -R .next/  # List again after removal
       working-directory: ./client  # Ensure we're working in the correct directory
-
-    - name: Remove .next folder on the server via FTP
-      run: |
-        curl -u ${{ secrets.TEAJAR_USERNAME }}:${{ secrets.TEAJAR_PASSWORD }} ftp://${{ secrets.FTP_SERVER }} --quote "RMD .next" --quote "MKD .next"
-        continue-on-error: true  # Continue even if the folder doesn't exist
-
+    
 
     - name: Upload to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
