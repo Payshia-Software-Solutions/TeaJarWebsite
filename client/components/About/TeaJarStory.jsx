@@ -17,7 +17,7 @@ const TeaJarSection = () => {
         >
           <div className="w-full h-full relative">
             <Image
-              src="/assets/about/tea-jar-story-side.jpg"
+              src="/assets/about/tea-jar-story-side.webp"
               alt="Woman holding a cup of tea"
               layout="fill"
               objectFit="cover"

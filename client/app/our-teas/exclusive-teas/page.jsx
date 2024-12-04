@@ -12,8 +12,8 @@ const Josefin_Sans_font = Sulphur_Point({
 
 const teaData = [
   {
-    title: "RASPBERRY FLAVOURED CEYLON BLACK TEA",
-    imageSrc: "/assets/our-teas/exclusive/21.jpg",
+    title: 'Raspberry Flavoured Ceylon Black Tea',
+    imageSrc: '/assets/our-teas/exclusive/21.webp',
     description:
       "Delight in a harmonious fusion of flavors with our Raspberry Flavored Ceylon Black Tea. Infused with succulent raspberry notes, Lychee particles, fragrant rose petals, and natural hibiscus. This exquisite blend transforms your tea ritual into a symphony of sweet, floral, and tart undertones, creating a truly enchanting experience with every sip.",
     packing: "100g Loose Tea x 30 Canisters",
@@ -25,8 +25,8 @@ const teaData = [
     reverse: false,
   },
   {
-    title: "BLUEBERRY MINT FLAVOURED CEYLON BLACK TEA",
-    imageSrc: "/assets/our-teas/exclusive/22.jpg",
+    title: 'BLUEBERRY MINT FLAVOURED CEYLON BLACK TEA',
+    imageSrc: '/assets/our-teas/exclusive/22.webp',
     description:
       "Discover the perfect fusion of sophistication and freshness with our Blueberry Mint Ceylon Tea. Handpicked Ceylon leaves dance with plump blueberries and invigorating mint, creating a symphony of flavors. Antioxidant-rich and captivating, this blend elevates your tea experience, delivering a burst of fruity sweetness and minty delight in every revitalizing cup.",
     packing: "100g Loose Tea x 30 Canisters",
@@ -38,8 +38,8 @@ const teaData = [
     reverse: true,
   },
   {
-    title: "TROPICAL FLAVOURED CEYLON BLACK TEA",
-    imageSrc: "/assets/our-teas/exclusive/23.jpg",
+    title: 'TROPICAL FLAVOURED CEYLON BLACK TEA',
+    imageSrc: '/assets/our-teas/exclusive/23.webp',
     description:
       "Savor the essence of paradise with our Tropical Flavored Ceylon Black Tea. Infused with natural pineapple, mango, and passion fruit pieces, complemented by marigold and rose petals. This exquisite blend transports you to sun-drenched landscapes, offering a symphony of flavors that dance on your palate. Immerse yourself in tropical indulgence.",
     packing: "100g Loose Tea x 30 Canisters",
@@ -58,7 +58,7 @@ function Page() {
       {/* Hero Section */}
       <div className="relative w-full h-[80vh] md:h-screen">
         <Image
-          src="/assets/our-teas/exclusive/main-image.jpg"
+          src="/assets/our-teas/exclusive/main-image-optimized.webp"
           alt="Exceptional"
           layout="fill"
           objectFit="cover"

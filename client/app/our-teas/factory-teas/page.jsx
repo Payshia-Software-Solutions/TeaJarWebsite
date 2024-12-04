@@ -26,7 +26,7 @@ const teaData = [
   },
   {
     title: "NILVIN VIEW OP A",
-    imageSrc: "/assets/our-teas/factory/49.jpg",
+    imageSrc: "/assets/our-teas/factory/49.webp",
     description:
       "Located in the Wellandura region of Rathnapura, The Nilvin View Tea Factory was the last factory to be acquired by the Group’s late founder Mr. K.D. Upasena. Producing over 125,000 kilograms of tea leaves per month, this low-grown tea when brewed, is mild in flavour and higher in colour.",
     packing: "100g Loose Tea x 30 Canisters",
@@ -39,7 +39,7 @@ const teaData = [
   },
   {
     title: "PEAK VIEW PEKOE 1",
-    imageSrc: "/assets/our-teas/factory/52.jpg",
+    imageSrc: "/assets/our-teas/factory/52.webp",
     description:
       "Manufactured maintaining the highest standards, the tea produced at Peak View Tea Factory is compliant with HACCP and ISO 22000 food standards, producing over 150,000 kilograms of low-grown tea leaves per month. When brewed, this tea carries a distinctive flavour and has a brighter and bolder colour.",
     packing: " 175g Loose Tea x 30 Canisters",
@@ -52,7 +52,7 @@ const teaData = [
   },
   {
     title: "NEW KANDAGASTHANNE BOP",
-    imageSrc: "/assets/our-teas/factory/51.jpg",
+    imageSrc: "/assets/our-teas/factory/51.webp",
     description:
       "Using cutting-edge technology to ensure high quality, the New Kandagasthanne Tea Factory is one of the largest tea producers in the Sabaragamuwa Province, producing over 2.5 million kilograms of black tea each year. This BOP tea has a strong flavour that is malty, fresh and tart and is held in high esteem all around the world.",
     packing: " 200g Loose Tea x 30 Canisters",
@@ -71,7 +71,7 @@ function page() {
       {/* Hero Section */}
       <div className="relative w-full h-[90vh] md:h-screen p-1">
         <Image
-          src="/assets/our-teas/factory/48.jpg"
+          src="/assets/our-teas/factory/48.webp"
           alt="Exceptional"
           layout="fill"
           objectFit="cover"

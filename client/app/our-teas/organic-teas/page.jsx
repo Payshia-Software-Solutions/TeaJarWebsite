@@ -13,7 +13,7 @@ const Josefin_Sans_font = Sulphur_Point({
 const productData = [
   {
     title: "CEYLON ORGANIC GREEN TEA",
-    imageSrc: "/assets/our-teas/factory/54.jpg",
+    imageSrc: "/assets/our-teas/factory/54.webp",
     description:
       "Renowned for its unique taste and purity, the Ceylon Green Tea Pekoe has an acquired taste with a slight hint of bitterness that ends in sweetness. This high-grown tea is rich in colour and is a great addition to maintaining a healthy diet due to its antioxidant properties.",
     linkUrl: "/products/ceylon-organic-green-tea-loose-leaf-100g",
@@ -28,7 +28,7 @@ const productData = [
   },
   {
     title: "CEYLON ORGANIC BLACK TEA",
-    imageSrc: "/assets/our-teas/factory/55.jpg",
+    imageSrc: "/assets/our-teas/factory/55.webp",
     description:
       "Although this Orange Pekoe one (OP 1) black tea can be found in many parts of the country, the low-grown high-quality blend that is made with long wiry leaves is a common favourite in Asia. This tea is fragrant and subtle with a smooth malty taste and deep amber colour.",
     packing: "125g Loose Tea x 30 Canisters",
@@ -45,7 +45,7 @@ function page() {
     <div className="md:mt-16 mt-20">
       {/* <div className="relative w-full h-[90vh] md:h-screen p-1">
         <Image
-          src="/assets/our-teas/factory/48.jpg"
+          src="/assets/our-teas/factory/48.webp"
           alt="Exceptional"
           layout="fill"
           objectFit="cover"

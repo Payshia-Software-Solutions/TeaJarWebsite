@@ -89,7 +89,7 @@ const CeylonFinestTea = () => {
         >
           <div className="w-full h-[full] relative">
             <Image
-              src="/assets/about/ceylon-finest-tea.jpg"
+              src="/assets/about/ceylon-finest-tea.webp"
               alt="Tea bag over a cup of tea"
               layout="fill"
               objectFit="cover"

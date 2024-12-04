@@ -11,7 +11,7 @@ const ExclusiveTeaCard = ({
   description = `Crafted on a single estate in Sri Lanka's upcountry, English breakfast tea embodies classic elegance and full-bodied flavor.
 Its rich, malty notes and subtle sweetness create a perfect morning indulgence. With a deep amber hue and invigorating aroma, it reflects the heritage of Sri Lankan tea craftsmanship. Sip by sip, experience the essence of tradition and sophistication, making each cup a delightful journey through the verdant hills of Sri Lanka's renowned tea-growing region.`,
 
-  imageSrc = "/assets/our-teas/exclusive/24.jpg", // Replace with actual image path
+  imageSrc = "/assets/our-teas/exclusive/24.webp", // Replace with actual image path
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full  p-1 h-auto   ">

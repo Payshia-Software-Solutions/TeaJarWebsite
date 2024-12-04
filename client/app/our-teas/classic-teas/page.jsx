@@ -21,7 +21,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       packing: "2g x 25 Enveloped Tea Bags x 72",
       netWeight: "50g",
       productCode: "KDUSOP0001",
-      imageSrc: "/assets/our-teas/Classic/61.jpg",
+      imageSrc: "/assets/our-teas/Classic/61.webp",
       productURL:
         "/products/single-origin-premium-ceylon-black-tea-100-enveloped-tea-bags",
     },
@@ -32,7 +32,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       packing: "2g x 100 Enveloped Tea Bags x 36",
       netWeight: "200g",
       productCode: "KDUSOP0002",
-      imageSrc: "/assets/our-teas/Classic/60.jpg",
+      imageSrc: "/assets/our-teas/Classic/60.webp",
       reverse: true,
       productURL:
         "/products/single-origin-premium-ceylon-black-tea-25-enveloped-tea-bags",
@@ -44,7 +44,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       {/* Hero Section */}
       <div className="relative w-full h-screen">
         <Image
-          src="/assets/our-teas/Classic/3.jpg"
+          src="/assets/our-teas/Classic/3.webp"
           alt="Exceptional"
           layout="fill" // Makes the image fill the container
           objectFit="cover" // Ensures image behaves like background-size: cover
@@ -78,7 +78,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       {/* Main Image 2 */}
       <div className="relative  w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen">
         <Image
-          src="/assets/our-teas/Classic/64.jpg"
+          src="/assets/our-teas/Classic/64.webp"
           alt="Classic Tea 2"
           layout="fill"
           objectFit="cover"
@@ -105,7 +105,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       {/* Main Image 3 */}
       <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh]  ">
         <Image
-          src="/assets/our-teas/Classic/39.jpg"
+          src="/assets/our-teas/Classic/39.webp"
           alt="Classic Tea"
           layout="fill" // Makes the image fill the container
           objectFit="cover" // Ensures the image scales properly
@@ -117,7 +117,7 @@ World-renowned Ceylon tea manufactured and gifted from generation to generation 
       <div className="relative p-1">
         {/* Image */}
         <img
-          src="/assets/our-teas/Classic/38.jpg"
+          src="/assets/our-teas/Classic/38.webp"
           alt="Ceylon Green Tea"
           className="w-full h-full p-1 object-cover"
         />
