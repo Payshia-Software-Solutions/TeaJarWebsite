@@ -17,7 +17,7 @@ jobs:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Remove .next folder via SSH
-      run: ssh -o StrictHostKeyChecking=no ${{ secrets.TEAJAR_USERNAME }}@${{ secrets.FTP_SERVER }} "rm -rf /path/to/.next"
+      run: ssh -o StrictHostKeyChecking=no ${{ secrets.TEAJAR_USERNAME }}@${{ secrets.FTP_SERVER }} "rm -rf .next"
       
     - name: Checkout code
       uses: actions/checkout@v3
