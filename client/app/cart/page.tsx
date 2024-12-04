@@ -8,6 +8,7 @@ const CartPage = () => {
         <h2 className="text-2xl font-bold mb-4 text-white text-center mt-10">
           Cart
         </h2>
+        {/*test* */}
         <MainCart />
       </div>
     </section>
