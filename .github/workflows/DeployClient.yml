@@ -47,4 +47,4 @@ jobs:
         username: ${{ secrets.TEAJAR_USERNAME }}
         password: ${{ secrets.TEAJAR_PASSWORD }}
         local-dir: ./client/.next/  # Add trailing slash
-        server-dir: ./  # Adjust to your server's web directory
+        server-dir: ./.next  # Adjust to your server's web directory
