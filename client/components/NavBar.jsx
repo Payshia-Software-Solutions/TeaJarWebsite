@@ -131,6 +131,7 @@ function NavBar() {
 
   const handleOurTeasMouseEnter = () => {
     setAboutDropdownVisible(false); // Open the About dropdown
+    setTeaDropdownVisible(false); // Close the Tea dropdown
     setOurTeasDropdownVisible(true); // Close the Tea dropdown
   };
 
@@ -278,7 +279,7 @@ function NavBar() {
                           </li>
                           <li>
                             <Link
-                              href="/shop/filter?department=11"
+                              href="/products/christmas-tea-advent-calendar--24-individually-wrapped-tea-bags"
                               className="hover:text-gray-300"
                             >
                               Advent Calender
@@ -436,8 +437,6 @@ function NavBar() {
                           </li>
                         </ul>
                       </div>
-
-
                     </div>
                   </div>
                 )}
@@ -535,13 +534,6 @@ function NavBar() {
                           </li>
                         </ul>
                       </div>
-
-                     
-
-
-                   
-
-                      
                     </div>
                   </div>
                 )}

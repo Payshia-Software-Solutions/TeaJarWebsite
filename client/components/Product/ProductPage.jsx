@@ -230,9 +230,9 @@ const ProductPage = ({ product, product_images, product_info }) => {
         </div>
         <BrewingGuide steps={defaultBrewingSteps} />
 
-        <div className="mt-10 border-t">
+        {/* <div className="mt-10 border-t">
           <ReviewSection />
-        </div>
+        </div> */}
       </div>
 
       <div className="max-w-7xl mx-auto px-4">

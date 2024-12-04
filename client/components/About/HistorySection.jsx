@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const HistorySection = () => {
   return (
@@ -101,13 +102,18 @@ const HistorySection = () => {
           </motion.p>
 
           <div className="flex justify-between items-center w-full mt-5 md:mt-8 lg:mt-10">
-            <Image
-              src="/assets/about/logos/double-tree.png"
-              width={100}
-              height={100}
-              alt="Double Tree Logo"
+            <Link
+              target="_blank"
+              href="https://www.hilton.com/en/hotels/wrzrjdi-doubletree-weerawila-rajawarna-resort/?SEO_id=GMB-APAC-DI-WRZRJDI"
               className="h-auto max-w-[15%] object-contain"
-            />
+            >
+              <Image
+                src="/assets/about/logos/double-tree.png"
+                width={100}
+                height={100}
+                alt="Double Tree Logo"
+              />
+            </Link>
             <Image
               src="/assets/about/logos/gsr-logo.png"
               width={100}
