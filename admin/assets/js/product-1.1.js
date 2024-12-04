@@ -314,6 +314,36 @@ function changeImageStatus(updateKey, IsActive, productId) {
   fetch_data();
 }
 
+function DeleteImage(productId, ImageId) {
+  showOverlay();
+
+  function fetch_data() {
+    $.ajax({
+      url: "assets/content/product/request/delete-image.php",
+      method: "POST",
+      data: {
+        LoggedUser: LoggedUser,
+        company_id: company_id,
+        ImageId: ImageId,
+        UserLevel: UserLevel,
+      },
+      success: function (data) {
+        var response = JSON.parse(data);
+        if (response.status === "success") {
+          var result = response.message;
+          OpenAlert("success", "Done!", result);
+          hideOverlay();
+          UpdateProductImages(productId);
+        } else {
+          var result = response.message;
+          OpenAlert("error", "Oops.. Something Wrong!", result);
+        }
+      },
+    });
+  }
+  fetch_data();
+}
+
 function UpdateEcomDescriptions(productId) {
   document.getElementById("loading-popup").innerHTML = InnerLoader;
 

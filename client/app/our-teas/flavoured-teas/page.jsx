@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Josefin_Sans, Sulphur_Point } from "next/font/google";
 import Link from "next/link";
 import TeaCard from "@/components/Common/TeaCard";
-import FlavouredTeaCard from "@/components/Flavoured/FlavouredTeaCard"
+import FlavouredTeaCard from "@/components/Flavoured/FlavouredTeaCard";
 
 // Flavoured Teas Page Metadata
 export const metadata = {
@@ -53,14 +53,14 @@ const teaData = [
   {
     title: "Cinnamon",
 
-    imageSrc: "/assets/our-teas/flavoured/teas/cardamom.webp",
+    imageSrc: "/assets/our-teas/flavoured/teas/cinnamon.webp",
 
     description:
       "A sweet and savoury brew infused with pieces of Sri Lanka's home grown, export quality cinnamon that is bound to lighten your day with its soothing tones and warm, heady aroma. Start your day with this robust blend of factory fresh Ceylon Black Tea and woody spice, as you inhale the distinctive aroma of this intoxicating herbal tea.",
     packing: "2g x 25 Enveloped Tea Bags x 56",
     netWeight: "50g",
     productCode: "KDUEXFL0005",
-    linkUrl: "/products/-peach-flavored-25-enveloped-tea-bags",
+    linkUrl: "/products/cinnamon-flavored-25-enveloped-tea-bags-",
     reverse: false,
     bgColor: "#b56f28",
   },
@@ -72,7 +72,7 @@ const teaData = [
     packing: "2g x 25 Enveloped Tea Bags x 56",
     netWeight: "50g",
     productCode: "KDUEXFL0002",
-    linkUrl: "/products/-peach-flavored-25-enveloped-tea-bags",
+    linkUrl: "/products/products/cardamom-flavored-25-enveloped-tea-bags",
     reverse: true,
     bgColor: "#899c39",
   },
@@ -287,7 +287,7 @@ const page = async () => {
         <div className="relative w-full h-[70vh] md:h-[120vh]">
           {/* Adjust height to 50% of the viewport */}
           <Image
-             src="/assets/our-teas/flavoured/loose/12.webp" // Replace with your image path
+            src="/assets/our-teas/flavoured/loose/12.webp" // Replace with your image path
             alt="Exceptional"
             layout="fill" // Ensures the image fills the container
             objectFit="cover" // Makes the image behave like background-size: cover

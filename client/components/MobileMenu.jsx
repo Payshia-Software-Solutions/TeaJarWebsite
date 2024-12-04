@@ -93,65 +93,6 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
             Home
           </Link>
 
-         
-          {/* About Dropdown */}
-          <div>
-            <button
-              className="flex items-center justify-between w-full py-2 text-lg font-medium transition hover:text-teal-400"
-              onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
-            >
-              About Us
-              <svg
-                className={`w-5 h-5 transition-transform ${
-                  isAboutDropdownOpen ? "rotate-180" : ""
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-
-            {isAboutDropdownOpen && (
-              <ul className="mt-2 space-y-2 pl-4">
-                <li>
-                  <Link
-                    href="/tea-jar-story"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Tea Jar Story
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/tea-heritage"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    Our Tea Heritage
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/kdu-group"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-sm font-medium transition hover:text-teal-400"
-                  >
-                    KDU Group
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </div>
-
           {/* Other Links */}
           {/* Shop Dropdown (Modified) */}
           <div>

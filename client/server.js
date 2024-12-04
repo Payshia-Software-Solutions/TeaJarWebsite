@@ -3,8 +3,9 @@ const { parse } = require("url");
 const next = require("next");
 const fs = require("fs");
 const path = require("path");
-const cookie = require("cookie"); // Use cookie parser for handling cookies
-const https = require("https"); // Use 'https' or 'http' depending on your endpoint
+const cookie = require("cookie");
+const https = require("https"); // Use 'https' for secure protocol
+const http = require("http"); // Use 'http' for local development
 
 // Default mode, will be updated from the remote API
 let mode = "normal";
@@ -18,35 +19,26 @@ const port = process.env.PORT || 3000;
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
-const http = require("http");
 const url = require("url");
 
 function getModeFromApi() {
   return new Promise((resolve, reject) => {
-    // Replace this URL with your actual endpoint
     const apiUrl = "https://kduserver.payshia.com/api/get-mode"; // Example with http
 
-    // Parse the URL to get the protocol
     const parsedUrl = url.parse(apiUrl);
-
-    // Choose the correct module based on the protocol (http or https)
     const requestModule = parsedUrl.protocol === "https:" ? https : http;
 
-    // Make the HTTP or HTTPS request
     requestModule
       .get(apiUrl, (res) => {
         let data = "";
-
-        // A chunk of data has been received.
         res.on("data", (chunk) => {
           data += chunk;
         });
 
-        // The whole response has been received.
         res.on("end", () => {
           try {
             const response = JSON.parse(data);
-            resolve(response.mode); // Resolving with the mode from the API
+            resolve(response.mode);
           } catch (err) {
             reject("Error parsing response from API");
           }
@@ -58,24 +50,22 @@ function getModeFromApi() {
   });
 }
 
-// Poll for mode every 5 minutes (300000ms)
 setInterval(() => {
   getModeFromApi()
     .then((fetchedMode) => {
       if (fetchedMode !== mode) {
-        mode = fetchedMode; // Update the mode
+        mode = fetchedMode;
         console.log(`Mode updated to: ${mode}`);
       }
     })
     .catch((err) => {
       console.error("Error fetching mode:", err);
     });
-}, 300000); // Poll every 5 minutes
+}, 300000);
 
-// Fetch the mode and start the server
 getModeFromApi()
   .then((fetchedMode) => {
-    mode = fetchedMode; // Set the mode fetched from the API
+    mode = fetchedMode;
     console.log(`Mode fetched from API: ${mode}`);
 
     app.prepare().then(() => {
@@ -113,7 +103,25 @@ getModeFromApi()
         const isDeveloper =
           query.developer === "true" || cookies["developer-access"] === "true";
 
-        // Handle based on mode
+        // Handle www to non-www redirection with protocol adjustment
+        const host = req.headers.host || "";
+        let redirectUrl;
+
+        if (host.startsWith("www.")) {
+          // If the host is www.*, remove 'www.' and redirect to the correct protocol
+          if (host.includes("localhost")) {
+            // If localhost, use http://
+            redirectUrl = `http://${host.replace("www.", "")}${req.url}`;
+          } else {
+            // For other domains, use https://
+            redirectUrl = `https://${host.replace("www.", "")}${req.url}`;
+          }
+          res.writeHead(301, { Location: redirectUrl });
+          res.end();
+          return;
+        }
+
+        // Serve Maintenance or Coming Soon Mode pages if applicable
         if (mode === "coming-soon" && !isDeveloper) {
           serveStaticHtml(res, "coming-soon.html", 200);
           return;
@@ -125,13 +133,7 @@ getModeFromApi()
         }
 
         // Normal handling for Next.js pages
-        if (pathname === "/a") {
-          await app.render(req, res, "/a", query);
-        } else if (pathname === "/b") {
-          await app.render(req, res, "/b", query);
-        } else {
-          await handle(req, res, parsedUrl);
-        }
+        await handle(req, res, parsedUrl);
       }).listen(port, (err) => {
         if (err) throw err;
         console.log(`> Ready on http://${hostname}:${port}`);
@@ -140,7 +142,6 @@ getModeFromApi()
   })
   .catch((err) => {
     console.error("Failed to fetch mode:", err);
-    // Fallback to default mode if there's an issue fetching the mode
     mode = "normal";
     console.log(`Falling back to default mode: ${mode}`);
 
@@ -149,7 +150,6 @@ getModeFromApi()
         const parsedUrl = parse(req.url, true);
         const { pathname, query } = parsedUrl;
 
-        console.log(query.developer);
         // Parse cookies
         const cookies = cookie.parse(req.headers.cookie || "");
 
@@ -188,7 +188,6 @@ getModeFromApi()
         }
 
         // Serve Maintenance or Coming Soon Mode pages if applicable
-        // Handle based on mode
         if (mode === "coming-soon" && !isDeveloper) {
           serveStaticHtml(res, "coming-soon.html", 200);
           return;
@@ -198,7 +197,7 @@ getModeFromApi()
           serveStaticHtml(res, "maintenance.html", 503);
           return;
         }
-        // Normal handling for Next.js pages
+
         await handle(req, res, parsedUrl);
       }).listen(port, (err) => {
         if (err) throw err;

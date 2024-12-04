@@ -38,20 +38,22 @@ const ExclusiveSmallCard = ({
 
       {/* Content Section */}
       <div
-        className="flex-1 p-4 sm:p-6 lg:p-8 text-center"
+        className="flex-1 p-4 sm:p-6 lg:p-8 text-center flex-grow"
         style={{
           backgroundColor: bgColor,
         }}
       >
         {/* Title */}
         <h3
-          className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 ${Josefin_Sans_font.className}`}
+          className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase font-semibold mb-4 ${Josefin_Sans_font.className}`}
         >
           {title}
         </h3>
 
         {/* Description */}
-        <p className="text-sm sm:text-base mb-4 leading-relaxed">{description}</p>
+        <p className="text-sm sm:text-base mb-4 leading-relaxed">
+          {description}
+        </p>
 
         {/* Details */}
         <div className="text-sm sm:text-base text-center mb-4">

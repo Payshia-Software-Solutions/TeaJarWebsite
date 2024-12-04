@@ -19,7 +19,7 @@ function Hero() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setScrolled(true);
+        // setScrolled(true);
       } else {
         setScrolled(false);
       }
@@ -63,7 +63,7 @@ function Hero() {
 
       <div className="flex items-center justify-center">
         <img
-          src="./assets/images/tea-cup-w.png"
+          src="./assets/images/tea-cup-w-optimized.webp"
           alt="Tea Cup Image"
           className="absolute mx-auto w-56 md:w-[350px]"
         />

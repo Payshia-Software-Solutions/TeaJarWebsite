@@ -77,9 +77,10 @@ $imagePrefixs = array(
                         <div class="badge bg-primary"><?= $product['image_prefix'] ?></div>
                         <?php if ($product['is_active'] == 1) : ?>
                             <button class="btn btn-dark w-100 mt-2" type="button" onclick="changeImageStatus('<?= $product['id'] ?>', 0, '<?= $productId ?>')">Inactive</button>
+
                         <?php else : ?>
                             <button class="btn btn-primary w-100 mt-2" type="button" onclick="changeImageStatus('<?= $product['id'] ?>', 1, '<?= $productId ?>')">Active</button>
-                        <?php endif ?>
+                        <?php endif ?> <button class="btn btn-dark w-100 mt-2" type="button" onclick="DeleteImage('<?= $productId ?>','<?= $product['id'] ?>')">Delete</button>
 
                     </div>
                 <?php endforeach ?>
