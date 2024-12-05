@@ -12,7 +12,7 @@ function CTA() {
               <div className="relative h-64 sm:h-80 lg:h-full">
                 <img
                   alt=""
-                  src="/assets/cta.jpg"
+                  src="/assets/cta.webp"
                   className="absolute inset-0 h-full w-full object-cover rounded-3xl"
                 />
               </div>

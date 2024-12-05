@@ -74,7 +74,7 @@ const MobileMenu = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
         {/* Logo */}
         <div className="flex items-center justify-center py-6">
           <Image
-            src="/assets/gold-logo.png"
+            src="/assets/gold-logo.webp"
             alt="Logo"
             width={250}
             height={250}
