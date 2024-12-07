@@ -47,7 +47,7 @@ const ManufactureSection = () => {
             {/* Bottom Row - Image */}
             <div className="flex justify-center md:justify-start">
               <Image
-                src="/assets/tea-partnership.jpeg"
+                src="/assets/tea-partnership.webp"
                 alt="Ceylon Tea Symbol of Quality"
                 width={400}
                 height={50}
@@ -75,7 +75,7 @@ const ManufactureSection = () => {
           {/* Bottom Row - Full Cover Image */}
           <div className="h-[50vh] w-full absolute bottom-0 left-0">
             <Image
-              src="/assets/tea-factory.jpeg"
+              src="/assets/tea-factory.webp"
               alt="Ceylon Tea Symbol of Quality"
               layout="fill"
               objectFit="cover"

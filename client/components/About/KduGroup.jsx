@@ -15,7 +15,7 @@ const KduGroup = () => {
         <div className="md:w-1/2 flex justify-center bg-slate-900 h-screen">
           <div className="w-full h-full relative">
             <Image
-              src="/assets/about/tea-jar-story-side.jpeg"
+              src="/assets/about/tea-jar-story-side.webp"
               alt="Woman holding a cup of tea"
               layout="fill" // Use the `fill` layout to make the image cover the container
               objectFit="cover" // Ensures the image behaves as a background cover

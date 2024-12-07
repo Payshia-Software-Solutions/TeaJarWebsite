@@ -69,13 +69,19 @@ if ($item_image_tmp == "") {
 
 if (isset($_FILES['item_image'])) {
     $file_name = $_FILES['item_image']['name'];
+    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+    // Remove spaces and convert to lowercase
+    $product_name_sanitized = strtolower(str_replace(' ', '_', trim($product_name)));
+    // Generate a unique name for the file
+    $uniqueFileName = uniqid($product_name_sanitized, true) . '.' . $file_ext;
 }
 
 if ($file_name == "") {
     $file_name = $item_image_tmp;
 }
 
-$QueryResult = SaveProduct($link, $product_code, $product_name, $display_name, $print_name, $section_id, $department_id, $category_id, $brand_id, $measurement, $reorder_level, $lead_days, $cost_price, $selling_price, $minimum_price, $wholesale_price, $item_type, $item_location, $file_name, $created_by, $active_status, $generic_id, $supplier_list, $size_id, $color_id,  $product_description, $UpdateKey, $name_si, $name_ti, $price_2, $recipe_type, $barcode, $location_list, $openingStock);
+$QueryResult = SaveProduct($link, $product_code, $product_name, $display_name, $print_name, $section_id, $department_id, $category_id, $brand_id, $measurement, $reorder_level, $lead_days, $cost_price, $selling_price, $minimum_price, $wholesale_price, $item_type, $item_location, $uniqueFileName, $created_by, $active_status, $generic_id, $supplier_list, $size_id, $color_id,  $product_description, $UpdateKey, $name_si, $name_ti, $price_2, $recipe_type, $barcode, $location_list, $openingStock);
 
 // Decode the JSON response
 $response = json_decode($QueryResult);
@@ -95,8 +101,8 @@ if (isset($_FILES['item_image'])) {
     $file_size = $_FILES['item_image']['size'];
     $file_tmp = $_FILES['item_image']['tmp_name'];
     $file_type = $_FILES['item_image']['type'];
+    $imagePath = "./pos-system/assets/images/products/" . $UpdateKey . "/" . $uniqueFileName;
 
-    $imagePath = "./pos-system/assets/images/products/" . $UpdateKey . "/" . $file_name;
     $file_parts = explode('.', $file_name);
     $file_ext = strtolower(end($file_parts));
     $expensions = array("jpeg", "jpg", "png", "webp");

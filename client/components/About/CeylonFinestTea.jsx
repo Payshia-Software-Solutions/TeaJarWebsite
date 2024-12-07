@@ -71,7 +71,7 @@ const CeylonFinestTea = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             <Image
-              src="/assets/about/ceylon-tea-logo.png"
+              src="/assets/about/ceylon-tea-logo.webp"
               alt="Ceylon Tea Symbol of Quality"
               width={100}
               height={50}
