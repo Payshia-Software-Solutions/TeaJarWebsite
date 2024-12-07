@@ -18,3 +18,11 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
+        exclude: |
+          **/node_modules/**  # Example of excluding node_modules
+          **/vendor/**  # Example of excluding node_modules
+          **/pos-system/assets/**  # Example of excluding node_modules
+          **/pos-system/node_modules/**  # Example of excluding node_modules
+          **/pos-system/vendor/**  # Example of excluding node_modules
+          **/*.log            # Exclude log files
+        dangerous-clean-slate: true # Ensure a clean directory before deploying
