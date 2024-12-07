@@ -18,7 +18,7 @@ const HistorySection = () => {
         >
           <div className="w-full h-64 md:h-screen relative">
             <Image
-              src="/assets/about/kdu.jpeg"
+              src="/assets/about/kdu.webp"
               alt="KDU Group Historical Building"
               layout="fill"
               objectFit="cover"
@@ -56,7 +56,7 @@ const HistorySection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Image
-              src="/assets/about/KDU-group.png"
+              src="/assets/about/KDU-group.webp"
               alt="KDU Group Logo"
               width={120}
               height={120}

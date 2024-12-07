@@ -17,7 +17,7 @@ function SamansMessage() {
         >
           <div className="w-full h-[full] relative">
             <Image
-              src="/assets/about/saman_nbgv1.png"
+              src="/assets/about/saman_nbgv1.webp"
               alt="Photo of Saman Upasena"
               layout="fill"
               objectFit="cover"

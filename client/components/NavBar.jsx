@@ -230,7 +230,7 @@ function NavBar() {
             {/* Logo */}
             <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
               <Link href="/" className="text-2xl font-bold text-orange-500">
-                <img src="/assets/gold-logo.png" alt="" className="h-12" />
+                <img src="/assets/gold-logo.webp" alt="" className="h-12" />
               </Link>
             </div>
           </div>
@@ -239,7 +239,7 @@ function NavBar() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
               <Link href="/" className="text-2xl font-bold text-orange-500">
-                <img src="/assets/gold-logo.png" alt="" className="h-12" />
+                <img src="/assets/gold-logo.webp" alt="" className="h-12" />
               </Link>
             </div>
             {/* Navigation */}
@@ -554,7 +554,7 @@ function NavBar() {
               <div className="w-full md:w-auto  md:hidden justify-center md:justify-start mb-4 md:mb-0">
                 <Link href="/" className="text-2xl font-bold text-orange-500">
                   <img
-                    src="/assets/gold-logo.png"
+                    src="/assets/gold-logo.webp"
                     alt=""
                     className="h-8 mt-2"
                   />

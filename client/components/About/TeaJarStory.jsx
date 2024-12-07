@@ -43,7 +43,7 @@ const TeaJarSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Image
-              src="/assets/gold-logo.png"
+              src="/assets/gold-logo.webp"
               alt="Tea Jar Logo"
               className=""
               width={250}
