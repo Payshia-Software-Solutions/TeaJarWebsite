@@ -151,6 +151,8 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
               images={images}
               Rate={"(5.6)"}
               category={singleitem.category_id}
+              specialPromo={singleitem.special_promo}
+              specialPromoType={singleitem.special_promo_type}
             />
           );
         })}

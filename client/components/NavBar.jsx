@@ -219,7 +219,7 @@ function NavBar() {
         <div className="bg-[#D22B2B] text-sm py-2 px-4 flex justify-center items-center text-white">
           <FaTruck className="w-5 h-5 mr-2" />
           <p className="text-center whitespace-nowrap">
-            Enjoy Free Shipping from December 1st to 31st!
+            Save 20% & Enjoy Free Shipping—Till Feb 28!
           </p>
         </div>
 

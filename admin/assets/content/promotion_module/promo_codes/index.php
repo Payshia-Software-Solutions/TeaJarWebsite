@@ -111,6 +111,7 @@ $LoggedUser = $_POST['LoggedUser'];
                                             <td><?= $promoCode['min_order_value'] ?></td>
                                             <td>
                                                 <button onclick="NewCode('<?= $promoCode['id'] ?>')" class="btn btn-dark btn-sm" type="button">Edit</button>
+                                                <button onclick="PromoApplicable('<?= $promoCode['id'] ?>')" class="btn btn-dark btn-sm" type="button">Products</button>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>

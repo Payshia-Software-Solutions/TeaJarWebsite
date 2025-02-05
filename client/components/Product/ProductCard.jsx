@@ -56,6 +56,8 @@ const ProductCard = ({
   ],
   category,
   imageStyle = null,
+  specialPromo,
+  specialPromoType,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -89,10 +91,22 @@ const ProductCard = ({
 
   // console.log(images[0]);
   const handleAddToCart = () => {
+    // Calculate the discounted price based on specialPromoType
+    let finalPrice = price;
+    let rate = price;
+    if (specialPromo && specialPromo > 0) {
+      if (specialPromoType === "percentage") {
+        finalPrice = price * (1 - specialPromo / 100); // Apply percentage discount
+      } else if (specialPromoType === "fixed") {
+        finalPrice = price - specialPromo; // Apply fixed value discount
+      }
+    }
+
     const cartItem = {
       id,
       productName: title,
-      price,
+      price: finalPrice,
+      rate,
       imgUrl: images[0].split("/").pop(),
       quantity: 1,
     };
@@ -102,11 +116,48 @@ const ProductCard = ({
 
     if (existingItemIndex !== -1) {
       cart[existingItemIndex].quantity += 1;
+      cart[existingItemIndex].price = finalPrice; // Update the price as well
     } else {
       cart.push(cartItem);
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Push to Google Tag Manager Data Layer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "add_to_cart",
+      ecommerce: {
+        currency: "LKR", // Update as per your currency
+        value: parseFloat(cartItem.price), // Price of the item being added
+        items: [
+          {
+            item_name: cartItem.productName, // Name of the product
+            item_id: cartItem.id, // Product ID
+            price: parseFloat(cartItem.price), // Product price
+            quantity: 1, // Quantity added
+          },
+        ],
+      },
+    });
+
+    // Send to Facebook Pixel
+    fbq("track", "AddToCart", {
+      content_name: cartItem.productName, // Name of the product
+      content_ids: [cartItem.id], // Product ID
+      content_type: "product", // Type of content
+      value: parseFloat(cartItem.price), // Price of the item
+      currency: "LKR", // Currency
+      contents: [
+        {
+          id: cartItem.id, // Product ID
+          quantity: 1, // Quantity added
+        },
+      ],
+    });
+
+    console.log("Item added to cart and sent to dataLayer!");
+
     toast.success(`${title} has been added to your cart!`, {
       position: "top-right",
       autoClose: 3000,
@@ -167,6 +218,7 @@ const ProductCard = ({
               e.preventDefault(); // Prevent navigation to the product page
               handleAddToCart();
             }}
+            name="add-to-cart-button"
             className="flex md:hidden w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2"
           >
             <ShoppingCart size={16} />
@@ -191,7 +243,24 @@ const ProductCard = ({
               {/* Dynamic text */}
             </div>
             <div className="text-black text-end font-bold text-lg lg:text-xl">
-              {formatPrice(price)}
+              {specialPromo && specialPromo > 0 ? (
+                <>
+                  {/* If there is a discount, show the original price with a line-through on one line */}
+                  <div className="text-gray-500 line-through">
+                    {formatPrice(price)}
+                  </div>
+                  {/* Show the discounted price on the next line */}
+                  <div className="text-green-600">
+                    {/* Calculate discounted price based on discount type */}
+                    {specialPromoType === "percentage"
+                      ? formatPrice(price * (1 - specialPromo / 100))
+                      : formatPrice(price - specialPromo)}
+                  </div>
+                </>
+              ) : (
+                // If no discount, just show the original price
+                <div>{formatPrice(price)}</div>
+              )}
             </div>
           </div>
 

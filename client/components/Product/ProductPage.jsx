@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Star, Minus, Plus } from "lucide-react";
 import ReviewSection from "@/components/Product/ReviewSection";
 import Subscribe from "@/components/Common/Subscribe";
@@ -8,11 +8,13 @@ import TeaDetails from "@/components/Common/TeaDetails";
 import ProductHeader from "@/components/Product/ProductHeader";
 import SecureBanner from "@/components/Common/SecureBanner";
 import RelatedProducts from "@/components/RelatedProducts";
+import CouponBanner from "@/components/Product/CouponBanner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "@/config";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const ProductPage = ({ product, product_images, product_info }) => {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -38,6 +40,9 @@ const ProductPage = ({ product, product_images, product_info }) => {
       : [{ image_path: product.image_path }];
 
   const productName = product.display_name;
+  const discountPercentage = product.special_promo;
+  const discountType = product.special_promo_type;
+  const PromoMessage = product.special_promo_message;
   const price = product.selling_price;
   const imgUrl = product.image_path;
   const rate = product.selling_price;
@@ -45,7 +50,23 @@ const ProductPage = ({ product, product_images, product_info }) => {
 
   // Updated Add to Cart function
   const addToCart = () => {
-    const cartItem = { id, productName, price, rate, imgUrl, quantity };
+    // Calculate the discounted price based on specialPromoType
+    let finalPrice = price;
+    if (discountPercentage && discountPercentage > 0) {
+      if (discountType === "percentage") {
+        finalPrice = price * (1 - discountPercentage / 100); // Apply percentage discount
+      } else if (discountType === "fixed") {
+        finalPrice = price - discountPercentage; // Apply fixed value discount
+      }
+    }
+    const cartItem = {
+      id,
+      productName,
+      price: finalPrice,
+      rate,
+      imgUrl,
+      quantity,
+    };
 
     // Get existing cart items from local storage or initialize an empty array
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -56,6 +77,7 @@ const ProductPage = ({ product, product_images, product_info }) => {
     if (existingItemIndex !== -1) {
       // If the item exists, update its quantity
       cart[existingItemIndex].quantity += quantity; // Add the selected quantity
+      cart[existingItemIndex].price = finalPrice; // Update the price as well
     } else {
       // If the item does not exist, add it to the cart
       cart.push(cartItem);
@@ -63,6 +85,39 @@ const ProductPage = ({ product, product_images, product_info }) => {
 
     // Save updated cart back to local storage
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Push to Google Tag Manager Data Layer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "add_to_cart",
+      ecommerce: {
+        currency: "LKR", // Update as per your currency
+        value: parseFloat(cartItem.price), // Price of the item being added
+        items: [
+          {
+            item_name: cartItem.productName, // Name of the product
+            item_id: cartItem.id, // Product ID
+            price: parseFloat(cartItem.price), // Product price
+            quantity: quantity, // Quantity added
+          },
+        ],
+      },
+    });
+
+    // Send to Facebook Pixel
+    fbq("track", "AddToCart", {
+      content_name: cartItem.productName, // Name of the product
+      content_ids: [cartItem.id], // Product ID
+      content_type: "product", // Type of content
+      value: parseFloat(cartItem.price), // Price of the item
+      currency: "LKR", // Currency
+      contents: [
+        {
+          id: cartItem.id, // Product ID
+          quantity: quantity, // Quantity added
+        },
+      ],
+    });
 
     // Display the toast notification
     toast.success(`${productName} has been added to your cart!`, {
@@ -94,6 +149,9 @@ const ProductPage = ({ product, product_images, product_info }) => {
     onShippingClick: () => {
       console.log("Shipping clicked");
     },
+    productId: product.product_id,
+    specialPromo: product.special_promo,
+    specialPromoType: product.special_promo_type,
   };
 
   const defaultBrewingSteps = [
@@ -127,6 +185,44 @@ const ProductPage = ({ product, product_images, product_info }) => {
       // alert("Sharing not supported. Copy the link instead!");
     }
   };
+  // GTM and Meta Pixel Data Layer Push
+  useEffect(() => {
+    if (typeof window !== "undefined" && product) {
+      const lastEventTimestamp = localStorage.getItem("product_view_timestamp");
+      const now = Date.now();
+
+      // 1-second threshold to prevent duplicate events
+      if (!lastEventTimestamp || now - lastEventTimestamp > 2000) {
+        localStorage.setItem("product_view_timestamp", now);
+
+        // GTM dataLayer push
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "product_view",
+          ecommerce: {
+            items: [
+              {
+                item_name: product.product_name,
+                item_id: product.product_id,
+                price: product.selling_price,
+              },
+            ],
+          },
+        });
+
+        // Meta Pixel event
+        if (typeof fbq === "function") {
+          fbq("track", "ViewContent", {
+            content_name: product.product_name,
+            content_ids: [product.product_id],
+            content_type: "product",
+            value: product.selling_price,
+            currency: "LKR", // Update this to match your currency
+          });
+        }
+      }
+    }
+  }, [product]);
 
   return (
     <div>
@@ -187,10 +283,24 @@ const ProductPage = ({ product, product_images, product_info }) => {
               </div>
             </div>
 
+            {/* Check if there's a special promo */}
+            {discountPercentage && discountPercentage > 0 ? (
+              <CouponBanner
+                productName={productName}
+                originalPrice={price}
+                discountPercentage={discountPercentage}
+                discountType={discountType}
+                PromoMessage={PromoMessage}
+              />
+            ) : null}
+
             <div className="flex items-center space-x-2">
               <button
                 className="flex-1 bg-black text-white py-3 rounded-md hover:bg-gray-800 text-lg h-14"
-                onClick={addToCart}
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent navigation to the product page
+                  addToCart();
+                }}
               >
                 Add to cart
               </button>

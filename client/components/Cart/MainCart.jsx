@@ -94,7 +94,22 @@ const MainCart = () => {
                       <h3 className="font-semibold">{item.productName}</h3>
                     </td>
                     <td className="py-2 text-center sm:text-right sm:table-cell">
-                      <p className="text-gray-600">LKR {item.price}</p>
+                      <p className="text-gray-600">
+                        {item.rate !== item.price ? (
+                          <>
+                            {/* Show normal rate */}
+                            <span className="line-through text-gray-500">
+                              {item.rate}{" "}
+                            </span>
+                            {/* Show discounted price */}
+                            <span className="text-green-600">{item.price}</span>
+                          </>
+                        ) : (
+                          // If rate and price are the same, just show the normal rate
+                          <span>{item.rate}</span>
+                        )}
+                        x {item.quantity}
+                      </p>
                     </td>
                     <td className="py-2 text-center sm:table-cell">
                       <div className="flex items-center justify-center gap-2">
