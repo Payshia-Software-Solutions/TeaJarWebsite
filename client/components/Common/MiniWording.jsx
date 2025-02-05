@@ -65,25 +65,25 @@ function MiniWording() {
         </div>
 
         <div className={`${juliusSansOne.className} mt-4`}>
-          <p className="text-center text-white text-sm md:text-xl">
+          <p className="text-center text-[#d0a44c] text-sm md:text-xl">
             From us and ours,
           </p>
-          <p className="text-center text-white text-sm md:text-xl">
+          <p className="text-center text-[#d0a44c] text-sm md:text-xl">
             To you and yours
           </p>
         </div>
         <div className="flex justify-center mt-6">
           <Image
-            src={`/assets/images/chairman-sig.png`}
+            src={`/assets/images/gold-chairman-sign.webp`}
             width={100}
             height={100}
             alt="Chairman Signature"
-            className="white-image"
+            // className="white-image"
           />
         </div>
 
         <div className="flex justify-center mt-4">
-          <p className={`${juliusSansOne.className} text-white`}>
+          <p className={`${juliusSansOne.className} text-[#d0a44c]`}>
             Founder, Saman Upasena
           </p>
         </div>

@@ -113,8 +113,22 @@ function CartSideBar({ closeCart, isCartOpen }) {
                 <div className="flex-1">
                   <h3 className="font-semibold">{item.productName}</h3>
                   <p className="text-gray-600">
-                    {item.price} x {item.quantity}
+                    {item.rate !== item.price ? (
+                      <>
+                        {/* Show normal rate */}
+                        <span className="line-through text-gray-500">
+                          {item.rate}{" "}
+                        </span>
+                        {/* Show discounted price */}
+                        <span className="text-green-600">{item.price}</span>
+                      </>
+                    ) : (
+                      // If rate and price are the same, just show the normal rate
+                      <span>{item.rate}</span>
+                    )}
+                    x {item.quantity}
                   </p>
+
                   <div className="flex items-center gap-2 mt-1">
                     <button
                       onClick={() => updateQuantity(item.id, -1)}
@@ -152,7 +166,10 @@ function CartSideBar({ closeCart, isCartOpen }) {
                   View Cart
                 </button>
                 <button
-                  onClick={(event) => handleClick(event, "/checkout")}
+                  onClick={(event) => {
+                    event.preventDefault(); // Prevent the default action (page navigation)
+                    handleClick(event, "/checkout");
+                  }}
                   className="w-full bg-black text-white py-3 px-6 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 ease-in-out"
                 >
                   Checkout

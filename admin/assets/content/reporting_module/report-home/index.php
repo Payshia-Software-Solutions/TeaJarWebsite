@@ -180,6 +180,28 @@ $ArrayCount = count($ChartOfAccounts);
                                     }
                                     ?>
                                     <?php
+                                    $pageID = 25;
+                                    $userPrivilege = GetUserPrivileges($link, $LoggedUser,  $pageID);
+
+                                    if (!empty($userPrivilege)) {
+                                        $readAccess = $userPrivilege[$LoggedUser]['read'];
+                                        $writeAccess = $userPrivilege[$LoggedUser]['write'];
+                                        $AllAccess = $userPrivilege[$LoggedUser]['all'];
+
+                                        if ($readAccess == 1) {
+                                    ?>
+                                            <tr>
+                                                <td>Date Wise Sale Report</td>
+                                                <td>Sale</td>
+                                                <td class="text-end">
+                                                    <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="DateWiseSale()"><i class="fa-solid fa-eye"></i> Open</button>
+                                                </td>
+                                            </tr>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                    <?php
                                     $pageID = 26;
                                     $userPrivilege = GetUserPrivileges($link, $LoggedUser,  $pageID);
 

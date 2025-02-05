@@ -17,47 +17,47 @@ const amenities = [
   {
     id: 1,
     name: "Tea Tasting",
-    icon: "./assets/icons/new-icons/tea-testing.png",
+    icon: "./assets/icons/gold-icons/tea-testing.webp",
   },
   {
     id: 2,
     name: "Factory Visit",
-    icon: "./assets/icons/new-icons/factory-visit.png",
+    icon: "./assets/icons/gold-icons/factory-visit.webp",
   },
   {
     id: 3,
     name: "Field Visit",
-    icon: "./assets/icons/new-icons/field-visit.png",
+    icon: "./assets/icons/gold-icons/field-visit.webp",
   },
   {
     id: 4,
     name: "Retail",
-    icon: "./assets/icons/new-icons/retail.png",
+    icon: "./assets/icons/gold-icons/retail.webp",
   },
   {
     id: 5,
     name: "Gem & Jewellery",
-    icon: "./assets/icons/new-icons/gem.png",
+    icon: "./assets/icons/gold-icons/gem.webp",
   },
   {
     id: 6,
     name: "Dining",
-    icon: "./assets/icons/new-icons/dining.png",
+    icon: "./assets/icons/gold-icons/dining.webp",
   },
   {
     id: 7,
     name: "Create Own Tea",
-    icon: "./assets/icons/new-icons/create-own-tea.png",
+    icon: "./assets/icons/gold-icons/create-own-tea.webp",
   },
   {
     id: 8,
     name: "Personal Gift Wrapping",
-    icon: "./assets/icons/new-icons/gift.png",
+    icon: "./assets/icons/gold-icons/gift.webp",
   },
   {
     id: 9,
     name: "Afternoon Tea",
-    icon: "./assets/icons/new-icons/afternoon-tea.png",
+    icon: "./assets/icons/gold-icons/afternoon-tea.webp",
   },
 ];
 

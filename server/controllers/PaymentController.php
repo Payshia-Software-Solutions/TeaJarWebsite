@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Asia/Colombo');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -7,8 +9,9 @@ use PHPMailer\PHPMailer\Exception;
 require './vendor/autoload.php'; // Ensure PHPMailer is loaded via Composer
 require_once './models/Payment.php';
 require_once './models/MasterProduct.php';
-require_once './models/Transaction/TransactionInvoice.php'; // Ensure the model file is named correctly
-require_once './models/Transaction/TransactionInvoiceItem.php'; // Ensure the model file is named correctly
+require_once './models/Transaction/TransactionInvoice.php';
+require_once './models/Transaction/TransactionReceipt.php';
+require_once './models/Transaction/TransactionInvoiceItem.php';
 require_once './models/TransactionInvoiceAddress.php';
 
 
@@ -19,6 +22,23 @@ class PaymentController
     private $model2;
     private $productModel;
     private $AddressModel;
+    private $receiptModel;
+
+    // @Local Keys
+    // private $merchant_id = '1227940'; // Your merchant ID
+    // private $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw=='; // Your merchant secret
+    // private $domainName = 'http://localhost:3000';
+    // private $serverUrl = 'http://localhost/TeaJarWebsite/server';
+    // private $modePrefix = "sandbox";
+
+
+    // @Live Keys
+    private $merchant_id = '239701'; // Your merchant ID
+    private $merchant_secret = 'MjM0ODE1NTI3MTEyNjkwNDkxMDAzMjMyNzExMjcxMzE2MjIzODgwNg=='; // Your merchant secret
+    private $domainName = 'https://teajarceylon.com';
+    private $serverUrl = 'https://kduserver.payshia.com';
+    private $modePrefix = "www";
+
 
     public function __construct($pdo)
     {
@@ -27,100 +47,12 @@ class PaymentController
         $this->model2 = new TransactionInvoiceItem($pdo);
         $this->productModel = new Product($pdo);
         $this->AddressModel = new TransactionInvoiceAddress($pdo);
+        $this->receiptModel = new TransactionReceipt($pdo);
     }
-
-    // Method to initiate the payment and redirect to PayHere Checkout
-    // public function initiatePayment()
-    // {
-    //     // Check if all necessary POST parameters are set
-    //     if (!isset(
-    //         $data['order_id'],
-    //         $data['amount'],
-    //         $data['currency'],
-    //         $data['return_url'],
-    //         $data['cancel_url'],
-    //         $data['notify_url'],
-    //         $data['first_name'],
-    //         $data['last_name'],
-    //         $data['email'],
-    //         $data['phone'],
-    //         $data['address'],
-    //         $data['city'],
-    //         $data['country']
-    //     )) {
-    //         // If any required field is missing, return an error
-    //         echo json_encode(['error' => 'Missing required parameters']);
-    //         exit;
-    //     }
-
-    //     // Get the payment details from the POST request
-    //     $order_id = $data['order_id'];
-    //     $amount = number_format($data['amount'], 2, '.', '');
-    //     $currency = $data['currency'];
-    //     $return_url = $data['return_url'];
-    //     $cancel_url = $data['cancel_url'];
-    //     $notify_url = $data['notify_url'];
-
-    //     // Customer details
-    //     $customer_details = [
-    //         'first_name' => $data['first_name'],
-    //         'last_name' => $data['last_name'],
-    //         'email' => $data['email'],
-    //         'phone' => $data['phone'],
-    //         'address' => $data['address'],
-    //         'city' => $data['city'],
-    //         'country' => $data['country']
-    //     ];
-
-    //     // Validate amount
-    //     if (!is_numeric($amount) || $amount <= 0) {
-    //         echo json_encode(['error' => 'Invalid amount']);
-    //         exit;
-    //     }
-
-    //     // Your PayHere credentials
-    //     $merchant_id = '1227940';
-    //     $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz';
-
-    //     // Generate the hash for security
-    //     $hash = strtoupper(
-    //         md5(
-    //             $merchant_id .
-    //                 $order_id .
-    //                 number_format($amount, 2, '.', '') .
-    //                 $currency .
-    //                 strtoupper(md5($merchant_secret))
-    //         )
-    //     );
-
-    //     // Prepare the form data for submission
-    //     $form_data = array_merge([
-    //         'merchant_id' => $merchant_id,
-    //         'return_url' => $return_url,
-    //         'cancel_url' => $cancel_url,
-    //         'notify_url' => $notify_url,
-    //         'order_id' => $order_id,
-    //         'items' => "Tea Order",
-    //         'currency' => $currency,
-    //         'amount' => $amount,
-    //         'hash' => $hash
-    //     ], $customer_details);
-
-    //     // Generate the HTML form that will auto-submit to PayHere checkout
-    //     echo '<html><body onload="document.forms[0].submit();">';
-    //     echo '<form method="post" action="https://sandbox.payhere.lk/pay/checkout">';
-    //     foreach ($form_data as $key => $value) {
-    //         echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
-    //     }
-    //     echo "Redirecting...";
-    //     echo '</form></body></html>';
-    // }
 
     public function initiatePayment()
     {
         $data = json_decode(file_get_contents("php://input"), true);
-
-        // var_dump($data);
 
         // Check if all necessary POST parameters are set
         if (!isset(
@@ -136,13 +68,11 @@ class PaymentController
             exit;
         }
 
-        // Get the payment details from the POST request
-        $order_id = 12345;
         $totalAmount = number_format($data['totalAmount'], 2, '.', ''); // Ensure amount is formatted
         $currency = "LKR";
-        $return_url = "http://teajarceylon.com/order-confirmation";
-        $cancel_url = "http://teajarceylon.com/checkout";
-        $notify_url = "https://kduserver.payshia.com/payment/notify";
+        $return_url = $this->domainName . "/order-confirmation";
+        $cancel_url = $this->domainName . "/checkout";
+        $notify_url = $this->serverUrl . "/payment/notify";
         $promoCode = $data['promoCode'];  // The promo code applied to the order
         $paymentMethod = $data['paymentMethod']; // Payment method (e.g., "card")
 
@@ -211,7 +141,7 @@ class PaymentController
             'service_charge' => 0, // If applicable
             'tendered_amount' => $data['totalAmount'], // Amount paid
             'close_type' => 'Pending', // Assuming paid status
-            'invoice_status' => 'pending', // Initial status
+            'invoice_status' => 1, // Initial status
             'current_time' => date('Y-m-d H:i:s'),
             'location_id' => 1, // Adjust as needed
             'table_id' => 1, // Adjust as needed
@@ -222,7 +152,8 @@ class PaymentController
             'cost_value' => $total_amount, // Assuming cost value is the same as inv_amount
             'remark' => 'Payment initiated', // Optional remark
             'ref_hold' => null, // Optional reference hold, if needed
-            'promo_code_id' => $promoCode, // Optional reference hold, if needed
+            'promo_code_id' => $promoCode, // Optional reference hold, if needed,
+            'payment_status' => 'Not Paid'
         ];
 
         $AddressData = [
@@ -263,8 +194,6 @@ class PaymentController
                 'updated_at' => date('Y-m-d H:i:s'),
             ]
         ];
-
-
 
         $emailItems = [];
         foreach ($itemsList as $item) {
@@ -308,6 +237,7 @@ class PaymentController
             // Save items using batch insert
             $this->model2->createItems($invoiceItems);
 
+
             // Respond with success
             http_response_code(201);
             echo json_encode([
@@ -316,25 +246,12 @@ class PaymentController
                 'total_amount' => $total_amount,
             ]);
 
-            // Your PayHere credentials
-            $merchant_id = '239701';
-            // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw=='; // Local            
-            $merchant_secret = 'MjM0ODE1NTI3MTEyNjkwNDkxMDAzMjMyNzExMjcxMzE2MjIzODgwNg=='; //Payshia
-
             // Generate the hash for security
-            $hash = strtoupper(
-                md5(
-                    $merchant_id .
-                        $invoiceNumber .
-                        $totalAmount .
-                        $currency .
-                        strtoupper(md5($merchant_secret))
-                )
-            );
+            $hash = $this->generateHash($invoiceNumber, $totalAmount, $currency);
 
             // Prepare the form data for submission
             $form_data = array_merge([
-                'merchant_id' => $merchant_id,
+                'merchant_id' => $this->merchant_id,
                 'return_url' => $return_url,
                 'cancel_url' => $cancel_url,
                 'notify_url' => $notify_url,
@@ -348,7 +265,8 @@ class PaymentController
 
             // Generate the HTML form that will auto-submit to PayHere checkout
             echo '<html><body onload="document.forms[0].submit();">';
-            echo '<form method="post" action="https://www.payhere.lk/pay/checkout">';
+            echo '<form method="post" action="https://' . $this->modePrefix . '.payhere.lk/pay/checkout">';
+
             foreach ($form_data as $key => $value) {
                 echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
             }
@@ -357,6 +275,19 @@ class PaymentController
         } else {
             echo json_encode(['error' => 'Failed to create invoice']);
         }
+    }
+
+    private function generateHash($invoiceNumber, $totalAmount, $currency)
+    {
+        return strtoupper(
+            md5(
+                $this->merchant_id .
+                    $invoiceNumber .
+                    $totalAmount .
+                    $currency .
+                    strtoupper(md5($this->merchant_secret))
+            )
+        );
     }
 
     public function initiateCodInvoice()
@@ -434,7 +365,7 @@ class PaymentController
             $total_amount += $item['price'] * $item['quantity'];  // Calculate total based on price and quantity
         }
 
-        $invoiceNumber = uniqid();
+        $invoiceNumber = $this->model->generateInvoiceNumber("TJ-WEB-INV");
         // Prepare the invoice data
         $invoice_data = [
             'invoice_number' => $invoiceNumber,
@@ -447,7 +378,7 @@ class PaymentController
             'service_charge' => 0, // If applicable
             'tendered_amount' => $data['totalAmount'], // Amount paid
             'close_type' => 'Pending', // Assuming paid status
-            'invoice_status' => 'pending', // Initial status
+            'invoice_status' => 1, // Initial status
             'current_time' => date('Y-m-d H:i:s'),
             'location_id' => 1, // Adjust as needed
             'table_id' => 1, // Adjust as needed
@@ -458,7 +389,8 @@ class PaymentController
             'cost_value' => $total_amount, // Assuming cost value is the same as inv_amount
             'remark' => 'Payment initiated', // Optional remark
             'ref_hold' => null, // Optional reference hold, if needed
-            'promo_code_id' => $promoCode, // Optional reference hold, if needed
+            'promo_code_id' => $promoCode, // Optional reference hold, if needed,
+            'payment_status' => 'COD'
         ];
 
         $AddressData = [
@@ -555,9 +487,6 @@ class PaymentController
             echo json_encode(['error' => 'Failed to create invoice']);
         }
     }
-
-
-
     // Create a new transaction invoice
     public function createInvoice($data)
     {
@@ -572,7 +501,7 @@ class PaymentController
             isset($data['invoice_status']) && isset($data['current_time']) &&
             isset($data['location_id']) && isset($data['table_id']) &&
             isset($data['created_by']) && isset($data['is_active']) &&
-            isset($data['steward_id']) && isset($data['cost_value'])
+            isset($data['steward_id']) && isset($data['cost_value']) && isset($data['payment_status'])
         ) {
 
             $data['current_time'] = date('Y-m-d H:i:s'); // Set current timestamp
@@ -585,42 +514,34 @@ class PaymentController
         }
     }
 
+    // Create a new transaction receipt
+    public function createReceipt($data)
+    {
+        // Validate required fields
+        if (
+            $data && isset($data['rec_number']) && isset($data['type']) &&
+            isset($data['is_active']) && isset($data['date']) &&
+            isset($data['current_time']) && isset($data['amount']) &&
+            isset($data['created_by']) && isset($data['ref_id']) &&
+            isset($data['location_id']) && isset($data['customer_id']) &&
+            isset($data['today_invoice'])
+        ) {
 
+            $data['current_time'] = date('Y-m-d H:i:s'); // Set current timestamp
+            $receiptId = $this->receiptModel->createReceipt($data);
 
-    // Method to handle payment notifications from PayHere
-    // public function paymentNotification()
-    // {
-    //     // Extract parameters from the PayHere callback
-    //     $merchant_id = $data['merchant_id'];
-    //     $order_id = $data['order_id'];
-    //     $payhere_amount = $data['payhere_amount'];
-    //     $payhere_currency = $data['payhere_currency'];
-    //     $status_code = $data['status_code'];
-    //     $md5sig = $data['md5sig'];
-
-    //     // Your PayHere secret key
-    //     $merchant_secret = 'NzA3NzA5OTA3MzExNDQwNTA0OTQyMDAyNjEyMDEyMzYzNDI1Mzcz';
-
-    //     // Verify the signature from PayHere
-    //     $local_md5sig = strtoupper(md5(
-    //         $merchant_id .
-    //             $order_id .
-    //             $payhere_amount .
-    //             $payhere_currency .
-    //             $status_code .
-    //             strtoupper(md5($merchant_secret))
-    //     ));
-
-    //     if ($local_md5sig === $md5sig && $status_code == 2) {
-    //         // Payment was successful
-    //         $this->updateOrderStatus($order_id, 'success');
-    //         echo json_encode(['status' => 'Payment successful']);
-    //     } else {
-    //         // Payment failed or something went wrong
-    //         $this->updateOrderStatus($order_id, 'failed');
-    //         echo json_encode(['status' => 'Payment failed']);
-    //     }
-    // }
+            if ($receiptId) {
+                http_response_code(201);
+                echo json_encode(['message' => 'Transaction receipt created successfully', 'receipt_id' => $receiptId]);
+            } else {
+                http_response_code(500);
+                echo json_encode(['error' => 'Failed to create transaction receipt']);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid input']);
+        }
+    }
 
     // Method to handle the return URL (after user is redirected from PayHere)
     public function paymentReturn()
@@ -638,76 +559,13 @@ class PaymentController
         }
     }
 
-    // public function paymentNotify()
-    // {
-    //     // Fetch the incoming payment notification data
-    //     $data = json_decode(file_get_contents("php://input"), true);
-
-    //     // Retrieve the necessary fields from the POST request
-    //     $merchant_id = $data['merchant_id'];
-    //     $order_id = $data['order_id'];
-    //     $payhere_amount = $data['payhere_amount'];
-    //     $payhere_currency = $data['payhere_currency'];
-    //     $status_code = $data['status_code'];
-    //     $md5sig = $data['md5sig'];
-
-    //     // Your PayHere Merchant Secret
-    //     $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw=='; // Replace with your Merchant Secret
-
-    //     // Recreate the MD5 signature using the received data and your secret key
-    //     $local_md5sig = strtoupper(
-    //         md5(
-    //             $merchant_id .
-    //                 $order_id .
-    //                 $payhere_amount .
-    //                 $payhere_currency .
-    //                 $status_code .
-    //                 strtoupper(md5($merchant_secret))
-    //         )
-    //     );
-
-    //     $log_data = [
-    //         'local_md5sig' => $local_md5sig,
-    //         'received_md5sig' => $md5sig,
-    //         'merchant_id' => $merchant_id,
-    //         'order_id' => $order_id,
-    //         'payhere_amount' => $payhere_amount,
-    //         'payhere_currency' => $payhere_currency,
-    //         'status_code' => $status_code,
-    //     ];
-    //     file_put_contents('md5_signature_log.txt', json_encode($log_data) . PHP_EOL, FILE_APPEND);
-
-    //     // Verify if the MD5 signature is correct and the payment status is success (status_code = 2)
-    //     if ($local_md5sig === $md5sig && $status_code == 2) {
-    //         // Prepare the data for updating the invoice status in the database
-
-    //         // Call the model to update the invoice status based on the order_id
-    //         $rowCount = $this->model->updateInvoiceStatus($order_id);
-
-    //         // Check if the update was successful
-    //         if ($rowCount > 0) {
-    //             // Respond with a success message
-    //             http_response_code(201);
-    //             echo json_encode(['message' => 'Transaction invoice updated successfully']);
-    //         } else {
-    //             // If no rows were affected, it means the invoice was not found or updated
-    //             http_response_code(500);
-    //             echo json_encode(['error' => 'Invoice update failed']);
-    //         }
-    //     } else {
-    //         // If the checksum or payment status doesn't match, return an error response
-    //         http_response_code(400);
-    //         echo json_encode(['error' => 'Invalid payment notification or payment failed']);
-    //     }
-    // }
-
     public function paymentNotify()
     {
         // Step 1: Retrieve the incoming payment notification data (x-www-form-urlencoded)
         $data = $_POST;
 
         // Debug: Log raw incoming data
-        // file_put_contents('logs/payment_notify_log.txt', json_encode($data) . PHP_EOL, FILE_APPEND);
+        file_put_contents('logs/payment_notify_log.txt', json_encode($data) . PHP_EOL, FILE_APPEND);
 
         // Step 2: Validate required fields
         if (!isset($data['merchant_id'], $data['order_id'], $data['payhere_amount'], $data['payhere_currency'], $data['status_code'], $data['md5sig'])) {
@@ -724,12 +582,6 @@ class PaymentController
         $status_code = $data['status_code'];
         $md5sig = $data['md5sig'];
 
-
-
-        // Step 4: Your PayHere Merchant Secret
-        // $merchant_secret = 'Mzc2NTYyMjM3MzQwNjY0NDAxNDcyNDU4Nzc5NjE1MzAwNTczNjA4Nw==';
-        $merchant_secret = 'MjM0ODE1NTI3MTEyNjkwNDkxMDAzMjMyNzExMjcxMzE2MjIzODgwNg=='; // Replace with your Merchant Secret
-
         // Step 5: Recreate the MD5 signature using received data and your secret key
         $local_md5sig = strtoupper(
             md5(
@@ -738,52 +590,162 @@ class PaymentController
                     $payhere_amount .
                     $payhere_currency .
                     $status_code .
-                    strtoupper(md5($merchant_secret))
+                    strtoupper(md5($this->merchant_secret))
             )
         );
 
-        // Debug: Log signature comparison
-        $log_data = [
-            'local_md5sig' => $local_md5sig,
-            'received_md5sig' => $md5sig,
-            'status_code' => $status_code,
-            'order_id' => $order_id,
-            'payhere_amount' => $payhere_amount,
-            'payhere_currency' => $payhere_currency,
-        ];
-        // file_put_contents('logs/md5_signature_log.txt', json_encode($log_data) . PHP_EOL, FILE_APPEND);
 
         // Step 6: Verify the MD5 signature and payment status
         if ($local_md5sig === $md5sig && $status_code == 2) {
             // Step 7: Update the invoice status
-            $invoice_data = [
-                'invoice_status' => 'Paid', // Mark the invoice as paid
-            ];
-
-            // Send Invoice
-            $invoiceSendMailStatus = $this->SendInvoiceEmail($order_id);
 
             // Call the model to update the invoice status
             try {
-                $rowCount = $this->model->updateInvoiceStatus($order_id, $invoice_data);
+                $rowCount = $this->model->updateInvoiceStatus($order_id);
+                $InvoiceInfo = $this->model->getInvoiceById($order_id);
+                $addressInfo = $this->AddressModel->getRecordsByInvoice($order_id);
+                $invoiceItems = $this->model2->getRecordsByInvoice($order_id);
 
-                // Debug: Log database update result
-                // file_put_contents('logs/db_update_log.txt', "Order ID: $order_id, Rows Updated: $rowCount" . PHP_EOL, FILE_APPEND);
+                $shippingAddress = $addressInfo['shipping'];
+                $billingAddress = $addressInfo['billing'];
+
+
+                // New Invoice
+                $invoiceNumber = $this->model->generateInvoiceNumber("TJ-WEB-INV");
+                $receiptNumber = $this->receiptModel->generateReceiptNumber("TJ-WEB-REC");
+
+                // Assuming $invoice_info contains the invoice data from your array
+                $invoice_data = [
+                    'invoice_number' => $invoiceNumber,
+                    'invoice_date' => $InvoiceInfo['invoice_date'],
+                    'inv_amount' => $InvoiceInfo['inv_amount'], // Total amount before discount
+                    'grand_total' => $InvoiceInfo['grand_total'], // Final amount after discount, shipping, etc.
+                    'discount_amount' => $InvoiceInfo['discount_amount'],
+                    'discount_percentage' => $InvoiceInfo['discount_percentage'],
+                    'customer_code' => $InvoiceInfo['customer_code'], // Assuming customer_code can be the email
+                    'service_charge' => $InvoiceInfo['service_charge'],
+                    'tendered_amount' => $InvoiceInfo['tendered_amount'], // Amount paid
+                    'close_type' => $InvoiceInfo['close_type'],
+                    'invoice_status' => $InvoiceInfo['invoice_status'],
+                    'current_time' => $InvoiceInfo['current_time'],
+                    'location_id' => $InvoiceInfo['location_id'],
+                    'table_id' => $InvoiceInfo['table_id'],
+                    'order_ready_status' => $InvoiceInfo['order_ready_status'],
+                    'created_by' => $InvoiceInfo['created_by'],
+                    'is_active' => $InvoiceInfo['is_active'],
+                    'steward_id' => $InvoiceInfo['steward_id'],
+                    'cost_value' => $InvoiceInfo['cost_value'],
+                    'remark' => $InvoiceInfo['remark'],
+                    'ref_hold' => $order_id,
+                    'promo_code_id' => $InvoiceInfo['promo_code_id'],
+                    'payment_status' => isset($InvoiceInfo['payment_status']) ? $InvoiceInfo['payment_status'] : 'Not Paid'
+                ];
+
+                $AddressData = [
+                    'shipping' => [
+                        'user_id' => $shippingAddress['user_id'] ?? null,
+                        'order_id' => $invoiceNumber ?? null,
+                        'address_type' => 'shipping',
+                        'first_name' => $shippingAddress['first_name'],
+                        'last_name' => $shippingAddress['last_name'],
+                        'phone' => $shippingAddress['phone'],
+                        'address_line1' => $shippingAddress['address_line1'],
+                        'address_line2' => $shippingAddress['address_line2'] ?? null,
+                        'city' => $shippingAddress['city'],
+                        'state' => $shippingAddress['state'] ?? null,
+                        'postal_code' => $shippingAddress['postal_code'],
+                        'country' => $shippingAddress['country'],
+                        'is_default' => $shippingAddress['is_default'] ?? 0,
+                        'save_info' => $shippingAddress['save_info'] ?? 0,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
+                    ],
+                    'billing' => [
+                        'user_id' => $billingAddress['user_id'] ?? null,
+                        'order_id' => $invoiceNumber ?? null,
+                        'address_type' => 'billing',
+                        'first_name' => $billingAddress['first_name'],
+                        'last_name' => $billingAddress['last_name'],
+                        'phone' => $billingAddress['phone'],
+                        'address_line1' => $billingAddress['address_line1'],
+                        'address_line2' => $billingAddress['address_line2'] ?? null,
+                        'city' => $billingAddress['city'],
+                        'state' => $billingAddress['state'] ?? null,
+                        'postal_code' => $billingAddress['postal_code'],
+                        'country' => $billingAddress['country'],
+                        'is_default' => $billingAddress['is_default'] ?? 0,
+                        'save_info' => $billingAddress['save_info'] ?? 0,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
+                    ]
+                ];
+
+                // Call the createInvoice method to insert the data
+                $invoiceId = $this->model->createInvoice($invoice_data);
+                // var_dump($addressInfo);
+                foreach ($AddressData as $address) {
+                    var_dump($address);
+                    $addressSaveStatus = $this->AddressModel->createAddress($address);
+                }
+                $newInvoiceItems = [];
+                foreach ($invoiceItems as $item) {
+                    $newInvoiceItems[] = [
+                        'user_id' => $InvoiceInfo['customer_code'] ?? 1, // Replace with actual user logic
+                        'product_id' => $item['product_id'],
+                        'item_price' => $item['item_price'],
+                        'item_discount' => $item['item_discount'] ?? 0,
+                        'quantity' => $item['quantity'],
+                        'added_date' => date('Y-m-d H:i:s'),
+                        'is_active' => 1,
+                        'customer_id' => $InvoiceInfo['customer_code'],
+                        'hold_status' => 0,
+                        'table_id' => 0,
+                        'invoice_number' => $invoiceNumber,
+                        'cost_price' => $item['cost_price'], // Adjust if cost differs
+                        'printed_status' =>  0,
+                        'item_remark' => null,
+                    ];
+                }
+
+                // Save items using batch insert
+                $this->model2->createItems($newInvoiceItems);
+
+                // Data for creating receipt
+                $receiptData = [
+                    'rec_number' => $receiptNumber, // Unique receipt number
+                    'type' => 1,
+                    'is_active' => 1,
+                    'date' => date('Y-m-d'), // Format: YYYY-MM-DD
+                    'current_time' => date('Y-m-d H:i:s'),
+                    'amount' => $payhere_amount,
+                    'created_by' => "Payhere", // Example data
+                    'ref_id' => $invoiceNumber,
+                    'location_id' => 1, // Assuming location_id exists
+                    'customer_id' => $InvoiceInfo['customer_code'],
+                    'today_invoice' => 1,
+                ];
+
+                // Create the transaction receipt
+                $receiptId = $this->receiptModel->createReceipt($receiptData);
+
+                if (!$receiptId) {
+                    echo json_encode(['error' => 'Failed to create receipt']);
+                    exit;
+                }
 
                 // Check if the update was successful
                 if ($rowCount > 0) {
                     // Respond with a success message
                     http_response_code(201);
                     echo json_encode(['message' => 'Transaction invoice updated successfully']);
+                    // Send Invoice
+                    $invoiceSendMailStatus = $this->SendInvoiceEmail($order_id);
                 } else {
                     // If no rows were affected, it means the invoice was not found or updated
                     http_response_code(500);
                     echo json_encode(['error' => 'Invoice update failed']);
                 }
             } catch (Exception $e) {
-                // Debug: Log database errors
-                // file_put_contents('logs/db_error_log.txt', $e->getMessage() . PHP_EOL, FILE_APPEND);
-
                 // Respond with an internal server error
                 http_response_code(500);
                 echo json_encode(['error' => 'Internal server error during database operation']);
@@ -792,9 +754,6 @@ class PaymentController
             // Step 8: Handle invalid checksum or payment failure
             http_response_code(400);
             echo json_encode(['error' => 'Invalid payment notification or payment failed']);
-
-            // Debug: Log checksum mismatch or failure status
-            // file_put_contents('logs/invalid_payment_log.txt', json_encode($log_data) . PHP_EOL, FILE_APPEND);
         }
     }
 
@@ -853,7 +812,8 @@ class PaymentController
                 "company_contact" => "(+94) 70 55 08 800",
                 "unsubscribe_url" => "https://teajarceylon.com/unsubscribe",
                 "customer_email" => $InvoiceInfo['customer_code'],
-                "items" => $itemsArray
+                "items" => $itemsArray,
+                "payment_status" => $InvoiceInfo['payment_status'],
             ];
 
             $emailStatus = $this->sendOrderConfirmationEmail($orderData, $InvoiceInfo['customer_code']);
@@ -863,10 +823,6 @@ class PaymentController
             echo "Exception: " . $e->getMessage();
         }
     }
-
-
-
-
 
     // Helper method to update the order status in your database
     private function updateOrderStatus($order_id, $status)
@@ -907,7 +863,7 @@ class PaymentController
 
             // $mail->addCC('dupasena@kdugroup.com');
             // $mail->addCC('marketing@teajarceylon.com');
-            // $mail->addCC('international@teajarceylon.com');
+            // $mail->addCC('international@kduexports.com');
 
             // Generate email content
             $emailContent = $this->generateEmailHTML($orderData);
@@ -927,7 +883,6 @@ class PaymentController
             return ['status' => 'error', 'message' => $mailError];
         }
     }
-
 
     /**
      * Generate the HTML for an order confirmation email.
@@ -967,12 +922,11 @@ class PaymentController
             '[RECOMMENDED_PRODUCTS]' => '', // You can add logic to generate recommended products if available
             '[DELIVERY_DATE]' => $orderData['delivery_date'],
             '[CUSTOMER_SERVICE_EMAIL]' => $orderData['customer_service_email'],
-            '[INSTAGRAM_URL]' => $orderData['instagram_url'],
-            '[FACEBOOK_URL]' => $orderData['facebook_url'],
             '[COMPANY_ADDRESS]' => $orderData['company_address'],
             '[COMPANY_CONTACT]' => $orderData['company_contact'],
             '[CUSTOMER_EMAIL]' => $orderData['customer_email'],
             '[UNSUBSCRIBE_URL]' => $orderData['unsubscribe_url'],
+            '[PAYMENT_STATUS]' => $orderData['payment_status'],
         ];
 
         foreach ($placeholders as $placeholder => $value) {

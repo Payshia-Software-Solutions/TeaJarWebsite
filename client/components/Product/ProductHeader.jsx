@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Star, ShoppingBag, Coffee, Scale } from "lucide-react";
 
 const CURRENCY_SYMBOLS = {
@@ -13,9 +13,12 @@ const ProductHeader = ({
   servingsPerPack,
   gramsPerPack,
   price,
-  currency = "USD",
+  currency = "LKR",
   inStock = true,
   onShippingClick,
+  productId,
+  specialPromo,
+  specialPromoType,
 }) => {
   const formatPrice = (price, currency) => {
     const formatter = new Intl.NumberFormat(
@@ -74,10 +77,44 @@ const ProductHeader = ({
 
       {/* Price and Shipping */}
       <div className="flex items-center gap-4 mt-4">
-        <span className="text-3xl font-bold text-gray-800">
-          {formatPrice(price, currency)}
+        <span
+          className="text-3xl font-bold text-gray-800 amount"
+          data-product-id={productId}
+          data-product-name={title}
+          data-product-amount={price}
+        >
+          {/* Check if there's a special promo */}
+          {specialPromo && specialPromo > 0 ? (
+            <>
+              {}
+              {/* Display the crossed price */}
+              <span className="line-through text-gray-500 mr-2">
+                {formatPrice(price, currency)}
+              </span>
+
+              {/* Calculate and display the discounted price */}
+              {specialPromoType === "percentage" ? (
+                <span className="text-3xl font-bold text-gray-800">
+                  {formatPrice(
+                    (price * (1 - specialPromo / 100)).toFixed(2),
+                    currency
+                  )}
+                </span>
+              ) : (
+                <span className="text-3xl font-bold text-gray-800">
+                  {formatPrice((price - specialPromo).toFixed(2), currency)}
+                </span>
+              )}
+            </>
+          ) : (
+            // No promo, show original price
+            <span className="text-3xl font-bold text-gray-800">
+              {formatPrice(price, currency)}
+            </span>
+          )}
         </span>
       </div>
+
       <div>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-600">

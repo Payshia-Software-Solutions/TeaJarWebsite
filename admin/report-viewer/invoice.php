@@ -1,11 +1,24 @@
 <?php
 require_once('../include/config.php');
 include '../include/function-update.php';
+require_once '../vendor/autoload.php';
 
 $Locations = GetLocations($link);
 $CompanyInfo = GetCompanyInfo($link);
 $Products = GetProducts($link);
 $Units = GetUnit($link);
+
+
+use Symfony\Component\HttpClient\HttpClient;
+
+$client = HttpClient::create();
+$dotenv = Dotenv\Dotenv::createImmutable('../');
+$dotenv->load();
+
+$client = HttpClient::create();
+
+
+
 
 $invoice_number = isset($_GET['invoiceNumber']) && $_GET['invoiceNumber'] !== '' ? $_GET['invoiceNumber'] : null;
 
@@ -20,13 +33,34 @@ $SelectedInvoice = GetInvoices($link)[$invoice_number];
 $InvProducts = GetInvoiceItems($link, $invoice_number);
 $Units = GetUnit($link);
 
+$response = $client->request('GET', $_ENV['SERVER_URL'] . '/addresses/by-invoice/' . $invoice_number);
+// Check if the response status code is 404
+if ($response->getStatusCode() === 404) {
+    // If 404, set $productImages as an empty array
+    $invoiceAddresses = [];
+} else {
+    // Otherwise, parse the response body as an array
+    $invoiceAddresses = $response->toArray();
+}
+
+
+$response = $client->request('GET', $_ENV['SERVER_URL'] . '/invoices/' . $invoice_number);
+// Check if the response status code is 404
+if ($response->getStatusCode() === 404) {
+    // If 404, set $productImages as an empty array
+    $InvoiceInfo = [];
+} else {
+    // Otherwise, parse the response body as an array
+    $InvoiceInfo = $response->toArray();
+}
+
 
 $pageTitle = "Invoice  - " . $invoice_number;
 $reportTitle = "Invoice";
 
 $taxAmount = $shippingAmount = $otherAmount = 0;
 $CustomerID = $SelectedInvoice['customer_code'];
-$Customer = GetCustomersByID($link, $CustomerID);
+// $Customer = GetCustomersByID($link, $CustomerID);
 
 $discountPercentage = $SelectedInvoice['discount_percentage'];
 $discountAmount = $SelectedInvoice['discount_amount'];
@@ -55,6 +89,15 @@ $formattedDate = $dateTime->format('d/m/Y H:i:s');
 
 
 $LocationName = $Locations[$SelectedInvoice['location_id']]['location_name'];
+
+if ($InvoiceInfo['invoice_status'] == "Paid") {
+    $paymentState = "Paid";
+} else {
+    $paymentState = "COD";
+}
+
+$billingAddress = $invoiceAddresses['billing'];
+$shippingAddress = $invoiceAddresses['shipping'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +105,7 @@ $LocationName = $Locations[$SelectedInvoice['location_id']]['location_name'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $pageTitle ?> - <?= $Customer['customer_first_name'] ?> <?= $Customer['customer_last_name'] ?></title>
+    <title><?= $pageTitle ?> - <?= $billingAddress['first_name'] ?> <?= $billingAddress['last_name'] ?></title>
 
     <!-- Favicons -->
     <link href="../assets/images/favicon/apple-touch-icon.png" rel="icon">
@@ -106,29 +149,50 @@ $LocationName = $Locations[$SelectedInvoice['location_id']]['location_name'];
                         <td class="text-end"><?= strtoupper($referenceText) ?></td>
                     </tr>
 
+                    <tr>
+                        <th>Payment</th>
+                        <td class="text-end"><?= strtoupper($SelectedInvoice['payment_status']) ?></td>
+                    </tr>
+
                 </table>
             </div>
 
         </div>
         <div id="container" class="section-2">
             <div id="left-section">
-                <h3 class="sub-title">Customer</h3>
-                <p class="text-bold-extra"><?= isset($Customer['customer_first_name']) ? $Customer['customer_first_name'] : "Web"  ?> <?= isset($Customer['customer_last_name']) ? $Customer['customer_last_name'] : "User"  ?></p>
+                <h3 class="sub-title">Billing Info</h3>
+                <p class="text-bold-extra"><?= $CustomerID ?></p>
+                <p class="text-bold-extra"><?= isset($billingAddress['first_name']) ? $billingAddress['first_name'] : $CustomerID  ?> <?= isset($billingAddress['last_name']) ? $billingAddress['last_name'] : ""  ?></p>
                 <p>
-                    <?= isset($Customer['address_line1']) ? $Customer['address_line1'] : '' ?>
-                    <?= isset($Customer['address_line2']) ? ', ' . $Customer['address_line2'] : '' ?>
-                    <?= isset($Customer['city_id']) ? ', ' . $Customer['city_id'] : '' ?>
+                    <?= isset($billingAddress['address_line1']) ? $billingAddress['address_line1'] : '' ?>
+                    <?= isset($billingAddress['address_line2']) ? ', ' . $billingAddress['address_line2'] : '' ?>
+                    <?= isset($billingAddress['city']) ? ', ' . $billingAddress['city'] : '' ?>
                 </p>
                 <p>
-                    Tel: <?= isset($Customer['phone_number']) ? $Customer['phone_number'] : 'N/A' ?>
+                    Tel: <?= isset($billingAddress['phone']) ? $billingAddress['phone'] : 'N/A' ?>
                 </p>
                 <p>
-                    Email: <?= isset($Customer['email_address']) ? $Customer['email_address'] : 'N/A' ?>
+                    Email: <?= isset($billingAddress['user_id']) ? $billingAddress['user_id'] : 'N/A' ?>
                 </p>
 
             </div>
 
+            <div id="right-section">
+                <h3 class="sub-title">Shipping Info</h3>
+                <p class="text-bold-extra"><?= isset($shippingAddress['first_name']) ? $shippingAddress['first_name'] : $CustomerID  ?> <?= isset($shippingAddress['last_name']) ? $shippingAddress['last_name'] : ""  ?></p>
 
+                <p>
+                    <?= isset($shippingAddress['address_line1']) ? $shippingAddress['address_line1'] : '' ?>
+                    <?= isset($shippingAddress['address_line2']) ? ', ' . $shippingAddress['address_line2'] : '' ?>
+                    <?= isset($shippingAddress['city']) ? ', ' . $shippingAddress['city'] : '' ?>
+                </p>
+                <p>
+                    Tel: <?= isset($shippingAddress['phone']) ? $shippingAddress['phone'] : 'N/A' ?>
+                </p>
+                <p>
+                    Email: <?= isset($shippingAddress['user_id']) ? $shippingAddress['user_id'] : 'N/A' ?>
+                </p>
+            </div>
         </div>
 
         <div id="container" class="section-4">
@@ -159,8 +223,6 @@ $LocationName = $Locations[$SelectedInvoice['location_id']]['location_name'];
                             $ProductID = $selectedArray['product_id'];
                             $item_discount = $selectedArray['item_discount'];
                             $OrderUnit = $Units[$Products[$ProductID]['measurement']]['unit_name'];
-
-
                             $productName = $Products[$ProductID]['product_name'];
 
                             $lineTotal = ($PerRate - $item_discount) * $OrderQuantity;

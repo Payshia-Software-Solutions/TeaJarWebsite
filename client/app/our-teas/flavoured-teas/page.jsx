@@ -72,7 +72,7 @@ const teaData = [
     packing: "2g x 25 Enveloped Tea Bags x 56",
     netWeight: "50g",
     productCode: "KDUEXFL0002",
-    linkUrl: "/products/products/cardamom-flavored-25-enveloped-tea-bags",
+    linkUrl: "/products/cardamom-flavored-25-enveloped-tea-bags",
     reverse: true,
     bgColor: "#899c39",
   },

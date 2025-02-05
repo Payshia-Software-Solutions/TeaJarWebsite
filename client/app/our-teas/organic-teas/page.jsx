@@ -13,7 +13,8 @@ const Josefin_Sans_font = Sulphur_Point({
 const productData = [
   {
     title: "CEYLON ORGANIC GREEN TEA",
-    imageSrc: "/assets/our-teas/factory/54.webp",
+    imageSrc:
+      "https://teajarceylon.com/_next/image?url=https%3A%2F%2Fkdu-admin.payshia.com%2Fpos-system%2Fassets%2Fimages%2Fproducts%2F48%2Fceylon_organic_green_tea_loose_leaf_100g675410e51e5ff7.19558442.webp&w=64&q=75",
     description:
       "Renowned for its unique taste and purity, the Ceylon Green Tea Pekoe has an acquired taste with a slight hint of bitterness that ends in sweetness. This high-grown tea is rich in colour and is a great addition to maintaining a healthy diet due to its antioxidant properties.",
     linkUrl: "/products/ceylon-organic-green-tea-loose-leaf-100g",
@@ -28,7 +29,8 @@ const productData = [
   },
   {
     title: "CEYLON ORGANIC BLACK TEA",
-    imageSrc: "/assets/our-teas/factory/55.webp",
+    imageSrc:
+      "https://teajarceylon.com/_next/image?url=https%3A%2F%2Fkdu-admin.payshia.com%2Fpos-system%2Fassets%2Fimages%2Fproducts%2F47%2Fceylon_organic_black_tea_loose_leaf_100g675410c803af89.71623356.webp&w=64&q=75",
     description:
       "Although this Orange Pekoe one (OP 1) black tea can be found in many parts of the country, the low-grown high-quality blend that is made with long wiry leaves is a common favourite in Asia. This tea is fragrant and subtle with a smooth malty taste and deep amber colour.",
     packing: "125g Loose Tea x 30 Canisters",

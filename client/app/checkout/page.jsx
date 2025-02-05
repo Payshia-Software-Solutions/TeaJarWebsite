@@ -26,6 +26,7 @@ const MainPage = () => {
     subscribe: false,
   });
   const [promoCode, setPromoCode] = useState(0);
+  const [processing, setProcessing] = useState(false); // New state
 
   useEffect(() => {
     // Load cart data from localStorage (or other storage mechanism)
@@ -40,12 +41,17 @@ const MainPage = () => {
   }, []);
 
   const handlePayment = async () => {
+    if (processing) return; // Prevent multiple clicks
+    setProcessing(true); // Disable button and show loading
+
     // Validate contact details
     if (!contactDetails.email || !validateEmail(contactDetails.email)) {
       toast.error("Please enter a valid email address.", {
         position: "top-right",
         autoClose: 3000,
       });
+
+      setProcessing(false);
       return;
     }
 
@@ -61,6 +67,8 @@ const MainPage = () => {
         position: "top-right",
         autoClose: 3000,
       });
+
+      setProcessing(false);
       return;
     }
 
@@ -77,6 +85,8 @@ const MainPage = () => {
         position: "top-right",
         autoClose: 3000,
       });
+
+      setProcessing(false);
       return;
     }
 
@@ -86,6 +96,8 @@ const MainPage = () => {
         position: "top-right",
         autoClose: 3000,
       });
+
+      setProcessing(false);
       return;
     }
 
@@ -95,6 +107,8 @@ const MainPage = () => {
         position: "top-right",
         autoClose: 3000,
       });
+
+      setProcessing(false);
       return;
     }
 
@@ -175,6 +189,8 @@ const MainPage = () => {
     } catch (error) {
       console.error("Error:", error);
       alert("There was an issue processing your order.");
+    } finally {
+      setProcessing(false); // Re-enable button after processing
     }
   };
 
@@ -223,14 +239,27 @@ const MainPage = () => {
             <div className="mx-auto p-6 bg-white">
               <button
                 onClick={handlePayment}
-                className="w-full px-6 py-3 text-white bg-black rounded-lg text-center font-semibold hover:bg-gray-800"
+                disabled={processing}
+                className={`w-full px-6 py-3 text-white rounded-lg text-center font-semibold ${
+                  processing ? "bg-gray-400" : "bg-black hover:bg-gray-800"
+                }`}
               >
-                Pay now
+                {processing ? "Processing..." : "Pay now"}
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Overlay */}
+      {processing && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 shadow-lg flex flex-col items-center">
+            <div className="loader border-t-4 border-gray-800 rounded-full w-16 h-16 animate-spin mb-4"></div>
+            <p className="text-lg font-medium">Processing your order...</p>
+          </div>
+        </div>
+      )}
       <ToastContainer />
     </section>
   );

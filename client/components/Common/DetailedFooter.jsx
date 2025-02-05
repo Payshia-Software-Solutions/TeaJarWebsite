@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,6 +25,21 @@ const Footer = () => {
       { title: "Tea Education", href: "#" },
     ],
   };
+
+  const socialMediaLinks = [
+    {
+      href: "https://facebook.com",
+      icon: "fab fa-facebook-f",
+      label: "Facebook",
+    },
+    {
+      href: "https://instagram.com",
+      icon: "fab fa-instagram",
+      label: "Instagram",
+    },
+    { href: "https://youtube.com", icon: "fab fa-youtube", label: "YouTube" },
+    { href: "https://tiktok.com", icon: "fab fa-tiktok", label: "TikTok" },
+  ];
 
   return (
     <footer className="bg-[#1c1c1c] text-gray-300 pt-16 pb-8">
@@ -114,6 +130,83 @@ const Footer = () => {
                   Click Here For Available Slots
                 </a>
               </div> */}
+          </div>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="mt-8 text-center">
+          <h3 className="text-white text-lg mb-4">Follow Us</h3>
+          <div>
+            <a
+              href="https://web.facebook.com/teajarceylon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mx-2"
+            >
+              <Image
+                src="https://teajarceylon.com/assets/icons/social/png/facebook.png"
+                alt="Facebook"
+                width={30}
+                height={30}
+                className="invert"
+              />
+            </a>
+            <a
+              href="https://www.instagram.com/tea_jar_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mx-2"
+            >
+              <Image
+                src="https://teajarceylon.com/assets/icons/social/png/instagram.png"
+                alt="Instagram"
+                width={30}
+                height={30}
+                className="invert"
+              />
+            </a>
+            <a
+              href="https://www.tiktok.com/@tea_jar_01"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mx-2"
+            >
+              <Image
+                src="https://teajarceylon.com/assets/icons/social/png/tiktok.png"
+                alt="TikTok"
+                width={30}
+                height={30}
+                className="invert"
+              />
+            </a>
+            <a
+              href="https://web.whatsapp.com/send?phone=94705508800&text=hi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mx-2"
+            >
+              <Image
+                src="https://teajarceylon.com/assets/icons/social/png/whatsapp.png"
+                alt="WhatsApp"
+                width={30}
+                height={30}
+                className="invert"
+              />
+            </a>
+            <a
+              href="https://www.youtube.com/your-channel"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mx-2"
+            >
+              <Image
+                src="https://teajarceylon.com/assets/icons/social/png/youtube.png"
+                alt="YouTube"
+                width={30}
+                height={30}
+                className="invert"
+              />
+            </a>
           </div>
         </div>
 
