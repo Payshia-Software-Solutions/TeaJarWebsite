@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Info } from "lucide-react";
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Tag, Sparkles } from "lucide-react";
 
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
@@ -45,6 +45,49 @@ const KOKOLogo = () => (
   </Link>
 );
 
+const PromoTag = ({ specialPromo, specialPromoType }) => {
+  const isPercentage = specialPromoType === "percentage";
+
+  return (
+    <div className="absolute top-3 right-0 z-20 flex items-center">
+      {/* Main Tag */}
+      <div
+        className={`
+        flex items-center gap-2 pr-3 pl-4 py-1.5
+        ${isPercentage ? "bg-red-500" : "bg-blue-500"}
+        text-white font-bold rounded-l-full
+        shadow-lg transform hover:scale-105 transition-transform
+        duration-300 ease-in-out
+      `}
+      >
+        <Sparkles size={14} className="animate-pulse" />
+        <span className="text-sm">
+          {isPercentage ? (
+            <>
+              <span className="text-lg">{specialPromo}%</span> OFF
+            </>
+          ) : (
+            <>
+              <span className="text-lg">Rs {specialPromo}</span> OFF
+            </>
+          )}
+        </span>
+      </div>
+
+      {/* Decorative Elements */}
+      <div
+        className={`
+        absolute -bottom-2 right-0
+        w-0 h-0
+        border-t-[8px]
+        ${isPercentage ? "border-t-red-700" : "border-t-blue-700"}
+        border-r-[8px] border-r-transparent
+      `}
+      />
+    </div>
+  );
+};
+
 const ProductCard = ({
   title = "Product Title",
   price = 4800,
@@ -58,6 +101,7 @@ const ProductCard = ({
   imageStyle = null,
   specialPromo,
   specialPromoType,
+  stockStatus,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -168,6 +212,13 @@ const ProductCard = ({
   return (
     <Link href={"/products/" + slug}>
       <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group relative">
+        {/* Promo Tag */}
+        {specialPromo && specialPromo > 0 && (
+          <PromoTag
+            specialPromo={specialPromo}
+            specialPromoType={specialPromoType}
+          />
+        )}
         <div
           className="relative aspect-square cursor-pointer overflow-hidden"
           onMouseEnter={() => setCurrentImageIndex(1)}
@@ -198,32 +249,49 @@ const ProductCard = ({
           ))}
 
           <div className="absolute z-10 w-full bottom-0 px-2 py-2 md:p-4 transform translate-y-full opacity-0 group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 ease-in-out bg-slate-50">
+            {stockStatus === 1 ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent navigation to the product page
+                  handleAddToCart();
+                }}
+                className="hidden group-hover:flex w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out"
+              >
+                <ShoppingCart size={16} />
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                className="hidden group-hover:flex w-full bg-slate-400 text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out cursor-not-allowed"
+                disabled
+              >
+                Out of Stock
+              </button>
+            )}
+          </div>
+        </div>
+        <div className="p-2 group">
+          {/* Add to Cart Button */}
+          {stockStatus === 1 ? (
             <button
               onClick={(e) => {
                 e.preventDefault(); // Prevent navigation to the product page
                 handleAddToCart();
               }}
-              className="hidden group-hover:flex w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out"
+              name="add-to-cart-button"
+              className="flex md:hidden w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2"
             >
               <ShoppingCart size={16} />
               Add to Cart
             </button>
-          </div>
-        </div>
-
-        <div className="p-2 group">
-          {/* Add to Cart Button */}
-          <button
-            onClick={(e) => {
-              e.preventDefault(); // Prevent navigation to the product page
-              handleAddToCart();
-            }}
-            name="add-to-cart-button"
-            className="flex md:hidden w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2"
-          >
-            <ShoppingCart size={16} />
-            Add to Cart
-          </button>
+          ) : (
+            <button
+              className="flex md:hidden w-full bg-slate-400 text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2 cursor-not-allowed"
+              disabled
+            >
+              Out of Stock
+            </button>
+          )}
 
           <div className="h-auto md:h-14 lg:h-16">
             <h3 className="text-sm lg:text-lg text-black font-bold leading-tight hover:text-gray-600 transition-colors duration-200 line-clamp-2">

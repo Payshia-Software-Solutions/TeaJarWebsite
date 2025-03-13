@@ -15,6 +15,7 @@ import config from "@/config";
 
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 
 const ProductPage = ({ product, product_images, product_info }) => {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -28,6 +29,10 @@ const ProductPage = ({ product, product_images, product_info }) => {
     "Inner View": 4,
     Other: 5,
   };
+
+  useEffect(() => {
+    window.yotpo = window.yotpo || {};
+  }, []);
 
   // Sort the product_images based on the predefined order
   const sortedImages = product_images.sort((a, b) => {
@@ -295,15 +300,24 @@ const ProductPage = ({ product, product_images, product_info }) => {
             ) : null}
 
             <div className="flex items-center space-x-2">
-              <button
-                className="flex-1 bg-black text-white py-3 rounded-md hover:bg-gray-800 text-lg h-14"
-                onClick={(e) => {
-                  e.preventDefault(); // Prevent navigation to the product page
-                  addToCart();
-                }}
-              >
-                Add to cart
-              </button>
+              {product.stock_status === 1 ? (
+                <button
+                  className="flex-1 bg-black text-white py-3 rounded-md hover:bg-gray-800 text-lg h-14"
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevent navigation to the product page
+                    addToCart();
+                  }}
+                >
+                  Add to Cart
+                </button>
+              ) : (
+                <button
+                  className="flex-1 bg-gray-400 text-white py-3 rounded-md text-lg h-14 cursor-not-allowed"
+                  disabled
+                >
+                  Out of Stock
+                </button>
+              )}
 
               <button
                 className="bg-green-800 text-white p-2 rounded-md hover:bg-green-700 flex items-center justify-center w-12 h-14"
@@ -343,6 +357,22 @@ const ProductPage = ({ product, product_images, product_info }) => {
         {/* <div className="mt-10 border-t">
           <ReviewSection />
         </div> */}
+        <div
+          className="yotpo-widget-instance"
+          data-yotpo-instance-id="1025350"
+          data-yotpo-product-id={product.product_id}
+          data-yotpo-name={productName}
+          data-yotpo-url={`https://teajarceylon.com/products/` + product.slug}
+          data-yotpo-image-url={
+            `http://kdu-admin.payshia.com/pos-system/assets/images/products/` +
+            product.id +
+            `/` +
+            product.image_path
+          }
+          data-yotpo-price={product.selling_price}
+          data-yotpo-currency="LKR"
+          data-yotpo-description={product.product_description}
+        ></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4">
