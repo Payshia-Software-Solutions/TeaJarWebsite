@@ -153,6 +153,7 @@ function ProductsByRange({ range_id, searchQuery = "" }) {
               category={singleitem.category_id}
               specialPromo={singleitem.special_promo}
               specialPromoType={singleitem.special_promo_type}
+              stockStatus={singleitem.stock_status}
             />
           );
         })}

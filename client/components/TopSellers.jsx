@@ -195,7 +195,9 @@ function TopSellers() {
                     defaultFrontImage,
                     defaultOtherImage,
                   ];
+                  console.log(singleitem)
                   return (
+                    
                     <SwiperSlide
                       key={singleitem.product_id}
                       className="p-2 mb-6"
@@ -209,6 +211,9 @@ function TopSellers() {
                         images={images}
                         Rate={"(5.6)"}
                         category={singleitem.category_id}
+                        specialPromo={singleitem.special_promo}
+                        specialPromoType={singleitem.special_promo_type}
+                        stockStatus={singleitem.stock_status}
                       />
                     </SwiperSlide>
                   );

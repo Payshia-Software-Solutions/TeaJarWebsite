@@ -284,7 +284,7 @@ const ProductPage = ({ product, product_images, product_info }) => {
             </div>
 
             {/* Check if there's a special promo */}
-            {discountPercentage && discountPercentage > 0 ? (
+            {/* {discountPercentage && discountPercentage > 0 ? (
               <CouponBanner
                 productName={productName}
                 originalPrice={price}
@@ -292,7 +292,7 @@ const ProductPage = ({ product, product_images, product_info }) => {
                 discountType={discountType}
                 PromoMessage={PromoMessage}
               />
-            ) : null}
+            ) : null} */}
 
             <div className="flex items-center space-x-2">
               <button
