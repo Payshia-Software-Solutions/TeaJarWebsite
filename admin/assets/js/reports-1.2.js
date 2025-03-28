@@ -80,9 +80,9 @@ function PrintDayEndSale() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/day-end-sale-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&date_input=" +
-      encodeURIComponent(queryDate),
+    encodeURIComponent(location_id) +
+    "&date_input=" +
+    encodeURIComponent(queryDate),
     "_blank"
   );
 
@@ -113,6 +113,7 @@ function SaleSummaryReport() {
   }
   fetch_data();
 }
+
 
 function GetDaySaleSummaryReport() {
   document.getElementById("report-view").innerHTML = InnerLoader;
@@ -147,11 +148,11 @@ function PrintDaySaleSummaryReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/sale-summary-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&fromQueryDate=" +
-      encodeURIComponent(fromQueryDate) +
-      "&toQueryDate=" +
-      encodeURIComponent(toQueryDate),
+    encodeURIComponent(location_id) +
+    "&fromQueryDate=" +
+    encodeURIComponent(fromQueryDate) +
+    "&toQueryDate=" +
+    encodeURIComponent(toQueryDate),
     "_blank"
   );
 
@@ -160,6 +161,72 @@ function PrintDaySaleSummaryReport() {
     printWindow.focus();
   }
 }
+
+// Sale Summary Report
+function GetCustomerList() {
+  document.getElementById("report-index").innerHTML = InnerLoader;
+
+  function fetch_data() {
+    $.ajax({
+      url: "assets/content/reporting_module/customer-list/index.php",
+      method: "POST",
+      data: {
+        LoggedUser: LoggedUser,
+        UserLevel: UserLevel,
+        default_location: default_location,
+      },
+      success: function (data) {
+        $("#report-index").html(data);
+        GetGetCustomerList();
+      },
+    });
+  }
+  fetch_data();
+}
+
+
+function PrintCustomerListReport() {
+  var fromQueryDate = document.getElementById("from-date-input").value;
+  var toQueryDate = document.getElementById("to-date-input").value;
+  var location_id = document.getElementById("location_id").value;
+  // Open a new tab with the printPage.html and pass the po_number as a query parameter
+  var printWindow = window.open(
+    "report-viewer/customer-list?location_id=" +
+    encodeURIComponent(location_id) +
+    "&fromQueryDate=" +
+    encodeURIComponent(fromQueryDate) +
+    "&toQueryDate=" +
+    encodeURIComponent(toQueryDate),
+    "_blank"
+  );
+
+  // Focus on the new tab
+  if (printWindow) {
+    printWindow.focus();
+  }
+}
+
+function BinCardReport() {
+  document.getElementById("report-index").innerHTML = InnerLoader;
+
+  function fetch_data() {
+    $.ajax({
+      url: "assets/content/reporting_module/bin-card/index.php",
+      method: "POST",
+      data: {
+        LoggedUser: LoggedUser,
+        UserLevel: UserLevel,
+        default_location: default_location,
+      },
+      success: function (data) {
+        $("#report-index").html(data);
+        GetBinCardReport();
+      },
+    });
+  }
+  fetch_data();
+}
+
 
 // Invoice Report
 function InvoiceReport() {
@@ -215,11 +282,11 @@ function PrintCustomerStatement() {
     // Open a new tab with the printPage.html and pass the po_number as a query parameter
     var printWindow = window.open(
       "report-viewer/customer-statement?customerId=" +
-        encodeURIComponent(customerId) +
-        "&fromQueryDate=" +
-        encodeURIComponent(fromQueryDate) +
-        "&toQueryDate=" +
-        encodeURIComponent(toQueryDate),
+      encodeURIComponent(customerId) +
+      "&fromQueryDate=" +
+      encodeURIComponent(fromQueryDate) +
+      "&toQueryDate=" +
+      encodeURIComponent(toQueryDate),
       "_blank"
     );
   } else {
@@ -238,11 +305,11 @@ function PrintDayInvoiceReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/invoice-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&fromQueryDate=" +
-      encodeURIComponent(fromQueryDate) +
-      "&toQueryDate=" +
-      encodeURIComponent(toQueryDate),
+    encodeURIComponent(location_id) +
+    "&fromQueryDate=" +
+    encodeURIComponent(fromQueryDate) +
+    "&toQueryDate=" +
+    encodeURIComponent(toQueryDate),
     "_blank"
   );
 
@@ -308,15 +375,15 @@ function PrintStockBalanceReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/stock-balance-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&section_id=" +
-      encodeURIComponent(section_id) +
-      "&category_id=" +
-      encodeURIComponent(category_id) +
-      "&department_id=" +
-      encodeURIComponent(department_id) +
-      "&queryDate=" +
-      encodeURIComponent(queryDate),
+    encodeURIComponent(location_id) +
+    "&section_id=" +
+    encodeURIComponent(section_id) +
+    "&category_id=" +
+    encodeURIComponent(category_id) +
+    "&department_id=" +
+    encodeURIComponent(department_id) +
+    "&queryDate=" +
+    encodeURIComponent(queryDate),
     "_blank"
   );
 
@@ -381,13 +448,13 @@ function PrintBinCardReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/bin-card?location_id=" +
-      encodeURIComponent(location_id) +
-      "&from-date-input=" +
-      encodeURIComponent(fromQueryDate) +
-      "&to-date-input=" +
-      encodeURIComponent(toQueryDate) +
-      "&select_product=" +
-      encodeURIComponent(select_product),
+    encodeURIComponent(location_id) +
+    "&from-date-input=" +
+    encodeURIComponent(fromQueryDate) +
+    "&to-date-input=" +
+    encodeURIComponent(toQueryDate) +
+    "&select_product=" +
+    encodeURIComponent(select_product),
     "_blank"
   );
 
@@ -451,11 +518,11 @@ function PrintItemWiseSaleReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/item-wise-sale?location_id=" +
-      encodeURIComponent(location_id) +
-      "&from-date-input=" +
-      encodeURIComponent(fromQueryDate) +
-      "&to-date-input=" +
-      encodeURIComponent(toQueryDate),
+    encodeURIComponent(location_id) +
+    "&from-date-input=" +
+    encodeURIComponent(fromQueryDate) +
+    "&to-date-input=" +
+    encodeURIComponent(toQueryDate),
     "_blank"
   );
 
@@ -491,11 +558,11 @@ function PrintDateWiseSaleReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/date-wise-sale-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&fromQueryDate=" +
-      encodeURIComponent(fromQueryDate) +
-      "&toQueryDate=" +
-      encodeURIComponent(toQueryDate),
+    encodeURIComponent(location_id) +
+    "&fromQueryDate=" +
+    encodeURIComponent(fromQueryDate) +
+    "&toQueryDate=" +
+    encodeURIComponent(toQueryDate),
     "_blank"
   );
 
@@ -560,11 +627,11 @@ function PrintReceiptReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/receipt-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&from-date-input=" +
-      encodeURIComponent(fromQueryDate) +
-      "&to-date-input=" +
-      encodeURIComponent(toQueryDate),
+    encodeURIComponent(location_id) +
+    "&from-date-input=" +
+    encodeURIComponent(fromQueryDate) +
+    "&to-date-input=" +
+    encodeURIComponent(toQueryDate),
     "_blank"
   );
 
@@ -599,11 +666,11 @@ async function PrintReceiptReportNew() {
   // Open a new tab with the encrypted query parameters
   var printWindow = window.open(
     "report-viewer/receipt-report?encryptedData=" +
-      encodeURIComponent(encryptedData) +
-      "&key=" +
-      encodeURIComponent(key) +
-      "&iv=" +
-      encodeURIComponent(iv),
+    encodeURIComponent(encryptedData) +
+    "&key=" +
+    encodeURIComponent(key) +
+    "&iv=" +
+    encodeURIComponent(iv),
     "_blank"
   );
 
@@ -798,11 +865,11 @@ function PrintChargeReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/charge-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&from-date-input=" +
-      encodeURIComponent(fromQueryDate) +
-      "&to-date-input=" +
-      encodeURIComponent(toQueryDate),
+    encodeURIComponent(location_id) +
+    "&from-date-input=" +
+    encodeURIComponent(fromQueryDate) +
+    "&to-date-input=" +
+    encodeURIComponent(toQueryDate),
     "_blank"
   );
 
@@ -867,11 +934,11 @@ function PrintCreditSaleReport() {
   // Open a new tab with the printPage.html and pass the po_number as a query parameter
   var printWindow = window.open(
     "report-viewer/credit-sale-summary-report?location_id=" +
-      encodeURIComponent(location_id) +
-      "&fromQueryDate=" +
-      encodeURIComponent(fromQueryDate) +
-      "&toQueryDate=" +
-      encodeURIComponent(toQueryDate),
+    encodeURIComponent(location_id) +
+    "&fromQueryDate=" +
+    encodeURIComponent(fromQueryDate) +
+    "&toQueryDate=" +
+    encodeURIComponent(toQueryDate),
     "_blank"
   );
 

@@ -195,7 +195,9 @@ function TopSellers() {
                     defaultFrontImage,
                     defaultOtherImage,
                   ];
+                  // console.log("Product s"+singleitem.product_name + singleitem.stock_status)
                   return (
+                    
                     <SwiperSlide
                       key={singleitem.product_id}
                       className="p-2 mb-6"

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Info } from "lucide-react";
+import { ShoppingCart, Tag, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { ShoppingCart, Tag, Sparkles } from "lucide-react";
 
@@ -208,7 +208,7 @@ const ProductCard = ({
     });
   };
 
-  // console.log(title);
+  // console.log("Product Status "+stockStatus);
   return (
     <Link href={"/products/" + slug}>
       <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group relative">
@@ -227,11 +227,10 @@ const ProductCard = ({
           {images.map((image, index) => (
             <div
               key={index}
-              className={`absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out transform group-hover:scale-105 ${
-                currentImageIndex === index
+              className={`absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out transform group-hover:scale-105 ${currentImageIndex === index
                   ? "opacity-100 z-10"
                   : "opacity-0 z-0"
-              }`}
+                }`}
             >
               <Image
                 src={image}

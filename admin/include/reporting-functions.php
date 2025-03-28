@@ -114,6 +114,24 @@ function getInvoicesByDateAllByLocation($link, $date, $location_id)
     return $ArrayResult;
 }
 
+function getInvoicesByLocation($link, $location_id)
+{
+    $ArrayResult = 0;
+
+
+    $sql = "SELECT SUM(`grand_total`) AS `total_sale` FROM `transaction_invoice` WHERE `is_active` = 1 AND `invoice_status` LIKE '2' AND  `location_id` LIKE '$location_id' ORDER BY `id`";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult = ($row['total_sale'] !== null) ? $row['total_sale'] : 0;
+        }
+    }
+
+    return $ArrayResult;
+}
+
 function getInvoicesByDateAllByType($link, $date, $type, $location_id)
 {
     $ArrayResult = 0;
@@ -256,6 +274,41 @@ function getInvoicesByDateRangeAll($link, $fromDate, $toDate, $location_id)
 
     // Use prepared statements to prevent SQL injection
     $sql = "SELECT * FROM `transaction_invoice` WHERE DATE(`current_time`) BETWEEN ? AND ? AND `is_active` = 1 AND `location_id` = ? AND `invoice_status` = '2' ORDER BY `id`";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("sss", $fromDate, $toDate, $location_id);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult[$row['invoice_number']] = $row;
+        }
+    }
+
+    return $ArrayResult;
+}
+
+function getInvoicesByDateRangeAllwithAddress($link, $fromDate, $toDate, $location_id)
+{
+    $ArrayResult = array(); // Initialize an empty array
+
+    // Format the dates in the same format as stored in the database
+    $fromDate = date('Y-m-d', strtotime($fromDate));
+    $toDate = date('Y-m-d', strtotime($toDate));
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT ti.*, a.*
+            FROM `transaction_invoice` ti
+            LEFT JOIN `transaction_invoice_address` a ON ti.`invoice_number` = a.`order_id`
+            WHERE DATE(ti.`current_time`) BETWEEN ? AND ? 
+            AND ti.`is_active` = 1 
+            AND ti.`location_id` = ? 
+            AND ti.`invoice_status` = '2'
+            AND a.`address_type` = 'billing'
+            ORDER BY ti.`id`;
+            ";
 
     $stmt = $link->prepare($sql);
     $stmt->bind_param("sss", $fromDate, $toDate, $location_id);

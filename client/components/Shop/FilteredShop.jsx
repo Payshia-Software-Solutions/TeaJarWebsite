@@ -94,6 +94,7 @@ function FilteredShop() {
   }, [filteredProducts]);
 
   // console.log(fallbackImages);
+  // console.log(filteredProducts);
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
@@ -122,30 +123,35 @@ function FilteredShop() {
                 {!loading && !error && filteredProducts.length === 0 && (
                   <p>No products match your filters.</p>
                 )}
-
-                {!loading &&
+                {!loading && !error && filteredProducts.length > 0 && (
                   filteredProducts.map((singleitem) => {
-                    const images = fallbackImages[singleitem.product_id] || [
-                      defaultFrontImage,
-                      defaultOtherImage,
-                    ];
-
-                    return (
-                      <ProductCard
-                        key={singleitem.product_code}
-                        title={singleitem.product_name}
-                        slug={singleitem.slug}
-                        id={singleitem.product_id}
-                        price={+singleitem.selling_price}
-                        images={images}
-                        Rate={"(5.6)"}
-                        category={singleitem.category_id}
-                        specialPromo={singleitem.special_promo}
-                        specialPromoType={singleitem.special_promo_type}
-                        stockStatus={singleitem.stock_status}
-                      />
-                    );
-                  })}
+                    try {
+                      const images = fallbackImages[singleitem.product_id] || [
+                        defaultFrontImage,
+                        defaultOtherImage,
+                      ];
+                      // console.log(singleitem.stock_status)
+                      return (
+                        <ProductCard
+                          key={singleitem.product_code}
+                          title={singleitem.product_name}
+                          slug={singleitem.slug}
+                          id={singleitem.product_id}
+                          price={+singleitem.selling_price}
+                          images={images}
+                          Rate={"(5.6)"}
+                          category={singleitem.category_id}
+                          specialPromo={singleitem.special_promo}
+                          specialPromoType={singleitem.special_promo_type}
+                          stockStatus={singleitem.stock_status}
+                        />
+                      );
+                    } catch (err) {
+                      console.error('Error rendering product:', err);
+                      return null;
+                    }
+                  })
+                )}
               </div>
             </div>
           </div>
