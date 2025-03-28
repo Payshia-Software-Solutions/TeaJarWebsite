@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Info } from "lucide-react";
+import { ShoppingCart, Tag, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
 
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
@@ -44,6 +43,49 @@ const KOKOLogo = () => (
     </div>
   </Link>
 );
+
+const PromoTag = ({ specialPromo, specialPromoType }) => {
+  const isPercentage = specialPromoType === "percentage";
+
+  return (
+    <div className="absolute top-3 right-0 z-20 flex items-center">
+      {/* Main Tag */}
+      <div
+        className={`
+        flex items-center gap-2 pr-3 pl-4 py-1.5
+        ${isPercentage ? "bg-red-500" : "bg-blue-500"}
+        text-white font-bold rounded-l-full
+        shadow-lg transform hover:scale-105 transition-transform
+        duration-300 ease-in-out
+      `}
+      >
+        <Sparkles size={14} className="animate-pulse" />
+        <span className="text-sm">
+          {isPercentage ? (
+            <>
+              <span className="text-lg">{specialPromo}%</span> OFF
+            </>
+          ) : (
+            <>
+              <span className="text-lg">Rs {specialPromo}</span> OFF
+            </>
+          )}
+        </span>
+      </div>
+
+      {/* Decorative Elements */}
+      <div
+        className={`
+        absolute -bottom-2 right-0
+        w-0 h-0
+        border-t-[8px]
+        ${isPercentage ? "border-t-red-700" : "border-t-blue-700"}
+        border-r-[8px] border-r-transparent
+      `}
+      />
+    </div>
+  );
+};
 
 const ProductCard = ({
   title = "Product Title",
@@ -164,10 +206,17 @@ const ProductCard = ({
     });
   };
 
-  console.log(stockStatus);
+  // console.log("Product Status "+stockStatus);
   return (
     <Link href={"/products/" + slug}>
       <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group relative">
+        {/* Promo Tag */}
+        {specialPromo && specialPromo > 0 && (
+          <PromoTag
+            specialPromo={specialPromo}
+            specialPromoType={specialPromoType}
+          />
+        )}
         <div
           className="relative aspect-square cursor-pointer overflow-hidden"
           onMouseEnter={() => setCurrentImageIndex(1)}

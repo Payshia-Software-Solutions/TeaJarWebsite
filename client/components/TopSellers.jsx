@@ -195,7 +195,7 @@ function TopSellers() {
                     defaultFrontImage,
                     defaultOtherImage,
                   ];
-                  console.log(singleitem)
+                  // console.log("Product s"+singleitem.product_name + singleitem.stock_status)
                   return (
                     
                     <SwiperSlide

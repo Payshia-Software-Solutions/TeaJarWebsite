@@ -5,11 +5,11 @@ $password = "";
 $database = "tea_jar";
 $database_error = "";
 
-// $server = "91.204.209.19";
-// $username = "payshiac";
-// $password = "1999tr@thilina";
-// $database = "payshiac_kdu_test";
-// $database_error = "";
+$server = "91.204.209.19";
+$username = "payshiac";
+$password = "1999tr@thilina";
+$database = "payshiac_kdu_test";
+$database_error = "";
 
 
 

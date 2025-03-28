@@ -130,6 +130,7 @@ function FilteredShop() {
                         defaultFrontImage,
                         defaultOtherImage,
                       ];
+                      // console.log(singleitem.stock_status)
                       return (
                         <ProductCard
                           key={singleitem.product_code}
