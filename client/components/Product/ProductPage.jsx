@@ -16,6 +16,7 @@ import config from "@/config";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
+import Script from "next/script";
 
 const ProductPage = ({ product, product_images, product_info }) => {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -29,6 +30,10 @@ const ProductPage = ({ product, product_images, product_info }) => {
     "Inner View": 4,
     Other: 5,
   };
+
+  useEffect(() => {
+    window.yotpo = window.yotpo || {};
+  }, []);
 
   useEffect(() => {
     window.yotpo = window.yotpo || {};
@@ -250,11 +255,10 @@ const ProductPage = ({ product, product_images, product_info }) => {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)} // Update the selected image
-                  className={`w-24 h-24 rounded-lg overflow-hidden border-2 ${
-                    selectedImage === idx
+                  className={`w-24 h-24 rounded-lg overflow-hidden border-2 ${selectedImage === idx
                       ? "border-blue-500"
                       : "border-gray-200"
-                  }`}
+                    }`}
                 >
                   <img
                     src={`${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${img.image_path}`}
@@ -300,7 +304,6 @@ const ProductPage = ({ product, product_images, product_info }) => {
             ) : null} */}
 
             <div className="flex items-center space-x-2">
-              {console.log(product.stock_status)}
               {product.stock_status === 1 ? (
                 <button
                   className="flex-1 bg-black text-white py-3 rounded-md hover:bg-gray-800 text-lg h-14"

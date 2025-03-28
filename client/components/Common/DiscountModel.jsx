@@ -85,10 +85,10 @@ const DiscountModel = () => {
               {!successCode ? (
                 <>
                   <h3 className="text-[15px] md:text-[15px] font-bold text-center mb-2 md:mb-4">
-                  Spread Happiness this Avurudu with Tea Jar’s Finest Teas! 
+                    Spread Happiness this Avurudu with Tea Jar’s Finest Teas!
                   </h3>
                   <p className="text-[10px] md:text-[12px] text-center mb-2 md:mb-4">
-                  Make This Avurudu Special with Tea Jar’s Perfect Tea  Gifts. Get 20% Off on Every Product You Purchase! 
+                    Make This Avurudu Special with Tea Jar’s Perfect Tea  Gifts. Get 20% Off on Every Product You Purchase!
                   </p>
                   <form
                     onSubmit={handleSubmit}

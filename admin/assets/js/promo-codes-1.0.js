@@ -141,7 +141,7 @@ function SavePromoCodeProducts(promoCodeId = 0) {
     console.log(formData);
 
     $.ajax({
-      url: "http://localhost/TeaJarWebsite/server/promo-code-products", // Updated endpoint
+      url: "https://kduserver.payshia.com/promo-code-products", // Updated endpoint
       method: "POST",
       data: formData,
       contentType: false,

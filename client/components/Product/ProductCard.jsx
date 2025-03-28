@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ShoppingCart, Tag, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { ShoppingCart, Tag, Sparkles } from "lucide-react";
 
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
@@ -99,7 +100,8 @@ const ProductCard = ({
   category,
   imageStyle = null,
   specialPromo,
-  specialPromoType,stockStatus
+  specialPromoType,
+  stockStatus,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -225,11 +227,10 @@ const ProductCard = ({
           {images.map((image, index) => (
             <div
               key={index}
-              className={`absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out transform group-hover:scale-105 ${
-                currentImageIndex === index
+              className={`absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out transform group-hover:scale-105 ${currentImageIndex === index
                   ? "opacity-100 z-10"
                   : "opacity-0 z-0"
-              }`}
+                }`}
             >
               <Image
                 src={image}
@@ -246,49 +247,49 @@ const ProductCard = ({
             </div>
           ))}
 
-<div className="absolute z-10 w-full bottom-0 px-2 py-2 md:p-4 transform translate-y-full opacity-0 group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 ease-in-out bg-slate-50">
-  {stockStatus === 1 ? (
-    <button
-      onClick={(e) => {
-        e.preventDefault(); // Prevent navigation to the product page
-        handleAddToCart();
-      }}
-      className="hidden group-hover:flex w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out"
-    >
-      <ShoppingCart size={16} />
-      Add to Cart
-    </button>
-  ) : (
-    <span
-      className="bg-gray-400 hidden group-hover:flex w-full text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out pointer-events-none"
-    >
-      Out of Stock
-    </span>
-  )}
-</div>
-
+          <div className="absolute z-10 w-full bottom-0 px-2 py-2 md:p-4 transform translate-y-full opacity-0 group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 ease-in-out bg-slate-50">
+            {stockStatus === 1 ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent navigation to the product page
+                  handleAddToCart();
+                }}
+                className="hidden group-hover:flex w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out"
+              >
+                <ShoppingCart size={16} />
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                className="hidden group-hover:flex w-full bg-slate-400 text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out cursor-not-allowed"
+                disabled
+              >
+                Out of Stock
+              </button>
+            )}
+          </div>
         </div>
-
         <div className="p-2 group">
           {/* Add to Cart Button */}
           {stockStatus === 1 ? (
-          <button
-            onClick={(e) => {
-              e.preventDefault(); // Prevent navigation to the product page
-              handleAddToCart();
-            }}
-            name="add-to-cart-button"
-            className="flex md:hidden w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2"
-          >
-            <ShoppingCart size={16} />
-            Add to Cart
-          </button>
-           ) : (
-            <span
-              className="flex md:hidden w-full bg-gray-400 text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2 pointer-events-none"
+            <button
+              onClick={(e) => {
+                e.preventDefault(); // Prevent navigation to the product page
+                handleAddToCart();
+              }}
+              name="add-to-cart-button"
+              className="flex md:hidden w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2"
+            >
+              <ShoppingCart size={16} />
+              Add to Cart
+            </button>
+          ) : (
+            <button
+              className="flex md:hidden w-full bg-slate-400 text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2 cursor-not-allowed"
+              disabled
             >
               Out of Stock
-            </span>
+            </button>
           )}
 
           <div className="h-auto md:h-14 lg:h-16">
