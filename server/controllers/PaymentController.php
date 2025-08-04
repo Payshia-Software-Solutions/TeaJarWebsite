@@ -61,7 +61,7 @@ class PaymentController
             $data['contactDetails'],
             $data['shippingAddress'],
             $data['sameAddressStatus'],
-            $data['items'],
+            $data['items']
         )) {
             // If any required field is missing, return an error
             echo json_encode(['error' => 'Missing required parameters']);
@@ -845,17 +845,19 @@ class PaymentController
 
     public function sendOrderConfirmationEmail($orderData, $customerEmail)
     {
+        $customerEmail = "thilinaruwan112@gmail.com"; // For testing purposes, replace with actual customer email
         $mail = new PHPMailer(true);
 
         try {
             // Server settings
             $mail->isSMTP();
-            $mail->Host = 'mail.teajarceylon.com';  // SMTP server
+            // $mail->Host = 'mail.teajarceylon.com';  // SMTP server
+            $mail->Host = 'smtp-mail.outlook.com';  // SMTP server
             $mail->SMTPAuth = true;
             $mail->Username = 'no-reply@teajarceylon.com';  // SMTP username
             $mail->Password = 'g85zvB]2;Hnf';  // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // Use implicit TLS encryption
-            $mail->Port = 465;  // TCP port for SMTP
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Use implicit TLS encryption
+            $mail->Port = 587;  // TCP port for SMTP
 
             // Recipients
             $mail->setFrom('no-reply@teajarceylon.com', 'Tea Jar | Finest Ceylon Tea');

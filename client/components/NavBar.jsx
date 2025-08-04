@@ -208,6 +208,28 @@ function NavBar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const [topBarContent, setTopBarContent] = useState("");
+
+  useEffect(() => {
+    const fetchTopBarContent = async () => {
+      try {
+        const response = await fetch(
+          `${config.API_BASE_URL}/web-content/key/topBar`
+        );
+        const data = await response.json();
+        // Directly extract and set the value from the object
+        if (data && data.value) {
+          setTopBarContent(data.value);
+        }
+      } catch (error) {
+        console.error("Error fetching topBar content:", error);
+      }
+    };
+
+    fetchTopBarContent();
+  }, []);
+
   return (
     <div>
       <header
@@ -218,9 +240,7 @@ function NavBar() {
         {/* Top Bar */}
         <div className="bg-[#D22B2B] text-sm py-2 px-4 flex justify-center items-center text-white">
           <FaTruck className="w-5 h-5 mr-2" />
-          <p className="text-center whitespace-nowrap">
-            Save 20% & Enjoy Free Shipping—Till April 30!
-          </p>
+          <p className="text-center whitespace-nowrap">{topBarContent}</p>
         </div>
 
         {/* Main Navbar */}
