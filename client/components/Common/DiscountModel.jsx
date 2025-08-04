@@ -69,7 +69,7 @@ const DiscountModel = () => {
           {/* Left side content */}
           <div className=" text-white rounded-t-lg relative w-1/2">
             <Image
-              src="/assets/promo-banners/new-year-banner.webp"
+              src="/assets/promo-banners/may-discount.webp"
               alt="Promo Banner"
               className="rounded-l-lg object-fill"
               layout="intrinsic" // Maintain aspect ratio
@@ -85,10 +85,11 @@ const DiscountModel = () => {
               {!successCode ? (
                 <>
                   <h3 className="text-[15px] md:text-[15px] font-bold text-center mb-2 md:mb-4">
-                    Spread Happiness this Avurudu with Tea Jar’s Finest Teas!
+                    Life’s better with tea, especially when it’s 20% Off!
                   </h3>
                   <p className="text-[10px] md:text-[12px] text-center mb-2 md:mb-4">
-                    Make This Avurudu Special with Tea Jar’s Perfect Tea  Gifts. Get 20% Off on Every Product You Purchase!
+                    Enjoy 20% Off + FREE Delivery on all Tea Jar products,
+                    because you deserve the best👌🏻
                   </p>
                   <form
                     onSubmit={handleSubmit}

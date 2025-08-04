@@ -7,6 +7,7 @@ import DetailedFooter from "@/components/Common/DetailedFooter";
 import LoadingBar from "@/components/LoadingBar";
 import Script from "next/script";
 import { ToastContainer, toast } from "react-toastify";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 // Specify the font weights you want to use
 const ubuntu = Ubuntu({
@@ -61,7 +62,7 @@ export default function RootLayout({
           }}
         ></Script>
 
-        <script
+        {/* <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `
@@ -77,7 +78,7 @@ export default function RootLayout({
               })();
             `,
           }}
-        />
+        /> */}
 
         {/* Meta Pixel Code */}
         <script
@@ -123,6 +124,11 @@ export default function RootLayout({
 
         {/* ToastContainer to display the notifications */}
         <ToastContainer />
+        <WhatsAppButton
+                  phoneNumber="+94705508800" // Replace with your actual phone number with country code
+                  message="Hi! I'm interested in your services." // Optional custom message
+                  position="bottom-right"
+                />
         <DetailedFooter />
       </body>
     </html>
