@@ -4,6 +4,7 @@ date_default_timezone_set('Asia/Colombo');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 
 require './vendor/autoload.php'; // Ensure PHPMailer is loaded via Composer
@@ -378,7 +379,7 @@ class PaymentController
             'service_charge' => 0, // If applicable
             'tendered_amount' => $data['totalAmount'], // Amount paid
             'close_type' => 'Pending', // Assuming paid status
-            'invoice_status' => 1, // Initial status
+            'invoice_status' => 2, // Initial status
             'current_time' => date('Y-m-d H:i:s'),
             'location_id' => 1, // Adjust as needed
             'table_id' => 1, // Adjust as needed
@@ -626,7 +627,7 @@ class PaymentController
                     'service_charge' => $InvoiceInfo['service_charge'],
                     'tendered_amount' => $InvoiceInfo['tendered_amount'], // Amount paid
                     'close_type' => $InvoiceInfo['close_type'],
-                    'invoice_status' => $InvoiceInfo['invoice_status'],
+                    'invoice_status' => 2,
                     'current_time' => $InvoiceInfo['current_time'],
                     'location_id' => $InvoiceInfo['location_id'],
                     'table_id' => $InvoiceInfo['table_id'],
@@ -817,8 +818,8 @@ class PaymentController
             ];
 
             $emailStatus = $this->sendOrderConfirmationEmail($orderData, $InvoiceInfo['customer_code']);
-            // return json_encode($emailStatus);
-            // echo json_encode($emailStatus);
+            return json_encode($emailStatus);
+            echo json_encode($emailStatus);
         } catch (Exception $e) {
             echo "Exception: " . $e->getMessage();
         }
@@ -845,44 +846,46 @@ class PaymentController
 
     public function sendOrderConfirmationEmail($orderData, $customerEmail)
     {
-        $customerEmail = "thilinaruwan112@gmail.com"; // For testing purposes, replace with actual customer email
+        // $customerEmail = "thilinaruwan112@gmail.com"; // Only for testing
         $mail = new PHPMailer(true);
 
         try {
-            // Server settings
+            // Enable debugging
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->Debugoutput = function ($str, $level) {
+                error_log("SMTP Debug [$level]: $str");
+            };
+
             $mail->isSMTP();
-            // $mail->Host = 'mail.teajarceylon.com';  // SMTP server
-            $mail->Host = 'smtp-mail.outlook.com';  // SMTP server
+            $mail->Host = 'lizardservers.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'no-reply@teajarceylon.com';  // SMTP username
-            $mail->Password = 'g85zvB]2;Hnf';  // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Use implicit TLS encryption
-            $mail->Port = 587;  // TCP port for SMTP
+            $mail->Username = 'teajarceylon-orders@payshia.com';
+            $mail->Password = 'a2_8pw3?JMdI#CZ5';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
 
-            // Recipients
-            $mail->setFrom('no-reply@teajarceylon.com', 'Tea Jar | Finest Ceylon Tea');
-            $mail->addAddress($customerEmail); // Add the customer's email
+            $mail->setFrom('teajarceylon-orders@payshia.com', 'Tea Jar | Finest Ceylon Tea');
+            $mail->addAddress($customerEmail);
 
-            // $mail->addCC('dupasena@kdugroup.com');
-            // $mail->addCC('marketing@teajarceylon.com');
-            // $mail->addCC('international@kduexports.com');
 
-            // Generate email content
+            $mail->addCC('dupasena@kdugroup.com');
+            $mail->addCC('marketing@teajarceylon.com');
+            $mail->addCC('international@kduexports.com');
+            $mail->addBCC('thilinaruwan112@gmail.com');
+
             $emailContent = $this->generateEmailHTML($orderData);
+            // error_log("Generated Email Content: " . $emailContent);
 
-            // Content
-            $mail->isHTML(true); // Email format is HTML
-            $mail->Subject = 'Order Confirmation - Tea Jar'; // Email subject
-            $mail->Body = $emailContent; // Email body content
+            $mail->isHTML(true);
+            $mail->Subject = 'Order Confirmation - Tea Jar';
+            $mail->Body = $emailContent;
 
-            // Send the email
             $mail->send();
             return ['status' => 'success', 'message' => 'Email Sent Successfully'];
         } catch (Exception $e) {
-            // Log the error
-            error_log("Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
-            $mailError = "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            return ['status' => 'error', 'message' => $mailError];
+            error_log("PHPMailer Exception: " . $e->getMessage());
+            error_log("Detailed Error: " . $mail->ErrorInfo);
+            return ['status' => 'error', 'message' => $mail->ErrorInfo];
         }
     }
 

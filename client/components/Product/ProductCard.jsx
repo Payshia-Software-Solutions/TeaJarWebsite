@@ -243,6 +243,7 @@ const ProductCard = ({
                 width={300} // Specify fixed width
                 height={200} // Makes the image fill the parent container
                 priority={index === 0} // Optional: prioritize loading the first image
+                unoptimized
               />
             </div>
           ))}

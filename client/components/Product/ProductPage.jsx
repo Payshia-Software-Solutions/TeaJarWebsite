@@ -303,7 +303,7 @@ const ProductPage = ({ product, product_images, product_info }) => {
             ) : null} */}
 
             <div className="flex items-center space-x-2">
-              {product.stock_status == 1 ? (
+              {parseInt(product.stock_status) === 1 ? (
                 <button
                   className="flex-1 bg-black text-white py-3 rounded-md hover:bg-gray-800 text-lg h-14"
                   onClick={(e) => {

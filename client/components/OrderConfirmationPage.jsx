@@ -107,18 +107,20 @@ const OrderConfirmationPage = () => {
           event: "purchase",
           transaction_id: invoiceData.invoice_id,
           affiliation: "Tea Jar Web Store",
-          sub_total: invoiceData.inv_amount,
-          total: invoiceData.inv_amount - invoiceData.discount_amount,
+          sub_total: Number(invoiceData.inv_amount),
+          total:
+            Number(invoiceData.inv_amount) -
+            Number(invoiceData.discount_amount),
           currency: "LKR",
           tax: invoiceData.tax || 0,
           discount: invoiceData.discount_amount || 0,
           shipping: invoiceData.shipping || 0,
           items: enrichedInvoiceItems.map((item) => ({
-            item_name: item.product_name.trim(),
+            item_name: (item.product_name || "").trim(),
             item_id: item.product_id,
-            price: item.item_price.toFixed(2),
-            quantity: item.quantity,
-            discount: item.item_discount.toFixed(2),
+            price: Number(item.item_price || 0).toFixed(2),
+            quantity: Number(item.quantity || 0),
+            discount: Number(item.item_discount || 0).toFixed(2),
           })),
         });
       }
@@ -140,14 +142,16 @@ const OrderConfirmationPage = () => {
         fbq("track", "Purchase", {
           content_ids: enrichedInvoiceItems.map((item) => item.product_id),
           content_type: "product",
-          value: invoiceData.inv_amount - invoiceData.discount_amount,
+          value:
+            Number(invoiceData.inv_amount) -
+            Number(invoiceData.discount_amount),
           currency: "LKR",
           items: enrichedInvoiceItems.map((item) => ({
-            item_name: item.product_name.trim(),
+            item_name: (item.product_name || "").trim(),
             item_id: item.product_id,
-            price: item.item_price.toFixed(2),
-            quantity: item.quantity,
-            discount: item.item_discount.toFixed(2),
+            price: Number(item.item_price || 0).toFixed(2),
+            quantity: Number(item.quantity || 0),
+            discount: Number(item.item_discount || 0).toFixed(2),
           })),
         });
         localStorage.setItem("fbq_purchase_timestamp", now);
@@ -211,15 +215,18 @@ const OrderConfirmationPage = () => {
                 {enrichedInvoiceItems.map((item, index) => (
                   <tr key={index} className="border-b hover:bg-gray-50">
                     <td className="px-4 py-3">{item.product_name}</td>
-                    <td className="px-4 py-3">{item.quantity}</td>
-                    <td className="px-4 py-3">{item.item_price.toFixed(2)}</td>
+                    <td className="px-4 py-3">{Number(item.quantity || 0)}</td>
+                    <td className="px-4 py-3">
+                      {Number(item.item_price || 0).toFixed(2)}
+                    </td>
                     <td className="px-4 py-3 text-red-700">
-                      ({item.item_discount.toFixed(2)})
+                      ({Number(item.item_discount || 0).toFixed(2)})
                     </td>
                     <td className="px-4 py-3 text-right">
                       {(
-                        item.item_price * item.quantity -
-                        item.item_discount
+                        Number(item.item_price || 0) *
+                          Number(item.quantity || 0) -
+                        Number(item.item_discount || 0)
                       ).toFixed(2)}
                     </td>
                   </tr>
@@ -231,7 +238,7 @@ const OrderConfirmationPage = () => {
                     Grand Total
                   </td>
                   <td className="px-4 py-2 text-right">
-                    LKR {invoiceData.inv_amount.toFixed(2)}
+                    LKR {Number(invoiceData.inv_amount || 0).toFixed(2)}
                   </td>
                 </tr>
 
@@ -240,7 +247,8 @@ const OrderConfirmationPage = () => {
                     Discount
                   </td>
                   <td className="px-4 py-2 text-right text-red-700">
-                    ( LKR {invoiceData.discount_amount.toFixed(2)} )
+                    ( LKR {Number(invoiceData.discount_amount || 0).toFixed(2)}{" "}
+                    )
                   </td>
                 </tr>
 
@@ -251,7 +259,8 @@ const OrderConfirmationPage = () => {
                   <td className="px-4 py-2 text-right">
                     LKR{" "}
                     {(
-                      invoiceData.inv_amount - invoiceData.discount_amount
+                      Number(invoiceData.inv_amount || 0) -
+                      Number(invoiceData.discount_amount || 0)
                     ).toFixed(2)}
                   </td>
                 </tr>
