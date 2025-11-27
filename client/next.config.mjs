@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  // output: "standalone",
   images: {
     remotePatterns: [
       {
@@ -25,6 +25,19 @@ const nextConfig = {
         ],
         destination: "https://teajarceylon.com/:path*", // Redirect to non-www version
         permanent: true, // 301 permanent redirect
+      },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/_next/static/(.*)", // Apply middleware to static files
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
       },
     ];
   },
