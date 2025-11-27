@@ -69,7 +69,7 @@ const DiscountModel = () => {
           {/* Left side content */}
           <div className=" text-white rounded-t-lg relative w-1/2">
             <Image
-              src="/assets/promo-banners/august-banner.webp"
+              src="/assets/promo-banners/winter-banner-optimized.webp"
               alt="Promo Banner"
               className="rounded-l-lg object-fill"
               layout="intrinsic" // Maintain aspect ratio
