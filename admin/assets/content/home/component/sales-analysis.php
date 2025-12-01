@@ -1,7 +1,7 @@
 <?php
 // Fetch total sales for all types
-$totalSales = getInvoicesByDateAll($link, $today);
-$totalReceipts = getReceiptsByDateAllFilterDated($link, $today);
+$totalSales = getInvoicesByDateAllByLocation($link, $today, $defaultLocation);
+$totalReceipts = getReceiptsByDateAllFilterDatedByLocation($link, $today, $defaultLocation);
 $creditSales = $totalSales - $totalReceipts;
 // Fetch data for cash and credit card payments
 $query = "SELECT SUM(`amount`) as sum, type FROM transaction_receipt WHERE `type` IN (0, 1) AND DATE(`current_time`) = '$today' AND `is_active` = 1 AND `today_invoice` = 1 AND `location_id` LIKE '$defaultLocation' GROUP BY type";

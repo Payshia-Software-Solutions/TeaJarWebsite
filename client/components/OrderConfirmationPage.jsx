@@ -12,8 +12,10 @@ const OrderConfirmationPage = () => {
 
   const [invoiceData, setInvoiceData] = useState(null);
   const [invoiceItemData, setInvoiceItemData] = useState(null);
+  const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [enrichedInvoiceItems, setEnrichedInvoiceItems] = useState([]);
 
   useEffect(() => {
     if (!orderId) {
@@ -52,6 +54,16 @@ const OrderConfirmationPage = () => {
         }
         const items = await itemResponse.json();
         setInvoiceItemData(items);
+
+        // Fetch products
+        const productResponse = await fetch(`${config.API_BASE_URL}/products`);
+        if (!productResponse.ok) {
+          throw new Error(
+            `Failed to fetch products: ${productResponse.statusText}`
+          );
+        }
+        const productList = await productResponse.json();
+        setProducts(productList);
       } catch (err) {
         console.error("Error fetching data:", err.message);
         setError(err.message);
@@ -62,6 +74,90 @@ const OrderConfirmationPage = () => {
 
     fetchData();
   }, [orderId]);
+
+  useEffect(() => {
+    if (invoiceItemData && products) {
+      const enrichedItems = invoiceItemData.map((item) => {
+        const product = products.find(
+          (prod) => prod.product_id === item.product_id
+        );
+        return {
+          ...item,
+          product_name: product
+            ? product.product_name.trim()
+            : "Unknown Product",
+        };
+      });
+      setEnrichedInvoiceItems(enrichedItems);
+    }
+  }, [invoiceItemData, products]);
+
+  useEffect(() => {
+    if (!loading && invoiceData && enrichedInvoiceItems.length > 0) {
+      // GTM Data Layer Push - Deduplicate logic
+      window.dataLayer = window.dataLayer || [];
+      const existingEvent = window.dataLayer.find(
+        (event) =>
+          event.event === "purchase" &&
+          event.transaction_id === invoiceData.invoice_id
+      );
+
+      if (!existingEvent) {
+        window.dataLayer.push({
+          event: "purchase",
+          transaction_id: invoiceData.invoice_id,
+          affiliation: "Tea Jar Web Store",
+          sub_total: Number(invoiceData.inv_amount),
+          total:
+            Number(invoiceData.inv_amount) -
+            Number(invoiceData.discount_amount),
+          currency: "LKR",
+          tax: invoiceData.tax || 0,
+          discount: invoiceData.discount_amount || 0,
+          shipping: invoiceData.shipping || 0,
+          items: enrichedInvoiceItems.map((item) => ({
+            item_name: (item.product_name || "").trim(),
+            item_id: item.product_id,
+            price: Number(item.item_price || 0).toFixed(2),
+            quantity: Number(item.quantity || 0),
+            discount: Number(item.item_discount || 0).toFixed(2),
+          })),
+        });
+      }
+    }
+  }, [loading, invoiceData, enrichedInvoiceItems]);
+
+  useEffect(() => {
+    if (
+      !loading &&
+      typeof fbq === "function" &&
+      invoiceData &&
+      enrichedInvoiceItems.length > 0
+    ) {
+      // Deduplicate Facebook Pixel Event
+      const lastEventTimestamp = localStorage.getItem("fbq_purchase_timestamp");
+      const now = Date.now();
+
+      if (!lastEventTimestamp || now - lastEventTimestamp > 5000) {
+        fbq("track", "Purchase", {
+          content_ids: enrichedInvoiceItems.map((item) => item.product_id),
+          content_type: "product",
+          value:
+            Number(invoiceData.inv_amount) -
+            Number(invoiceData.discount_amount),
+          currency: "LKR",
+          items: enrichedInvoiceItems.map((item) => ({
+            item_name: (item.product_name || "").trim(),
+            item_id: item.product_id,
+            price: Number(item.item_price || 0).toFixed(2),
+            quantity: Number(item.quantity || 0),
+            discount: Number(item.item_discount || 0).toFixed(2),
+          })),
+        });
+        localStorage.setItem("fbq_purchase_timestamp", now);
+      }
+    }
+  }, [loading, invoiceData, enrichedInvoiceItems]);
 
   if (loading) {
     return <div className="text-center py-8">Loading...</div>;
@@ -78,8 +174,6 @@ const OrderConfirmationPage = () => {
       </div>
     );
   }
-
-  // console.log(invoiceItemData);
 
   const crumbs = [
     {
@@ -118,18 +212,21 @@ const OrderConfirmationPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {invoiceItemData.map((item, index) => (
+                {enrichedInvoiceItems.map((item, index) => (
                   <tr key={index} className="border-b hover:bg-gray-50">
-                    <td className="px-4 py-3">{item.product_id}</td>
-                    <td className="px-4 py-3">{item.quantity}</td>
-                    <td className="px-4 py-3">${item.item_price.toFixed(2)}</td>
+                    <td className="px-4 py-3">{item.product_name}</td>
+                    <td className="px-4 py-3">{Number(item.quantity || 0)}</td>
+                    <td className="px-4 py-3">
+                      {Number(item.item_price || 0).toFixed(2)}
+                    </td>
                     <td className="px-4 py-3 text-red-700">
-                      ({item.item_discount.toFixed(2)})
+                      ({Number(item.item_discount || 0).toFixed(2)})
                     </td>
                     <td className="px-4 py-3 text-right">
                       {(
-                        item.item_price * item.quantity -
-                        item.item_discount
+                        Number(item.item_price || 0) *
+                          Number(item.quantity || 0) -
+                        Number(item.item_discount || 0)
                       ).toFixed(2)}
                     </td>
                   </tr>
@@ -141,7 +238,7 @@ const OrderConfirmationPage = () => {
                     Grand Total
                   </td>
                   <td className="px-4 py-2 text-right">
-                    LKR {invoiceData.inv_amount.toFixed(2)}
+                    LKR {Number(invoiceData.inv_amount || 0).toFixed(2)}
                   </td>
                 </tr>
 
@@ -150,7 +247,8 @@ const OrderConfirmationPage = () => {
                     Discount
                   </td>
                   <td className="px-4 py-2 text-right text-red-700">
-                    ( LKR {invoiceData.discount_amount.toFixed(2)})
+                    ( LKR {Number(invoiceData.discount_amount || 0).toFixed(2)}{" "}
+                    )
                   </td>
                 </tr>
 
@@ -161,7 +259,8 @@ const OrderConfirmationPage = () => {
                   <td className="px-4 py-2 text-right">
                     LKR{" "}
                     {(
-                      invoiceData.inv_amount - invoiceData.discount_amount
+                      Number(invoiceData.inv_amount || 0) -
+                      Number(invoiceData.discount_amount || 0)
                     ).toFixed(2)}
                   </td>
                 </tr>
