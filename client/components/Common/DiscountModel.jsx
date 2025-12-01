@@ -85,11 +85,10 @@ const DiscountModel = () => {
               {!successCode ? (
                 <>
                   <h3 className="text-[15px] md:text-[15px] font-bold text-center mb-2 md:mb-4">
-                    Life’s better with tea, especially when it’s 20% Off!
+                    A Gift of Festive Happiness!🎄
                   </h3>
                   <p className="text-[10px] md:text-[12px] text-center mb-2 md:mb-4">
-                    Enjoy 20% Off + FREE Delivery on all Tea Jar products,
-                    because you deserve the best👌🏻
+                    Enjoy the magic of the season with a FREE Christmas Santa Mug on all orders above Rs.8,000!
                   </p>
                   <form
                     onSubmit={handleSubmit}
