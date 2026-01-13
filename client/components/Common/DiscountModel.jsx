@@ -69,7 +69,7 @@ const DiscountModel = () => {
           {/* Left side content */}
           <div className=" text-white rounded-t-lg relative w-1/2">
             <Image
-              src="/assets/promo-banners/winter-banner-optimized.webp"
+              src="/assets/promo-banners/january-optimzied.webp"
               alt="Promo Banner"
               className="rounded-l-lg object-fill"
               layout="intrinsic" // Maintain aspect ratio
@@ -88,7 +88,8 @@ const DiscountModel = () => {
                     A Gift of Festive Happiness!🎄
                   </h3>
                   <p className="text-[10px] md:text-[12px] text-center mb-2 md:mb-4">
-                    Enjoy the magic of the season with a FREE Christmas Santa Mug on all orders above Rs.8,000!
+                    Enjoy the magic of the season with a FREE Christmas Santa
+                    Mug on all orders above Rs.8,000!
                   </p>
                   <form
                     onSubmit={handleSubmit}
