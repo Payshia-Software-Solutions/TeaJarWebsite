@@ -85,11 +85,11 @@ const DiscountModel = () => {
               {!successCode ? (
                 <>
                   <h3 className="text-[15px] md:text-[15px] font-bold text-center mb-2 md:mb-4">
-                    A Gift of Festive Happiness!🎄
+                    From Our Factory to Your Cup!🎄
                   </h3>
                   <p className="text-[10px] md:text-[12px] text-center mb-2 md:mb-4">
-                    Enjoy the magic of the season with a FREE Christmas Santa
-                    Mug on all orders above Rs.8,000!
+                    Unmatched freshness and quality in every cup, carefully
+                    crafted for you..
                   </p>
                   <form
                     onSubmit={handleSubmit}
