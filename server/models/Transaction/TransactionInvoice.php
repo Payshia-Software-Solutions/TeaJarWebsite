@@ -10,6 +10,28 @@ class TransactionInvoice
         $this->pdo = $pdo;
     }
 
+    // Generate a new invoice number
+    public function generateInvoiceNumber($prefix = "TJ-WEB-INT")
+    {
+        // Prepare SQL query to count invoices starting with the given prefix
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) AS invoice_count 
+                                 FROM `transaction_invoice` 
+                                 WHERE `invoice_number` LIKE :prefix");
+
+        // Execute the query with the prefix parameter
+        $stmt->execute(['prefix' => $prefix . '%']);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Get the count of invoices starting with the prefix
+        $invoiceCount = $result['invoice_count'] ?? 0;
+
+        // Increment the count to generate the next invoice number
+        $newInvoiceNumber = $invoiceCount + 1;
+
+        // Generate the formatted invoice number
+        return $prefix . str_pad($newInvoiceNumber, 6, '0', STR_PAD_LEFT); // Example: TJ-WEB-INT000001
+    }
+
     // Fetch all transaction invoices
     public function getAllInvoices()
     {
@@ -34,8 +56,8 @@ class TransactionInvoice
             `discount_percentage`, `customer_code`, `service_charge`, `tendered_amount`, 
             `close_type`, `invoice_status`, `current_time`, `location_id`, `table_id`, 
             `order_ready_status`, `created_by`, `is_active`, `steward_id`, `cost_value`, 
-            `remark`, `ref_hold`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            `remark`, `ref_hold`,`payment_status`, `promo_code_id`
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $stmt->execute([
             $data['invoice_number'],
@@ -58,7 +80,9 @@ class TransactionInvoice
             $data['steward_id'],
             $data['cost_value'],
             $data['remark'],
-            $data['ref_hold']
+            $data['ref_hold'],
+            $data['payment_status'],
+            $data['promo_code_id']
         ]);
         return $this->pdo->lastInsertId(); // Return the ID of the newly created invoice
     }
@@ -87,7 +111,9 @@ class TransactionInvoice
             `steward_id` = ?, 
             `cost_value` = ?, 
             `remark` = ?, 
-            `ref_hold` = ? 
+            `ref_hold` = ?, 
+            `payment_status` = ?,
+            `promo_code_id` = ?
             WHERE `id` = ?");
 
         $stmt->execute([
@@ -112,6 +138,8 @@ class TransactionInvoice
             $data['cost_value'],
             $data['remark'],
             $data['ref_hold'],
+            $data['payment_status'],
+            $data['promo_code_id'],
             $id
         ]);
         return $stmt->rowCount(); // Returns the number of rows affected
@@ -119,12 +147,19 @@ class TransactionInvoice
 
     public function updateInvoiceStatus($id)
     {
-        $stmt = $this->pdo->prepare("UPDATE `transaction_invoice` SET 
-            `invoice_status` = 'Paid' WHERE `invoice_number` = ?");
+        // Debug: Check if the invoice exists
+        $checkStmt = $this->pdo->prepare("SELECT * FROM `transaction_invoice` WHERE `invoice_number` = ?");
+        $checkStmt->execute([$id]);
+        if ($checkStmt->rowCount() === 0) {
+            echo "Invoice not found.";
+            return 0;
+        }
 
-        $stmt->execute([
-            $id
-        ]);
+        // Update the status
+        $stmt = $this->pdo->prepare("UPDATE `transaction_invoice` SET 
+        `payment_status` = 'Paid' WHERE `invoice_number` = ?");
+
+        $stmt->execute([$id]);
         return $stmt->rowCount(); // Returns the number of rows affected
     }
 

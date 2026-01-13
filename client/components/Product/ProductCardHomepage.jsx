@@ -51,6 +51,8 @@ const ProductCard = ({
     "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
   ],
   category,
+  specialPromo,
+  specialPromoType,stockStatus
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
