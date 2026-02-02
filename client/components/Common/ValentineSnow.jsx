@@ -6,12 +6,14 @@ const ValentineSnow = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible((prev) => !prev);
-    }, 15000); // Toggle every 5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
+    let timeout;
+    if (isVisible) {
+      timeout = setTimeout(() => setIsVisible(false), 30000); // Show for 30s
+    } else {
+      timeout = setTimeout(() => setIsVisible(true), 10000); // Hide for 10s
+    }
+    return () => clearTimeout(timeout);
+  }, [isVisible]);
 
   useEffect(() => {
     const heartCount = 20; // Reduced number of hearts
@@ -39,10 +41,12 @@ const ValentineSnow = () => {
     setHearts(newHearts);
   }, []);
 
-  if (!isVisible) return null;
-
   return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+    <div
+      className={`fixed inset-0 pointer-events-none z-50 overflow-hidden transition-opacity duration-1000 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
       {hearts.map((heart) => (
         <div
           key={heart.id}
