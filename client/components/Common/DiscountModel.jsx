@@ -69,7 +69,7 @@ const DiscountModel = () => {
           {/* Left side content */}
           <div className=" text-white rounded-t-lg relative w-1/2">
             <Image
-              src="/assets/promo-banners/january-optimzied.webp"
+              src="/assets/promo-banners/valentine-banner-2026.webp"
               alt="Promo Banner"
               className="rounded-l-lg object-fill"
               layout="intrinsic" // Maintain aspect ratio
@@ -85,11 +85,10 @@ const DiscountModel = () => {
               {!successCode ? (
                 <>
                   <h3 className="text-[15px] md:text-[15px] font-bold text-center mb-2 md:mb-4">
-                    From Our Factory to Your Cup!🎄
+                    Spread Love, Save More 💝
                   </h3>
                   <p className="text-[10px] md:text-[12px] text-center mb-2 md:mb-4">
-                    Unmatched freshness and quality in every cup, carefully
-                    crafted for you..
+                    Celebrate Valentine’s with special savings and tea worth sharing.
                   </p>
                   <form
                     onSubmit={handleSubmit}
