@@ -44,12 +44,13 @@ function Shop() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
-              />
+              />`
             </div> */}
             <ProductSectionHeader
               title="Tea by Collection"
               description="Your virtual guide to tea! Discover all types of tea, from herbal infusions to black teas and matcha."
             />
+            <ProductsByRange range_id={13} searchQuery={searchQuery} />
             <ProductsByRange range_id={12} searchQuery={searchQuery} />
             <ProductsByRange range_id={7} searchQuery={searchQuery} />
             <ProductsByRange range_id={2} searchQuery={searchQuery} />
