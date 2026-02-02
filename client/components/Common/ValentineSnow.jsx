@@ -8,7 +8,7 @@ const ValentineSnow = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsVisible((prev) => !prev);
-    }, 5000); // Toggle every 5 seconds
+    }, 15000); // Toggle every 5 seconds
 
     return () => clearInterval(interval);
   }, []);
