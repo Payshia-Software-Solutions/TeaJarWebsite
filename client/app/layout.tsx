@@ -8,6 +8,7 @@ import LoadingBar from "@/components/LoadingBar";
 import Script from "next/script";
 import { ToastContainer, toast } from "react-toastify";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ValentineSnow from "@/components/Common/ValentineSnow";
 
 // Specify the font weights you want to use
 const ubuntu = Ubuntu({
@@ -119,6 +120,7 @@ export default function RootLayout({
           ></iframe>
         </noscript>
         <LoadingBar />
+        <ValentineSnow />
         <NavBar />
         {children}
 
