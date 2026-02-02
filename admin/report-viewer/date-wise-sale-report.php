@@ -137,7 +137,6 @@ $location_name = $Locations[$location_id]['location_name'];
                             $receipts =  getReceiptsByDate($link, $invoice_date, $location_id);
                             $CreditCollection =  getReceiptsCollection($link, $invoice_date, $location_id);
                             $returnAmounts = GetUnsettledReturnValuesTotal($link, $invoice_date, $invoice_date, $location_id);
-
                             $receiptsInfo = getReceiptsByDateRangeByType($link, $invoice_date, $invoice_date, $location_id);
 
 
@@ -193,19 +192,17 @@ $location_name = $Locations[$location_id]['location_name'];
                             $cumulativeSettledReturn += $settledReturnAmount;
                             $cumulativeUnSettledReturn += $unsettled_amount;
 
-                            $cumulativeCashSale += $dayReceipts;
+                            $cumulativeCashSale += $inRangeCashReceipts;
                             $cumulativeCreditSale += $creditSales;
-                            $cumulativeCardSale += $creditCardReceipts;
+                            $cumulativeCardSale += $inRangeCardReceipts;
                             $cumulativeOtherSale += $otherTypesSale;
                             $cumulativeCreditCollection += $CreditCollection;
 
                             if ($totalInvoiceCount != 0 || $totalSubTotalAmount != 0 || $totalDiscountAmount != 0 || $totalServiceCharge != 0 || $settledReturnAmount != 0 || $totalSaleAmount != 0 || $inRangeCashReceipts != 0 || $creditSales != 0 || $inRangeCardReceipts != 0 || $inRangeOtherReceipts != 0 || $CreditCollection != 0 || $unsettled_amount != 0) :
 
                     ?>
-
                                 <tr>
-
-                                    <td><?= $invoice_date ?></td>
+                                    <td style="white-space: nowrap;"><?= $invoice_date ?></td>
                                     <td class="text-end"><?= formatAccountBalance($totalInvoiceCount) ?></td>
                                     <td class="text-end"><?= formatAccountBalance($totalSubTotalAmount) ?></td>
                                     <td class="text-end"><?= formatAccountBalance(-$totalDiscountAmount) ?></td>
@@ -227,7 +224,7 @@ $location_name = $Locations[$location_id]['location_name'];
                         <td scope="col" class="text-end border-bottom text-bold-extra"></td>
                         <td scope="col" class="text-end border-bottom text-bold-extra"><?= formatAccountBalance($cumulativeInvoiceCount) ?></td>
                         <td scope="col" class="text-end border-bottom text-bold-extra"><?= formatAccountBalance($cumulativeSubTotalAmount) ?></td>
-                        <td scope="col" class="text-end border-bottom text-bold-extra"><?= formatAccountBalance($cumulativeDiscountAmount) ?></td>
+                        <td scope="col" class="text-end border-bottom text-bold-extra"><?= formatAccountBalance(-$cumulativeDiscountAmount) ?></td>
                         <td scope="col" class="text-end border-bottom text-bold-extra"><?= formatAccountBalance($cumulativeServiceCharge) ?></td>
                         <td scope="col" class="text-end border-bottom text-bold-extra"><?= formatAccountBalance(-$cumulativeSettledReturn) ?></td>
                         <td scope="col" class="text-end border-bottom text-bold-extra"><?= formatAccountBalance($cumulativeSaleAmount) ?></td>

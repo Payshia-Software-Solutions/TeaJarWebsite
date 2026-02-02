@@ -1,6 +1,10 @@
-{{FIRST_NAME}},
+Dear {{FIRST_NAME}},
 
-You have successfully enrolled in the {{COURSE_NAME}}. 
-Index number is {{GENERATED_USER_NAME}}.
+You have been successfully enrolled in {{COURSE_NAME}}.
+Index No: {{GENERATED_USER_NAME}}
+Temporary Password: {{TEMP_PASSWORD}}
 
-Ceylon Pharma College, www.pharmacollege.lk
+Login here: https://lms.pharmacollege.lk/login?UserName={{GENERATED_USER_NAME}}&TempPassword={{TEMP_PASSWORD}}
+
+Ceylon Pharma College
+www.pharmacollege.lk

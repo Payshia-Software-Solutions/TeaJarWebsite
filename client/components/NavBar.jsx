@@ -208,6 +208,28 @@ function NavBar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const [topBarContent, setTopBarContent] = useState("");
+
+  useEffect(() => {
+    const fetchTopBarContent = async () => {
+      try {
+        const response = await fetch(
+          `${config.API_BASE_URL}/web-content/key/topBar`
+        );
+        const data = await response.json();
+        // Directly extract and set the value from the object
+        if (data && data.value) {
+          setTopBarContent(data.value);
+        }
+      } catch (error) {
+        console.error("Error fetching topBar content:", error);
+      }
+    };
+
+    fetchTopBarContent();
+  }, []);
+
   return (
     <div>
       <header
@@ -218,9 +240,7 @@ function NavBar() {
         {/* Top Bar */}
         <div className="bg-[#D22B2B] text-sm py-2 px-4 flex justify-center items-center text-white">
           <FaTruck className="w-5 h-5 mr-2" />
-          <p className="text-center whitespace-nowrap">
-            Enjoy Free Shipping from December 1st to 31st!
-          </p>
+          <p className="text-center whitespace-nowrap">{topBarContent}</p>
         </div>
 
         {/* Main Navbar */}
@@ -230,7 +250,7 @@ function NavBar() {
             {/* Logo */}
             <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
               <Link href="/" className="text-2xl font-bold text-orange-500">
-                <img src="/assets/gold-logo.png" alt="" className="h-12" />
+                <img src="/assets/gold-logo.webp" alt="" className="h-12" />
               </Link>
             </div>
           </div>
@@ -239,7 +259,7 @@ function NavBar() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="w-full md:w-auto hidden md:flex justify-center md:justify-start mb-4 md:mb-0">
               <Link href="/" className="text-2xl font-bold text-orange-500">
-                <img src="/assets/gold-logo.png" alt="" className="h-12" />
+                <img src="/assets/gold-logo.webp" alt="" className="h-12" />
               </Link>
             </div>
             {/* Navigation */}
@@ -554,7 +574,7 @@ function NavBar() {
               <div className="w-full md:w-auto  md:hidden justify-center md:justify-start mb-4 md:mb-0">
                 <Link href="/" className="text-2xl font-bold text-orange-500">
                   <img
-                    src="/assets/gold-logo.png"
+                    src="/assets/gold-logo.webp"
                     alt=""
                     className="h-8 mt-2"
                   />

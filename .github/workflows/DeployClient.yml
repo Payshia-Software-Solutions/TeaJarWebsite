@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Remove .next folder via SSH
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd ./qa-tea-jar.payshia.com/
+          rm -rf .next
              
     - name: Checkout code
       uses: actions/checkout@v3
@@ -41,13 +50,7 @@ jobs:
         ls -R .next/  # List again after removal
       working-directory: ./client  # Ensure we're working in the correct directory
 
-    - name: Remove .next folder via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.TEAJAR_USERNAME }}
-          password: ${{ secrets.TEAJAR_PASSWORD }}
-          command: "rm -rf .next"     
+    
 
     - name: Upload to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5

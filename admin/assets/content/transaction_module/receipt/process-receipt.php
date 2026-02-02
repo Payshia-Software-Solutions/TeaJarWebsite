@@ -31,7 +31,7 @@ $PaymentTypes = [
     ["id" => "3", "text" => "GV"]
 ];
 
-$rec_prefix = "REC";
+$rec_prefix = "TJ-ADMIN-REC";
 $rec_number = generateRecNumber($link, $rec_prefix);
 
 $receipt_result = CreateReceipt($link, $rec_number, $paymentMethod, 1, $invoice_date, $payment_amount, $LoggedUser, $invoiceNumber, $location_id, $customerId, $today_invoice);

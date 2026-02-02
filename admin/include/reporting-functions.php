@@ -51,6 +51,8 @@ function getReceiptsByDate($link, $date, $location_id)
     return $ArrayResult;
 }
 
+
+
 function getReceiptsCollection($link, $date, $location_id)
 {
     $ArrayResult = 0;
@@ -70,7 +72,6 @@ function getReceiptsCollection($link, $date, $location_id)
 
     return $ArrayResult;
 }
-
 
 function getInvoicesByDateAll($link, $date)
 {
@@ -93,6 +94,113 @@ function getInvoicesByDateAll($link, $date)
 }
 
 
+function getInvoicesByDateAllByLocation($link, $date, $location_id)
+{
+    $ArrayResult = 0;
+
+    // Format the date in the same format as stored in the database
+    $formattedDate = date('Y-m-d', strtotime($date));
+
+    $sql = "SELECT SUM(`grand_total`) AS `total_sale` FROM `transaction_invoice` WHERE DATE(`current_time`) = '$formattedDate' AND `is_active` = 1 AND `invoice_status` LIKE '2' AND  `location_id` LIKE '$location_id' ORDER BY `id`";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult = ($row['total_sale'] !== null) ? $row['total_sale'] : 0;
+        }
+    }
+
+    return $ArrayResult;
+}
+
+function getInvoicesByLocation($link, $location_id)
+{
+    $ArrayResult = 0;
+
+
+    $sql = "SELECT SUM(`grand_total`) AS `total_sale` FROM `transaction_invoice` WHERE `is_active` = 1 AND `invoice_status` LIKE '2' AND  `location_id` LIKE '$location_id' ORDER BY `id`";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult = ($row['total_sale'] !== null) ? $row['total_sale'] : 0;
+        }
+    }
+
+    return $ArrayResult;
+}
+
+function getInvoicesByDateAllByType($link, $date, $type, $location_id)
+{
+    $ArrayResult = 0;
+
+    // Format the date in the same format as stored in the database
+    $formattedDate = date('Y-m-d', strtotime($date));
+
+    $sql = "SELECT SUM(`grand_total`) AS `total_sale` FROM `transaction_invoice` WHERE DATE(`current_time`) = '$formattedDate' AND `is_active` = 1 AND `invoice_status` LIKE '2' AND `payment_status` LIKE '$type' AND `location_id` LIKE '$location_id' ORDER BY `id`";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult = ($row['total_sale'] !== null) ? $row['total_sale'] : 0;
+        }
+    }
+
+    return $ArrayResult;
+}
+
+
+
+function getInvoicesTotalByDateRangeAll($link, $fromDate, $toDate, $location_id)
+{
+    $totalSales = 0; // Initialize the total sales variable
+
+    // Format the dates in the same format as stored in the database
+    $fromDate = date('Y-m-d', strtotime($fromDate));
+    $toDate = date('Y-m-d', strtotime($toDate));
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT SUM(`grand_total`) AS `total_sale` FROM `transaction_invoice` WHERE DATE(`current_time`) BETWEEN ? AND ? AND `is_active` = 1 AND `location_id` = ? AND `invoice_status` = '2'";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("sss", $fromDate, $toDate, $location_id);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            // Set total sales from the query result, defaulting to 0 if null
+            $totalSales = ($row['total_sale'] !== null) ? $row['total_sale'] : 0;
+        }
+    }
+
+    return $totalSales;
+}
+
+
+function getReceiptsByDateAllByLocation($link, $date, $location_id)
+{
+    $ArrayResult = 0;
+
+    // Format the date in the same format as stored in the database
+    $formattedDate = date('Y-m-d', strtotime($date));
+
+    $sql = "SELECT SUM(`amount`) as total_amount FROM `transaction_receipt` WHERE DATE(`current_time`) = '$formattedDate' AND `is_active` = 1 AND `location_id` = '$location_id'";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult = ($row['total_amount'] !== null) ? $row['total_amount'] : 0;
+        }
+    }
+
+    return $ArrayResult;
+}
 
 function getReceiptsByDateAll($link, $date)
 {
@@ -113,6 +221,26 @@ function getReceiptsByDateAll($link, $date)
 
     return $ArrayResult;
 }
+function getReceiptsByDateAllFilterDatedByLocation($link, $date, $location_id)
+{
+    $ArrayResult = 0;
+
+    // Format the date in the same format as stored in the database
+    $formattedDate = date('Y-m-d', strtotime($date));
+
+    $sql = "SELECT SUM(`amount`) as total_amount FROM `transaction_receipt` WHERE DATE(`current_time`) = '$formattedDate' AND `is_active` = 1 AND `today_invoice` = 1 AND `location_id` = '$location_id'";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult = ($row['total_amount'] !== null) ? $row['total_amount'] : 0;
+        }
+    }
+
+    return $ArrayResult;
+}
+
 
 function getReceiptsByDateAllFilterDated($link, $date)
 {
@@ -146,6 +274,41 @@ function getInvoicesByDateRangeAll($link, $fromDate, $toDate, $location_id)
 
     // Use prepared statements to prevent SQL injection
     $sql = "SELECT * FROM `transaction_invoice` WHERE DATE(`current_time`) BETWEEN ? AND ? AND `is_active` = 1 AND `location_id` = ? AND `invoice_status` = '2' ORDER BY `id`";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("sss", $fromDate, $toDate, $location_id);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult[$row['invoice_number']] = $row;
+        }
+    }
+
+    return $ArrayResult;
+}
+
+function getInvoicesByDateRangeAllwithAddress($link, $fromDate, $toDate, $location_id)
+{
+    $ArrayResult = array(); // Initialize an empty array
+
+    // Format the dates in the same format as stored in the database
+    $fromDate = date('Y-m-d', strtotime($fromDate));
+    $toDate = date('Y-m-d', strtotime($toDate));
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT ti.*, a.*
+            FROM `transaction_invoice` ti
+            LEFT JOIN `transaction_invoice_address` a ON ti.`invoice_number` = a.`order_id`
+            WHERE DATE(ti.`current_time`) BETWEEN ? AND ? 
+            AND ti.`is_active` = 1 
+            AND ti.`location_id` = ? 
+            AND ti.`invoice_status` = '2'
+            AND a.`address_type` = 'billing'
+            ORDER BY ti.`id`;
+            ";
 
     $stmt = $link->prepare($sql);
     $stmt->bind_param("sss", $fromDate, $toDate, $location_id);
@@ -233,6 +396,107 @@ function getCumulativeBinCardTotals($link, $fromDate, $product_id, $location_id)
     return $totals;
 }
 
+function GetFastMovingProducts($link, $fromDate, $toDate, $location_id, $limit = 10)
+{
+    $ArrayResult = array();
+
+    // Format the dates in the same format as stored in the database
+    $fromDate = date('Y-m-d', strtotime($fromDate));
+    $toDate = date('Y-m-d', strtotime($toDate));
+
+    // SQL to fetch fast-moving products
+    $sql = "SELECT 
+                ti.`product_id`, 
+                SUM(ti.`quantity`) AS `total_quantity`, 
+                ti.`item_price`, 
+                p.`product_name` AS `product_name`,
+                p.`image_path` AS `main_image_path`,
+                SUM(ti.`quantity` * ti.`item_price`) AS `total_revenue`,
+                mpi.`image_path` AS `front_image_path`
+            FROM `transaction_invoice_items` ti
+            JOIN `transaction_invoice` t ON ti.`invoice_number` = t.`invoice_number`
+            JOIN `master_product` p ON ti.`product_id` = p.`product_id`
+            LEFT JOIN (
+                SELECT 
+                    `product_id`, 
+                    `image_path`
+                FROM `master_product_images`
+                WHERE `image_prefix` = 'Front Image'
+                GROUP BY `product_id`
+            ) mpi 
+                ON ti.`product_id` = mpi.`product_id`
+            WHERE 
+                DATE(ti.`added_date`) BETWEEN '$fromDate' AND '$toDate' 
+                AND t.`is_active` = 1 
+                AND t.`location_id` LIKE '$location_id' 
+                AND t.`invoice_status` = '2'
+            GROUP BY ti.`product_id`, ti.`item_price`
+            ORDER BY `total_quantity` DESC
+            LIMIT $limit";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult[] = $row;
+        }
+    }
+
+    return $ArrayResult;
+}
+
+
+function GetFastMovingProductsByRevenue($link, $fromDate, $toDate, $location_id, $limit = 10)
+{
+    $ArrayResult = array();
+
+    // Format the dates in the same format as stored in the database
+    $fromDate = date('Y-m-d', strtotime($fromDate));
+    $toDate = date('Y-m-d', strtotime($toDate));
+
+    // SQL to fetch fast-moving products by revenue with front image
+    $sql = "SELECT 
+                ti.`product_id`, 
+                SUM(ti.`quantity`) AS `total_quantity`, 
+                ti.`item_price`, 
+                p.`product_name` AS `product_name`,
+                p.`image_path` AS `main_image_path`,
+                SUM(ti.`quantity` * ti.`item_price`) AS `total_revenue`,
+                mpi.`image_path` AS `front_image_path`
+            FROM `transaction_invoice_items` ti
+            JOIN `transaction_invoice` t ON ti.`invoice_number` = t.`invoice_number`
+            JOIN `master_product` p ON ti.`product_id` = p.`product_id`
+            LEFT JOIN (
+                SELECT 
+                    `product_id`, 
+                    `image_path`
+                FROM `master_product_images`
+                WHERE `image_prefix` = 'Front Image'
+                GROUP BY `product_id`
+            ) mpi 
+                ON ti.`product_id` = mpi.`product_id`
+            WHERE 
+                DATE(ti.`added_date`) BETWEEN '$fromDate' AND '$toDate' 
+                AND t.`is_active` = 1 
+                AND t.`location_id` LIKE '$location_id' 
+                AND t.`invoice_status` = '2'
+            GROUP BY ti.`product_id`, ti.`item_price`
+            ORDER BY `total_revenue` DESC
+            LIMIT $limit";
+
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult[] = $row;
+        }
+    }
+
+    return $ArrayResult;
+}
+
+
+
 
 function GetItemWiseSale($link, $fromDate, $toDate, $location_id)
 {
@@ -245,7 +509,8 @@ function GetItemWiseSale($link, $fromDate, $toDate, $location_id)
     $sql = "SELECT ti.`id`, ti.`user_id`, ti.`product_id`, ti.`item_price`, ti.`item_discount`, ti.`item_discount` AS `total_discounts`, SUM(ti.`quantity`) AS `total_quantity`, ti.`added_date`, t.`is_active` AS `inv_status`, ti.`customer_id`, ti.`hold_status`, ti.`table_id`, ti.`invoice_number`, ti.`cost_price`, t.`invoice_date`, t.`location_id` 
 FROM `transaction_invoice_items` ti 
 JOIN `transaction_invoice` t ON ti.`invoice_number` = t.`invoice_number` 
-WHERE DATE(`added_date`) BETWEEN '$fromDate' AND '$toDate' AND t.`is_active` = 1 AND t.`location_id` LIKE '$location_id' AND t.`invoice_status` LIKE '2' GROUP BY ti.`product_id`, ti.`item_price`, ti.`item_discount`";
+WHERE DATE(`added_date`) BETWEEN '$fromDate' AND '$toDate' AND t.`is_active` = 1 AND t.`location_id` LIKE '$location_id' AND t.`invoice_status` LIKE '2' GROUP BY ti.`product_id`, ti.`item_price`, ti.`item_discount` 
+            ORDER BY `total_quantity` DESC";
 
     $result = $link->query($sql);
 
@@ -759,6 +1024,99 @@ WHERE
 
     return $ArrayResult[0];
 }
+
+function getCreditInvoicesTotalByDateRangeAll($link, $location_id)
+{
+    // Initialize an empty array for the result
+    $ArrayResult = array();
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT 
+        SUM(balanceAmount) AS totalCreditSales
+    FROM (
+        SELECT 
+            ti.invoice_number,
+            ti.grand_total AS invoiceAmount, 
+            COALESCE(SUM(tr.amount), 0) AS paymentAmount, 
+            COALESCE(SUM(trs.settled_amount), 0) AS settledAmount,
+            (ti.grand_total - COALESCE(SUM(tr.amount), 0) - COALESCE(SUM(trs.settled_amount), 0)) AS balanceAmount 
+        FROM 
+            transaction_invoice ti 
+            LEFT JOIN transaction_receipt tr ON ti.invoice_number = tr.ref_id AND tr.is_active = 1
+            LEFT JOIN translation_return_settlement trs ON ti.invoice_number = trs.invoice_number AND trs.is_active = 1
+        WHERE 
+            ti.is_active = 1 
+            AND ti.location_id = ?
+            AND ti.invoice_status = '2'    
+        GROUP BY 
+            ti.invoice_number
+    ) AS invoice_summary
+    WHERE 
+        balanceAmount > 0;
+    ";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("s", $location_id);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $ArrayResult[] = $row['totalCreditSales'];
+    }
+
+    return $ArrayResult[0] ?? 0;  // Return totalCount or 0 if no result found
+}
+
+function getTotalCreditSalesByDateRange($link, $fromDate, $toDate, $location_id)
+{
+    // Initialize an empty array for the result
+    $ArrayResult = array();
+
+    // Format the dates in the same format as stored in the database
+    $fromDate = date('Y-m-d', strtotime($fromDate));
+    $toDate = date('Y-m-d', strtotime($toDate));
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT 
+        SUM(balanceAmount) AS totalCreditSales
+    FROM (
+        SELECT 
+            ti.invoice_number,
+            ti.grand_total AS invoiceAmount, 
+            COALESCE(SUM(tr.amount), 0) AS paymentAmount, 
+            COALESCE(SUM(trs.settled_amount), 0) AS settledAmount,
+            (ti.grand_total - COALESCE(SUM(tr.amount), 0) - COALESCE(SUM(trs.settled_amount), 0)) AS balanceAmount 
+        FROM 
+            transaction_invoice ti 
+            LEFT JOIN transaction_receipt tr ON ti.invoice_number = tr.ref_id AND tr.is_active = 1
+            LEFT JOIN translation_return_settlement trs ON ti.invoice_number = trs.invoice_number AND trs.is_active = 1
+        WHERE 
+            ti.is_active = 1 
+            AND DATE(ti.current_time) BETWEEN ? AND ?
+            AND ti.location_id = ?
+            AND ti.invoice_status = '2'    
+        GROUP BY 
+            ti.invoice_number
+    ) AS invoice_summary
+    WHERE 
+        balanceAmount > 0;
+    ";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("sss", $fromDate, $toDate, $location_id);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $ArrayResult[] = $row['totalCreditSales'];
+    }
+
+    return $ArrayResult[0] ?? 0;  // Return totalCount or 0 if no result found
+}
+
+
 
 
 function getReceiptsByDateRange($link, $fromDate, $toDate, $location_id)

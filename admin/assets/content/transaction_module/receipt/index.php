@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once('../../../../include/config.php');
 include '../../../../include/function-update.php';
 
@@ -77,11 +81,13 @@ $PaymentTypes = GetPaymentTypes();
                                 <thead>
                                     <tr>
                                         <th scope="col">Invoice #</th>
-                                        <th scope="col">Location</th>
-                                        <th scope="col">Customer</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col">Type</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Balance</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Location</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -126,20 +132,25 @@ $PaymentTypes = GetPaymentTypes();
                                                 continue;
                                             }
 
+
+                                            $InvoiceDate = $selectedArray['current_time'];
+                                            $dateTime = new DateTime($InvoiceDate);
+                                            $formattedDate = $dateTime->format('d/m/Y');
+
                                             $customerName =  GetCustomerName($link, $CustomerID);
                                             $RowNumber++;
                                     ?>
                                             <tr>
                                                 <th><?= $invoice_number ?></th>
-                                                <td><?= $LocationName ?></td>
-                                                <td><?= $customerName ?></td>
+                                                <td class="text-end">
+                                                    <button class="mt-0 btn btn-sm btn-success view-button" type="button" onclick="CreateReceipt('<?= $invoice_number ?>', 1, '<?= $balanceAmount ?>', '<?= $CustomerID ?>',  '<?= $locationId ?>') "><i class="fa-solid fa-receipt" style="padding-right:5px"></i> Payment</button>
+                                                </td>
+                                                <th><?= $selectedArray['payment_status'] ?></th>
                                                 <td class="text-end"><?= number_format($invoiceValue, 2) ?></td>
                                                 <th class="text-end"><?= number_format($balanceAmount, 2) ?></th>
-                                                <td class="text-end">
-
-                                                    <button class="mt-0 btn btn-sm btn-success view-button" type="button" onclick="CreateReceipt('<?= $invoice_number ?>', 1, '<?= $balanceAmount ?>', '<?= $CustomerID ?>',  '<?= $locationId ?>') "><i class="fa-solid fa-receipt" style="padding-right:5px"></i> Payment</button>
-
-                                                </td>
+                                                <th><?= $formattedDate ?></th>
+                                                <td><?= $CustomerID ?></td>
+                                                <td><?= $LocationName ?></td>
                                             </tr>
                                     <?php
                                         }

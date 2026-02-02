@@ -141,4 +141,48 @@ class ContactMessagesController
             return ['status' => 'error', 'message' => $mailError];
         }
     }
+
+    public function sendNewsLetter()
+    {
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'mail.teajarceylon.com';  // SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = 'no-reply@teajarceylon.com';  // SMTP username
+            $mail->Password = 'g85zvB]2;Hnf';  // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // Use implicit TLS encryption
+            $mail->Port = 465;  // TCP port for SMTP
+
+            // Recipients
+            $mail->setFrom('no-reply@teajarceylon.com', 'Tea Jar | Finest Ceylon Tea');
+            $mail->addAddress('thilinaruwan112@gmail.com'); // Email recipient for contact form submissions
+
+            // $mail->addCC('su28lakmal@gmail.com');
+            // $mail->addCC('deelakaupasena.sg@gmail.com');
+
+            // $mail->addCC('saviskaniyomal@gmail.com');
+            // Optional CCs (you can add or remove as needed)
+
+            // Define the template
+            // $template = file_get_contents('./templates/contact_template.html'); // Adjust the path to the HTML template file
+            $template = file_get_contents('./templates/newsletters/teajar_newsletter2.html'); // Adjust the path to the HTML template file
+
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = 'News Letter - Tea Jar';  // Subject
+            $mail->Body = $template;  // Email body content
+
+            // Send the email
+            $mail->send();
+            return ['status' => 'success', 'message' => 'Contact email sent successfully'];
+        } catch (Exception $e) {
+            // Log the error
+            error_log("Contact Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            $mailError = "Contact Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            return ['status' => 'error', 'message' => $mailError];
+        }
+    }
 }

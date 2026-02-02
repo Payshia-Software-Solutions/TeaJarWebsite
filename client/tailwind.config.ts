@@ -27,6 +27,7 @@ const config: Config = {
         brown: '#6b4f4f',
         'green-800': '#355e3b',
       },
+      
     },
   },
   plugins: [],

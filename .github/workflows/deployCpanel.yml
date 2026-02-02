@@ -1,20 +1,30 @@
-name: 🚀 Deploy website on push
-on:
-  push:
-    branches:
-      - main  # Trigger deployment on push to the main branch
+# name: 🚀 Deploy website on push
+# on:
+#   push:
+#     branches:
+#       - main  # Trigger deployment on push to the main branch
       
-jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
+# jobs:
+#   web-deploy:
+#     name: 🎉 Deploy
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: 🚚 Get latest code
+#       uses: actions/checkout@v4
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:       
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
+#     - name: 📂 Sync files
+#       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+#       with:       
+#         server: ${{ secrets.FTP_SERVER }}
+#         username: ${{ secrets.FTP_USERNAME }}
+#         password: ${{ secrets.FTP_PASSWORD }}        
+#         local-dir: ./admin/  # Deploy only the admin folder from GitHub
+#         server-dir: ./admin/  # Target the admin folder on the server
+#         exclude: |
+#           **/node_modules/**  # Example of excluding node_modules
+#           **/vendor/**  # Example of excluding node_modules
+#           **/pos-system/assets/**  # Example of excluding node_modules
+#           **/pos-system/node_modules/**  # Example of excluding node_modules
+#           **/pos-system/vendor/**  # Example of excluding node_modules
+#           **/*.log            # Exclude log files
+#         dangerous-clean-slate: true # Ensure a clean directory before deploying

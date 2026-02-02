@@ -54,6 +54,9 @@ return [
     'PUT /products/{product_id}/' => function ($product_id) use ($productController) {
         $productController->updateRecord($product_id); // Pass product_id directly
     },
+    'PUT /products/{product_id}/stock-status' => function ($product_id) use ($productController) {
+        $productController->updateStockStatus($product_id); // Calls the controller function
+    },
     'DELETE /products/{product_id}/' => function ($product_id) use ($productController) {
         $productController->deleteRecord($product_id); // Pass product_id directly
     },

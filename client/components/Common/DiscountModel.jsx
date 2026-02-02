@@ -69,7 +69,7 @@ const DiscountModel = () => {
           {/* Left side content */}
           <div className=" text-white rounded-t-lg relative w-1/2">
             <Image
-              src="/assets/promo-banners/pop_banner-optimized.webp"
+              src="/assets/promo-banners/valentine-banner-2026.webp"
               alt="Promo Banner"
               className="rounded-l-lg object-fill"
               layout="intrinsic" // Maintain aspect ratio
@@ -84,12 +84,11 @@ const DiscountModel = () => {
             <div>
               {!successCode ? (
                 <>
-                  <h3 className="text-[25px] md:text-[30px] font-bold text-center mb-2 md:mb-4">
-                    Subscribe Tea Jar!
+                  <h3 className="text-[15px] md:text-[15px] font-bold text-center mb-2 md:mb-4">
+                    Spread Love, Save More 💝
                   </h3>
-                  <p className="text-[10px] md:text-[15px] text-center mb-2 md:mb-4">
-                    Early access to our festive season.Enjoy upto 30% off and
-                    secure your favorites before they sell out.
+                  <p className="text-[10px] md:text-[12px] text-center mb-2 md:mb-4">
+                    Celebrate Valentine’s with special savings and tea worth sharing.
                   </p>
                   <form
                     onSubmit={handleSubmit}
@@ -100,7 +99,7 @@ const DiscountModel = () => {
                       placeholder="Enter your name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded text-[10px] md:text-[15px]"
+                      className="w-full p-1 px-2 border border-gray-300 rounded text-[10px] md:text-[15px]"
                       required
                     />
                     <input
@@ -108,7 +107,7 @@ const DiscountModel = () => {
                       placeholder="Enter your email address"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded text-[10px] md:text-[15px]"
+                      className="w-full p-1 px-2 border border-gray-300 rounded text-[10px] md:text-[15px]"
                       required
                     />
                     {errorMessage && (
