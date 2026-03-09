@@ -109,26 +109,47 @@ $InactiveProductsCount = 0;
 
                             if ($writeAccess == 1) {
                         ?>
-                                <div class="text-end mt-3">
-                                    <button class="mt-0 mb-1 btn btn-sm btn-dark view-button" type="button" onclick="AddProduct (1, '<?= $Product['product_id'] ?>')"><i class="fa-solid fa-pen-to-square"></i> Update</button>
+                                <!-- Reorganized button layout in two rows -->
+                                <div class="d-flex flex-column gap-2 mt-3">
+                                    <!-- First row - Primary actions -->
+                                    <div class="d-flex justify-content-between gap-1">
+                                        <button class="btn btn-sm btn-dark flex-fill" type="button" onclick="AddProduct (1, '<?= $Product['product_id'] ?>')">
+                                            <i class="fa-solid fa-pen-to-square"></i> Update
+                                        </button>
+                                        <button class="btn btn-sm btn-success flex-fill" type="button" onclick="UpdateProductImages('<?= $Product['product_id'] ?>')">
+                                            <i class="fa-solid fa-image"></i> Images
+                                        </button>
+                                    </div>
 
-                                    <button class="mt-0 mb-1 btn btn-sm btn-success view-button" type="button" onclick="UpdateProductImages('<?= $Product['product_id'] ?>')"><i class="fa-solid fa-image"></i> Images</button>
+                                    <!-- Second row - Secondary actions -->
+                                    <div class="d-flex justify-content-between gap-1">
+                                        <button class="btn btn-sm btn-success flex-fill" type="button" onclick="UpdateEcomDescriptions('<?= $Product['product_id'] ?>')">
+                                            <i class="fa-regular fa-rectangle-list"></i> Ecom
+                                        </button>
 
-                                    <button class="mt-0 mb-1 btn btn-sm btn-success view-button" type="button" onclick="UpdateEcomDescriptions('<?= $Product['product_id'] ?>')"><i class="fa-regular fa-rectangle-list"></i> Ecom</button>
+                                        <?php if ($Product['active_status'] == 1) { ?>
+                                            <button class="btn btn-sm btn-secondary flex-fill" type="button" onclick="ChangeStatus(0, '<?= $Product['product_id'] ?>')">
+                                                <i class="fa-solid fa-ban"></i> Disable
+                                            </button>
+                                        <?php } else { ?>
+                                            <button class="btn btn-sm btn-primary flex-fill" type="button" onclick="ChangeStatus(1, '<?= $Product['product_id'] ?>')">
+                                                <i class="fa-solid fa-check"></i> Active
+                                            </button>
+                                        <?php } ?>
+                                    </div>
 
-                                    <?php
-                                    if ($Product['active_status'] == 1) {
-                                        $active_status = "Active";
-                                        $color = "primary";
-                                    ?>
-                                        <button class="mt-0 mb-1 btn btn-sm btn-secondary view-button" type="button" onclick="ChangeStatus(0, '<?= $Product['product_id'] ?>')"><i class="fa-solid fa-ban"></i> Disable</button>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <button class="mt-0 mb-1 btn btn-sm btn-primary view-button" type="button" onclick="ChangeStatus(1, '<?= $Product['product_id'] ?>')"><i class="fa-solid fa-check"></i> Active</button>
-                                    <?php
-                                    }
-                                    ?>
+                                    <!-- Third row - Stock status -->
+                                    <div class="d-flex justify-content-center">
+                                        <?php if ($Product['stock_status'] == 1) { ?>
+                                            <button class="btn btn-sm btn-warning w-100" type="button" onclick="UpdateStockStatus(0, '<?= $Product['product_id'] ?>')">
+                                                <i class="fa-solid fa-box-open me-1"></i> Out of Stock
+                                            </button>
+                                        <?php } else { ?>
+                                            <button class="btn btn-sm btn-primary w-100" type="button" onclick="UpdateStockStatus(1, '<?= $Product['product_id'] ?>')">
+                                                <i class="fa-solid fa-check me-1"></i> Stock Available
+                                            </button>
+                                        <?php } ?>
+                                    </div>
                                 </div>
                         <?php
                             }

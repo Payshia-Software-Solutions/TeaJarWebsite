@@ -160,4 +160,25 @@ class ProductController
             echo json_encode(["message" => "Product not found or slug already exists"]);
         }
     }
+
+    // Update stock status of a product
+    public function updateStockStatus($product_id)
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        // Validate required fields
+        if ($data && isset($data['stock_status'])) {
+            $affectedRows = $this->model->changeStockStatus($data['stock_status'], $product_id);
+
+            if ($affectedRows > 0) {
+                echo json_encode(['message' => 'Stock status updated successfully']);
+            } else {
+                http_response_code(404);
+                echo json_encode(['error' => 'Product not found or no change in stock status']);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid input']);
+        }
+    }
 }

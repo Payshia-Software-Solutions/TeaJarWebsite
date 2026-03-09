@@ -129,6 +129,7 @@ $location_name = $Locations[$location_id]['location_name'];
                             $CustomerID = $selectedArray['customer_code'];
                             $Customer = GetCustomersByID($link, $CustomerID);
 
+
                             if ($ref_hold == '0') {
                                 // $referenceText = "Take Away";
                                 $referenceText = "Direct";
@@ -148,7 +149,7 @@ $location_name = $Locations[$location_id]['location_name'];
                             <tr>
                                 <td><?= $invoice_date ?></td>
                                 <td><?= $selectedArray['invoice_number'] ?></td>
-                                <td><?= $Customer['customer_first_name'] ?> <?= $Customer['customer_last_name'] ?></td>
+                                <td><?= $selectedArray['customer_code'] ?></td>
                                 <!-- <td><?= $referenceText ?></td> -->
                                 <td class="text-end"><?= formatAccountBalance($selectedArray['inv_amount']) ?></td>
                                 <td class="text-end"><?= formatAccountBalance($selectedArray['discount_amount']) ?></td>

@@ -1,6 +1,6 @@
 <?php
 // Fetch data for today's sales by hourly intervals
-$query = "SELECT HOUR(`current_time`) as hour, SUM(grand_total) as total_sales FROM transaction_invoice WHERE DATE(invoice_date) = '$today' AND `invoice_status` LIKE '2' AND `is_active` = 1 AND `location_id` LIKE '$defaultLocation'  GROUP BY hour";
+$query = "SELECT HOUR(`current_time`) as hour, SUM(grand_total) as total_sales FROM transaction_invoice WHERE DATE(invoice_date) = '$today' AND `is_active` = 1 AND `location_id` LIKE '$defaultLocation'  GROUP BY hour";
 $result = mysqli_query($link, $query);
 
 // Initialize arrays for labels and data
