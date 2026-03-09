@@ -4,6 +4,11 @@ import React, { useEffect, useState } from "react";
 const ValentineSnow = () => {
   const [hearts, setHearts] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
+  const [isFebruary, setIsFebruary] = useState(false);
+
+  useEffect(() => {
+    setIsFebruary(new Date().getMonth() === 1);
+  }, []);
 
   useEffect(() => {
     let timeout;
@@ -40,6 +45,8 @@ const ValentineSnow = () => {
     });
     setHearts(newHearts);
   }, []);
+
+  if (!isFebruary) return null;
 
   return (
     <div
