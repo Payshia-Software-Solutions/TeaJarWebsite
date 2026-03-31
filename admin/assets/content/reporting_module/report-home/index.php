@@ -28,7 +28,8 @@ $ArrayCount = count($ChartOfAccounts);
             </div>
             <div class="card-body">
                 <p>Cash</p>
-                <h1 class="<?= (getAccountBalance($cashAccountId) < 0) ? 'text-danger' : '' ?>"><?= formatAccountBalance(getAccountBalance($cashAccountId)) ?></h1>
+                <h1 class="<?= (getAccountBalance($cashAccountId) < 0) ? 'text-danger' : '' ?>">
+                    <?= formatAccountBalance(getAccountBalance($cashAccountId)) ?></h1>
             </div>
         </div>
     </div>
@@ -40,7 +41,8 @@ $ArrayCount = count($ChartOfAccounts);
             </div>
             <div class="card-body">
                 <p>Accounts Receivable</p>
-                <h1 class="<?= (getAccountBalance($accountsReceivableAccountId) < 0) ? 'text-danger' : '' ?>"><?= formatAccountBalance(getAccountBalance($accountsReceivableAccountId)) ?></h1>
+                <h1 class="<?= (getAccountBalance($accountsReceivableAccountId) < 0) ? 'text-danger' : '' ?>">
+                    <?= formatAccountBalance(getAccountBalance($accountsReceivableAccountId)) ?></h1>
             </div>
         </div>
     </div>
@@ -53,20 +55,21 @@ $ArrayCount = count($ChartOfAccounts);
             </div>
             <div class="card-body">
                 <p>Accounts Payable</p>
-                <h1 class="<?= (getAccountBalance($accountsPayableAccountId) < 0) ? 'text-danger' : '' ?>"><?= formatAccountBalance(getAccountBalance($accountsPayableAccountId)) ?></h1>
+                <h1 class="<?= (getAccountBalance($accountsPayableAccountId) < 0) ? 'text-danger' : '' ?>">
+                    <?= formatAccountBalance(getAccountBalance($accountsPayableAccountId)) ?></h1>
             </div>
         </div>
     </div>
 </div>
 <style>
-    #order-table tr {
-        height: auto !important
-    }
+#order-table tr {
+    height: auto !important
+}
 
-    .recent-po-container {
-        max-height: 70vh;
-        overflow: auto;
-    }
+.recent-po-container {
+    max-height: 70vh;
+    overflow: auto;
+}
 </style>
 
 <div class="row mt-5">
@@ -99,13 +102,15 @@ $ArrayCount = count($ChartOfAccounts);
 
                                         if ($readAccess == 1) {
                                     ?>
-                                            <tr>
-                                                <td>Day End Sale Report</td>
-                                                <td>Sale</td>
-                                                <td class="text-end">
-                                                    <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="DayEndSaleReport()"><i class="fa-solid fa-eye"></i> Open</button>
-                                                </td>
-                                            </tr>
+                                    <tr>
+                                        <td>Day End Sale Report</td>
+                                        <td>Sale</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="DayEndSaleReport()"><i class="fa-solid fa-eye"></i>
+                                                Open</button>
+                                        </td>
+                                    </tr>
                                     <?php
                                         }
                                     }
@@ -122,13 +127,15 @@ $ArrayCount = count($ChartOfAccounts);
                                         if ($readAccess == 1) {
                                     ?>
 
-                                            <tr>
-                                                <td>Sale Summary Report</td>
-                                                <td>Sale</td>
-                                                <td class="text-end">
-                                                    <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="SaleSummaryReport()"><i class="fa-solid fa-eye"></i> Open</button>
-                                                </td>
-                                            </tr>
+                                    <tr>
+                                        <td>Sale Summary Report</td>
+                                        <td>Sale</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="SaleSummaryReport()"><i class="fa-solid fa-eye"></i>
+                                                Open</button>
+                                        </td>
+                                    </tr>
                                     <?php
                                         }
                                     }
@@ -145,13 +152,38 @@ $ArrayCount = count($ChartOfAccounts);
 
                                         if ($readAccess == 1) {
                                     ?>
-                                            <tr>
-                                                <td>Receipt Report</td>
-                                                <td>Sale</td>
-                                                <td class="text-end">
-                                                    <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="ReceiptReport()"><i class="fa-solid fa-eye"></i> Open</button>
-                                                </td>
-                                            </tr>
+                                    <tr>
+                                        <td>Receipt Report</td>
+                                        <td>Sale</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="ReceiptReport()"><i class="fa-solid fa-eye"></i> Open</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                    <?php
+                                    $pageID = 25;
+                                    $userPrivilege = GetUserPrivileges($link, $LoggedUser,  $pageID);
+
+                                    if (!empty($userPrivilege)) {
+                                        $readAccess = $userPrivilege[$LoggedUser]['read'];
+                                        $writeAccess = $userPrivilege[$LoggedUser]['write'];
+                                        $AllAccess = $userPrivilege[$LoggedUser]['all'];
+
+                                        if ($readAccess == 1) {
+                                    ?>
+                                    <tr>
+                                        <td>Customer List</td>
+                                        <td>Sale</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="GetCustomerList()"><i class="fa-solid fa-eye"></i>
+                                                Open</button>
+                                        </td>
+                                    </tr>
                                     <?php
                                         }
                                     }
@@ -168,13 +200,37 @@ $ArrayCount = count($ChartOfAccounts);
 
                                         if ($readAccess == 1) {
                                     ?>
-                                            <tr>
-                                                <td>Item Wise Sale Report</td>
-                                                <td>Sale</td>
-                                                <td class="text-end">
-                                                    <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="ItemWiseSale()"><i class="fa-solid fa-eye"></i> Open</button>
-                                                </td>
-                                            </tr>
+                                    <tr>
+                                        <td>Item Wise Sale Report</td>
+                                        <td>Sale</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="ItemWiseSale()"><i class="fa-solid fa-eye"></i> Open</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                    <?php
+                                    $pageID = 25;
+                                    $userPrivilege = GetUserPrivileges($link, $LoggedUser,  $pageID);
+
+                                    if (!empty($userPrivilege)) {
+                                        $readAccess = $userPrivilege[$LoggedUser]['read'];
+                                        $writeAccess = $userPrivilege[$LoggedUser]['write'];
+                                        $AllAccess = $userPrivilege[$LoggedUser]['all'];
+
+                                        if ($readAccess == 1) {
+                                    ?>
+                                    <tr>
+                                        <td>Date Wise Sale Report</td>
+                                        <td>Sale</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="DateWiseSale()"><i class="fa-solid fa-eye"></i> Open</button>
+                                        </td>
+                                    </tr>
                                     <?php
                                         }
                                     }
@@ -190,13 +246,15 @@ $ArrayCount = count($ChartOfAccounts);
 
                                         if ($readAccess == 1) {
                                     ?>
-                                            <tr>
-                                                <td>Stock Balance Report</td>
-                                                <td>Stock</td>
-                                                <td class="text-end">
-                                                    <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="StockBalanceReport()"><i class="fa-solid fa-eye"></i> Open</button>
-                                                </td>
-                                            </tr>
+                                    <tr>
+                                        <td>Stock Balance Report</td>
+                                        <td>Stock</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="StockBalanceReport()"><i class="fa-solid fa-eye"></i>
+                                                Open</button>
+                                        </td>
+                                    </tr>
                                     <?php
                                         }
                                     }
@@ -213,13 +271,14 @@ $ArrayCount = count($ChartOfAccounts);
 
                                         if ($readAccess == 1) {
                                     ?>
-                                            <tr>
-                                                <td>Bin Card Report</td>
-                                                <td>Stock</td>
-                                                <td class="text-end">
-                                                    <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="BinCardReport()"><i class="fa-solid fa-eye"></i> Open</button>
-                                                </td>
-                                            </tr>
+                                    <tr>
+                                        <td>Bin Card Report</td>
+                                        <td>Stock</td>
+                                        <td class="text-end">
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="BinCardReport()"><i class="fa-solid fa-eye"></i> Open</button>
+                                        </td>
+                                    </tr>
                                     <?php
                                         }
                                     }
@@ -229,7 +288,9 @@ $ArrayCount = count($ChartOfAccounts);
                                         <td>Customer Statement</td>
                                         <td>Sale</td>
                                         <td class="text-end">
-                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="CustomerStatement()"><i class="fa-solid fa-eye"></i> Open</button>
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="CustomerStatement()"><i class="fa-solid fa-eye"></i>
+                                                Open</button>
                                         </td>
                                     </tr>
 
@@ -237,7 +298,9 @@ $ArrayCount = count($ChartOfAccounts);
                                         <td>Credit Sale Report</td>
                                         <td>Sale</td>
                                         <td class="text-end">
-                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="CreditSaleReport()"><i class="fa-solid fa-eye"></i> Open</button>
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="CreditSaleReport()"><i class="fa-solid fa-eye"></i>
+                                                Open</button>
                                         </td>
                                     </tr>
 
@@ -245,7 +308,8 @@ $ArrayCount = count($ChartOfAccounts);
                                         <td>Invoice Report</td>
                                         <td>Sale</td>
                                         <td class="text-end">
-                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="InvoiceReport()"><i class="fa-solid fa-eye"></i> Open</button>
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="InvoiceReport()"><i class="fa-solid fa-eye"></i> Open</button>
                                         </td>
                                     </tr>
 
@@ -254,7 +318,8 @@ $ArrayCount = count($ChartOfAccounts);
                                         <td>Charge Report</td>
                                         <td>Sale</td>
                                         <td class="text-end">
-                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button" onclick="ChargeReport()"><i class="fa-solid fa-eye"></i> Open</button>
+                                            <button class="mb-0 btn btn-sm btn-success view-button" type="button"
+                                                onclick="ChargeReport()"><i class="fa-solid fa-eye"></i> Open</button>
                                         </td>
                                     </tr>
 
@@ -291,12 +356,12 @@ $ArrayCount = count($ChartOfAccounts);
 
 
 <script>
-    $(document).ready(function() {
-        $('#purchase-order-table').DataTable({
-            ordering: false,
-            lengthChange: false,
-            info: false, // Disable information display
-            // searching: false, // Disable search input
-        });
+$(document).ready(function() {
+    $('#purchase-order-table').DataTable({
+        ordering: false,
+        lengthChange: false,
+        info: false, // Disable information display
+        // searching: false, // Disable search input
     });
+});
 </script>
