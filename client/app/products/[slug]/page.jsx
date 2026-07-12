@@ -3,32 +3,50 @@ import config from "@/config";
 import Breadcrumb from "@/components/Breadcrumb";
 
 export async function generateMetadata({ params }) {
-  const res = await fetch(
-    `${config.API_BASE_URL}/products/get-by-slug/${params.slug}`
-  );
-  const product = await res.json();
+  try {
+    const res = await fetch(
+      `${config.API_BASE_URL}/products/get-by-slug/${params.slug}`,
+      {
+        headers: {
+          'Connection': 'close'
+        }
+      }
+    );
+    if (!res.ok) throw new Error("Failed to fetch product for metadata");
+    const product = await res.json();
 
-  return {
-    title: `${product.product_name} - Tea Jar | Finest Ceylon Tea in Sri Lanka`,
-    description: product.product_description || "Default description for SEO.",
-    openGraph: {
+    return {
       title: `${product.product_name} - Tea Jar | Finest Ceylon Tea in Sri Lanka`,
-      description:
-        product.product_description || "Default Open Graph description.",
-      images: [
-        {
-          url: `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
-          alt: product.product_name,
-        },
-      ],
-    },
-  };
+      description: product.product_description || "Default description for SEO.",
+      openGraph: {
+        title: `${product.product_name} - Tea Jar | Finest Ceylon Tea in Sri Lanka`,
+        description:
+          product.product_description || "Default Open Graph description.",
+        images: [
+          {
+            url: `${config.ADMIN_BASE_URL}/pos-system/assets/images/products/${product.product_id}/${product.image_path}`,
+            alt: product.product_name,
+          },
+        ],
+      },
+    };
+  } catch (error) {
+    console.error("Metadata fetch error:", error);
+    return {
+      title: "Product - Tea Jar | Finest Ceylon Tea in Sri Lanka",
+      description: "Default description for SEO.",
+    };
+  }
 }
 
 // Generate static params for all products
 export async function generateStaticParams() {
   try {
-    const res = await fetch(`${config.API_BASE_URL}/products`);
+    const res = await fetch(`${config.API_BASE_URL}/products`, {
+      headers: {
+        'Connection': 'close'
+      }
+    });
     if (!res.ok) {
       throw new Error("Failed to fetch products");
     }
@@ -55,6 +73,9 @@ const ProductServerPage = async ({ params }) => {
         next: {
           revalidate: 60, // Optional ISR to regenerate after 60 seconds
         },
+        headers: {
+          'Connection': 'close'
+        }
       }
     );
     // console.log(`${config.API_BASE_URL}/products/get-by-slug/${slug}`);
@@ -88,13 +109,23 @@ const ProductServerPage = async ({ params }) => {
 
     // Fetch product images based on product ID
     const imagesRes = await fetch(
-      `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`
+      `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`,
+      {
+        headers: {
+          'Connection': 'close'
+        }
+      }
     );
     const images = imagesRes.ok ? await imagesRes.json() : [];
 
     // Fetch product images based on product ID
     const productInfoRes = await fetch(
-      `${config.API_BASE_URL}/product-ecom-values/by-product/${product.product_id}`
+      `${config.API_BASE_URL}/product-ecom-values/by-product/${product.product_id}`,
+      {
+        headers: {
+          'Connection': 'close'
+        }
+      }
     );
     const productInfo = productInfoRes.ok ? await productInfoRes.json() : [];
 
