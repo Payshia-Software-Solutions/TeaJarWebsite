@@ -143,7 +143,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="inline-block mx-2"
             >
-              <Image
+              <img
                 src="https://teajarceylon.com/assets/icons/social/png/facebook.png"
                 alt="Facebook"
                 width={30}
@@ -157,7 +157,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="inline-block mx-2"
             >
-              <Image
+              <img
                 src="https://teajarceylon.com/assets/icons/social/png/instagram.png"
                 alt="Instagram"
                 width={30}
@@ -171,7 +171,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="inline-block mx-2"
             >
-              <Image
+              <img
                 src="https://teajarceylon.com/assets/icons/social/png/tiktok.png"
                 alt="TikTok"
                 width={30}
@@ -185,7 +185,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="inline-block mx-2"
             >
-              <Image
+              <img
                 src="https://teajarceylon.com/assets/icons/social/png/whatsapp.png"
                 alt="WhatsApp"
                 width={30}
@@ -199,7 +199,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="inline-block mx-2"
             >
-              <Image
+              <img
                 src="https://teajarceylon.com/assets/icons/social/png/youtube.png"
                 alt="YouTube"
                 width={30}

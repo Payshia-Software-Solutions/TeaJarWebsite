@@ -41,25 +41,11 @@ export async function generateMetadata({ params }) {
 
 // Generate static params for all products
 export async function generateStaticParams() {
-  try {
-    const res = await fetch(`${config.API_BASE_URL}/products`, {
-      headers: {
-        'Connection': 'close'
-      }
-    });
-    if (!res.ok) {
-      throw new Error("Failed to fetch products");
-    }
-    const data = await res.json();
-
-    // Returning dynamic slugs of all products
-    return data.map((product) => ({
-      slug: product.slug,
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return []; // If the fetch fails, return an empty array
-  }
+  // Returning an empty array prevents Next.js from trying to statically generate 
+  // all 100+ product pages during the build, which causes DDoS protection / Firewalls 
+  // to block the IP and results in ECONNRESET or UND_ERR_CONNECT_TIMEOUT.
+  // The pages will still be generated on-demand (ISR) when users visit them!
+  return [];
 }
 
 const ProductServerPage = async ({ params }) => {
@@ -107,26 +93,19 @@ const ProductServerPage = async ({ params }) => {
       },
     ];
 
-    // Fetch product images based on product ID
-    const imagesRes = await fetch(
-      `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`,
-      {
-        headers: {
-          'Connection': 'close'
-        }
-      }
-    );
-    const images = imagesRes.ok ? await imagesRes.json() : [];
+    // Fetch product images and info in parallel to prevent connection timeouts
+    const [imagesRes, productInfoRes] = await Promise.all([
+      fetch(
+        `${config.API_BASE_URL}/product-images/get-by-product/${product.product_id}`,
+        { headers: { 'Connection': 'close' } }
+      ).catch(() => ({ ok: false })),
+      fetch(
+        `${config.API_BASE_URL}/product-ecom-values/by-product/${product.product_id}`,
+        { headers: { 'Connection': 'close' } }
+      ).catch(() => ({ ok: false }))
+    ]);
 
-    // Fetch product images based on product ID
-    const productInfoRes = await fetch(
-      `${config.API_BASE_URL}/product-ecom-values/by-product/${product.product_id}`,
-      {
-        headers: {
-          'Connection': 'close'
-        }
-      }
-    );
+    const images = imagesRes.ok ? await imagesRes.json() : [];
     const productInfo = productInfoRes.ok ? await productInfoRes.json() : [];
 
     // Pass both product data and images to the ProductPage component
