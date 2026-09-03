@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: "standalone",
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        "teajarceylon.com",
+        "www.teajarceylon.com",
+      ],
+    },
+  },
   images: {
     remotePatterns: [
       {
@@ -44,3 +52,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
