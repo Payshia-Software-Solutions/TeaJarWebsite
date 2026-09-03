@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Product Collection Showcase</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #2a41e8;
+        --secondary-color: #ff3366;
+        --dark-color: #222;
+        --light-color: #f9f9f9;
+        --text-color: #333;
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .showcase-wrapper {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+
+      .showcase-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .showcase-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+      }
+
+      .showcase-header p {
+        font-size: 1.1rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .collection-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .collection-tab {
+        background: white;
+        border: none;
+        border-radius: 30px;
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #555;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .collection-tab::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        transition: var(--transition);
+        z-index: -1;
+        border-radius: 30px;
+      }
+
+      .collection-tab:hover::before {
+        width: 100%;
+      }
+
+      .collection-tab:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .collection-tab.active {
+        color: white;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .collection-tab .tab-icon {
+        margin-right: 8px;
+      }
+
+      .showcase-container {
+        position: relative;
+        width: 100%;
+        height: 600px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .showcase-slider {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        height: 100%;
+      }
+
+      .showcase-slide {
+        min-width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .video-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .showcase-slide video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0.3) 40%,
+          rgba(0, 0, 0, 0.1) 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 3rem;
+        opacity: 1;
+        transition: var(--transition);
+      }
+
+      .collection-title {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: var(--transition);
+        transition-delay: 0.1s;
+      }
+
+      .collection-description {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        max-width: 500px;
+        margin-bottom: 1.5rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: var(--transition);
+        transition-delay: 0.2s;
+      }
+
+      .showcase-slide.active .collection-title,
+      .showcase-slide.active .collection-description,
+      .showcase-slide.active .product-grid {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 0.5rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: var(--transition);
+        transition-delay: 0.3s;
+      }
+
+      .product-item {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        padding: 0.8rem 1.2rem;
+        color: white;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: var(--transition);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+      }
+
+      .product-item:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-icon {
+        margin-right: 8px;
+        font-size: 0.9rem;
+      }
+
+      .explore-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        margin-top: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .explore-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .explore-button i {
+        margin-left: 8px;
+        transition: transform 0.3s;
+      }
+
+      .explore-button:hover i {
+        transform: translateX(4px);
+      }
+
+      .navigation-controls {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 10;
+      }
+
+      .nav-button {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+      }
+
+      .slide-indicators {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+      }
+
+      .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .indicator.active {
+        width: 30px;
+        border-radius: 10px;
+        background: white;
+      }
+
+      @media (max-width: 1200px) {
+        .showcase-container {
+          height: 500px;
+        }
+
+        .collection-title {
+          font-size: 2rem;
+        }
+
+        .video-overlay {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .showcase-container {
+          height: 450px;
+        }
+
+        .collection-title {
+          font-size: 1.8rem;
+        }
+
+        .collection-description {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .showcase-header h1 {
+          font-size: 2rem;
+        }
+
+        .showcase-container {
+          height: 400px;
+          border-radius: 12px;
+        }
+
+        .video-overlay {
+          padding: 1.5rem;
+        }
+
+        .product-grid {
+          gap: 0.8rem;
+        }
+
+        .product-item {
+          padding: 0.6rem 1rem;
+          font-size: 0.85rem;
+        }
+
+        .navigation-controls {
+          padding: 0 1rem;
+        }
+
+        .nav-button {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .showcase-header h1 {
+          font-size: 1.8rem;
+        }
+
+        .showcase-header p {
+          font-size: 0.9rem;
+        }
+
+        .collection-tab {
+          padding: 0.7rem 1.2rem;
+          font-size: 0.8rem;
+        }
+
+        .showcase-container {
+          height: 350px;
+          border-radius: 10px;
+        }
+
+        .collection-title {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .collection-description {
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+        }
+
+        .product-grid {
+          gap: 0.5rem;
+        }
+
+        .product-item {
+          padding: 0.5rem 0.8rem;
+          font-size: 0.8rem;
+        }
+
+        .explore-button {
+          padding: 0.7rem 1.5rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="showcase-wrapper">
+      <div class="showcase-header">
+        <h1>Discover Our Collections</h1>
+        <p>
+          Explore our curated product lines designed for every occasion and
+          lifestyle
+        </p>
+      </div>
+
+      <div class="collection-tabs">
+        <button class="collection-tab active" data-index="0">
+          <i class="fas fa-sun tab-icon"></i>Summer
+        </button>
+        <button class="collection-tab" data-index="1">
+          <i class="fas fa-snowflake tab-icon"></i>Winter
+        </button>
+        <button class="collection-tab" data-index="2">
+          <i class="fas fa-tshirt tab-icon"></i>Casual
+        </button>
+        <button class="collection-tab" data-index="3">
+          <i class="fas fa-user-tie tab-icon"></i>Formal
+        </button>
+        <button class="collection-tab" data-index="4">
+          <i class="fas fa-running tab-icon"></i>Sports
+        </button>
+        <button class="collection-tab" data-index="5">
+          <i class="fas fa-gem tab-icon"></i>Accessories
+        </button>
+      </div>
+
+      <div class="showcase-container">
+        <div class="showcase-slider">
+          <!-- Collection 1: Summer -->
+          <div class="showcase-slide active">
+            <div class="video-container">
+              <video autoplay muted loop playsinline>
+                <source src="videos/summer-collection.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-overlay">
+              <h2 class="collection-title">Summer Collection</h2>
+              <p class="collection-description">
+                Embrace the heat with our vibrant summer essentials designed for
+                comfort and style under the sun.
+              </p>
+              <div class="product-grid">
+                <div class="product-item">
+                  <i class="fas fa-swimmer product-icon"></i>Beach Shorts
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-glasses product-icon"></i>Sunglasses
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-shoe-prints product-icon"></i>Sandals
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-tshirt product-icon"></i>Swimwear
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-hat-cowboy product-icon"></i>Beach Hats
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-female product-icon"></i>Light Dresses
+                </div>
+              </div>
+              <button class="explore-button">
+                Explore Collection <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collection 2: Winter -->
+          <div class="showcase-slide">
+            <div class="video-container">
+              <video autoplay muted loop playsinline>
+                <source src="videos/winter-collection.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-overlay">
+              <h2 class="collection-title">Winter Collection</h2>
+              <p class="collection-description">
+                Stay warm and fashionable with our premium winter wear designed
+                for comfort in cold weather.
+              </p>
+              <div class="product-grid">
+                <div class="product-item">
+                  <i class="fas fa-mitten product-icon"></i>Jackets
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-tshirt product-icon"></i>Sweaters
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-boot product-icon"></i>Boots
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-scarf product-icon"></i>Scarves
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-mitten product-icon"></i>Gloves
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-hat-winter product-icon"></i>Beanies
+                </div>
+              </div>
+              <button class="explore-button">
+                Explore Collection <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collection 3: Casual -->
+          <div class="showcase-slide">
+            <div class="video-container">
+              <video autoplay muted loop playsinline>
+                <source src="videos/casual-collection.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-overlay">
+              <h2 class="collection-title">Casual Collection</h2>
+              <p class="collection-description">
+                Everyday comfort meets contemporary style in our versatile
+                casual wear collection.
+              </p>
+              <div class="product-grid">
+                <div class="product-item">
+                  <i class="fas fa-tshirt product-icon"></i>T-shirts
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-vest product-icon"></i>Jeans
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-shoe-prints product-icon"></i>Sneakers
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-vest-patches product-icon"></i>Hoodies
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-backpack product-icon"></i>Backpacks
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-tshirt product-icon"></i>Casual Shirts
+                </div>
+              </div>
+              <button class="explore-button">
+                Explore Collection <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collection 4: Formal -->
+          <div class="showcase-slide">
+            <div class="video-container">
+              <video autoplay muted loop playsinline>
+                <source src="videos/formal-collection.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-overlay">
+              <h2 class="collection-title">Formal Collection</h2>
+              <p class="collection-description">
+                Make a statement with our elegant formal wear, crafted for those
+                special occasions.
+              </p>
+              <div class="product-grid">
+                <div class="product-item">
+                  <i class="fas fa-user-tie product-icon"></i>Suits
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-tshirt product-icon"></i>Dress Shirts
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-grip-lines product-icon"></i>Ties
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-shoe-prints product-icon"></i>Dress Shoes
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-link product-icon"></i>Cufflinks
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-female product-icon"></i>Formal Dresses
+                </div>
+              </div>
+              <button class="explore-button">
+                Explore Collection <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collection 5: Sports -->
+          <div class="showcase-slide">
+            <div class="video-container">
+              <video autoplay muted loop playsinline>
+                <source src="videos/sports-collection.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-overlay">
+              <h2 class="collection-title">Sports Collection</h2>
+              <p class="collection-description">
+                Engineered for performance and comfort, our sports collection
+                supports your active lifestyle.
+              </p>
+              <div class="product-grid">
+                <div class="product-item">
+                  <i class="fas fa-running product-icon"></i>Running Shoes
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-female product-icon"></i>Sports Bras
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-vest-patches product-icon"></i>Leggings
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-tshirt product-icon"></i>Athletic Shirts
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-dumbbell product-icon"></i>Gym Bags
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-stopwatch product-icon"></i>Fitness Trackers
+                </div>
+              </div>
+              <button class="explore-button">
+                Explore Collection <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collection 6: Accessories -->
+          <div class="showcase-slide">
+            <div class="video-container">
+              <video autoplay muted loop playsinline>
+                <source
+                  src="videos/accessories-collection.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+            <div class="video-overlay">
+              <h2 class="collection-title">Accessories Collection</h2>
+              <p class="collection-description">
+                Complete your look with our premium accessories that add the
+                perfect finishing touch.
+              </p>
+              <div class="product-grid">
+                <div class="product-item">
+                  <i class="fas fa-clock product-icon"></i>Watches
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-gem product-icon"></i>Jewelry
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-ring product-icon"></i>Belts
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-wallet product-icon"></i>Wallets
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-shopping-bag product-icon"></i>Handbags
+                </div>
+                <div class="product-item">
+                  <i class="fas fa-hat-cowboy product-icon"></i>Hats
+                </div>
+              </div>
+              <button class="explore-button">
+                Explore Collection <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="navigation-controls">
+          <div class="nav-button prev-button">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+          <div class="nav-button next-button">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <div class="slide-indicators">
+          <div class="indicator active" data-index="0"></div>
+          <div class="indicator" data-index="1"></div>
+          <div class="indicator" data-index="2"></div>
+          <div class="indicator" data-index="3"></div>
+          <div class="indicator" data-index="4"></div>
+          <div class="indicator" data-index="5"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector(".showcase-slider");
+        const slides = document.querySelectorAll(".showcase-slide");
+        const prevButton = document.querySelector(".prev-button");
+        const nextButton = document.querySelector(".next-button");
+        const collectionTabs = document.querySelectorAll(".collection-tab");
+        const indicators = document.querySelectorAll(".indicator");
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let autoplayInterval;
+
+        // Initialize videos
+        slides.forEach((slide) => {
+          const video = slide.querySelector("video");
+          video.muted = true;
+          video.playsInline = true;
+          video.loop = true;
+
+          video.addEventListener("loadeddata", () => {
+            video.play().catch((e) => console.error("Video play failed:", e));
+          });
+        });
+
+        // Function to update the slider position and active states
+        function updateSlider() {
+          // Update slider position
+          slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+          // Update active states
+          slides.forEach((slide, index) => {
+            if (index === currentIndex) {
+              slide.classList.add("active");
+            } else {
+              slide.classList.remove("active");
+            }
+          });
+
+          // Update collection tab active states
+          collectionTabs.forEach((tab, index) => {
+            if (index === currentIndex) {
+              tab.classList.add("active");
+            } else {
+              tab.classList.remove("active");
+            }
+          });
+
+          // Update indicator active states
+          indicators.forEach((indicator, index) => {
+            if (index === currentIndex) {
+              indicator.classList.add("active");
+            } else {
+              indicator.classList.remove("active");
+            }
+          });
+
+          // Reset autoplay interval
+          resetAutoplay();
+        }
+
+        // Previous button click handler
+        prevButton.addEventListener("click", () => {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          updateSlider();
+        });
+
+        // Next button click handler
+        nextButton.addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          updateSlider();
+        });
+
+        // Collection tab click handlers
+        collectionTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            currentIndex = parseInt(tab.dataset.index);
+            updateSlider();
+          });
+        });
+
+        // Indicator click handlers
+        indicators.forEach((indicator) => {
+          indicator.addEventListener("click", () => {
+            currentIndex = parseInt(indicator.dataset.index);
+            updateSlider();
+          });
+        });
+
+        // Function to handle autoplay
+        function startAutoplay() {
+          autoplayInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+          }, 8000); // 8 seconds interval
+        }
+
+        // Reset autoplay
+        function resetAutoplay() {
+          clearInterval(autoplayInterval);
+          startAutoplay();
+        }
+
+        // Initialize slider and start autoplay
+        updateSlider();
+        startAutoplay();
+
+        // Pause autoplay when user interacts with the page
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            clearInterval(autoplayInterval);
+          } else {
+            startAutoplay();
+          }
+        });
+
+        // Add touch swipe functionality
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const showcaseContainer = document.querySelector(".showcase-container");
+
+        showcaseContainer.addEventListener(
+          "touchstart",
+          (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+          },
+          { passive: true }
+        );
+
+        showcaseContainer.addEventListener(
+          "touchend",
+          (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+          },
+          { passive: true }
+        );
+
+        function handleSwipe() {
+          const swipeThreshold = 50;
+          if (touchEndX < touchStartX - swipeThreshold) {
+            // Swipe left
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+          }
+
+          if (touchEndX > touchStartX + swipeThreshold) {
+            // Swipe right
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlider();
+          }
+        }
+
+        // Make "Explore Collection" buttons functional
+        const exploreButtons = document.querySelectorAll(".explore-button");
+        exploreButtons.forEach((button, index) => {
+          button.addEventListener("click", () => {
+            // Here you would add your redirect logic to collection pages
+            console.log(`Navigating to collection ${index} page`);
+            // Example: window.location.href = `/collections/${index}`;
+          });
+        });
+
+        // Accessibility improvements
+        const slideElements = document.querySelectorAll(".showcase-slide");
+        slideElements.forEach((slide, index) => {
+          slide.setAttribute("aria-label", `Collection ${index + 1}`);
+          slide.setAttribute("role", "group");
+        });
+
+        prevButton.setAttribute("aria-label", "Previous collection");
+        nextButton.setAttribute("aria-label", "Next collection");
+      });
+    </script>
+  </body>
+</html>

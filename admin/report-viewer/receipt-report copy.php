@@ -133,6 +133,10 @@ $location_name = $Locations[$location_id]['location_name'];
 
                             $totalRecValue += $rec_amount;
                             $customerName = GetCustomerName($link, $customer_id);
+
+                            if ($customerName == "") {
+                                $customerName = $customer_id;
+                            }
                     ?>
                             <tr>
                                 <td><?= $rec_number ?></td>

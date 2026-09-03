@@ -1182,6 +1182,36 @@ function GetInvoices($link)
     return $ArrayResult;
 }
 
+function GetInvoicesByPaymentStatus($link, $paymentStatus, $invoiceStatus)
+{
+    $ArrayResult = array();
+    $sql = "SELECT * FROM `transaction_invoice` WHERE `invoice_status` LIKE '$invoiceStatus' AND `payment_status` LIKE '$paymentStatus' ORDER BY `id`";
+
+    $result = $link->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult[$row['invoice_number']] = $row;
+        }
+    }
+    return $ArrayResult;
+}
+
+function GetFinalInvoices($link)
+{
+    $ArrayResult = array();
+    $sql = "SELECT * FROM `transaction_invoice` WHERE `invoice_status` LIKE '2' ORDER BY `id`";
+
+    $result = $link->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ArrayResult[$row['invoice_number']] = $row;
+        }
+    }
+    return $ArrayResult;
+}
+
+
+
 
 
 function GetLastInvoiceByLocationByUser($link, $LocationID, $UserName)

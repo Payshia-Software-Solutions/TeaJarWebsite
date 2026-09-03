@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.swiper-pagination-bullet,
+.swiper-pagination-bullet-active {
+  background: #fff;
+}
+
+.product-range .swiper-pagination {
+  margin-top: 10px;
+  z-index: 99 !important;
+  position: unset !important;
+}
+
+.great-vibes-regular {
+  font-family: "Great Vibes", cursive !important;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#nprogress .bar {
+  background: #29d;
+  height: 3px;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #29d;
+  border-left-color: #29d;
+}
+
+
+.top-seller-product {
+  max-width: 10rem;
+  /* Limit width to 12rem (192px) */
+  height: auto;
+  /* Allow height to adjust based on content */
+}
+
+
+/* Main image swiper styling */
+.mainSwiper {
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.mainSwiper img {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Thumbnail swiper styling */
+.thumbSwiper {
+  margin-top: 1rem;
+}
+
+.thumbSwiper img {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+}
+
+.thumbSwiper img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thumbSwiper .swiper-slide {
+  width: auto;
+  margin-right: 10px;
+}
+
+/* Override Swiper navigation buttons (if used later) */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  padding: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.swiper-button-prev {
+  left: 10px;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+/* Make Swiper navigation buttons mobile-friendly */
+@media (max-width: 640px) {
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+}
+
+
+/* Custom CSS to center the Swiper */
+
+
+.mySwiper {
+  width: auto;
+  /* Allow Swiper to automatically adjust its width */
+  margin: 0 auto;
+  /* Center it horizontally */
+}
+.swiper-wrapper-center-home {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.swiper-wrapper-center {
+  width: 100%;
+  max-width: 1200px; /* Or another suitable value for your layout */
+  margin: 0 auto;
+}
+
+.steam {
+  width: 50px;
+  height: 100px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  position: relative;
+  animation: rise 3s infinite;
+  border-radius: 50%;
+
+
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  /* for Internet Explorer, Edge */
+  scrollbar-width: none;
+  /* for Firefox */
+}
+
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateY(-150px) scale(2);
+    opacity: 0;
+  }
+}
+
+.white-image {
+  filter: invert(100%) brightness(100%);
+}
+/* globals.css or a separate CSS file */
+.preloader-fade {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.preloader-fade-out {
+  opacity: 0;
+  pointer-events: none; /* Disable interaction when faded out */
+}
+
+.hidden {
+  display: none;
+}

@@ -23,6 +23,7 @@ $CompanyRoutes = require './routes/CompanyRoutes/CompanyRoutes.php';
 $CitiesRoutes = require './routes/Citiesroutes.php';
 $Categories = require './routes/CategoriesRoutes.php';
 $MasterCustomer = require './routes/MasterCustomerRoutes.php';
+$WebContentRoutes = require './routes/WebContentRoutes.php';
 
 // Transactions Route files 
 $TransactionCancellation = require './routes/Transaction/TransactionCancellationRoutes.php';
@@ -56,6 +57,7 @@ $PromoCodeRoutes = require './routes/PromoCodeRoutes.php';
 $SubscriptionRoutes = require './routes/SubscriptionRoutes.php';
 $ContactRoutes = require './routes/ContactRoutes.php';
 $ModeRoutes = require './routes/ModeRoutes.php';
+$PromoCodeProductRoutes = require './routes/PromoCodeProductRoutes.php';
 
 // Combine all routes
 $routes = array_merge(
@@ -94,7 +96,9 @@ $routes = array_merge(
     $PromoCodeRoutes,
     $SubscriptionRoutes,
     $ContactRoutes,
-    $ModeRoutes
+    $ModeRoutes,
+    $PromoCodeProductRoutes,
+    $WebContentRoutes
 );
 
 // Define the home route with trailing slash
@@ -120,7 +124,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost') {
     // Adjust URI if needed (if using a subdirectory)
     $uri = $uri;
 }
-
+// echo $uri;
 // Set the header for JSON responses, except for HTML pages
 if ($uri !== '/') {
     header('Content-Type: application/json');

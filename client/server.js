@@ -73,6 +73,14 @@ getModeFromApi()
         const parsedUrl = parse(req.url, true);
         const { pathname, query } = parsedUrl;
 
+        // Universal HTTPS redirection
+        if (!dev && req.headers["x-forwarded-proto"] !== "https") {
+          const httpsUrl = `https://${req.headers.host}${req.url}`;
+          res.writeHead(301, { Location: httpsUrl });
+          res.end();
+          return;
+        }
+
         // Parse cookies
         const cookies = cookie.parse(req.headers.cookie || "");
 
@@ -149,6 +157,14 @@ getModeFromApi()
       createServer(async (req, res) => {
         const parsedUrl = parse(req.url, true);
         const { pathname, query } = parsedUrl;
+
+        // Universal HTTPS redirection
+        if (!dev && req.headers["x-forwarded-proto"] !== "https") {
+          const httpsUrl = `https://${req.headers.host}${req.url}`;
+          res.writeHead(301, { Location: httpsUrl });
+          res.end();
+          return;
+        }
 
         // Parse cookies
         const cookies = cookie.parse(req.headers.cookie || "");

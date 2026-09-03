@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Info } from "lucide-react";
+import { ShoppingCart, Tag, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
 
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
@@ -45,6 +44,49 @@ const KOKOLogo = () => (
   </Link>
 );
 
+const PromoTag = ({ specialPromo, specialPromoType }) => {
+  const isPercentage = specialPromoType === "percentage";
+
+  return (
+    <div className="absolute top-3 right-0 z-20 flex items-center">
+      {/* Main Tag */}
+      <div
+        className={`
+        flex items-center gap-2 pr-3 pl-4 py-1.5
+        ${isPercentage ? "bg-red-500" : "bg-blue-500"}
+        text-white font-bold rounded-l-full
+        shadow-lg transform hover:scale-105 transition-transform
+        duration-300 ease-in-out
+      `}
+      >
+        <Sparkles size={14} className="animate-pulse" />
+        <span className="text-sm">
+          {isPercentage ? (
+            <>
+              <span className="text-lg">{specialPromo}%</span> OFF
+            </>
+          ) : (
+            <>
+              <span className="text-lg">Rs {specialPromo}</span> OFF
+            </>
+          )}
+        </span>
+      </div>
+
+      {/* Decorative Elements */}
+      <div
+        className={`
+        absolute -bottom-2 right-0
+        w-0 h-0
+        border-t-[8px]
+        ${isPercentage ? "border-t-red-700" : "border-t-blue-700"}
+        border-r-[8px] border-r-transparent
+      `}
+      />
+    </div>
+  );
+};
+
 const ProductCard = ({
   title = "Product Title",
   price = 4800,
@@ -56,6 +98,9 @@ const ProductCard = ({
   ],
   category,
   imageStyle = null,
+  specialPromo,
+  specialPromoType,
+  stockStatus,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -89,10 +134,22 @@ const ProductCard = ({
 
   // console.log(images[0]);
   const handleAddToCart = () => {
+    // Calculate the discounted price based on specialPromoType
+    let finalPrice = price;
+    let rate = price;
+    if (specialPromo && specialPromo > 0) {
+      if (specialPromoType === "percentage") {
+        finalPrice = price * (1 - specialPromo / 100); // Apply percentage discount
+      } else if (specialPromoType === "fixed") {
+        finalPrice = price - specialPromo; // Apply fixed value discount
+      }
+    }
+
     const cartItem = {
       id,
       productName: title,
-      price,
+      price: finalPrice,
+      rate,
       imgUrl: images[0].split("/").pop(),
       quantity: 1,
     };
@@ -102,21 +159,65 @@ const ProductCard = ({
 
     if (existingItemIndex !== -1) {
       cart[existingItemIndex].quantity += 1;
+      cart[existingItemIndex].price = finalPrice; // Update the price as well
     } else {
       cart.push(cartItem);
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Push to Google Tag Manager Data Layer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "add_to_cart",
+      ecommerce: {
+        currency: "LKR", // Update as per your currency
+        value: parseFloat(cartItem.price), // Price of the item being added
+        items: [
+          {
+            item_name: cartItem.productName, // Name of the product
+            item_id: cartItem.id, // Product ID
+            price: parseFloat(cartItem.price), // Product price
+            quantity: 1, // Quantity added
+          },
+        ],
+      },
+    });
+
+    // Send to Facebook Pixel
+    fbq("track", "AddToCart", {
+      content_name: cartItem.productName, // Name of the product
+      content_ids: [cartItem.id], // Product ID
+      content_type: "product", // Type of content
+      value: parseFloat(cartItem.price), // Price of the item
+      currency: "LKR", // Currency
+      contents: [
+        {
+          id: cartItem.id, // Product ID
+          quantity: 1, // Quantity added
+        },
+      ],
+    });
+
+    console.log("Item added to cart and sent to dataLayer!");
+
     toast.success(`${title} has been added to your cart!`, {
       position: "top-right",
       autoClose: 3000,
     });
   };
 
-  // console.log(title);
+  // console.log("Product Status "+stockStatus);
   return (
     <Link href={"/products/" + slug}>
       <div className="max-w-sm overflow-hidden bg-white rounded-lg shadow-md group relative">
+        {/* Promo Tag */}
+        {specialPromo && specialPromo > 0 && (
+          <PromoTag
+            specialPromo={specialPromo}
+            specialPromoType={specialPromoType}
+          />
+        )}
         <div
           className="relative aspect-square cursor-pointer overflow-hidden"
           onMouseEnter={() => setCurrentImageIndex(1)}
@@ -142,36 +243,55 @@ const ProductCard = ({
                 width={300} // Specify fixed width
                 height={200} // Makes the image fill the parent container
                 priority={index === 0} // Optional: prioritize loading the first image
+                unoptimized
               />
             </div>
           ))}
 
           <div className="absolute z-10 w-full bottom-0 px-2 py-2 md:p-4 transform translate-y-full opacity-0 group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 ease-in-out bg-slate-50">
+            {stockStatus == 1 ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent navigation to the product page
+                  handleAddToCart();
+                }}
+                className="hidden group-hover:flex w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out"
+              >
+                <ShoppingCart size={16} />
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                className="hidden group-hover:flex w-full bg-slate-400 text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out cursor-not-allowed"
+                disabled
+              >
+                Out of Stock
+              </button>
+            )}
+          </div>
+        </div>
+        <div className="p-2 group">
+          {/* Add to Cart Button */}
+          {stockStatus == 1 ? (
             <button
               onClick={(e) => {
                 e.preventDefault(); // Prevent navigation to the product page
                 handleAddToCart();
               }}
-              className="hidden group-hover:flex w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-0 md:group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out"
+              name="add-to-cart-button"
+              className="flex md:hidden w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2"
             >
               <ShoppingCart size={16} />
               Add to Cart
             </button>
-          </div>
-        </div>
-
-        <div className="p-2 group">
-          {/* Add to Cart Button */}
-          <button
-            onClick={(e) => {
-              e.preventDefault(); // Prevent navigation to the product page
-              handleAddToCart();
-            }}
-            className="flex md:hidden w-full bg-theme text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2"
-          >
-            <ShoppingCart size={16} />
-            Add to Cart
-          </button>
+          ) : (
+            <button
+              className="flex md:hidden w-full bg-slate-400 text-white text-sm font-medium py-2 rounded shadow-md items-center justify-center gap-2 opacity-100 translate-y-0 group-hover:translate-y-0 mb-2 cursor-not-allowed"
+              disabled
+            >
+              Out of Stock
+            </button>
+          )}
 
           <div className="h-auto md:h-14 lg:h-16">
             <h3 className="text-sm lg:text-lg text-black font-bold leading-tight hover:text-gray-600 transition-colors duration-200 line-clamp-2">
@@ -191,7 +311,24 @@ const ProductCard = ({
               {/* Dynamic text */}
             </div>
             <div className="text-black text-end font-bold text-lg lg:text-xl">
-              {formatPrice(price)}
+              {specialPromo && specialPromo > 0 ? (
+                <>
+                  {/* If there is a discount, show the original price with a line-through on one line */}
+                  <div className="text-gray-500 line-through">
+                    {formatPrice(price)}
+                  </div>
+                  {/* Show the discounted price on the next line */}
+                  <div className="text-green-600">
+                    {/* Calculate discounted price based on discount type */}
+                    {specialPromoType === "percentage"
+                      ? formatPrice(price * (1 - specialPromo / 100))
+                      : formatPrice(price - specialPromo)}
+                  </div>
+                </>
+              ) : (
+                // If no discount, just show the original price
+                <div>{formatPrice(price)}</div>
+              )}
             </div>
           </div>
 

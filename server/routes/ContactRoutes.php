@@ -16,5 +16,8 @@ return [
     },
     'DELETE /contact/{id}/' => function ($id) use ($contactMessagesController) {
         $contactMessagesController->deleteRecord($id);
+    },
+    'GET /sendnewsletter/' => function () use ($contactMessagesController) {
+        $contactMessagesController->sendNewsLetter();
     }
 ];

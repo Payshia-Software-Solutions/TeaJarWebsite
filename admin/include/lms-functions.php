@@ -8,7 +8,7 @@ $costOfGoodsAccountId = 18; // COGS
 
 
 include __DIR__ . '/config.php';
-include __DIR__ . '/sms-API.php';
+// include __DIR__ . '/sms-API.php';
 // Enable MySQLi error reporting
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -625,14 +625,16 @@ function GenerateLmsIndexNumber($batchCode)
 function CreateNewLmsUser($user_id, $first_name, $last_name, $user_name, $password, $user_level, $logged_user, $account_status, $civil_status, $phone_number, $email_address, $batchCode)
 {
     global $lms_link;
+    $tempPassword = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 5);
+
     $error = array('status' => 'initial', 'message' => '');
 
-    $sql = "INSERT INTO users (`userid`, `fname`, `lname`, `username`, `password`, `userlevel`, `created_by`, `status`, `status_id`, `phone`, `email`, `batch_id`) VALUES (?, ? , ?, ? , ? ,? , ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (`userid`, `fname`, `lname`, `username`, `password`, `userlevel`, `created_by`, `status`, `status_id`, `phone`, `email`, `batch_id`, `temp_password`) VALUES (?, ? , ?, ? , ? ,? , ?, ?, ?, ?, ?, ?, ?)";
 
 
     if ($stmt = mysqli_prepare($lms_link, $sql)) {
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "ssssssssssss", $param_id, $param_fname, $param_lname, $param_username, $param_password, $param_userlevel, $param_session, $param_status, $param_civil_status, $param_phone, $param_email, $param_batch);
+        mysqli_stmt_bind_param($stmt, "ssssssssssss", $param_id, $param_fname, $param_lname, $param_username, $param_password, $param_userlevel, $param_session, $param_status, $param_civil_status, $param_phone, $param_email, $param_batch, $tempPassword);
         // Set parameters
         $param_id = $user_id;
         $param_fname = $first_name;
@@ -646,11 +648,12 @@ function CreateNewLmsUser($user_id, $first_name, $last_name, $user_name, $passwo
         $param_phone = $phone_number;
         $param_email = $email_address;
         $param_batch = $batchCode;
+        $tempPassword = $tempPassword;
 
         // Execute the statement
         if (mysqli_stmt_execute($stmt)) {
             $affected_rows = mysqli_stmt_affected_rows($stmt);
-            $error = array('status' => 'success', 'message' => 'Account Created successfully', 'affected_rows' => $affected_rows);
+            $error = array('status' => 'success', 'message' => 'Account Created successfully', 'affected_rows' => $affected_rows, 'tempPassword' => $tempPassword);
         } else {
             $error = array('status' => 'error', 'message' => 'Something went wrong. Please try again later. ' . mysqli_error($lms_link));
         }

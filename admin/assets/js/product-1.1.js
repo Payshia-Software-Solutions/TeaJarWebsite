@@ -405,3 +405,43 @@ function SaveProductInfo(productId, is_active = 1) {
     OpenAlert("error", "Oops!", result);
   }
 }
+
+function UpdateStockStatus(stockStatusCode, ProductId) {
+  showOverlay(); // Show loading overlay
+
+  // API Endpoint
+  const url = `https://kduserver.payshia.com/products/${ProductId}/stock-status`;
+
+  // Payload to be sent
+  const requestData = {
+    stock_status: stockStatusCode,
+    LoggedUser: LoggedUser,
+    UserLevel: UserLevel,
+    company_id: company_id,
+  };
+
+  // Sending the PUT request
+  fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json()) // Convert response to JSON
+    .then((data) => {
+      if (data.message) {
+        OpenIndex();
+        OpenAlert("success", "Done!", data.message);
+      } else {
+        OpenAlert("error", "Oops.. Something Wrong!", data.error);
+      }
+    })
+    .catch((error) => {
+      OpenAlert("error", "Error!", "Failed to update stock status.");
+      console.error("Error:", error);
+    })
+    .finally(() => {
+      hideOverlay(); // Hide loading overlay
+    });
+}

@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  // output: "standalone",
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        "teajarceylon.com",
+        "www.teajarceylon.com",
+      ],
+    },
+  },
   images: {
     remotePatterns: [
       {
@@ -28,6 +36,20 @@ const nextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/_next/static/(.*)", // Apply middleware to static files
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
+

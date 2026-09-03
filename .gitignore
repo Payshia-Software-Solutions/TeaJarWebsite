@@ -1,3 +1,7 @@
 
 # dependencies
-/admin/
+/admin/node_modules
+/admin/vendor
+/admin/.env
+/admin/pos-system/node_modules
+/admin/pos-system/vendor

@@ -340,4 +340,17 @@ class Product
         $stmt->execute([$slug]);
         return $stmt->fetchColumn() > 0;
     }
+
+    // Update Stock Status a product by ID
+    public function changeStockStatus($statusCode, $id)
+    {
+        if (!is_int($statusCode) || !is_int($id)) {
+            throw new InvalidArgumentException("Invalid data type for statusCode or id");
+        }
+
+        $stmt = $this->pdo->prepare("UPDATE `master_product` SET `stock_status` = ? WHERE `product_id` = ?");
+        $stmt->execute([$statusCode, $id]);
+
+        return $stmt->rowCount(); // Returns the number of rows affected
+    }
 }

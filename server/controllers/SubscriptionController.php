@@ -22,7 +22,7 @@ class SubscriptionController
                 echo json_encode(['error' => 'You have already subscribed.']);
             } elseif ($this->model->createSubscription($data)) {
                 http_response_code(201);
-                echo json_encode(['message' => 'Subscription successful', 'code' => 'TEAJAR2024']);
+                echo json_encode(['message' => 'Subscription successful', 'code' => 'TEAJAR2025']);
             } else {
                 http_response_code(500);
                 echo json_encode(['error' => 'Failed to create subscription']);

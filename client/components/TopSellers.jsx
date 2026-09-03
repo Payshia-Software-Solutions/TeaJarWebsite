@@ -60,11 +60,13 @@ function TopSellers() {
         const data = await res.json();
         // Filter and sort products by productIds order
         const filteredProducts = data
-          .filter((product) => productIds.includes(product.product_id))
+          .filter((product) =>
+            productIds.includes(parseInt(product.product_id))
+          )
           .sort(
             (a, b) =>
-              productIds.indexOf(a.product_id) -
-              productIds.indexOf(b.product_id)
+              productIds.indexOf(parseInt(a.product_id)) -
+              productIds.indexOf(parseInt(b.product_id))
           );
 
         setProducts(filteredProducts);
@@ -195,6 +197,7 @@ function TopSellers() {
                     defaultFrontImage,
                     defaultOtherImage,
                   ];
+                  // console.log("Product s"+singleitem.product_name + singleitem.stock_status)
                   return (
                     <SwiperSlide
                       key={singleitem.product_id}
@@ -209,6 +212,9 @@ function TopSellers() {
                         images={images}
                         Rate={"(5.6)"}
                         category={singleitem.category_id}
+                        specialPromo={singleitem.special_promo}
+                        specialPromoType={singleitem.special_promo_type}
+                        stockStatus={singleitem.stock_status}
                       />
                     </SwiperSlide>
                   );
